@@ -1,0 +1,7 @@
+*.[oa]
+*.sw[op]
+.vscode
+*.exe
+*.out
+*.elf
+
