@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/06/09 06:10:50 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/06/09 06:38:31 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,24 @@ namespace ft
 		/// Equality Operators
 		bool				operator==(const VectorIterator & rhs) const {	return (_ptr == rhs._ptr);	}
 		bool				operator!=(const VectorIterator & rhs) const {	return (_ptr != rhs._ptr);	}
-	
+		bool				operator<=(const VectorIterator & rhs) const {	return (_ptr <= rhs._ptr);	}
+		bool				operator>=(const VectorIterator & rhs) const {	return (_ptr >= rhs._ptr);	}
+		bool				operator< (const VectorIterator & rhs) const {	return (_ptr <  rhs._ptr);	}
+		bool				operator> (const VectorIterator & rhs) const {	return (_ptr >  rhs._ptr);	}
+
 		///  Arithmetic Operators
-		///   pre
+		VectorIterator		operator+ (difference_type rhs) {	return VectorIterator(_ptr + rhs);	}
+		VectorIterator		operator- (difference_type rhs) {	return VectorIterator(_ptr - rhs);	}
+
+		///   Pre
 		VectorIterator &	operator++() {	++(this->_ptr); return (*this);	}
 		VectorIterator &	operator--() {	--(this->_ptr); return (*this);	}
-		///   post
+		///   Post
 		VectorIterator		operator++(int) {	VectorIterator tmp = *this; ++(this->_ptr); return (tmp); }
 		VectorIterator		operator--(int) {	VectorIterator tmp = *this; --(this->_ptr); return (tmp); }
+		///   Assignation
+		void				operator+=(difference_type rhs) {	_ptr += rhs;	}
+		void				operator-=(difference_type rhs) {	_ptr -= rhs;	}
 
 	private:
 		pointer	_ptr;
@@ -73,8 +83,9 @@ namespace ft
 	private:
 		/* data */
 	public:
-		typedef	T				value_type;
-		typedef	Allocator		allocator_type;
+		typedef	T					value_type;
+		typedef	Allocator			allocator_type;
+		typedef	VectorIterator<T>	iterator;
 	
 		// Constructors & Destructors
 		vector(void) {};
