@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/06/08 02:25:18 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/06/09 04:34:09 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@
 
 namespace ft
 {
-	template <typename T>
+	template <typename T, class Allocator = std::allocator<T> >
 	class vector
 	{
 	private:
 		/* data */
 	public:
+		typedef	T				value_type;
+		typedef	Allocator		allocator_type;
+	
 		// Constructors & Destructors
 		vector(void) {};
 		// vector(/* args */);

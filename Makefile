@@ -12,7 +12,7 @@
 
 NAME	= a.out
 FLAGS	= -std=c++98 #-Wall -Wextra -Werror
-SRCS	= srcs/main.cpp
+SRCS	= main.cpp
 
 ifeq ($(OS),Windows_NT)
 	CC	= g++
