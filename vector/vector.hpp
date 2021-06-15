@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/06/15 14:59:20 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/06/15 16:39:20 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,35 @@ namespace ft
 	class vector
 	{
 	public:
-		class list_iterator : public ft::iterator<T>
+		class vector_iterator : public ft::iterator<T>
 		{
 		public:
-			list_iterator()	{}
-			~list_iterator(){}
+			typedef T value_type;
+			typedef value_type *pointer;
+			typedef const value_type const_pointer;
+			typedef value_type &reference;
+			typedef const value_type &const_reference;
+			typedef typename std::ptrdiff_t difference_type;
+
+			vector_iterator() : ft::iterator<T>()	{}
+			vector_iterator(pointer x_t) : _ptr(x_t) {}
+			// vector_iterator(const difference_type rhs) : ft::iterator<T>(rhs) {}
+			~vector_iterator()	{}
+			/// Member Operators
+			vector_iterator	&operator=(const vector_iterator &rhs)	{	_ptr = rhs._ptr; return (*this);	}
+
+			///   Random access vvv
+			// vector_iterator	operator+(difference_type rhs)	{ return (vector_iterator(_ptr + rhs)); }
+			vector_iterator operator+(difference_type rhs)	{ vector_iterator	it(_ptr + rhs); return (it);		}
+			vector_iterator	operator-(difference_type rhs)	{ vector_iterator	it(_ptr - rhs); return (it);		}
+			difference_type operator-(vector_iterator rhs)	{ difference_type	df(_ptr - rhs._ptr); return (df);	}
+			// difference_type	operator-(iterator<T> rhs)	{ return iterator(_ptr - rhs._ptr);		}
+
+		// private:
+			pointer _ptr;
+
 		};
-		typedef list_iterator iterator;
+		typedef vector_iterator iterator;
 
 		// Constructors & Destructors
 		vector(void) {};

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/06/15 15:31:59 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/06/15 16:40:42 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,17 @@
 
 int	main(void)
 {
-	ft::list<int>			v;
-	ft::list<int>::iterator	iv;
+	ft::vector<int>				v;
+	ft::vector<int>::iterator	iv;
+	ft::vector<int>::iterator	iw;
 
-	std::list<int>	rv;
-	std::list<int>	rb;
-	
-	for (int i = 0; i < 20; ++i)
-	{
-		rv.push_back(i);
-		rb.push_back(i);
-	}
+	iv._ptr = reinterpret_cast<int *>(40);	// 10
+	iw._ptr = reinterpret_cast<int *>(20);	// 5
 
-	std::list<int>::iterator it = rv.begin();
-	it++;
+	std::cout << iw - iv << std::endl;
 
-
-
-	// std::cout << it - (rv.begin()) << std::endl;
+	iv = iv - 1;
+	std::cout << iv._ptr << std::endl;
 
 	return (0);
 }
