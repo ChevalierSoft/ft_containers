@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/06/15 16:39:20 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/06/16 12:18:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ namespace ft
 		class vector_iterator : public ft::iterator<T>
 		{
 		public:
-			typedef T value_type;
-			typedef value_type *pointer;
-			typedef const value_type const_pointer;
-			typedef value_type &reference;
-			typedef const value_type &const_reference;
-			typedef typename std::ptrdiff_t difference_type;
+			typedef T						value_type;
+			typedef value_type				*pointer;
+			// typedef const value_type 		const_pointer;
+			typedef value_type &			reference;
+			// typedef const value_type &		const_reference;
+			typedef typename std::ptrdiff_t	difference_type;
 
 			vector_iterator() : ft::iterator<T>()	{}
 			vector_iterator(pointer x_t) : _ptr(x_t) {}
@@ -40,11 +40,9 @@ namespace ft
 			vector_iterator	&operator=(const vector_iterator &rhs)	{	_ptr = rhs._ptr; return (*this);	}
 
 			///   Random access vvv
-			// vector_iterator	operator+(difference_type rhs)	{ return (vector_iterator(_ptr + rhs)); }
 			vector_iterator operator+(difference_type rhs)	{ vector_iterator	it(_ptr + rhs); return (it);		}
 			vector_iterator	operator-(difference_type rhs)	{ vector_iterator	it(_ptr - rhs); return (it);		}
 			difference_type operator-(vector_iterator rhs)	{ difference_type	df(_ptr - rhs._ptr); return (df);	}
-			// difference_type	operator-(iterator<T> rhs)	{ return iterator(_ptr - rhs._ptr);		}
 
 		// private:
 			pointer _ptr;
