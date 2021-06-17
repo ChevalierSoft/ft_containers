@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:36:08 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/06/16 12:19:27 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/06/17 09:27:54 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,6 @@
 
 namespace ft
 {
-
-	// template <bool IsConst>
-	// class MyIterator
-	// {
-	// 	int *d_;
-
-	// public:
-	// 	MyIterator(const MyIterator &) = default;			 // REDUNDANT BUT GOOD STYLE
-	// 	MyIterator &operator=(const MyIterator &) = default; // REDUNDANT BUT GOOD STYLE
-
-	// 	template <bool WasConst, class = std::enable_if_t<IsConst && !WasConst>>
-	// 	MyIterator(const MyIterator<WasConst> &rhs) : d_(rhs.d_) {}
-
-	// 	template <bool WasConst, class = std::enable_if_t<IsConst && !WasConst>>
-	// 	MyIterator &operator=(const MyIterator<WasConst> &rhs)
-	// 	{
-	// 		d_ = rhs.d_;
-	// 		return *this;
-	// 	}
-	// };
-
 	template <typename T>
 	class iterator
 	{

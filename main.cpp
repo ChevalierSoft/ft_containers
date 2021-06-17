@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/06/16 12:20:09 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/06/17 09:42:52 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 #include "./utils/color.h"
 
-void	test_vector()
+void	test_vector(void)
 {
 	ft::vector<int> v;
 	ft::vector<int>::iterator iv;
@@ -33,6 +33,15 @@ void	test_vector()
 
 	iv = iv - 1;
 	std::cout << iv._ptr << std::endl;
+}
+
+void	test_list(void)
+{
+	ft::list<int>			l;
+	ft::list<int>::iterator	il;
+
+	
+
 }
 
 int	main(void)
