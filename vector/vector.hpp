@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/08 01:03:07 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/08 01:54:15 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include "../iterator/iterator.h"
+#include "../utils/color.h"
 
 namespace ft
 {
@@ -53,7 +54,7 @@ namespace ft
 
 			// operator	vector_iterator<const T> {	return vector_iterator<const T>(_ptr);	}	// conversion from const iterator to iterator
 
-		private:
+		// private:
 			pointer _ptr;
 
 		};
@@ -62,8 +63,12 @@ namespace ft
 		// Constructors & Destructors
 		vector(void) : _value_data(0), _value_size(sizeof(T)), _value_count(0)
 		{
-			_value_data = reinterpret_cast<pointer>(::operator new (0));
-			// std::cout << reinterpret_cast<void *>(_value_data) << std::endl;
+			std::cout <<GRN<<"vector constructor"<<RST<< std::endl;
+			_value_data = reinterpret_cast<pointer>(::operator new (sizeof(int)));
+			_value_data[0] = 666;
+			std::cout <<GRN<< reinterpret_cast<void *>(_value_data) <<RST<< std::endl;
+
+			std::cout <<GRN<< _value_data[0] <<std::endl;
 		}
 		// vector(/* args */);
 		virtual	~vector(void) { delete [] _value_data; }
@@ -108,7 +113,7 @@ namespace ft
 			// std::cout << "> " << _value_data << std::endl;
 		}
 
-	private:
+	// private:
 		pointer			_value_data;
 		uint64_t		_value_size;
 		uint64_t		_value_count;
