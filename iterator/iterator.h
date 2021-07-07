@@ -6,17 +6,51 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:36:08 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/06/17 09:27:54 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/07 00:00:53 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef	ITERATOR_H
 # define ITERATOR_H
 
-#include <iostream>
+# include <iostream>
+# include <type_traits>
 
 namespace ft
 {
+
+	// template <bool IsConst>
+	// class MyIterator
+	// {
+	// 	int *d_;
+
+	// public:
+	// 	MyIterator(const MyIterator &) = default;				// c++11
+	// 	MyIterator &operator=(const MyIterator &) = default;	// c++11
+
+	// 	template <bool WasConst, class = std::enable_if_t<IsConst && !WasConst>>
+	// 	MyIterator(const MyIterator<WasConst> &rhs) : d_(rhs.d_) {}
+
+	// 	template <bool WasConst, class = std::enable_if_t<IsConst && !WasConst>>
+	// 	MyIterator &operator=(const MyIterator<WasConst> &rhs)
+	// 	{
+	// 		d_ = rhs.d_;
+	// 		return *this;
+	// 	}
+	// };
+
+	// template <bool B, class T = void>
+	// struct enable_if
+	// {
+	// };
+
+	// template <class T>
+	// struct enable_if<true, T>
+	// {
+	// 	typedef T type;
+	// };
+
+	// template <typename T, bool IsConst>
 	template <typename T>
 	class iterator
 	{
@@ -28,18 +62,22 @@ namespace ft
 		typedef const value_type &		const_reference;
 		typedef typename std::ptrdiff_t	difference_type;
 
+		typedef iterator<const T>		const_iterator;
+
 		/// Member functions
-				iterator() {}
-				iterator(pointer x_t) : _ptr(x_t) {}
-		virtual ~iterator() {}
-				iterator(reference x_ptr) : _ptr(x_ptr._ptr) {}
+		iterator()
+		{
+		}
+		iterator(const_reference x_ptr) : _ptr(x_ptr._ptr) {}	// cpp11 : = default;
+		// iterator(pointer x_t) : _ptr(x_t) {}
+
+		// template <bool WasConst, class = std::enable_if<IsConst && !WasConst>>
+		// iterator(const iterator<T, WasConst> &rhs) : _ptr(rhs._ptr) {}
+
+		virtual	~iterator() {}
 
 		/// Member Operators
-		iterator &operator=(const iterator &rhs)
-		{
-			_ptr = rhs._ptr;
-			return (*this);
-		}
+		// iterator &operator=(const iterator &rhs) { _ptr = rhs._ptr; return (*this);	}
 
 		/// Non Member Operators
 
