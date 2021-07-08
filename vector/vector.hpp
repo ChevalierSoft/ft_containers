@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/08 03:37:13 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/08 03:43:30 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ namespace ft
 			data[i] = rhs;
 
 			++_value_count;
-			delete [] _value_data;
+			delete _value_data;
 			_value_data = data;
 
 			std::cout << "data addr : " << _value_data << std::endl;
