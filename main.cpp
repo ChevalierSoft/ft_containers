@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/08 02:45:35 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/08 03:38:41 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,12 @@ void	test_vector()
 	std::cout << RST;
 
 	v.push_back(4);
-	// iv = v.begin();
-	
-	// std::cout << std::endl;
+	v.push_back(5);
+	v.push_back(6);
+	v.push_back(7);
+	v.push_back(8);
+	v.push_back(9);
 
-	// std::vector<int> w;
-	// std::vector<int>::iterator ij;
-	// w.push_back(77);
-	// ij = w.begin();
-	// std::cout <<RED<< *ij <<RST<<std::endl;
 }
 
 int	main(void)

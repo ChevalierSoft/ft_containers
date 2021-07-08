@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/08 02:49:43 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/08 03:37:13 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,10 @@ namespace ft
 			pointer data;
 			int		i;
 
-			i = 0;
 			data = _allocator.allocate(_value_size * (_value_count + 1));
 			
+			i = 0;
 			vector_iterator it = this->begin();
-
 			while (it != this->end())
 			{
 				data[i++] = *it;
@@ -125,8 +124,9 @@ namespace ft
 			delete [] _value_data;
 			_value_data = data;
 
-			std::cout << "> " << _value_data << std::endl;
-			ft_print_memory(reinterpret_cast<void *>(_value_data), 4);
+			std::cout << "data addr : " << _value_data << std::endl;
+			ft_print_memory(reinterpret_cast<void *>(_value_data), _value_count * sizeof(value_type));
+			std::cout << std::endl;
 		}
 
 	// private:
