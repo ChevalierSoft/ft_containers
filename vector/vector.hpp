@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/08 02:24:19 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/08 02:49:43 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include "../iterator/iterator.h"
 #include "../utils/color.h"
+#include "../utils/ft_print_memory.h"
 
 namespace ft
 {
@@ -64,6 +65,11 @@ namespace ft
 			vector_iterator	operator- (difference_type rhs)	{ vector_iterator	it(_ptr - rhs); return (it);		}
 			difference_type	operator- (vector_iterator rhs)	{ difference_type	df(_ptr - rhs._ptr); return (df);	}
 
+			///   Pre
+			vector_iterator	&operator++() { ++(this->_ptr); return (*this);	}
+			///   Post
+			vector_iterator	operator++(int){ iterator tmp = *this; ++(this->_ptr); return (tmp);	}	// optional
+
 			// operator	vector_iterator<const T> {	return vector_iterator<const T>(_ptr);	}	// conversion from const iterator to iterator
 
 			reference		operator* () { return (*_ptr); }
@@ -78,14 +84,10 @@ namespace ft
 		vector(void) : _value_data(0), _value_size(sizeof(T)), _value_count(0)
 		{
 			// std::cout <<GRN<< "vector constructor" <<RST<< std::endl;
-			_value_data = reinterpret_cast<pointer>(::operator new (sizeof(int)));
-			_value_data[0] = 666;
-
-			// std::cout <<GRN<< reinterpret_cast<void *>(_value_data) <<RST<< std::endl;
-			// std::cout <<GRN<< _value_data[0] <<std::endl;
+			_value_data = reinterpret_cast<pointer>(::operator new (0));
 		}
-		// vector(/* args */);
-		virtual	~vector(void) { delete [] _value_data; }
+		// vector(/* another vector */);
+		virtual	~vector(void) { delete _value_data; }
 
 		// Copy constructor
 		vector(const vector<T> & copy) {}
@@ -99,32 +101,32 @@ namespace ft
 
 		vector_iterator	begin()	{ return vector_iterator(_value_data); }
 
-		vector_iterator end() { return vector_iterator(_value_data + _value_count); }
+		vector_iterator end()	{ return vector_iterator(_value_data + _value_count); }
 
 		// faire des listes
 		void	push_back(const T & rhs)
 		{
-			// pointer data;
-			// int		i;
+			pointer data;
+			int		i;
 
-			// i = 0;
-			// data = _allocator.allocate(_value_size * (_value_count + 1));
+			i = 0;
+			data = _allocator.allocate(_value_size * (_value_count + 1));
 			
-			// vector_iterator it = _value_data;
-			// // vector_iterator iv = data->_value_data;
+			vector_iterator it = this->begin();
 
-			// while (it != this->end())
-			// {
-			// 	data[i++] = *it;
-			// 	++it;
-			// }
-			// data[i] = rhs._value_data[i];
+			while (it != this->end())
+			{
+				data[i++] = *it;
+				++it;
+			}
+			data[i] = rhs;
 
-			// ++_value_count;
-			// delete [] _value_data;
-			// _value_data = data;
+			++_value_count;
+			delete [] _value_data;
+			_value_data = data;
 
-			// std::cout << "> " << _value_data << std::endl;
+			std::cout << "> " << _value_data << std::endl;
+			ft_print_memory(reinterpret_cast<void *>(_value_data), 4);
 		}
 
 	// private:

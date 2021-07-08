@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/08 02:23:46 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/08 02:45:35 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "./vector/vector.hpp"
 
 #include "./utils/color.h"
-
 #include "./utils/ft_print_memory.h"
 
 void	test_vector()
@@ -28,12 +27,15 @@ void	test_vector()
 
 	iv = v.begin();
 
-	std::cout <<YEL<< iv._ptr << std::endl;
-	std::cout <<YEL<< *iv <<RST<< std::endl;
-	std::cout <<YEL<< v._value_data[0] << RST <<std::endl;
+	std::cout << YEL;
+	std::cout << iv._ptr			<< std::endl;
+	std::cout << *iv				<< std::endl;
+	std::cout << v._value_data[0]	<< std::endl;
+	std::cout << RST;
 
-	// v.push_back(4);
-	// ft_print_memory(reinterpret_cast<void *>(s), 32);
+	v.push_back(4);
+	// iv = v.begin();
+	
 	// std::cout << std::endl;
 
 	// std::vector<int> w;
