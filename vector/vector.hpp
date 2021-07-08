@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/08 03:43:30 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/08 05:39:01 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ namespace ft
 		typedef const value_type &		const_reference;
 		typedef typename std::ptrdiff_t	difference_type;
 
-		class vector_iterator : public ft::iterator<T>
+		class vector_iterator : public ft::iterator<T> //______________________
 		{
 		public:
 			typedef T						value_type;
@@ -77,14 +77,15 @@ namespace ft
 		// private:
 			pointer _ptr;
 
-		};
+		};	// iterator _______________________________________________________
 		typedef vector_iterator iterator;
 
 		// Constructors & Destructors
-		vector(void) : _value_data(0), _value_size(sizeof(T)), _value_count(0)
+		vector(void) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0)
 		{
-			// std::cout <<GRN<< "vector constructor" <<RST<< std::endl;
+			std::cout <<GRN<< "vector constructor" <<RST<< std::endl;
 			_value_data = reinterpret_cast<pointer>(::operator new (0));
+			std::cout << _value_size << std::endl;
 		}
 		// vector(/* another vector */);
 		virtual	~vector(void) { delete _value_data; }
@@ -93,10 +94,30 @@ namespace ft
 		vector(const vector<T> & copy) {}
 
 		// Operation overload =
-		vector<T> &	operator=(const vector<T> &	copy)
+		vector<T> &	operator=(vector<T> & copy)	// should be const
 		{
+			vector_iterator i;	// this
+			vector_iterator j;	// copy
+
+			delete _value_data;
+
+			std::cout <<RED<< copy._value_size + copy._value_count <<RST<< std::endl;
+			_value_data = _allocator.allocate(copy._value_size * copy._value_count);
+
+			i = copy.begin();
+			j = this->begin();
+			while (i != copy.end())
+			{
+				std::cout << "oof" << std::endl;
+				*j = *i;
+				++i;
+				++j;
+			}
+
 			_value_size = copy._value_size;
-			_value_count = copy._value_size;
+			_value_count = copy._value_count;
+
+			return *this;
 		}
 
 		vector_iterator	begin()	{ return vector_iterator(_value_data); }
@@ -106,7 +127,7 @@ namespace ft
 		// faire des listes
 		void	push_back(const T & rhs)
 		{
-			pointer data;
+			pointer	data;
 			int		i;
 
 			data = _allocator.allocate(_value_size * (_value_count + 1));
@@ -124,9 +145,9 @@ namespace ft
 			delete _value_data;
 			_value_data = data;
 
-			std::cout << "data addr : " << _value_data << std::endl;
-			ft_print_memory(reinterpret_cast<void *>(_value_data), _value_count * sizeof(value_type));
-			std::cout << std::endl;
+			//std::cout << "data addr : " << _value_data << std::endl;
+			//ft_print_memory(reinterpret_cast<void *>(_value_data), _value_count * sizeof(value_type));
+			//std::cout << std::endl;
 		}
 
 	// private:

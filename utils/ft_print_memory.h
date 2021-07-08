@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 19:58:59 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/08 01:21:31 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/08 05:42:54 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	ft_print_hex(uint64_t v, int nbd)
 static
 void	ft_prepare_oct_print(void *addr)
 {
-	unsigned long	*l;
+	unsigned char	*l;
 
-	l = reinterpret_cast<unsigned long *>(addr);
+	l = reinterpret_cast<unsigned char *>(addr);
 	if ((*l & 0xff) == 0)
 	{
 		write(1, "\x1B[31;02m", 8);
