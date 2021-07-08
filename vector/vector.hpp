@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/08 05:39:01 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/08 05:46:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,8 @@ namespace ft
 		// Constructors & Destructors
 		vector(void) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0)
 		{
-			std::cout <<GRN<< "vector constructor" <<RST<< std::endl;
+			// std::cout <<GRN<< "vector constructor" <<RST<< std::endl;
 			_value_data = reinterpret_cast<pointer>(::operator new (0));
-			std::cout << _value_size << std::endl;
 		}
 		// vector(/* another vector */);
 		virtual	~vector(void) { delete _value_data; }
@@ -101,14 +100,12 @@ namespace ft
 
 			delete _value_data;
 
-			std::cout <<RED<< copy._value_size + copy._value_count <<RST<< std::endl;
 			_value_data = _allocator.allocate(copy._value_size * copy._value_count);
 
 			i = copy.begin();
 			j = this->begin();
 			while (i != copy.end())
 			{
-				std::cout << "oof" << std::endl;
 				*j = *i;
 				++i;
 				++j;
@@ -145,9 +142,6 @@ namespace ft
 			delete _value_data;
 			_value_data = data;
 
-			//std::cout << "data addr : " << _value_data << std::endl;
-			//ft_print_memory(reinterpret_cast<void *>(_value_data), _value_count * sizeof(value_type));
-			//std::cout << std::endl;
 		}
 
 	// private:
