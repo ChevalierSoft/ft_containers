@@ -30,6 +30,7 @@ namespace ft
 		typedef value_type &			reference;
 		typedef const value_type &		const_reference;
 		typedef typename std::ptrdiff_t	difference_type;
+		typedef size_t					size_type;
 
 		class vector_iterator : public ft::iterator<T> //______________________
 		{
@@ -117,11 +118,12 @@ namespace ft
 			return *this;
 		}
 
-		vector_iterator	begin()	{ return vector_iterator(_value_data); }
+		size_type		size()	const { return _value_count; }
 
-		vector_iterator end()	{ return vector_iterator(_value_data + _value_count); }
+		vector_iterator	begin()	const{ return vector_iterator(_value_data); }
 
-		// faire des listes
+		vector_iterator end()	const{ return vector_iterator(_value_data + _value_count); }
+
 		void	push_back(const T & rhs)
 		{
 			pointer	data;

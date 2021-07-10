@@ -40,14 +40,17 @@ void	test_vector()
 	ft::vector<int> w;
 
 	w = v;
+	w.push_back(77);
 	for (auto & iw : w)
 		std::cout << iw << std::endl;
 
 	ft_print_memory(reinterpret_cast<void *>(w._value_data), w._value_count * w._value_size);
 	std::cout << std::endl;
 
-	std::cout << w._value_count * w._value_size << std::endl;
+	std::cout << "size in mem : " << w._value_count * w._value_size << std::endl;
 
+	std::cout << "v count : " << v.size() << std::endl;
+	std::cout << "w count : " << w.size() << std::endl;
 }
 
 int	main(void)
