@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/08 05:46:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/12 04:48:38 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ namespace ft
 		typedef typename std::ptrdiff_t	difference_type;
 		typedef size_t					size_type;
 
-		class vector_iterator : public ft::iterator<T> //______________________
+		/// Vector Iterator ____________________________________________________
+		class vector_iterator //________________________________________________
 		{
 		public:
 			typedef T						value_type;
@@ -81,19 +82,23 @@ namespace ft
 		};	// iterator _______________________________________________________
 		typedef vector_iterator iterator;
 
-		// Constructors & Destructors
+		/// Constructors & Destructors _________________________________________
+
 		vector(void) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0)
 		{
 			// std::cout <<GRN<< "vector constructor" <<RST<< std::endl;
 			_value_data = reinterpret_cast<pointer>(::operator new (0));
 		}
-		// vector(/* another vector */);
+
 		virtual	~vector(void) { delete _value_data; }
 
-		// Copy constructor
-		vector(const vector<T> & copy) {}
+		vector(const vector<T> & copy)
+		{
+			_value_data  = new T[copy._value_count];		// chunk_size would be better
+			_value_count = copy._value_count;
+			_value_size  = copy._value_size;
+		}
 
-		// Operation overload =
 		vector<T> &	operator=(vector<T> & copy)	// should be const
 		{
 			vector_iterator i;	// this
@@ -118,13 +123,23 @@ namespace ft
 			return *this;
 		}
 
-		size_type		size()	const { return _value_count; }
+		/// Element access _____________________________________________________
 
-		vector_iterator	begin()	const{ return vector_iterator(_value_data); }
+		/// Iterators __________________________________________________________
 
-		vector_iterator end()	const{ return vector_iterator(_value_data + _value_count); }
+		vector_iterator	begin() const		{ return vector_iterator(_value_data);	}
 
-		void	push_back(const T & rhs)
+		vector_iterator end() const			{ return vector_iterator(_value_data + _value_count); }
+
+		/// Capacity ___________________________________________________________
+
+		size_type		size() const		{ return _value_count; }
+
+		size_type		capacity() const	{ return _value_count * _value_size;	}
+
+		/// Modifiers __________________________________________________________
+
+		void			push_back(const T & rhs)
 		{
 			pointer	data;
 			int		i;
