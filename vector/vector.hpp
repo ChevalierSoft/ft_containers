@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/12 06:03:30 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/12 07:12:41 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ namespace ft
 		typedef const value_type &		const_reference;
 		typedef typename std::ptrdiff_t	difference_type;
 		typedef size_t					size_type;
+		typedef Allocator				allocator_type;
 
 		/// Vector Iterator ____________________________________________________
 		class vector_iterator //________________________________________________
@@ -86,16 +87,21 @@ namespace ft
 
 		vector(void) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0)
 		{
-			// std::cout <<GRN<< "vector constructor" <<RST<< std::endl;
-			_value_data = reinterpret_cast<pointer>(::operator new (0));
+			_value_data = _allocator.allocate(_value_chunk_size);
 		}
 
-		virtual	~vector(void) { _allocator.deallocate(_value_data, _value_chunk_size); }
-		//delete _value_data; _value_count = 0; _value_data = NULL; _value_chunk_size = 0; }
+		virtual	~vector(void)
+		{
+			_allocator.deallocate(_value_data, _value_chunk_size);
+			_value_data = NULL;
+			_value_size = 0;
+			_value_count = 0;
+			_value_chunk_size = 0;
+		}
 
 		vector(const vector<T> & copy)
 		{
-			_value_data = new T[copy._value_chunk_size];
+			_value_data = _allocator.allocate(copy._value_size * copy._value_chunk_size);
 			std::copy(&copy._value_data[0], &copy._value_data[copy._value_count], _value_data);
 			_value_count = copy._value_count;
 			_value_size  = copy._value_size;
@@ -107,7 +113,7 @@ namespace ft
 			vector_iterator i;	// this
 			vector_iterator j;	// copy
 
-			delete _value_data;
+			_allocator.deallocate(_value_data, _value_chunk_size);
 
 			_value_data = _allocator.allocate(copy._value_size * copy._value_chunk_size);
 
@@ -127,21 +133,24 @@ namespace ft
 			return *this;
 		}
 
+		/// assign() & get_allocator() _________________________________________
+		allocator_type	get_allocator() const { return this->_allocator; }
+
 		/// Element access _____________________________________________________
 
 		/// Iterators __________________________________________________________
 
-		vector_iterator	begin() const		{ return vector_iterator(_value_data);	}
+		vector_iterator	begin() const		{ return vector_iterator(_value_data);					}
 
-		vector_iterator end() const			{ return vector_iterator(_value_data + _value_count); }
+		vector_iterator end() const			{ return vector_iterator(_value_data + _value_count);	}
 
 		/// Capacity ___________________________________________________________
 
-		bool			empty() const		{ return _value_count == 0;	}	//	or : return begin() == end();
+		bool			empty() const		{ return _value_count == 0;								}	//	or : return begin() == end();
 
-		size_type		size() const		{ return _value_count; }
+		size_type		size() const		{ return _value_count;									}
 
-		size_type		capacity() const	{ return _value_count * _value_size;	}
+		size_type		capacity() const	{ return _value_count * _value_size;					}
 
 		/// Modifiers __________________________________________________________
 

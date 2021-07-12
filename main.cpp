@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/12 06:09:40 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/12 07:12:48 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,29 @@ void	test_vector()
 		std::cout << iv << " ";
 	std::cout << std::endl;
 
-		//__________________________________________________________________________
+	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "pop_back()" <<RST<< std::endl;
 
 	v.pop_back();
 	v.pop_back();
 	v.pop_back();
+	
 	v.pop_back();
 	v.pop_back();
 	for (auto & iv : v)
 		std::cout << iv << " ";
 	std::cout << "(nothing should be printed)" << std::endl;
 
+	v.push_back(0x4C);
+	v.push_back(0x55);
+	v.push_back(0x4C);
+	v.push_back(0x5A);
+
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "copy constructor" <<RST<< std::endl;
-	// ft::vector<int>				c(w);
-	// ft_print_memory(reinterpret_cast<void *>(c._value_data), c._value_count * c._value_size);
-	// std::cout << std::endl;
+	ft::vector<int>				c(w);
+	ft_print_memory(reinterpret_cast<void *>(c._value_data), c._value_count * c._value_size);
+	std::cout << std::endl;
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "operator =" <<RST<< std::endl;
