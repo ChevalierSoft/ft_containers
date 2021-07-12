@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/12 04:48:38 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/12 06:03:30 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 namespace ft
 {
 	template <typename T, class Allocator = std::allocator<T> >
-	class vector
+	class vector //_____________________________________________________________
 	{
 	public:
 		typedef T						value_type;
@@ -84,19 +84,22 @@ namespace ft
 
 		/// Constructors & Destructors _________________________________________
 
-		vector(void) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0)
+		vector(void) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0)
 		{
 			// std::cout <<GRN<< "vector constructor" <<RST<< std::endl;
 			_value_data = reinterpret_cast<pointer>(::operator new (0));
 		}
 
-		virtual	~vector(void) { delete _value_data; }
+		virtual	~vector(void) { _allocator.deallocate(_value_data, _value_chunk_size); }
+		//delete _value_data; _value_count = 0; _value_data = NULL; _value_chunk_size = 0; }
 
 		vector(const vector<T> & copy)
 		{
-			_value_data  = new T[copy._value_count];		// chunk_size would be better
+			_value_data = new T[copy._value_chunk_size];
+			std::copy(&copy._value_data[0], &copy._value_data[copy._value_count], _value_data);
 			_value_count = copy._value_count;
 			_value_size  = copy._value_size;
+			_value_chunk_size = copy._value_chunk_size;
 		}
 
 		vector<T> &	operator=(vector<T> & copy)	// should be const
@@ -106,7 +109,7 @@ namespace ft
 
 			delete _value_data;
 
-			_value_data = _allocator.allocate(copy._value_size * copy._value_count);
+			_value_data = _allocator.allocate(copy._value_size * copy._value_chunk_size);
 
 			i = copy.begin();
 			j = this->begin();
@@ -117,8 +120,9 @@ namespace ft
 				++j;
 			}
 
-			_value_size = copy._value_size;
-			_value_count = copy._value_count;
+			_value_size			= copy._value_size;
+			_value_count		= copy._value_count;
+			_value_chunk_size	= copy._value_chunk_size;
 
 			return *this;
 		}
@@ -133,6 +137,8 @@ namespace ft
 
 		/// Capacity ___________________________________________________________
 
+		bool			empty() const		{ return _value_count == 0;	}	//	or : return begin() == end();
+
 		size_type		size() const		{ return _value_count; }
 
 		size_type		capacity() const	{ return _value_count * _value_size;	}
@@ -141,35 +147,54 @@ namespace ft
 
 		void			push_back(const T & rhs)
 		{
-			pointer	data;
-			int		i;
+			pointer			data;
+			int				i;
+			vector_iterator	it;
 
-			data = _allocator.allocate(_value_size * (_value_count + 1));
-			
-			i = 0;
-			vector_iterator it = this->begin();
-			while (it != this->end())
+			if (_value_count >= _value_chunk_size)
 			{
-				data[i++] = *it;
-				++it;
+				data = _allocator.allocate(_value_size * (_value_count + 4));
+				_value_chunk_size = _value_count + 4;
+
+				i = 0;
+				it = this->begin();
+				while (it != this->end())
+				{
+					data[i++] = *it;
+					++it;
+				}
+				data[i] = rhs;
+
+				++_value_count;
+				delete _value_data;
+				_value_data = data;
 			}
-			data[i] = rhs;
+			else
+			{
+				_value_data[_value_count] = rhs;
+				++_value_count;
+			}
 
-			++_value_count;
-			delete _value_data;
-			_value_data = data;
+		}
 
+		void			pop_back()
+		{
+			if (_value_count > 0)
+			{
+				_value_data[_value_count - 1] = 0;
+				--_value_count;
+			}
 		}
 
 	// private:
 		pointer			_value_data;
-		uint64_t		_value_size;
-		uint64_t		_value_count;
-		// uint64_t		_value_chunk_size;	// will be used for optimisation
+		size_t			_value_size;
+		size_t			_value_count;
+		size_t			_value_chunk_size;	// will be used for optimisation
 		Allocator		_allocator;
 
-	};
+	}; // vector _______________________________________________________________
 
-} // namespace ft
+} // namespace ft ______________________________________________________________
 
 #endif
