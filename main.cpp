@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/12 07:12:48 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/13 04:36:20 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,20 @@
 #include "./utils/color.h"
 #include "./utils/ft_print_memory.h"
 
+struct menfou
+{
+	int 		a;
+	int			b;
+	char		c;
+	long long	d;
+};
+
 void	test_vector()
 {
 	ft::vector<int>				v;
 	ft::vector<int>				w;
 	ft::vector<char>			e;
+	ft::vector<std::string>		st;
 
 	std::cout <<std::endl<<CYN<< "__________________ft::vector__________________" <<RST<< std::endl;
 
@@ -76,12 +85,6 @@ void	test_vector()
 	std::cout << std::endl;
 
 	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "size()" <<RST<< std::endl;
-
-	std::cout << "v count : " << v.size() << std::endl;
-	std::cout << "w count : " << w.size() << std::endl;
-
-	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "empty()" <<RST<< std::endl;
 
 	std::cout << "e : " << e.empty() << std::endl;
@@ -91,6 +94,31 @@ void	test_vector()
 	std::cout << "e : " << e.empty() << std::endl;
 
 	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "max_size()" <<RST<< std::endl;
+
+	std::vector<int>			maxv;
+	std::vector<char>			maxc;
+	std::vector<std::string>	maxs;
+	std::vector<menfou>			mm;
+	std::vector<short>			th;
+	std::vector<long double>	ld;
+	ft::vector<menfou>			mf;
+	ft::vector<short>			sh;
+	ft::vector<long double>		sd;
+
+	std::cout << "char :    " << maxc.max_size() << "\tmine : " << e.max_size() << std::endl;
+	std::cout << "short :   " << th.max_size() << "\tmine : " << sh.max_size() << std::endl;
+	std::cout << "int :     " << maxv.max_size() << "\tmine : " << w.max_size() << std::endl;
+	std::cout << "string :  " << maxs.max_size() << "\tmine : " << st.max_size() << std::endl;
+	std::cout << "struct :  " << mm.max_size() << "\tmine : " << mf.max_size() << std::endl;
+	std::cout << "l double :" << ld.max_size() << "\tmine : " << sd.max_size() << std::endl;
+
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "size()" <<RST<< std::endl;
+
+	std::cout << "v count : " << v.size() << std::endl;
+	std::cout << "w count : " << w.size() << std::endl;
 
 
 }
@@ -98,6 +126,7 @@ void	test_vector()
 int	main(void)
 {
 	test_vector();
+
 
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/12 07:12:41 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/13 03:52:18 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define VECTOR_HPP
 
 #include <iostream>
+#include <cmath>
 #include "../iterator/iterator.h"
 #include "../utils/color.h"
 #include "../utils/ft_print_memory.h"
@@ -149,6 +150,14 @@ namespace ft
 		bool			empty() const		{ return _value_count == 0;								}	//	or : return begin() == end();
 
 		size_type		size() const		{ return _value_count;									}
+
+		size_type		max_size() const
+		{
+			//size_type i = -1;
+			if (sizeof(T) == 1)	
+				return ((size_type)-1) / (sizeof(T) + 1);
+			return ((size_type)-1) / sizeof(T);
+		}
 
 		size_type		capacity() const	{ return _value_count * _value_size;					}
 
