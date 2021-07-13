@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/13 03:52:18 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/13 05:12:42 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ namespace ft
 
 		virtual	~vector(void)
 		{
+			std::cout <<RED<< "vector destructor" << std::endl;
 			_allocator.deallocate(_value_data, _value_chunk_size);
 			_value_data = NULL;
 			_value_size = 0;
@@ -162,6 +163,18 @@ namespace ft
 		size_type		capacity() const	{ return _value_count * _value_size;					}
 
 		/// Modifiers __________________________________________________________
+
+		void			clear()
+		{
+			iterator	it;
+
+			for (it = this->begin(); it != this->end(); ++it)
+			{
+				//it->~T();
+			}
+			_value_count = 0;
+			//allocator.deallocate(_value_data, _value_chunk_size);
+		}
 
 		void			push_back(const T & rhs)
 		{

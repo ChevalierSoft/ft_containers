@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/13 04:36:20 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/13 04:57:59 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,13 @@ void	test_vector()
 	std::cout << "v count : " << v.size() << std::endl;
 	std::cout << "w count : " << w.size() << std::endl;
 
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
+	w.clear();
+	if (w.empty())
+		std::cout << "empty" << std::endl;
+	else
+		std::cout << "full" << std::endl;
 
 }
 
