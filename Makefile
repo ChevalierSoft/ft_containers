@@ -6,12 +6,12 @@
 #    By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/12 12:55:09 by dait-atm          #+#    #+#              #
-#    Updated: 2021/04/12 13:26:54 by dait-atm         ###   ########.fr        #
+#    Updated: 2021/07/13 03:03:44 by dait-atm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= a.out
-FLAGS	= -std=c++98 #-Wall -Wextra -Werror
+FLAGS	= #-std=c++98 #-Wall -Wextra -Werror
 SRCS	= main.cpp
 
 ifeq ($(OS),Windows_NT)
