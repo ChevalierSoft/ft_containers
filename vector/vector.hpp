@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/13 05:12:42 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/16 06:10:16 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ namespace ft
 			bool	operator> (const vector_iterator &rhs) const	{ return (_ptr > rhs._ptr);  }
 
 			///  Dereferense
-			reference		operator[](difference_type rhs) { return (*(_ptr + rhs)); }
-			const_reference	operator[](difference_type rhs) const { return (*(_ptr + rhs)); }
+			reference		operator[](difference_type rhs)			{ return (*(_ptr + rhs)); }
+			const_reference	operator[](difference_type rhs) const	{ return (*(_ptr + rhs)); }
 
 			///   Random access vvv
 			vector_iterator	operator+ (difference_type rhs)	{ vector_iterator	it(_ptr + rhs); return (it);		}
@@ -70,9 +70,9 @@ namespace ft
 			difference_type	operator- (vector_iterator rhs)	{ difference_type	df(_ptr - rhs._ptr); return (df);	}
 
 			///   Pre
-			vector_iterator	&operator++() { ++(this->_ptr); return (*this);	}
+			vector_iterator	&operator++()	{ ++(this->_ptr); return (*this);	}
 			///   Post
-			vector_iterator	operator++(int){ iterator tmp = *this; ++(this->_ptr); return (tmp);	}	// optional
+			vector_iterator	operator++(int)	{ iterator tmp = *this; ++(this->_ptr); return (tmp);	}	// optional
 
 			// operator	vector_iterator<const T> {	return vector_iterator<const T>(_ptr);	}	// conversion from const iterator to iterator
 
@@ -93,7 +93,7 @@ namespace ft
 
 		virtual	~vector(void)
 		{
-			std::cout <<RED<< "vector destructor" << std::endl;
+			std::cout <<RED<< "vector destructor" <<RST<< std::endl;
 			_allocator.deallocate(_value_data, _value_chunk_size);
 			_value_data = NULL;
 			_value_size = 0;
@@ -154,8 +154,7 @@ namespace ft
 
 		size_type		max_size() const
 		{
-			//size_type i = -1;
-			if (sizeof(T) == 1)	
+			if (sizeof(T) == 1)
 				return ((size_type)-1) / (sizeof(T) + 1);
 			return ((size_type)-1) / sizeof(T);
 		}
@@ -164,17 +163,24 @@ namespace ft
 
 		/// Modifiers __________________________________________________________
 
-		void			clear()
-		{
-			iterator	it;
+		void			clear()				{ _value_count = 0;	}
 
-			for (it = this->begin(); it != this->end(); ++it)
-			{
-				//it->~T();
-			}
-			_value_count = 0;
-			//allocator.deallocate(_value_data, _value_chunk_size);
+		// insert single element
+		iterator insert(iterator position, const value_type &val)
+		{
+
 		}
+		// insert fill n
+		void insert(iterator position, size_type n, const value_type &val);
+		// insert by range
+		template <class InputIterator>
+		void insert(iterator position, InputIterator first, InputIterator last);
+
+
+		// void std::vector<T>::push_back(const T &obj)
+		// {
+		// 	this->insert(this->end(), obj);
+		// }
 
 		void			push_back(const T & rhs)
 		{

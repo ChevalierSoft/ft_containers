@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/13 04:57:59 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/16 05:29:34 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,12 +128,11 @@ void	test_vector()
 	else
 		std::cout << "full" << std::endl;
 
+	// throw std::runtime_error("error test");
 }
 
 int	main(void)
 {
 	test_vector();
-
-
 	return (0);
 }
