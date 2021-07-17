@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:36:08 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/08 02:21:14 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/17 05:53:42 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,64 +18,30 @@
 
 namespace ft
 {
-
-	// template <bool IsConst>
-	// class MyIterator
-	// {
-	// 	int *d_;
-
-	// public:
-	// 	MyIterator(const MyIterator &) = default;				// c++11
-	// 	MyIterator &operator=(const MyIterator &) = default;	// c++11
-
-	// 	template <bool WasConst, class = std::enable_if_t<IsConst && !WasConst>>
-	// 	MyIterator(const MyIterator<WasConst> &rhs) : d_(rhs.d_) {}
-
-	// 	template <bool WasConst, class = std::enable_if_t<IsConst && !WasConst>>
-	// 	MyIterator &operator=(const MyIterator<WasConst> &rhs)
-	// 	{
-	// 		d_ = rhs.d_;
-	// 		return *this;
-	// 	}
-	// };
-
-	// template <bool B, class T = void>
-	// struct enable_if
-	// {
-	// };
-
-	// template <class T>
-	// struct enable_if<true, T>
-	// {
-	// 	typedef T type;
-	// };
-
-	// template <typename T, bool IsConst>
-	template <typename T>
-	class iterator
+	template< class T >
+	struct iterator_traits
 	{
 	public:
-		typedef T						value_type;
-		typedef value_type *			pointer;
-		typedef const value_type		const_pointer;
-		typedef value_type &			reference;
-		typedef const value_type &		const_reference;
-		typedef typename std::ptrdiff_t	difference_type;
+		typedef T								value_type;
+		typedef value_type *					pointer;
+		typedef value_type &					reference;
+		typedef typename std::ptrdiff_t			difference_type;
+		typedef std::random_access_iterator_tag	iterator_category;
 
-		typedef iterator<const T>		const_iterator;
+		// typedef iterator<const T>		const_iterator;
 
 		/// Member functions
-		iterator() {}
+		iterator_traits() {}
 		// iterator(const_reference x_ptr) : _ptr(x_ptr._ptr) {}	// cpp11 : = default;
 		// iterator(pointer x_t) : _ptr(x_t) {}
 
 		// template <bool WasConst, class = std::enable_if<IsConst && !WasConst>>
 		// iterator(const iterator<T, WasConst> &rhs) : _ptr(rhs._ptr) {}
 
-		virtual	~iterator() {}
+		virtual	~iterator_traits() {}
 
 		/// Member Operators
-		// iterator &operator=(const iterator &rhs) { _ptr = rhs._ptr; return (*this);	}
+		iterator_traits &operator=(const iterator_traits &rhs) { _ptr = rhs._ptr; return (*this);	}
 
 		/// Non Member Operators
 
@@ -116,7 +82,59 @@ namespace ft
 		pointer _ptr;
 	};
 
+
+	template< class Iter >
+	struct iterator_traits< Iter * >
+	{
+	public:
+		typedef typename Iter::value_type			value_type;
+		typedef typename Iter::pointer				pointer;
+		typedef typename Iter::reference			reference;
+		typedef typename Iter::difference_type		difference_type;
+		typedef typename Iter::iterator_category 	iterator_category;
+
+		iterator_traits() : iterator_traits<Iter>() {}
+		iterator_traits(const iterator_traits & copy) : iterator_traits<Iter>(copy) {}
+		virtual ~iterator_traits() { ~iterator_traits<Iter>(); }
+		iterator_traits & operator= (const Iter& rhs) { return Iter::operator=(rhs); }
+	};
+
 };
 
 
 #endif
+
+// R & D
+
+	// template <bool IsConst>
+	// class MyIterator
+	// {
+	// 	int *d_;
+
+	// public:
+	// 	MyIterator(const MyIterator &) = default;				// c++11
+	// 	MyIterator &operator=(const MyIterator &) = default;	// c++11
+
+	// 	template <bool WasConst, class = std::enable_if_t<IsConst && !WasConst>>
+	// 	MyIterator(const MyIterator<WasConst> &rhs) : d_(rhs.d_) {}
+
+	// 	template <bool WasConst, class = std::enable_if_t<IsConst && !WasConst>>
+	// 	MyIterator &operator=(const MyIterator<WasConst> &rhs)
+	// 	{
+	// 		d_ = rhs.d_;
+	// 		return *this;
+	// 	}
+	// };
+
+	// template <bool B, class T = void>
+	// struct enable_if
+	// {
+	// };
+
+	// template <class T>
+	// struct enable_if<true, T>
+	// {
+	// 	typedef T type;
+	// };
+
+	// template <typename T, bool IsConst>

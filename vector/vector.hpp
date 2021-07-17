@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/16 06:10:16 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/17 07:21:53 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@
 #include "../iterator/iterator.h"
 #include "../utils/color.h"
 #include "../utils/ft_print_memory.h"
+
+/*
+must be reimplemented :
+	iterator_traits,
+	reverse_iterator,
+	enable_if,
+	is_integral,
+	equal/lexicographical com-pare, 
+	std::pair,
+	std::make_pair
+*/
 
 namespace ft
 {
@@ -34,8 +45,9 @@ namespace ft
 		typedef size_t					size_type;
 		typedef Allocator				allocator_type;
 
+
 		/// Vector Iterator ____________________________________________________
-		class vector_iterator //________________________________________________
+		class vector_iterator // : public random_access_iterator_tag<T> //______
 		{
 		public:
 			typedef T						value_type;
@@ -44,6 +56,8 @@ namespace ft
 			typedef value_type &			reference;
 			typedef const value_type &		const_reference;
 			typedef typename std::ptrdiff_t	difference_type;
+
+			typedef typename std::random_access_iterator_tag 	iterator_category;
 
 			vector_iterator() {}
 			vector_iterator(pointer x_t) : _ptr(x_t) {}

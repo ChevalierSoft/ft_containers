@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/16 05:29:34 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/17 05:45:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,35 @@ void	test_vector()
 	// throw std::runtime_error("error test");
 }
 
+template<class BidirIt>
+void my_reverse(BidirIt first, BidirIt last)
+{
+    typename std::iterator_traits<BidirIt>::difference_type n = std::distance(first, last);
+    --n;
+    while(n > 0) {
+        typename std::iterator_traits<BidirIt>::value_type tmp = *first;
+        *first++ = *--last;
+        *last = tmp;
+        n -= 2;
+    }
+}
+
 int	main(void)
 {
-	test_vector();
+	// test_vector();
+
+	ft::vector<int> v;		//{1, 2, 3, 4, 5};
+
+	v.push_back(1);
+	v.push_back(2);
+	v.push_back(3);
+	v.push_back(4);
+
+    my_reverse(v.begin(), v.end());
+    for (int n : v) {
+        std::cout << n << ' ';
+    }
+
+
 	return (0);
 }
