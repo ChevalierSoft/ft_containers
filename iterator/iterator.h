@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:36:08 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/17 05:53:42 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/18 01:48:12 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 
 namespace ft
 {
+
+	// to do :
+	//// struct input_iterator_tag { };
+	//// struct output_iterator_tag { };
+	//// struct forward_iterator_tag : public input_iterator_tag { };
+	//// struct bidirectional_iterator_tag : public forward_iterator_tag { };
+	//// struct random_access_iterator_tag : public bidirectional_iterator_tag { };
+	////
+	//// after iterator_traits :
+	//// class __normal_iterator;
+
+
 	template< class T >
 	struct iterator_traits
 	{
