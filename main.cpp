@@ -6,11 +6,12 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 04:51:55 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/18 06:27:55 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <ostream>
 #include <algorithm>
 #include <vector>
 #include <map>
@@ -20,13 +21,28 @@
 #include "./utils/color.h"
 #include "./utils/ft_print_memory.h"
 
-struct menfou
+// _____________________________________________________________________________
+class	menfou
 {
+private:
+	static int	_nb;
+public:
 	int 		a;
 	int			b;
 	char		c;
-	long long	d;
+	size_t		d;
+
+	menfou() : a(1), b(2), c('A' + _nb), d(-1) { ++_nb; }
+	~menfou() { std::cout << "~menfou" << std::endl;	}
 };
+int		menfou::_nb = 0;
+std::ostream &	operator<< (std::ostream & o, const menfou & m)
+{
+	// o << "menfou : " << m.a << " " << m.b << " " << m.c << " " << m.d << std::endl;
+	o << "menfou : " << m.c << std::endl;
+	return o;
+}
+// _____________________________________________________________________________
 
 void	test_vector()
 {
@@ -149,7 +165,7 @@ int	main(void)
 {
 	// test_vector();
 
-	ft::vector<int> v (4, 6); //{1, 2, 3, 4, 5};
+	ft::vector<int> v (7, 7);
 
 	my_reverse(v.begin(), v.end());
 	for (int n : v) {
@@ -164,14 +180,5 @@ int	main(void)
 		std::cout << "int* is a random-access iterator" << std::endl;
 
 
-	std::vector<std::string>			s{"abc", "def", "hij", "klm"};
-	std::vector<std::string>::iterator	is;
-
-	is = s.end() - 1;
-	std::cout << *is;
-
-	s.pop_back();
-	std::cout << *is;
-	
 	return (0);
 }

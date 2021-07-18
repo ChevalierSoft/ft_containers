@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 04:53:12 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/18 06:27:18 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,26 @@ namespace ft
 			_value_data = _allocator.allocate(_value_chunk_size);
 		}
 
+		// vector(std::initializer_list<T> list) : vector()				// c++11
+		// {
+		// 	for (auto l : list) {
+		// 		this->push_back(l);
+		// 	}
+		// }
+
 		vector(difference_type nb, const T & elem) : vector()
 		{
 			for (int i = 0; i < nb; ++i) {
 				this->push_back(elem);
 			}
 		}
+
+		// template <class InputIterator>
+		// vector (InputIterator first, InputIterator last,
+		// 	const allocator_type& alloc = allocator_type())
+		// {
+
+		// }
 
 		vector(const vector<T> & copy)
 		{
@@ -186,7 +200,11 @@ namespace ft
 
 		/// Modifiers __________________________________________________________
 
-		void			clear()				{ _value_count = 0;										}
+		void			clear() {
+			for (ptrdiff_t i = 0; i < _value_count; ++i)
+				_value_data[i].value_type::~value_type();
+			_value_count = 0;
+		}
 
 		// insert single element
 		iterator insert(iterator position, const value_type &val)
