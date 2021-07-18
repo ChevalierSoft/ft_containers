@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:36:08 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 03:03:28 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/18 04:18:35 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 
 namespace ft
 {
-	//// TO DO after iterator_traits :
-	//// class __normal_iterator;
 
 	/// iterator_tags: empty types, used to distinguish different iterators.
 	struct input_iterator_tag { };
@@ -33,13 +31,13 @@ namespace ft
 	typename _Pointer = _Tp*, typename _Reference = _Tp&>
 	struct iterator
 	{
+	public:
 		typedef _Category	iterator_category;
 		typedef _Tp			value_type;
 		typedef _Distance	difference_type;
 		typedef _Pointer	pointer;
 		typedef _Reference	reference;
 	};
-
 
 	template<typename _Iterator>
 	struct iterator_traits
@@ -73,6 +71,23 @@ namespace ft
 		typedef const _Tp&					reference;
 	};
 
+	template<typename _Iterator>
+	class reverse_iterator :
+		public iterator<typename iterator_traits<_Iterator>::iterator_category,
+			typename iterator_traits<_Iterator>::value_type,
+			typename iterator_traits<_Iterator>::difference_type,
+			typename iterator_traits<_Iterator>::pointer,
+			typename iterator_traits<_Iterator>::reference>
+	{
+	protected:
+		_Iterator							current;
+		typedef iterator_traits<_Iterator>	__traits_type;
+	public:
+		typedef _Iterator								iterator_type;
+		typedef typename __traits_type::difference_type	difference_type;
+		typedef typename __traits_type::pointer			pointer;
+		typedef typename __traits_type::reference		reference;
+	};
 
 	// template< class Iter >
 	// struct iterator_traits< Iter * >
