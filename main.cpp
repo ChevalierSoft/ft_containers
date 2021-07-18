@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 03:47:16 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/18 04:44:00 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,17 +149,13 @@ int	main(void)
 {
 	// test_vector();
 
-	ft::vector<int> v;		//{1, 2, 3, 4, 5};
-
-	v.push_back(1);
-	v.push_back(2);
-	v.push_back(3);
-	v.push_back(4);
+	ft::vector<int> v (4, 6); //{1, 2, 3, 4, 5};
 
 	my_reverse(v.begin(), v.end());
 	for (int n : v) {
 		std::cout << n << ' ';
 	}
+	std::cout << std::endl;
 
 	ft::iterator_traits<ft::vector<int>::iterator> tt;
 
@@ -167,7 +163,6 @@ int	main(void)
 	if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
 		std::cout << "int* is a random-access iterator" << std::endl;
 
-	
 
 	return (0);
 }

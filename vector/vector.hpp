@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 03:46:18 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/18 04:42:59 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,13 @@ namespace ft
 		vector(void) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0)
 		{
 			_value_data = _allocator.allocate(_value_chunk_size);
+		}
+
+		vector(difference_type nb, const T & elem) : vector()
+		{
+			for (int i = 0; i < nb; ++i) {
+				this->push_back(elem);
+			}
 		}
 
 		virtual	~vector(void)
