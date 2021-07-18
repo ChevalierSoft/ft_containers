@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 04:44:00 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/18 04:51:55 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,14 @@ int	main(void)
 		std::cout << "int* is a random-access iterator" << std::endl;
 
 
+	std::vector<std::string>			s{"abc", "def", "hij", "klm"};
+	std::vector<std::string>::iterator	is;
+
+	is = s.end() - 1;
+	std::cout << *is;
+
+	s.pop_back();
+	std::cout << *is;
+	
 	return (0);
 }

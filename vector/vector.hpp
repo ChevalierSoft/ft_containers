@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 04:42:59 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/18 04:53:12 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,15 @@ namespace ft
 			}
 		}
 
+		vector(const vector<T> & copy)
+		{
+			_value_data = _allocator.allocate(copy._value_size * copy._value_chunk_size);
+			std::copy(&copy._value_data[0], &copy._value_data[copy._value_count], _value_data);
+			_value_count = copy._value_count;
+			_value_size  = copy._value_size;
+			_value_chunk_size = copy._value_chunk_size;
+		}
+
 		virtual	~vector(void)
 		{
 			std::cout <<RED<< "vector destructor" <<RST<< std::endl;
@@ -122,15 +131,6 @@ namespace ft
 			_value_size = 0;
 			_value_count = 0;
 			_value_chunk_size = 0;
-		}
-
-		vector(const vector<T> & copy)
-		{
-			_value_data = _allocator.allocate(copy._value_size * copy._value_chunk_size);
-			std::copy(&copy._value_data[0], &copy._value_data[copy._value_count], _value_data);
-			_value_count = copy._value_count;
-			_value_size  = copy._value_size;
-			_value_chunk_size = copy._value_chunk_size;
 		}
 
 		vector<T> &	operator=(vector<T> & copy)	// should be const
@@ -171,7 +171,7 @@ namespace ft
 
 		/// Capacity ___________________________________________________________
 
-		bool			empty() const		{ return _value_count == 0;								}	//	or : return begin() == end();
+		bool			empty() const		{ return (_value_count == 0);							}
 
 		size_type		size() const		{ return _value_count;									}
 
@@ -186,7 +186,7 @@ namespace ft
 
 		/// Modifiers __________________________________________________________
 
-		void			clear()				{ _value_count = 0;	}
+		void			clear()				{ _value_count = 0;										}
 
 		// insert single element
 		iterator insert(iterator position, const value_type &val)
@@ -237,11 +237,8 @@ namespace ft
 
 		}
 
-		void			pop_back()
-		{
-			if (_value_count > 0)
-			{
-				_value_data[_value_count - 1] = 0;
+		void			pop_back() {
+			if (_value_count > 0) {
 				--_value_count;
 			}
 		}
