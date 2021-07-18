@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/17 07:21:53 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/18 03:46:18 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ namespace ft
 
 
 		/// Vector Iterator ____________________________________________________
-		class vector_iterator // : public random_access_iterator_tag<T> //______
+		class vector_iterator : public random_access_iterator_tag //_________
 		{
 		public:
-			typedef T						value_type;
-			typedef value_type *			pointer;
-			typedef const value_type 		const_pointer;
-			typedef value_type &			reference;
-			typedef const value_type &		const_reference;
-			typedef typename std::ptrdiff_t	difference_type;
+			typedef T											value_type;
+			typedef value_type *								pointer;
+			typedef const value_type 							const_pointer;
+			typedef value_type &								reference;
+			typedef const value_type &							const_reference;
+			typedef typename std::ptrdiff_t						difference_type;
 
 			typedef typename std::random_access_iterator_tag 	iterator_category;
 
@@ -85,12 +85,14 @@ namespace ft
 
 			///   Pre
 			vector_iterator	&operator++()	{ ++(this->_ptr); return (*this);	}
+			vector_iterator	&operator--()	{ --(this->_ptr); return (*this);	}
 			///   Post
-			vector_iterator	operator++(int)	{ iterator tmp = *this; ++(this->_ptr); return (tmp);	}	// optional
+			vector_iterator	operator++(int)	{ vector_iterator tmp = *this; ++(this->_ptr); return (tmp);	}
+			vector_iterator	operator--(int) { vector_iterator tmp = *this; --(this->_ptr); return (tmp);	}
 
 			// operator	vector_iterator<const T> {	return vector_iterator<const T>(_ptr);	}	// conversion from const iterator to iterator
 
-			reference		operator* () { return (*_ptr); }
+			reference		operator* ()	{ return (*_ptr); }
 
 		// private:
 			pointer _ptr;

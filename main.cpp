@@ -6,13 +6,14 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/17 05:45:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/07/18 03:47:16 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <map>
 
 #include "./vector/vector.hpp"
 
@@ -134,10 +135,10 @@ void	test_vector()
 template<class BidirIt>
 void my_reverse(BidirIt first, BidirIt last)
 {
-    typename std::iterator_traits<BidirIt>::difference_type n = std::distance(first, last);
+    typename ft::iterator_traits<BidirIt>::difference_type n = std::distance(first, last);
     --n;
     while(n > 0) {
-        typename std::iterator_traits<BidirIt>::value_type tmp = *first;
+        typename ft::iterator_traits<BidirIt>::value_type tmp = *first;
         *first++ = *--last;
         *last = tmp;
         n -= 2;
@@ -155,11 +156,18 @@ int	main(void)
 	v.push_back(3);
 	v.push_back(4);
 
-    my_reverse(v.begin(), v.end());
-    for (int n : v) {
-        std::cout << n << ' ';
-    }
+	my_reverse(v.begin(), v.end());
+	for (int n : v) {
+		std::cout << n << ' ';
+	}
 
+	ft::iterator_traits<ft::vector<int>::iterator> tt;
+
+	typedef ft::iterator_traits<int*> traits;
+	if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
+		std::cout << "int* is a random-access iterator" << std::endl;
+
+	
 
 	return (0);
 }
