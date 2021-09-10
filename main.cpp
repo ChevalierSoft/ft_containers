@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 06:27:55 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/10 14:42:52 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,12 +138,32 @@ void	test_vector()
 	std::cout << "w count : " << w.size() << std::endl;
 
 	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
-	w.clear();
-	if (w.empty())
-		std::cout << "empty" << std::endl;
-	else
-		std::cout << "full" << std::endl;
+	// std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
+	// w.clear();
+	// if (w.empty())
+	// 	std::cout << "empty" << std::endl;
+	// else
+	// 	std::cout << "full" << std::endl;
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "at()" <<RST<< std::endl;
+
+	// const ft::vector<char> cc(v);
+
+	try
+	{
+		int &qwe = v.at(16);
+		std::cout << "v.at(16) : " << (char)qwe << std::endl;
+	}
+	catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
+	// try
+	// {
+	// 	const int qwe = c.at(1);
+	// 	std::cout << "v.at(2) : " << (char)qwe << std::endl;
+	// }
+	// catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
+	
+
 
 	// throw std::runtime_error("error test");
 }
@@ -163,9 +183,9 @@ void my_reverse(BidirIt first, BidirIt last)
 
 int	main(void)
 {
-	// test_vector();
+	test_vector();
 
-	ft::vector<int> v (7, 7);
+	ft::vector<int> v (5, 7);
 
 	my_reverse(v.begin(), v.end());
 	for (int n : v) {
@@ -178,7 +198,6 @@ int	main(void)
 	typedef ft::iterator_traits<int*> traits;
 	if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
 		std::cout << "int* is a random-access iterator" << std::endl;
-
 
 	return (0);
 }

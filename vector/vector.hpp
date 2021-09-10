@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/10 13:37:02 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/10 14:33:22 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "../iterator/iterator.h"
 #include "../utils/color.h"
 #include "../utils/ft_print_memory.h"
+#include "../utils/utils.hpp"
 
 /*
 must be reimplemented :
@@ -125,7 +126,6 @@ namespace ft
 		// vector (InputIterator first, InputIterator last,
 		// 	const allocator_type& alloc = allocator_type())
 		// {
-
 		// }
 
 		vector(const vector<T> & copy)
@@ -147,7 +147,7 @@ namespace ft
 			_value_chunk_size = 0;
 		}
 
-		vector<T> &	operator= (vector<T> & copy)	// should be const
+		vector<T> &	operator= (const vector<T> & copy)
 		{
 			vector_iterator i;	// this
 			vector_iterator j;	// copy
@@ -177,6 +177,27 @@ namespace ft
 
 		/// Element access _____________________________________________________
 
+		reference at( size_type pos )
+		{
+			std::string errmsg;
+
+			if (pos <= 0 || pos >= _value_count)
+			{
+				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
+			}
+			return (_value_data[pos]);
+		}
+
+		const_reference at( size_type pos ) const
+		{
+			if (pos <= 0 || pos >= _value_count)
+			{
+				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
+			}
+			return (_value_data[pos]);
+		}
+
+
 		/// Iterators __________________________________________________________
 
 		vector_iterator	begin() const		{ return vector_iterator(_value_data);					}
@@ -189,7 +210,7 @@ namespace ft
 
 		size_type		size() const		{ return _value_count;									}
 
-		size_type		max_size() const
+		size_type		max_size() const	// need to work on any machine
 		{
 			if (sizeof(T) == 1)
 				return ((size_type)-1) / (sizeof(T) + 1);
