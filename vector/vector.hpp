@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 06:27:18 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/10 13:37:02 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ namespace ft
 			_value_chunk_size = 0;
 		}
 
-		vector<T> &	operator=(vector<T> & copy)	// should be const
+		vector<T> &	operator= (vector<T> & copy)	// should be const
 		{
 			vector_iterator i;	// this
 			vector_iterator j;	// copy
@@ -232,7 +232,8 @@ namespace ft
 			if (_value_count >= _value_chunk_size)
 			{
 				data = _allocator.allocate(_value_size * (_value_count + 4));
-				_value_chunk_size = _value_count + 4;
+				_value_chunk_size *= 2;
+				// _value_chunk_size = _value_count + 4;
 
 				i = 0;
 				it = this->begin();
