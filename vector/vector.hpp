@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/13 16:00:06 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/13 17:24:53 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,14 +137,10 @@ namespace ft
 			_value_chunk_size = copy._value_chunk_size;
 		}
 
-		virtual	~vector(void)
+		virtual	~vector()
 		{
-			std::cout <<RED<< "vector destructor" <<RST<< std::endl;
+			// std::cout <<RED<< "vector destructor" <<RST<< std::endl;
 			_allocator.deallocate(_value_data, _value_chunk_size);
-			_value_data = NULL;
-			_value_size = 0;
-			_value_count = 0;
-			_value_chunk_size = 0;
 		}
 
 		vector<T> &	operator=(vector<T> & copy)	// should be const
@@ -152,7 +148,11 @@ namespace ft
 			vector_iterator i;	// this
 			vector_iterator j;	// copy
 
-			_allocator.deallocate(_value_data, _value_chunk_size);
+			if (*this == copy)
+				return (*this);
+
+			//_allocator.deallocate(_value_data, _value_chunk_size);
+			this->clear();
 
 			_value_data = _allocator.allocate(copy._value_size * copy._value_chunk_size);
 
@@ -189,13 +189,7 @@ namespace ft
 
 		size_type		size() const		{ return _value_count;									}
 
-		size_type		max_size() const
-		{
-			return (this->_allocator.max_size());	// deprecated in C++17
-			// if (sizeof(T) == 1)
-			// 	return ((size_type)-1) / (sizeof(T) + 1);
-			// return ((size_type)-1) / sizeof(T);
-		}
+		size_type		max_size() const	{ return (this->_allocator.max_size());					} // deprecated in C++17
 
 		size_type		capacity() const	{ return _value_count * _value_size;					}
 
@@ -262,6 +256,7 @@ namespace ft
 			}
 		}
 
+
 	// private:
 		pointer			_value_data;
 		size_t			_value_size;
@@ -272,5 +267,52 @@ namespace ft
 	}; // vector _______________________________________________________________
 
 } // namespace ft ______________________________________________________________
+
+
+/// Non-member functions _______________________________________________________
+
+template< class T, class Alloc >
+bool operator==(
+	const ft::vector<T, Alloc>& lhs,
+	const ft::vector<T, Alloc>& rhs )
+{
+	typename ft::vector<T, Alloc>::iterator il;
+	typename ft::vector<T, Alloc>::iterator ir;
+
+	if (lhs.size() != rhs.size())
+		return (false);
+	il = lhs.begin();
+	ir = rhs.begin();
+	while (il != lhs.end())
+		if ( *(il++) != *(ir++) )
+			return (false);
+	if (*il != *ir)
+		return (false);
+	return (true);
+}
+
+template< class T, class Alloc >
+bool operator!=( const ft::vector<T,Alloc>& lhs,
+				 const ft::vector<T,Alloc>& rhs )
+{
+	return (!(lhs == rhs));
+}
+
+template< class T, class Alloc >
+bool operator<( const ft::vector<T,Alloc>& lhs,
+                const ft::vector<T,Alloc>& rhs );
+
+template< class T, class Alloc >
+bool operator<=( const ft::vector<T,Alloc>& lhs,
+                 const ft::vector<T,Alloc>& rhs );
+
+
+template< class T, class Alloc >
+bool operator>( const ft::vector<T,Alloc>& lhs,
+                const ft::vector<T,Alloc>& rhs );
+
+template< class T, class Alloc >
+bool operator>=( const ft::vector<T,Alloc>& lhs,
+                 const ft::vector<T,Alloc>& rhs );
 
 #endif
