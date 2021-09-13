@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 06:27:55 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:59:28 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,21 +163,21 @@ void my_reverse(BidirIt first, BidirIt last)
 
 int	main(void)
 {
-	// test_vector();
+	test_vector();
 
-	ft::vector<int> v (7, 7);
+	// ft::vector<int> v (7, 7);
 
-	my_reverse(v.begin(), v.end());
-	for (int n : v) {
-		std::cout << n << ' ';
-	}
-	std::cout << std::endl;
+	// my_reverse(v.begin(), v.end());
+	// for (int n : v) {
+	// 	std::cout << n << ' ';
+	// }
+	// std::cout << std::endl;
 
-	ft::iterator_traits<ft::vector<int>::iterator> tt;
+	// ft::iterator_traits<ft::vector<int>::iterator> tt;
 
-	typedef ft::iterator_traits<int*> traits;
-	if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
-		std::cout << "int* is a random-access iterator" << std::endl;
+	// typedef ft::iterator_traits<int*> traits;
+	// if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
+	// 	std::cout << "int* is a random-access iterator" << std::endl;
 
 
 	return (0);

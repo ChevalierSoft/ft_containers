@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 06:27:18 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/13 16:00:06 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,9 +191,10 @@ namespace ft
 
 		size_type		max_size() const
 		{
-			if (sizeof(T) == 1)
-				return ((size_type)-1) / (sizeof(T) + 1);
-			return ((size_type)-1) / sizeof(T);
+			return (this->_allocator.max_size());	// deprecated in C++17
+			// if (sizeof(T) == 1)
+			// 	return ((size_type)-1) / (sizeof(T) + 1);
+			// return ((size_type)-1) / sizeof(T);
 		}
 
 		size_type		capacity() const	{ return _value_count * _value_size;					}
