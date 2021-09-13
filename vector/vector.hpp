@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/13 17:24:53 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/13 17:36:19 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "../iterator/iterator.h"
 #include "../utils/color.h"
 #include "../utils/ft_print_memory.h"
+#include "../utils/utils.hpp"
 
 /*
 must be reimplemented :
@@ -177,6 +178,26 @@ namespace ft
 
 		/// Element access _____________________________________________________
 
+		reference at( size_type pos )
+		{
+			std::string errmsg;
+
+			if (pos <= 0 || pos >= _value_count)
+			{
+				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
+			}
+			return (_value_data[pos]);
+		}
+
+		const_reference at( size_type pos ) const
+		{
+			if (pos <= 0 || pos >= _value_count)
+			{
+				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
+			}
+			return (_value_data[pos]);
+		}
+		
 		/// Iterators __________________________________________________________
 
 		vector_iterator	begin() const		{ return vector_iterator(_value_data);					}

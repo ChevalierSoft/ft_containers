@@ -138,12 +138,32 @@ void	test_vector()
 	std::cout << "w count : " << w.size() << std::endl;
 
 	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
-	w.clear();
-	if (w.empty())
-		std::cout << "empty" << std::endl;
-	else
-		std::cout << "full" << std::endl;
+	// std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
+	// w.clear();
+	// if (w.empty())
+	// 	std::cout << "empty" << std::endl;
+	// else
+	// 	std::cout << "full" << std::endl;
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "at()" <<RST<< std::endl;
+
+	// const ft::vector<char> cc(v);
+
+	try
+	{
+		int &qwe = v.at(16);
+		std::cout << "v.at(16) : " << (char)qwe << std::endl;
+	}
+	catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
+	// try
+	// {
+	// 	const int qwe = c.at(1);
+	// 	std::cout << "v.at(2) : " << (char)qwe << std::endl;
+	// }
+	// catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
+	
+
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "non member functions" <<RST<< std::endl;
@@ -185,7 +205,7 @@ int	main(void)
 {
 	test_vector();
 
-	// ft::vector<int> v (7, 7);
+	// ft::vector<int> v (5, 7);
 
 	// my_reverse(v.begin(), v.end());
 	// for (int n : v) {
@@ -198,7 +218,6 @@ int	main(void)
 	// typedef ft::iterator_traits<int*> traits;
 	// if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
 	// 	std::cout << "int* is a random-access iterator" << std::endl;
-
 
 	return (0);
 }
