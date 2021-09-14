@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/14 12:16:38 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/14 12:29:12 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,10 +302,12 @@ namespace ft
 		il = lhs.begin();
 		ir = rhs.begin();
 		while (il != lhs.end())
-			if ( *(il++) != *(ir++) )
+		{
+			if (ir == rhs.end() || *il != *ir)
 				return (false);
-		if (*il != *ir)
-			return (false);
+			++il;
+			++ir;
+		}
 		return (true);
 	}
 

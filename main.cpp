@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/14 12:20:50 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/14 12:24:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,8 @@ void	test_vector()
 	v.clear();
 	w.clear();
 	v.push_back(0x4C); v.push_back(0x55); v.push_back(0x4C);
-	w.push_back(0x4C); w.push_back(0x55); w.push_back(0x4C);
+	// w.push_back(0x4C); w.push_back(0x55); w.push_back(0x4C);
+	w = v;
 
 	if (v == w)	std::cout << "== working"<< std::endl;
 	else		std::cout<<RED<< "== NOT working" <<RST<<std::endl;
