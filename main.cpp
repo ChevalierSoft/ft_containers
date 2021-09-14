@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/14 12:24:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/14 13:26:42 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ std::ostream &	operator<< (std::ostream & o, const menfou & m)
 	o << "menfou : " << m.c << std::endl;
 	return o;
 }
-// _____________________________________________________________________________
 
+
+// _____________________________________________________________________________
 void	test_vector()
 {
 	ft::vector<int>				v;
@@ -65,14 +66,33 @@ void	test_vector()
 	std::cout << std::endl;
 
 	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "contructor by copy" <<RST<< std::endl;
+	ft::vector<int>				ww(v);
+	// v[0] = '0';
+	v.push_back(48);
+	for (auto & iv : ww)
+		std::cout << iv << " ";
+	std::cout << std::endl;
+	v.pop_back();
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "operator=" <<RST<< std::endl;
+	w.pop_back();
+	ww = v;
+	for (auto & iv : ww)
+		std::cout << iv << " ";
+	std::cout << std::endl;
+
+	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "pop_back()" <<RST<< std::endl;
 
 	v.pop_back();
 	v.pop_back();
 	v.pop_back();
+	v.pop_back();
+	v.pop_back();
 	
-	v.pop_back();
-	v.pop_back();
+	v.pop_back();		// one more
 	for (auto & iv : v)
 		std::cout << iv << " ";
 	std::cout << "(nothing should be printed)" << std::endl;
@@ -89,46 +109,51 @@ void	test_vector()
 	std::cout << std::endl;
 
 	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "operator =" <<RST<< std::endl;
-
-	w = v;
-	w.push_back('M');
-	w.push_back('D');
-	w.push_back('R');
-	for (auto & iw : w)
-		std::cout << iw << " ";
-	std::cout << std::endl;
-	ft_print_memory(reinterpret_cast<void *>(w._value_data), w._value_count * w._value_size);
-	std::cout << std::endl;
+	std::cout <<std::endl<<CYN<< "operator=" <<RST<< std::endl;
+	{
+		w = v;
+		w.push_back('M');
+		w.push_back('D');
+		w.push_back('R');
+		std::cout << std::endl << "mine             ";
+		for (auto & iw : w)
+			std::cout << iw << " ";
+		std::cout << std::endl << "should be        76 85 76 90 77 68 82"<< std::endl;
+		ft_print_memory(reinterpret_cast<void *>(w._value_data), w._value_count * w._value_size);
+		std::cout << std::endl;
+	}
+	
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "empty()" <<RST<< std::endl;
-
-	std::cout << "e : " << e.empty() << std::endl;
-	e.push_back('v');
-	std::cout << "e : " << e.empty() << std::endl;
-	e.pop_back();
-	std::cout << "e : " << e.empty() << std::endl;
+	{
+		std::cout << "e : " << e.empty() <<" (should be 1)"<< std::endl;
+		e.push_back('v');
+		std::cout << "e : " << e.empty() <<" (should be 0)"<< std::endl;
+		e.pop_back();
+		std::cout << "e : " << e.empty() <<" (should be 1)"<< std::endl;
+	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "max_size()" <<RST<< std::endl;
+	{
+		std::vector<int>			maxv;
+		std::vector<char>			maxc;
+		std::vector<std::string>	maxs;
+		std::vector<menfou>			mm;
+		std::vector<short>			th;
+		std::vector<long double>	ld;
+		ft::vector<menfou>			mf;
+		ft::vector<short>			sh;
+		ft::vector<long double>		sd;
 
-	std::vector<int>			maxv;
-	std::vector<char>			maxc;
-	std::vector<std::string>	maxs;
-	std::vector<menfou>			mm;
-	std::vector<short>			th;
-	std::vector<long double>	ld;
-	ft::vector<menfou>			mf;
-	ft::vector<short>			sh;
-	ft::vector<long double>		sd;
-
-	std::cout << "char :    " << maxc.max_size() << "\tmine : " << e.max_size() << std::endl;
-	std::cout << "short :   " << th.max_size() << "\tmine : " << sh.max_size() << std::endl;
-	std::cout << "int :     " << maxv.max_size() << "\tmine : " << w.max_size() << std::endl;
-	std::cout << "string :  " << maxs.max_size() << "\tmine : " << st.max_size() << std::endl;
-	std::cout << "struct :  " << mm.max_size() << "\tmine : " << mf.max_size() << std::endl;
-	std::cout << "l double :" << ld.max_size() << "\tmine : " << sd.max_size() << std::endl;
+		std::cout << "char     : " << maxc.max_size()	<< "\tmine : " << e.max_size() << std::endl;
+		std::cout << "short    : " << th.max_size()		<< "\tmine : " << sh.max_size() << std::endl;
+		std::cout << "int      : " << maxv.max_size()	<< "\tmine : " << w.max_size() << std::endl;
+		std::cout << "string   : " << maxs.max_size()	<< "\tmine : " << st.max_size() << std::endl;
+		std::cout << "struct   : " << mm.max_size()		<< "\tmine : " << mf.max_size() << std::endl;
+		std::cout << "l double : " << ld.max_size()		<< "\tmine : " << sd.max_size() << std::endl;
+	}
 
 
 	//__________________________________________________________________________
@@ -170,7 +195,7 @@ void	test_vector()
 	v.clear();
 	w.clear();
 	v.push_back(0x4C); v.push_back(0x55); v.push_back(0x4C);
-	// w.push_back(0x4C); w.push_back(0x55); w.push_back(0x4C);
+	w.push_back(0x4C); w.push_back(0x55); //w.push_back(0x4C);
 	w = v;
 
 	if (v == w)	std::cout << "== working"<< std::endl;
@@ -208,6 +233,8 @@ void	test_vector()
 	if (w >= v)	std::cout << ">= working"<< std::endl;
 	else		std::cout<<RED<< ">= NOT working" <<RST<<std::endl;
 
+
+
 	//__________________________________________________________________________
 
 }
@@ -229,7 +256,7 @@ int	main(void)
 {
 	test_vector();
 
-	// ft::vector<int> v (5, 7);
+	// ft::vector<int> v (9, 7);
 
 	// my_reverse(v.begin(), v.end());
 	// for (int n : v) {
@@ -242,6 +269,23 @@ int	main(void)
 	// typedef ft::iterator_traits<int*> traits;
 	// if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
 	// 	std::cout << "int* is a random-access iterator" << std::endl;
+
+	// ft::vector<int> v (9, 7);
+
+	// for (auto &i : v)
+	// 	std::cout<< i << " ";
+	// std::cout << std::endl;
+
+	// v.pop_back();
+	// v.clear();
+
+	// v.push_back(14);
+
+	// for (auto &i : v)
+	// 	std::cout<< i << " ";
+	// std::cout << std::endl;
+
+	// ft::vector<int> w(v);
 
 	return (0);
 }

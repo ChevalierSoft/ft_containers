@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/14 12:29:12 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/14 13:14:50 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ namespace ft
 
 		vector(void) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0)
 		{
-			_value_data = _allocator.allocate(_value_chunk_size);
+			// _value_data = _allocator.allocate(_value_chunk_size);
+			_value_data = NULL;
 		}
 
 		// vector(std::initializer_list<T> list) : vector()				// c++11
@@ -117,9 +118,8 @@ namespace ft
 
 		vector(difference_type nb, const T & elem) : vector()
 		{
-			for (int i = 0; i < nb; ++i) {
+			for (int i = 0; i < nb; ++i)
 				this->push_back(elem);
-			}
 		}
 
 		// template <class InputIterator>
@@ -131,6 +131,7 @@ namespace ft
 
 		vector(const vector<T> & copy)
 		{
+			_allocator = copy.get_allocator();
 			_value_data = _allocator.allocate(copy._value_size * copy._value_chunk_size);
 			std::copy(&copy._value_data[0], &copy._value_data[copy._value_count], _value_data);
 			_value_count = copy._value_count;
@@ -141,10 +142,11 @@ namespace ft
 		virtual	~vector()
 		{
 			// std::cout <<RED<< "vector destructor" <<RST<< std::endl;
+			this->clear();
 			_allocator.deallocate(_value_data, _value_chunk_size);
 		}
 
-		vector<T> &	operator=(vector<T> & copy)	// should be const
+		vector<T> &	operator= (vector<T> & copy)	// should be const
 		{
 			vector_iterator i;	// this
 			vector_iterator j;	// copy
@@ -152,8 +154,8 @@ namespace ft
 			if (*this == copy)
 				return (*this);
 
-			//_allocator.deallocate(_value_data, _value_chunk_size);
 			this->clear();
+			_allocator.deallocate(_value_data, _value_chunk_size);
 
 			_value_data = _allocator.allocate(copy._value_size * copy._value_chunk_size);
 
@@ -170,7 +172,7 @@ namespace ft
 			_value_count		= copy._value_count;
 			_value_chunk_size	= copy._value_chunk_size;
 
-			return *this;
+			return (*this);
 		}
 
 		/// assign() & get_allocator() _________________________________________
@@ -218,7 +220,8 @@ namespace ft
 
 		void			clear() {
 			for (ptrdiff_t i = 0; i < _value_count; ++i)
-				_value_data[i].value_type::~value_type();
+				// _value_data[i].value_type::~value_type();
+				_allocator.destroy(&_value_data[i]);
 			_value_count = 0;
 		}
 
@@ -290,9 +293,8 @@ namespace ft
 	/// Non-member functions _______________________________________________________
 	//   https://en.cppreference.com/w/cpp/container/vector/operator_cmp
 	template< class T, class Alloc >
-	bool operator==(
-		const ft::vector<T, Alloc>& lhs,
-		const ft::vector<T, Alloc>& rhs )
+	bool operator==( const ft::vector<T, Alloc>& lhs,
+					const ft::vector<T, Alloc>& rhs )
 	{
 		typename ft::vector<T, Alloc>::iterator il;
 		typename ft::vector<T, Alloc>::iterator ir;
@@ -351,7 +353,6 @@ namespace ft
 	}
 
 } // namespace ft ______________________________________________________________
-
 
 
 #endif
