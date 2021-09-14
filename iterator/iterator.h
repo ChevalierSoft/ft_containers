@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:36:08 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/07/18 04:18:35 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/14 14:13:26 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ namespace ft
 {
 
 	/// iterator_tags: empty types, used to distinguish different iterators.
-	struct input_iterator_tag { };
-	struct output_iterator_tag { };
-	struct forward_iterator_tag : public input_iterator_tag { };
-	struct bidirectional_iterator_tag : public forward_iterator_tag { };
-	struct random_access_iterator_tag : public bidirectional_iterator_tag { };
+	struct input_iterator_tag {};
+	struct output_iterator_tag {};
+	struct forward_iterator_tag : public input_iterator_tag {};
+	struct bidirectional_iterator_tag : public forward_iterator_tag {};
+	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 
 	// makes creation of iterator faster
 	template<typename _Category, typename _Tp, typename _Distance = ptrdiff_t,
@@ -49,8 +49,8 @@ namespace ft
 		typedef typename _Iterator::reference			reference;
 	};
 
-  /// Partial specialization for pointer types.
-  template<typename _Tp>
+	/// Partial specialization for pointer types.
+	template<typename _Tp>
 	struct iterator_traits<_Tp*>
 	{
 		typedef random_access_iterator_tag	iterator_category;
@@ -60,8 +60,8 @@ namespace ft
 		typedef _Tp&						reference;
 	};
 
-  /// Partial specialization for const pointer types.
-  template<typename _Tp>
+	/// Partial specialization for const pointer types.
+	template<typename _Tp>
 	struct iterator_traits<const _Tp*>
 	{
 		typedef random_access_iterator_tag	iterator_category;

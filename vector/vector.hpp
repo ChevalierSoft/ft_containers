@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/14 13:42:04 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/14 14:32:38 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <cmath>
 #include "../iterator/iterator.h"
+#include "../iterator/random_access_iterator.hpp"
 #include "../utils/color.h"
 #include "../utils/ft_print_memory.h"
 #include "../utils/utils.hpp"
@@ -37,75 +38,21 @@ namespace ft
 	class vector //_____________________________________________________________
 	{
 	public:
-		typedef T						value_type;
-		typedef value_type *			pointer;
-		typedef const value_type 		const_pointer;
-		typedef value_type &			reference;
-		typedef const value_type &		const_reference;
-		typedef typename std::ptrdiff_t	difference_type;
-		typedef size_t					size_type;
-		typedef Allocator				allocator_type;
-
-
-		/// Vector Iterator ____________________________________________________
-		class vector_iterator : public random_access_iterator_tag //_________
-		{
-		public:
-			typedef T											value_type;
-			typedef value_type *								pointer;
-			typedef const value_type 							const_pointer;
-			typedef value_type &								reference;
-			typedef const value_type &							const_reference;
-			typedef typename std::ptrdiff_t						difference_type;
-
-			typedef typename std::random_access_iterator_tag 	iterator_category;
-
-			vector_iterator() {}
-			vector_iterator(pointer x_t) : _ptr(x_t) {}
-			// vector_iterator(const difference_type rhs) : ft::iterator<T>(rhs) {}
-			~vector_iterator() {}
-			/// Member Operators
-			vector_iterator	&operator= (const vector_iterator &rhs)	{	_ptr = rhs._ptr; return (*this);	}
-
-			/// Equality Operators
-			bool	operator==(const vector_iterator &rhs) const	{ return (_ptr == rhs._ptr); }
-			bool	operator!=(const vector_iterator &rhs) const	{ return (_ptr != rhs._ptr); }
-			bool	operator<=(const vector_iterator &rhs) const	{ return (_ptr <= rhs._ptr); }
-			bool	operator>=(const vector_iterator &rhs) const	{ return (_ptr >= rhs._ptr); }
-			bool	operator< (const vector_iterator &rhs) const	{ return (_ptr < rhs._ptr);  }
-			bool	operator> (const vector_iterator &rhs) const	{ return (_ptr > rhs._ptr);  }
-
-			///  Dereferense
-			reference		operator[](difference_type rhs)			{ return (*(_ptr + rhs)); }
-			const_reference	operator[](difference_type rhs) const	{ return (*(_ptr + rhs)); }
-
-			///   Random access vvv
-			vector_iterator	operator+ (difference_type rhs)	{ vector_iterator	it(_ptr + rhs); return (it);		}
-			vector_iterator	operator- (difference_type rhs)	{ vector_iterator	it(_ptr - rhs); return (it);		}
-			difference_type	operator- (vector_iterator rhs)	{ difference_type	df(_ptr - rhs._ptr); return (df);	}
-
-			///   Pre
-			vector_iterator	&operator++()	{ ++(this->_ptr); return (*this);	}
-			vector_iterator	&operator--()	{ --(this->_ptr); return (*this);	}
-			///   Post
-			vector_iterator	operator++(int)	{ vector_iterator tmp = *this; ++(this->_ptr); return (tmp);	}
-			vector_iterator	operator--(int) { vector_iterator tmp = *this; --(this->_ptr); return (tmp);	}
-
-			// operator	vector_iterator<const T> {	return vector_iterator<const T>(_ptr);	}	// conversion from const iterator to iterator
-
-			reference		operator* ()	{ return (*_ptr); }
-
-		// private:
-			pointer _ptr;
-
-		};	// iterator _______________________________________________________
-		typedef vector_iterator iterator;
+		typedef T										value_type;
+		typedef value_type *							pointer;
+		typedef const value_type 						const_pointer;
+		typedef value_type &							reference;
+		typedef const value_type &						const_reference;
+		typedef typename std::ptrdiff_t					difference_type;
+		typedef size_t									size_type;
+		typedef Allocator								allocator_type;
+		typedef ft::random_access_iterator<T>			iterator;
+		typedef ft::random_access_iterator<const T>		const_iterator;
 
 		/// Constructors & Destructors _________________________________________
 
 		vector(void) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0)
 		{
-			// _value_data = _allocator.allocate(_value_chunk_size);
 			_value_data = NULL;
 		}
 
@@ -148,8 +95,8 @@ namespace ft
 
 		vector<T> &	operator= (vector<T> & copy)	// should be const
 		{
-			vector_iterator i;	// this
-			vector_iterator j;	// copy
+			iterator i;	// this
+			iterator j;	// copy
 
 			if (*this == copy)
 				return (*this);
@@ -198,9 +145,13 @@ namespace ft
 		
 		/// Iterators __________________________________________________________
 
-		vector_iterator	begin() const		{ return vector_iterator(_value_data);					}
+		iterator		begin() 			{ return _value_data;					}
 
-		vector_iterator end() const			{ return vector_iterator(_value_data + _value_count);	}
+		iterator		end() 				{ return (_value_data + _value_count);	}
+
+		const_iterator	begin() const		{ return (_value_data);					}
+
+		const_iterator	end() const			{ return (_value_data + _value_count);	}
 
 		/// Capacity ___________________________________________________________
 
@@ -240,7 +191,7 @@ namespace ft
 		{
 			pointer			data;
 			int				i;
-			vector_iterator	it;
+			iterator	it;
 
 			if (_value_count >= _value_chunk_size)
 			{
@@ -290,8 +241,8 @@ namespace ft
 	bool operator==( const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs )
 	{
-		typename ft::vector<T, Alloc>::iterator il;
-		typename ft::vector<T, Alloc>::iterator ir;
+		typename ft::vector<T, Alloc>::const_iterator il;
+		typename ft::vector<T, Alloc>::const_iterator ir;
 
 		if (lhs.size() != rhs.size())
 			return (false);
