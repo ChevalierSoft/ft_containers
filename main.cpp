@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/14 13:26:42 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/14 13:42:53 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,46 +67,49 @@ void	test_vector()
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "contructor by copy" <<RST<< std::endl;
-	ft::vector<int>				ww(v);
-	// v[0] = '0';
-	v.push_back(48);
-	for (auto & iv : ww)
-		std::cout << iv << " ";
-	std::cout << std::endl;
-	v.pop_back();
+	{
+		ft::vector<int>				ww(v);
+		// v[0] = '0';
+		v.push_back(48);
+		for (auto & iv : ww)
+			std::cout << iv << " ";
+		std::cout << std::endl;
+		ft::vector<int>				c(ww);
+		ft_print_memory(reinterpret_cast<void *>(c._value_data), c._value_count * c._value_size);
+		std::cout << std::endl;
+		v.pop_back();
+	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "operator=" <<RST<< std::endl;
-	w.pop_back();
-	ww = v;
-	for (auto & iv : ww)
-		std::cout << iv << " ";
-	std::cout << std::endl;
+	{
+		ft::vector<int>	ww(v);
+		w.pop_back();
+		ww = v;
+		for (auto & iv : ww)
+			std::cout << iv << " ";
+		std::cout << std::endl;
+
+	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "pop_back()" <<RST<< std::endl;
+	{
 
-	v.pop_back();
-	v.pop_back();
-	v.pop_back();
-	v.pop_back();
-	v.pop_back();
-	
-	v.pop_back();		// one more
-	for (auto & iv : v)
-		std::cout << iv << " ";
-	std::cout << "(nothing should be printed)" << std::endl;
-
-	v.push_back(0x4C);
-	v.push_back(0x55);
-	v.push_back(0x4C);
-	v.push_back(0x5A);
-
-	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "copy constructor" <<RST<< std::endl;
-	ft::vector<int>				c(w);
-	ft_print_memory(reinterpret_cast<void *>(c._value_data), c._value_count * c._value_size);
-	std::cout << std::endl;
+		v.pop_back();
+		v.pop_back();
+		v.pop_back();
+		v.pop_back();
+		v.pop_back();		
+		v.pop_back();		// one more
+		for (auto & iv : v)
+			std::cout << iv << " ";
+		std::cout << "(nothing should be printed)" << std::endl;
+		v.push_back(0x4C);
+		v.push_back(0x55);
+		v.push_back(0x4C);
+		v.push_back(0x5A);
+	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "operator=" <<RST<< std::endl;
@@ -158,38 +161,44 @@ void	test_vector()
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "size()" <<RST<< std::endl;
-
-	std::cout << "v count : " << v.size() << std::endl;
-	std::cout << "w count : " << w.size() << std::endl;
+	{
+		std::cout << "v count : " << v.size() << std::endl;
+		std::cout << "w count : " << w.size() << std::endl;
+	}
 
 	//__________________________________________________________________________
-	// std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
-	// w.clear();
-	// if (w.empty())
-	// 	std::cout << "empty" << std::endl;
-	// else
-	// 	std::cout << "full" << std::endl;
+	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
+	{
+		if (w.empty())
+			std::cout << "empty" << std::endl;
+		else
+			std::cout << "full" << std::endl;
+		w.clear();
+		if (w.empty())
+			std::cout << "empty" << std::endl;
+		else
+			std::cout << "full" << std::endl;
+	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "at()" <<RST<< std::endl;
-
-	// const ft::vector<char> cc(v);
-
-	try
 	{
-		int &qwe = v.at(16);
-		std::cout << "v.at(16) : " << (char)qwe << std::endl;
+		const ft::vector<int> cc(v);
+
+		try
+		{
+			int &qwe = v.at(16);
+			std::cout << "v.at(16) : " << (char)qwe << std::endl;
+		}
+		catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
+		try
+		{
+			const int qwe = cc.at(1);
+			std::cout << "cc.at(2) : " << (char)qwe << std::endl;
+		}
+		catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
 	}
-	catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
-	// try
-	// {
-	// 	const int qwe = c.at(1);
-	// 	std::cout << "v.at(2) : " << (char)qwe << std::endl;
-	// }
-	// catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
 	
-
-
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "non member functions" <<RST<< std::endl;
 	v.clear();

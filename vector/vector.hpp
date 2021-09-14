@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/14 13:14:50 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/14 13:42:04 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,18 +185,14 @@ namespace ft
 			std::string errmsg;
 
 			if (pos <= 0 || pos >= _value_count)
-			{
 				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
-			}
 			return (_value_data[pos]);
 		}
 
 		const_reference at( size_type pos ) const
 		{
 			if (pos <= 0 || pos >= _value_count)
-			{
 				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
-			}
 			return (_value_data[pos]);
 		}
 		
@@ -220,7 +216,6 @@ namespace ft
 
 		void			clear() {
 			for (ptrdiff_t i = 0; i < _value_count; ++i)
-				// _value_data[i].value_type::~value_type();
 				_allocator.destroy(&_value_data[i]);
 			_value_count = 0;
 		}
@@ -235,7 +230,6 @@ namespace ft
 		// insert by range
 		template <class InputIterator>
 		void insert(iterator position, InputIterator first, InputIterator last);
-
 
 		// void std::vector<T>::push_back(const T &obj)
 		// {
