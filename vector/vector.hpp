@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/13 18:37:36 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/14 12:16:38 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,60 +287,69 @@ namespace ft
 
 	}; // vector _______________________________________________________________
 
+	/// Non-member functions _______________________________________________________
+	//   https://en.cppreference.com/w/cpp/container/vector/operator_cmp
+	template< class T, class Alloc >
+	bool operator==(
+		const ft::vector<T, Alloc>& lhs,
+		const ft::vector<T, Alloc>& rhs )
+	{
+		typename ft::vector<T, Alloc>::iterator il;
+		typename ft::vector<T, Alloc>::iterator ir;
+
+		if (lhs.size() != rhs.size())
+			return (false);
+		il = lhs.begin();
+		ir = rhs.begin();
+		while (il != lhs.end())
+			if ( *(il++) != *(ir++) )
+				return (false);
+		if (*il != *ir)
+			return (false);
+		return (true);
+	}
+
+	template< class T, class Alloc >
+	bool operator!=( const ft::vector<T,Alloc>& lhs,
+					const ft::vector<T,Alloc>& rhs )
+	{
+		return ( !(lhs == rhs) );
+	}
+
+	template< class T, class Alloc >
+	bool operator< ( const ft::vector<T,Alloc>& lhs,
+					const ft::vector<T,Alloc>& rhs )
+	{
+		return ( ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) );
+	}
+
+	template< class T, class Alloc >
+	bool operator<=( const ft::vector<T,Alloc>& lhs,
+					const ft::vector<T,Alloc>& rhs )
+	{
+		if ( lhs < rhs || lhs == rhs )
+			return (true);
+		return (false);
+	}
+
+	template< class T, class Alloc >
+	bool operator> ( const ft::vector<T,Alloc>& lhs,
+					const ft::vector<T,Alloc>& rhs )
+	{
+		return ( ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()) );
+	}
+
+	template< class T, class Alloc >
+	bool operator>=( const ft::vector<T,Alloc>& lhs,
+					const ft::vector<T,Alloc>& rhs )
+	{
+		if ( lhs > rhs || lhs == rhs )
+			return (true);
+		return (false);
+	}
+
 } // namespace ft ______________________________________________________________
 
 
-/// Non-member functions _______________________________________________________
-//   https://en.cppreference.com/w/cpp/container/vector/operator_cmp
-template< class T, class Alloc >
-bool operator==(
-	const ft::vector<T, Alloc>& lhs,
-	const ft::vector<T, Alloc>& rhs )
-{
-	typename ft::vector<T, Alloc>::iterator il;
-	typename ft::vector<T, Alloc>::iterator ir;
-
-	if (lhs.size() != rhs.size())
-		return (false);
-	il = lhs.begin();
-	ir = rhs.begin();
-	while (il != lhs.end())
-		if ( *(il++) != *(ir++) )
-			return (false);
-	if (*il != *ir)
-		return (false);
-	return (true);
-}
-
-template< class T, class Alloc >
-bool operator!=( const ft::vector<T,Alloc>& lhs,
-				 const ft::vector<T,Alloc>& rhs )
-{
-	return ( !(lhs == rhs) );
-}
-
-template< class T, class Alloc >
-bool operator< ( const ft::vector<T,Alloc>& lhs,
-				const ft::vector<T,Alloc>& rhs )
-{
-	return ( ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()) );
-}
-
-template< class T, class Alloc >
-bool operator<=( const ft::vector<T,Alloc>& lhs,
-				 const ft::vector<T,Alloc>& rhs )
-{
-	if ( lhs < rhs || lhs == rhs )
-		return (true);
-	return (false);
-}
-
-template< class T, class Alloc >
-bool operator> ( const ft::vector<T,Alloc>& lhs,
-				 const ft::vector<T,Alloc>& rhs );
-
-template< class T, class Alloc >
-bool operator>=( const ft::vector<T,Alloc>& lhs,
-				 const ft::vector<T,Alloc>& rhs );
 
 #endif

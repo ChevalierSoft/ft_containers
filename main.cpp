@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/13 17:18:39 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/14 12:20:50 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,30 @@ void	test_vector()
 	if (v != w)	std::cout << "!= working"<< std::endl;
 	else		std::cout<<RED<< "!= NOT working" <<RST<<std::endl;
 
+	if (w < v)	std::cout << "> working"<< std::endl;
+	else		std::cout<<RED<< "> NOT working" <<RST<<std::endl;
+	if (v < w)	std::cout<<RED<< "> NOT working" <<RST<<std::endl;
+	else		std::cout << "> working"<< std::endl;
 
+	if (v > w)	std::cout << "> working"<< std::endl;
+	else		std::cout<<RED<< "> NOT working" <<RST<<std::endl;
+	if (w > v)	std::cout<<RED<< "> NOT working" <<RST<<std::endl;
+	else		std::cout << "> working"<< std::endl;
+
+	if (w <= v)	std::cout << "<= working"<< std::endl;
+	else		std::cout<<RED<< "<= NOT working" <<RST<<std::endl;
+	if (v <= w)	std::cout<<RED<< "<= NOT working" <<RST<<std::endl;
+	else		std::cout << "<= working"<< std::endl;
+	if (v >= w)	std::cout << ">= working"<< std::endl;
+	else		std::cout<<RED<< ">= NOT working" <<RST<<std::endl;
+	if (w >= v)	std::cout<<RED<< ">= NOT working" <<RST<<std::endl;
+	else		std::cout << ">= working"<< std::endl;
+
+	v.pop_back();
+	if (v <= w)	std::cout << "<= working"<< std::endl;
+	else		std::cout<<RED<< "<= NOT working" <<RST<<std::endl;
+	if (w >= v)	std::cout << ">= working"<< std::endl;
+	else		std::cout<<RED<< ">= NOT working" <<RST<<std::endl;
 
 	//__________________________________________________________________________
 
