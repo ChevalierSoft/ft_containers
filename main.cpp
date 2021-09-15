@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/15 16:35:26 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/15 17:05:54 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,21 +257,33 @@ void	test_iterator_2(const ft::vector<char> &v)
 	while (ri != v.rend())
 	{
 		std::cout << *ri << std::endl;
-		--ri;
+		ri++;
 	}
 }
 
 void	test_iterator()
 {
 	ft::vector<char>		v;
+	std::vector<char>		s;
 
-	v.push_back('a');
-	v.push_back('b');
-	v.push_back('c');
-	v.push_back('d');
-	v.push_back('e');
+	v.push_back('a'); v.push_back('b'); v.push_back('c'); v.push_back('d'); v.push_back('e');
+	s.push_back('a'); s.push_back('b'); s.push_back('c'); s.push_back('d'); s.push_back('e');
+	
+	// test_iterator_2(v);
 
-	test_iterator_2(v);
+	ft::vector<char>::const_reverse_iterator	ri = v.rbegin();	// need to finishe revers_iterator
+	// while (ri != v.rend())
+	// {
+	// 	std::cout << *ri << std::endl;
+	// 	++ri;
+	// }
+
+	std::vector<char>::const_reverse_iterator	rs = s.rbegin();
+	// while (rs != s.rend())
+	// {
+	// 	std::cout << *rs << std::endl;
+	// 	++rs;
+	// }
 
 }
 

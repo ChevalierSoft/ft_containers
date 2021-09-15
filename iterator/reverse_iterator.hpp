@@ -20,7 +20,8 @@ namespace ft
 		typedef ft::reverse_iterator<T>						iterator;
 		typedef ft::reverse_iterator<T>						vector_iterator;
 
-		typedef typename ft::random_access_iterator_tag 		iterator_category;
+		typedef typename ft::random_access_iterator_tag 	iterator_category;
+		// typedef ft::iterator_traits<random_access_iterator_tag>::iterator_category	iterator_category;
 
 		reverse_iterator() {}
 		reverse_iterator(pointer x_t) : _ptr(x_t) {}
@@ -42,16 +43,16 @@ namespace ft
 		const_reference		operator[](difference_type rhs) const	{ return (*(_ptr + rhs)); }
 
 		///   Random access vvv
-		reverse_iterator	operator+ (difference_type rhs)			{ reverse_iterator	it(_ptr + rhs); return (it);		}
-		reverse_iterator	operator- (difference_type rhs)			{ reverse_iterator	it(_ptr - rhs); return (it);		}
-		difference_type		operator- (reverse_iterator rhs)		{ difference_type	df(_ptr - rhs._ptr); return (df);	}
+		reverse_iterator	operator+ (difference_type rhs)			{ reverse_iterator	it(_ptr - rhs); return (it);		}
+		reverse_iterator	operator- (difference_type rhs)			{ reverse_iterator	it(_ptr + rhs); return (it);		}
+		// difference_type		operator- (reverse_iterator rhs)		{ difference_type	df(_ptr + rhs._ptr); return (df);	}	// not sure about this one
 
 		///   Pre
-		reverse_iterator	&operator++()	{ ++(this->_ptr); return (*this);	}
-		reverse_iterator	&operator--()	{ --(this->_ptr); return (*this);	}
+		reverse_iterator	&operator++()	{ --(this->_ptr); return (*this);	}
+		reverse_iterator	&operator--()	{ ++(this->_ptr); return (*this);	}
 		///   Post
-		reverse_iterator	operator++(int)	{ reverse_iterator tmp = *this; ++(this->_ptr); return (tmp);	}
-		reverse_iterator	operator--(int) { reverse_iterator tmp = *this; --(this->_ptr); return (tmp);	}
+		reverse_iterator	operator++(int)	{ reverse_iterator tmp = *this; --(this->_ptr); return (tmp);	}
+		reverse_iterator	operator--(int) { reverse_iterator tmp = *this; ++(this->_ptr); return (tmp);	}
 
 		// operator	reverse_iterator<const T> {	return reverse_iterator<const T>(_ptr);	}	// conversion from const iterator to iterator
 
@@ -60,7 +61,7 @@ namespace ft
 	// private:
 		pointer _ptr;
 
-	};	// reverse_iterator ______________________________________________
+	};	// reverse_iterator ____________________________________________________
 }
 
 #endif
