@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/14 14:25:46 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/15 16:35:26 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,31 @@ void	test_vector()
 
 }
 
+void	test_iterator_2(const ft::vector<char> &v)
+{
+	ft::vector<char>::const_reverse_iterator	ri = v.rbegin();
+
+	while (ri != v.rend())
+	{
+		std::cout << *ri << std::endl;
+		--ri;
+	}
+}
+
+void	test_iterator()
+{
+	ft::vector<char>		v;
+
+	v.push_back('a');
+	v.push_back('b');
+	v.push_back('c');
+	v.push_back('d');
+	v.push_back('e');
+
+	test_iterator_2(v);
+
+}
+
 template<class BidirIt>
 void my_reverse(BidirIt first, BidirIt last)
 {
@@ -265,7 +290,9 @@ void my_reverse(BidirIt first, BidirIt last)
 
 int	main(void)
 {
-	test_vector();
+	// test_vector();
+
+	test_iterator();
 
 	// ft::vector<int> v (9, 7);
 

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/14 14:32:38 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/15 16:35:37 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <cmath>
 #include "../iterator/iterator.h"
 #include "../iterator/random_access_iterator.hpp"
+#include "../iterator/reverse_iterator.hpp"
 #include "../utils/color.h"
 #include "../utils/ft_print_memory.h"
 #include "../utils/utils.hpp"
@@ -48,6 +49,8 @@ namespace ft
 		typedef Allocator								allocator_type;
 		typedef ft::random_access_iterator<T>			iterator;
 		typedef ft::random_access_iterator<const T>		const_iterator;
+		typedef ft::reverse_iterator<T>					reverse_iterator;
+		typedef ft::reverse_iterator<const T>			const_reverse_iterator;
 
 		/// Constructors & Destructors _________________________________________
 
@@ -123,11 +126,11 @@ namespace ft
 		}
 
 		/// assign() & get_allocator() _________________________________________
-		allocator_type	get_allocator() const { return this->_allocator; }
+		allocator_type			get_allocator() const { return this->_allocator; }
 
 		/// Element access _____________________________________________________
 
-		reference at( size_type pos )
+		reference				at( size_type pos )
 		{
 			std::string errmsg;
 
@@ -136,7 +139,7 @@ namespace ft
 			return (_value_data[pos]);
 		}
 
-		const_reference at( size_type pos ) const
+		const_reference			at( size_type pos ) const
 		{
 			if (pos <= 0 || pos >= _value_count)
 				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
@@ -145,23 +148,31 @@ namespace ft
 		
 		/// Iterators __________________________________________________________
 
-		iterator		begin() 			{ return _value_data;					}
+		iterator				begin() 		{ return ( _value_data );					}
 
-		iterator		end() 				{ return (_value_data + _value_count);	}
+		iterator				end() 			{ return ( _value_data + _value_count );	}
 
-		const_iterator	begin() const		{ return (_value_data);					}
+		const_iterator			begin() const	{ return ( _value_data );					}
 
-		const_iterator	end() const			{ return (_value_data + _value_count);	}
+		const_iterator			end() const		{ return ( _value_data + _value_count );	}
+
+		reverse_iterator		rbegin() 		{ return ( _value_data + _value_count - 1 );}
+
+		reverse_iterator		rend() 			{ return ( _value_data - 1 );				}
+
+		const_reverse_iterator	rbegin() const	{ return ( _value_data + _value_count - 1 );}
+
+		const_reverse_iterator	rend() const	{ return ( _value_data - 1);				}
 
 		/// Capacity ___________________________________________________________
 
-		bool			empty() const		{ return (_value_count == 0);							}
+		bool					empty() const		{ return ( _value_count == 0 );			}
 
-		size_type		size() const		{ return _value_count;									}
+		size_type				size() const		{ return ( _value_count );				}
 
-		size_type		max_size() const	{ return (this->_allocator.max_size());					} // deprecated in C++17
+		size_type				max_size() const	{ return this->_allocator.max_size();	} // deprecated in C++17
 
-		size_type		capacity() const	{ return _value_count * _value_size;					}
+		size_type				capacity() const	{ return ( _value_count * _value_size );}
 
 		/// Modifiers __________________________________________________________
 

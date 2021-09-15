@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:36:08 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/14 14:13:26 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/15 16:07:15 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,23 @@ namespace ft
 		typedef const _Tp&					reference;
 	};
 
-	template<typename _Iterator>
-	class reverse_iterator :
-		public iterator<typename iterator_traits<_Iterator>::iterator_category,
-			typename iterator_traits<_Iterator>::value_type,
-			typename iterator_traits<_Iterator>::difference_type,
-			typename iterator_traits<_Iterator>::pointer,
-			typename iterator_traits<_Iterator>::reference>
-	{
-	protected:
-		_Iterator							current;
-		typedef iterator_traits<_Iterator>	__traits_type;
-	public:
-		typedef _Iterator								iterator_type;
-		typedef typename __traits_type::difference_type	difference_type;
-		typedef typename __traits_type::pointer			pointer;
-		typedef typename __traits_type::reference		reference;
-	};
+	// template<typename _Iterator>
+	// class reverse_iterator :
+	// 	public iterator<typename iterator_traits<_Iterator>::iterator_category,
+	// 		typename iterator_traits<_Iterator>::value_type,
+	// 		typename iterator_traits<_Iterator>::difference_type,
+	// 		typename iterator_traits<_Iterator>::pointer,
+	// 		typename iterator_traits<_Iterator>::reference>
+	// {
+	// protected:
+	// 	_Iterator							current;
+	// 	typedef iterator_traits<_Iterator>	__traits_type;
+	// public:
+	// 	typedef _Iterator								iterator_type;
+	// 	typedef typename __traits_type::difference_type	difference_type;
+	// 	typedef typename __traits_type::pointer			pointer;
+	// 	typedef typename __traits_type::reference		reference;
+	// };
 
 	// template< class Iter >
 	// struct iterator_traits< Iter * >
