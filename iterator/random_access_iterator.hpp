@@ -38,13 +38,16 @@ namespace ft
 		bool	operator> (const random_access_iterator &rhs) const	{ return (_ptr > rhs._ptr);  }
 
 		///  Dereferense
-		reference		operator[](difference_type rhs)			{ return (*(_ptr + rhs)); }
-		const_reference	operator[](difference_type rhs) const	{ return (*(_ptr + rhs)); }
+		reference				operator[](difference_type rhs)			{ return (*(_ptr + rhs)); }
+		const_reference			operator[](difference_type rhs) const	{ return (*(_ptr + rhs)); }
 
 		///   Random access vvv
-		random_access_iterator	operator+ (difference_type rhs)	{ random_access_iterator	it(_ptr + rhs); return (it);		}
-		random_access_iterator	operator- (difference_type rhs)	{ random_access_iterator	it(_ptr - rhs); return (it);		}
-		difference_type	operator- (random_access_iterator rhs)	{ difference_type	df(_ptr - rhs._ptr); return (df);	}
+		random_access_iterator	operator+ (difference_type rhs)			{ random_access_iterator	it(_ptr + rhs); return (it);		}
+		random_access_iterator	operator- (difference_type rhs)			{ random_access_iterator	it(_ptr - rhs); return (it);		}
+		difference_type			operator- (random_access_iterator rhs)	{ difference_type			df(_ptr - rhs._ptr); return (df);	}
+
+		random_access_iterator&	operator+=(const difference_type rhs)	{ _ptr += rhs; return ( *this );	}
+		random_access_iterator&	operator-=(const difference_type rhs)	{ _ptr -= rhs; return ( *this );	}
 
 		///   Pre
 		random_access_iterator	&operator++()	{ ++(this->_ptr); return (*this);	}
@@ -55,7 +58,7 @@ namespace ft
 
 		// operator	random_access_iterator<const T> {	return random_access_iterator<const T>(_ptr);	}	// conversion from const iterator to iterator
 
-		reference		operator* ()	{ return (*_ptr); }
+		reference				operator* ()	{ return (*_ptr); }
 
 	// private:
 		pointer _ptr;

@@ -47,22 +47,10 @@ namespace ft
 		///   Random access vvv
 		reverse_iterator	operator+ (difference_type rhs)			{ reverse_iterator	it(_ptr - rhs); return (it);		}
 		reverse_iterator	operator- (difference_type rhs)			{ reverse_iterator	it(_ptr + rhs); return (it);		}
-		// difference_type		operator- (reverse_iterator rhs)		{ difference_type	df(_ptr + rhs._ptr); return (df);	}	// not sure about this one
+		difference_type		operator- (reverse_iterator rhs)		{ difference_type	df(_ptr + rhs._ptr); return (df);	}	// not sure about this one
 
-	// 	    _CONSIterEXPR20_CONIterAINER _Vector_const_iterator& operator-=(const difference_type _Off) noexcept {
-    //     return *this += -_Off;
-    // }
-
-    // _NODISCARD _CONSIterEXPR20_CONIterAINER _Vector_const_iterator operator-(const difference_type _Off) const noexcept {
-    //     _Vector_const_iterator _Itermp = *this;
-    //     _Itermp -= _Off; // IterRANSIIterION, LLVM-49342
-    //     return _Itermp;
-    // }
-
-    // _NODISCARD _CONSIterEXPR20_CONIterAINER difference_type operator-(const _Vector_const_iterator& _Right) const noexcept {
-    //     _Compat(_Right);
-    //     return _Ptr - _Right._Ptr;
-    // }
+		reverse_iterator&	operator+=(const difference_type rhs)	{ _ptr -= rhs; return ( *this );	}
+		reverse_iterator&	operator-=(const difference_type rhs)	{ _ptr += rhs; return ( *this );	}
 
 		///   Pre
 		reverse_iterator	&operator++()	{ --(this->_ptr); return (*this);	}
