@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/15 17:00:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/17 17:00:09 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ namespace ft
 		typedef Allocator								allocator_type;
 		typedef ft::random_access_iterator<T>			iterator;
 		typedef ft::random_access_iterator<const T>		const_iterator;
-		typedef ft::reverse_iterator<T>					reverse_iterator;
-		typedef ft::reverse_iterator<const T>			const_reverse_iterator;
+		// typedef ft::reverse_iterator<T>				reverse_iterator;
+		// typedef ft::reverse_iterator<const T>		const_reverse_iterator;
+		typedef ft::reverse_iterator<iterator>			reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
 		/// Constructors & Destructors _________________________________________
 
@@ -156,11 +158,11 @@ namespace ft
 
 		const_iterator			end() const		{ return ( _value_data + _value_count );	}
 
-		reverse_iterator		rbegin() 		{ return ( _value_data + _value_count - 1 );}
+		reverse_iterator		rbegin() 		{ return ( reverse_iterator( _value_data + _value_count - 1 ) );}
 
 		reverse_iterator		rend() 			{ return ( _value_data - 1 );				}
 
-		const_reverse_iterator	rbegin() const	{ return ( _value_data + _value_count - 1 );}
+		const_reverse_iterator	rbegin() const	{ return ( const_iterator(_value_data + _value_count - 1 ));}
 
 		const_reverse_iterator	rend() const	{ return ( _value_data - 1);				}
 
