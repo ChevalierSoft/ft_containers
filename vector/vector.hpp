@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/17 17:00:09 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/25 09:16:12 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,13 +158,13 @@ namespace ft
 
 		const_iterator			end() const		{ return ( _value_data + _value_count );	}
 
-		reverse_iterator		rbegin() 		{ return ( reverse_iterator( _value_data + _value_count - 1 ) );}
+		reverse_iterator		rbegin() 		{ return reverse_iterator( _value_data + _value_count - 1 );}
 
-		reverse_iterator		rend() 			{ return ( _value_data - 1 );				}
+		reverse_iterator		rend() 			{ return reverse_iterator( _value_data - 1 );				}
 
-		const_reverse_iterator	rbegin() const	{ return ( const_iterator(_value_data + _value_count - 1 ));}
+		const_reverse_iterator	rbegin() const	{ return const_reverse_iterator( _value_data + _value_count - 1 );	}
 
-		const_reverse_iterator	rend() const	{ return ( _value_data - 1);				}
+		const_reverse_iterator	rend() const	{ return const_reverse_iterator( _value_data - 1 );			}
 
 		/// Capacity ___________________________________________________________
 
@@ -232,7 +232,8 @@ namespace ft
 
 		}
 
-		void			pop_back() {
+		void			pop_back()
+		{
 			if (_value_count > 0) {
 				--_value_count;
 			}
@@ -248,7 +249,7 @@ namespace ft
 
 	}; // vector _______________________________________________________________
 
-	/// Non-member functions _______________________________________________________
+	/// Non-member functions ___________________________________________________
 	//   https://en.cppreference.com/w/cpp/container/vector/operator_cmp
 	template< class T, class Alloc >
 	bool operator==( const ft::vector<T, Alloc>& lhs,

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/17 17:22:18 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/25 09:34:33 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,16 +250,16 @@ void	test_vector()
 
 }
 
-// void	test_iterator_2(const ft::vector<char> &v)
-// {
-// 	ft::vector<char>::const_reverse_iterator	ri = v.rbegin();
+void	test_iterator_2(const ft::vector<char> &v)
+{
+	// ft::vector<char>::const_reverse_iterator	ri = v.rbegin();
 
-// 	while (ri != v.rend())
-// 	{
-// 		std::cout << *ri << std::endl;
-// 		ri++;
-// 	}
-// }
+	// while (ri != v.rend())
+	// {
+	// 	std::cout << *ri << std::endl;
+	// 	++ri;
+	// }
+}
 
 void	test_iterator()
 {
@@ -270,29 +270,38 @@ void	test_iterator()
 	s.push_back('a'); s.push_back('b'); s.push_back('c'); s.push_back('d'); s.push_back('e');
 	
 	// test_iterator_2(v);
+	// test_iterator_2(s);
 
-	ft::vector<char>::reverse_iterator	ri = v.rbegin();	// need to finish reverse_iterator
+	ft::vector<char>::const_reverse_iterator	cri = v.rbegin();
+	ft::vector<char>::reverse_iterator			ri = v.rbegin();
+	if (cri == ri)
+		std::cout << "cri == ri" << std::endl;
+	while (cri != v.rend())
+	{
+		std::cout << *cri << "_";
+		++cri;
+	}
+	// ri = v.rbegin();
+	// ri += 2;
+	// ri -= 1;
+	// std::cout << std::endl << *ri << std::endl;
 
-	ri += 2;
-	ri -= 1;
-	// while (ri != v.rend())
-	// {
-		std::cout << *ri << " ";
-	// 	++ri;
-	// }
-	std::cout << std::endl;
-	// if ()
+	std::vector<char>::const_reverse_iterator	crs = s.rbegin();
+	// std::vector<char>::reverse_iterator	rs = s.rbegin();
+	// if (crs == rs)
+	// 	std::cout << "crs == rs" << std::endl;
 
-	std::vector<char>::reverse_iterator	rs = s.rbegin();
+	while (crs != s.rend())
+	{
+		std::cout << *crs << " ";
+		++crs;
+	}
 
-	rs += 2;
-	rs -= 1;
-	// while (rs != s.rend())
-	// {
-		std::cout << *rs << " ";
-	// 	++rs;
-	// }
-	std::cout << std::endl;
+	// crs = s.rbegin();
+	// crs += 2;
+	// crs -= 1;
+	// std::cout << std::endl << *crs << std::endl;
+
 }
 
 template<class BidirIt>
