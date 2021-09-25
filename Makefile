@@ -6,13 +6,13 @@
 #    By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/12 12:55:09 by dait-atm          #+#    #+#              #
-#    Updated: 2021/07/13 03:03:44 by dait-atm         ###   ########.fr        #
+#    Updated: 2021/09/25 08:01:53 by dait-atm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= a.out
 FLAGS	= #-std=c++98 #-Wall -Wextra -Werror
-FLAGS	+= -g
+FLAGS	+= -g #-fsanitize=address
 SRCS	= main.cpp
 
 ifeq ($(OS),Windows_NT)
