@@ -89,11 +89,9 @@ namespace ft
 	// 					const reverse_iterator<Iter_R>& rhs) { return (lhs.base() != rhs.base()); }
 
 	// /* For reverser_iterator == const_reverse_iterator */
-	template <class Iter_L, class Iter_R>
-		bool operator== (const reverse_iterator<Iter_L>& lhs,
-						const reverse_iterator<Iter_R>& rhs) { return (lhs.base() == rhs.base()); }
-
-
+	// template <class Iter_L, class Iter_R>
+	// bool operator== (const reverse_iterator<Iter_L>& lhs,
+	// 					const reverse_iterator<Iter_R>& rhs) { return (lhs.base() == rhs.base()); }
 
 
 }

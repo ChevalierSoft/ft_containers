@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/25 09:34:33 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/28 01:48:02 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,9 +287,9 @@ void	test_iterator()
 	// std::cout << std::endl << *ri << std::endl;
 
 	std::vector<char>::const_reverse_iterator	crs = s.rbegin();
-	// std::vector<char>::reverse_iterator	rs = s.rbegin();
-	// if (crs == rs)
-	// 	std::cout << "crs == rs" << std::endl;
+	std::vector<char>::reverse_iterator	rs = s.rbegin();
+	if (crs != rs)
+		std::cout << "crs == rs" << std::endl;
 
 	while (crs != s.rend())
 	{
