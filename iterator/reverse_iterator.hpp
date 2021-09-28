@@ -45,10 +45,10 @@ namespace ft
 		// /// Equality Operators
 		bool	operator==(const reverse_iterator &rhs) const	{ return (_it == rhs.get_it()); }
 		bool	operator!=(const reverse_iterator &rhs) const	{ return (_it != rhs.get_it()); }
-		// bool	operator<=(const reverse_iterator &rhs) const	{ return (_ptr <= rhs._ptr); }
-		// bool	operator>=(const reverse_iterator &rhs) const	{ return (_ptr >= rhs._ptr); }
-		// bool	operator< (const reverse_iterator &rhs) const	{ return (_ptr < rhs._ptr);  }
-		// bool	operator> (const reverse_iterator &rhs) const	{ return (_ptr > rhs._ptr);  }
+		bool	operator<=(const reverse_iterator &rhs) const	{ return (_it <= rhs.get_it()); }
+		bool	operator>=(const reverse_iterator &rhs) const	{ return (_it >= rhs.get_it()); }
+		bool	operator< (const reverse_iterator &rhs) const	{ return (_it < rhs.get_it());  }
+		bool	operator> (const reverse_iterator &rhs) const	{ return (_it > rhs.get_it());  }
 
 		// ///  Dereferense
 		// reference			operator[](difference_type rhs)			{ return (*(_ptr + rhs)); }
@@ -59,8 +59,8 @@ namespace ft
 		// reverse_iterator	operator- (difference_type rhs)			{ reverse_iterator	it(_ptr + rhs); return (it);		}
 		// difference_type		operator- (reverse_iterator rhs)		{ difference_type	df(_ptr + rhs._ptr); return (df);	}	// not sure about this one
 
-		// reverse_iterator&	operator+=(const difference_type rhs)	{ _ptr -= rhs; return ( *this );	}
-		// reverse_iterator&	operator-=(const difference_type rhs)	{ _ptr += rhs; return ( *this );	}
+		reverse_iterator&	operator+=(const difference_type rhs)	{ _it -= rhs; return ( *this );	}
+		reverse_iterator&	operator-=(const difference_type rhs)	{ _it += rhs; return ( *this );	}
 
 		// ///   Pre
 		// reverse_iterator	&operator++()	{ --(this->_ptr); return (*this);	}

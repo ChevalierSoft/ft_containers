@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/28 01:48:02 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/28 02:11:33 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,55 +252,77 @@ void	test_vector()
 
 void	test_iterator_2(const ft::vector<char> &v)
 {
-	// ft::vector<char>::const_reverse_iterator	ri = v.rbegin();
+	ft::vector<char>::const_reverse_iterator	ri = v.rbegin();
 
-	// while (ri != v.rend())
-	// {
-	// 	std::cout << *ri << std::endl;
-	// 	++ri;
-	// }
+	while (ri != v.rend())
+	{
+		std::cout << *ri << "_";
+		++ri;
+	}
+	std::cout << std::endl;
 }
 
 void	test_iterator()
 {
-	ft::vector<char>		v;
-	std::vector<char>		s;
+	ft::vector<char>							v;
+	ft::vector<char>::const_reverse_iterator	cri;
+	ft::vector<char>::reverse_iterator			ri;
+	std::vector<char>							s;
+	std::vector<char>::const_reverse_iterator	crs;
+	std::vector<char>::reverse_iterator			rs;
 
 	v.push_back('a'); v.push_back('b'); v.push_back('c'); v.push_back('d'); v.push_back('e');
 	s.push_back('a'); s.push_back('b'); s.push_back('c'); s.push_back('d'); s.push_back('e');
-	
-	// test_iterator_2(v);
+	// egualities between const_reverse_iterator and reverse_iterator
+	{
+		cri = v.rbegin();
+		ri = v.rbegin();
+		crs = s.rbegin();
+		rs = s.rbegin();
+		if (cri == ri)
+			std::cout << "cri == ri" << std::endl;
+		if (cri != ri)
+			std::cout << "cri != ri" << std::endl;
+		if (crs == rs)
+			std::cout <<GRN<< "crs == rs" <<RST<< std::endl;
+		if (crs != rs)
+			std::cout <<GRN<< "crs != rs" <<RST<< std::endl;
+	}
+	test_iterator_2(v);
 	// test_iterator_2(s);
 
-	ft::vector<char>::const_reverse_iterator	cri = v.rbegin();
-	ft::vector<char>::reverse_iterator			ri = v.rbegin();
-	if (cri == ri)
-		std::cout << "cri == ri" << std::endl;
-	while (cri != v.rend())
+	// test const_reverse_iterator
 	{
-		std::cout << *cri << "_";
-		++cri;
+		cri = v.rbegin();
+		while (cri != v.rend())
+		{
+			std::cout << *cri << "_";
+			++cri;
+		}
+		cri = v.rbegin();
+		cri += 2;
+		cri -= 1;
+		std::cout << std::endl << *cri << std::endl;
 	}
-	// ri = v.rbegin();
-	// ri += 2;
-	// ri -= 1;
-	// std::cout << std::endl << *ri << std::endl;
-
-	std::vector<char>::const_reverse_iterator	crs = s.rbegin();
-	std::vector<char>::reverse_iterator	rs = s.rbegin();
-	if (crs != rs)
-		std::cout << "crs == rs" << std::endl;
-
-	while (crs != s.rend())
 	{
-		std::cout << *crs << " ";
-		++crs;
+		crs = s.rbegin();
+		while (crs != s.rend())
+		{
+			std::cout <<GRN<< *crs << " ";
+			++crs;
+		}
+		crs = s.rbegin();
+		crs += 2;
+		crs -= 1;
+		std::cout << std::endl << *crs <<RST<< std::endl;
 	}
 
-	// crs = s.rbegin();
-	// crs += 2;
-	// crs -= 1;
-	// std::cout << std::endl << *crs << std::endl;
+	ft::iterator_traits<ft::vector<int>::iterator> tt;
+
+	typedef ft::iterator_traits<int*> traits;
+	if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
+		std::cout << "int* is a random-access iterator" << std::endl;
+
 
 }
 
@@ -322,37 +344,6 @@ int	main(void)
 	// test_vector();
 
 	test_iterator();
-
-	// ft::vector<int> v (9, 7);
-
-	// my_reverse(v.begin(), v.end());
-	// for (int n : v) {
-	// 	std::cout << n << ' ';
-	// }
-	// std::cout << std::endl;
-
-	// ft::iterator_traits<ft::vector<int>::iterator> tt;
-
-	// typedef ft::iterator_traits<int*> traits;
-	// if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
-	// 	std::cout << "int* is a random-access iterator" << std::endl;
-
-	// ft::vector<int> v (9, 7);
-
-	// for (auto &i : v)
-	// 	std::cout<< i << " ";
-	// std::cout << std::endl;
-
-	// v.pop_back();
-	// v.clear();
-
-	// v.push_back(14);
-
-	// for (auto &i : v)
-	// 	std::cout<< i << " ";
-	// std::cout << std::endl;
-
-	// ft::vector<int> w(v);
 
 	return (0);
 }
