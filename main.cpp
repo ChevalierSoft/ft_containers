@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/28 03:27:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/28 03:37:02 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,6 +304,8 @@ void	test_iterator()
 	std::cout <<std::endl<<CYN<< "const_reverse_iterator" <<RST<< std::endl;
 	{
 		cri = v.rbegin();
+		ri = v.rbegin();
+		// ri = v.begin();			// possible in ft::, not possible in std::
 		while (cri != v.rend())
 		{
 			std::cout << *cri << " ";
@@ -313,9 +315,13 @@ void	test_iterator()
 		cri += 2;
 		cri -= 1;
 		std::cout << std::endl << *cri << std::endl;
+		cri = ri;
+		// ri = cri;
+		std::cout << *cri << std::endl;
 	}
 	{
 		crs = s.rbegin();
+		rs = s.rbegin();
 		while (crs != s.rend())
 		{
 			std::cout <<GRN<< *crs << " ";
@@ -324,7 +330,10 @@ void	test_iterator()
 		crs = s.rbegin();
 		crs += 2;
 		crs -= 1;
-		std::cout << std::endl << *crs <<RST<< std::endl;
+		std::cout << std::endl << *crs << std::endl;
+		crs = rs;
+		// rs = crs;
+		std::cout << *crs <<RST<< std::endl;
 	}
 
 	//__________________________________________________________________________

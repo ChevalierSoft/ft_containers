@@ -69,7 +69,7 @@ namespace ft
 		reverse_iterator	operator++(int)	{ reverse_iterator tmp = _it; --_it; return (tmp);	}
 		reverse_iterator	operator--(int) { reverse_iterator tmp = _it; ++_it; return (tmp);	}
 
-		// // operator	reverse_iterator<const Iter> {	return reverse_iterator<const Iter>(_ptr);	}	// conversion from const iterator to iterator
+		// operator	reverse_iterator<const Iter> {	return reverse_iterator<const Iter>(_it.base*());	}	// conversion from const iterator to iterator
 
 		reference			operator* ()	{ return (*_it); }
 		reference			operator->()	{ return &(*_it.operator->()); }
