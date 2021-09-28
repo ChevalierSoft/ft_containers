@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/28 04:03:47 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/28 06:02:34 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,7 @@ public:
 	~menfou() { std::cout << "~menfou" << std::endl;	}
 };
 int		menfou::_nb = 0;
-std::ostream &	operator<< (std::ostream & o, const menfou & m)
-{
-	// o << "menfou : " << m.a << " " << m.b << " " << m.c << " " << m.d << std::endl;
-	o << "menfou : " << m.c << std::endl;
-	return o;
-}
-
+std::ostream &	operator<< (std::ostream & o, const menfou & m) { o << "menfou : " << m.c << std::endl;	return o; }
 
 // _____________________________________________________________________________
 void	test_vector()
@@ -203,53 +197,67 @@ void	test_vector()
 	
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "non member functions" <<RST<< std::endl;
-	v.clear();
-	w.clear();
-	v.push_back(0x4C); v.push_back(0x55); v.push_back(0x4C);
-	w.push_back(0x4C); w.push_back(0x55); //w.push_back(0x4C);
-	w = v;
+	{
+		v.clear();
+		w.clear();
+		v.push_back(0x4C); v.push_back(0x55); v.push_back(0x4C);
+		w.push_back(0x4C); w.push_back(0x55); //w.push_back(0x4C);
+		w = v;
 
-	if (v == w)	std::cout << "== working"<< std::endl;
-	else		std::cout<<RED<< "== NOT working" <<RST<<std::endl;
-	if (v != w)	std::cout<<RED<< "!= NOT working" <<RST<<std::endl;
-	else		std::cout << "!= working"<< std::endl;
-	v.push_back('Z');
-	if (v == w)	std::cout<<RED<< "== NOT working" <<RST<<std::endl;
-	else		std::cout << "== working"<< std::endl;
-	if (v != w)	std::cout << "!= working"<< std::endl;
-	else		std::cout<<RED<< "!= NOT working" <<RST<<std::endl;
+		if (v == w)	std::cout << "== working"<< std::endl;
+		else		std::cout<<RED<< "== NOT working" <<RST<<std::endl;
+		if (v != w)	std::cout<<RED<< "!= NOT working" <<RST<<std::endl;
+		else		std::cout << "!= working"<< std::endl;
+		v.push_back('Z');
+		if (v == w)	std::cout<<RED<< "== NOT working" <<RST<<std::endl;
+		else		std::cout << "== working"<< std::endl;
+		if (v != w)	std::cout << "!= working"<< std::endl;
+		else		std::cout<<RED<< "!= NOT working" <<RST<<std::endl;
 
-	if (w < v)	std::cout << "> working"<< std::endl;
-	else		std::cout<<RED<< "> NOT working" <<RST<<std::endl;
-	if (v < w)	std::cout<<RED<< "> NOT working" <<RST<<std::endl;
-	else		std::cout << "> working"<< std::endl;
+		if (w < v)	std::cout << "> working"<< std::endl;
+		else		std::cout<<RED<< "> NOT working" <<RST<<std::endl;
+		if (v < w)	std::cout<<RED<< "> NOT working" <<RST<<std::endl;
+		else		std::cout << "> working"<< std::endl;
 
-	if (v > w)	std::cout << "> working"<< std::endl;
-	else		std::cout<<RED<< "> NOT working" <<RST<<std::endl;
-	if (w > v)	std::cout<<RED<< "> NOT working" <<RST<<std::endl;
-	else		std::cout << "> working"<< std::endl;
+		if (v > w)	std::cout << "> working"<< std::endl;
+		else		std::cout<<RED<< "> NOT working" <<RST<<std::endl;
+		if (w > v)	std::cout<<RED<< "> NOT working" <<RST<<std::endl;
+		else		std::cout << "> working"<< std::endl;
 
-	if (w <= v)	std::cout << "<= working"<< std::endl;
-	else		std::cout<<RED<< "<= NOT working" <<RST<<std::endl;
-	if (v <= w)	std::cout<<RED<< "<= NOT working" <<RST<<std::endl;
-	else		std::cout << "<= working"<< std::endl;
-	if (v >= w)	std::cout << ">= working"<< std::endl;
-	else		std::cout<<RED<< ">= NOT working" <<RST<<std::endl;
-	if (w >= v)	std::cout<<RED<< ">= NOT working" <<RST<<std::endl;
-	else		std::cout << ">= working"<< std::endl;
+		if (w <= v)	std::cout << "<= working"<< std::endl;
+		else		std::cout<<RED<< "<= NOT working" <<RST<<std::endl;
+		if (v <= w)	std::cout<<RED<< "<= NOT working" <<RST<<std::endl;
+		else		std::cout << "<= working"<< std::endl;
+		if (v >= w)	std::cout << ">= working"<< std::endl;
+		else		std::cout<<RED<< ">= NOT working" <<RST<<std::endl;
+		if (w >= v)	std::cout<<RED<< ">= NOT working" <<RST<<std::endl;
+		else		std::cout << ">= working"<< std::endl;
 
-	v.pop_back();
-	if (v <= w)	std::cout << "<= working"<< std::endl;
-	else		std::cout<<RED<< "<= NOT working" <<RST<<std::endl;
-	if (w >= v)	std::cout << ">= working"<< std::endl;
-	else		std::cout<<RED<< ">= NOT working" <<RST<<std::endl;
+		v.pop_back();
+		if (v <= w)	std::cout << "<= working"<< std::endl;
+		else		std::cout<<RED<< "<= NOT working" <<RST<<std::endl;
+		if (w >= v)	std::cout << ">= working"<< std::endl;
+		else		std::cout<<RED<< ">= NOT working" <<RST<<std::endl;
 
+	}
+	
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "memory" <<RST<< std::endl;
+	{
+		ft::vector<menfou> smf;
 
+		menfou *mf = new menfou();
+		smf.push_back(*mf);
+		smf.pop_back();
+		smf.clear();
+		delete mf;					// without this line it should leak
+	}
 
 	//__________________________________________________________________________
 
 }
 
+// _____________________________________________________________________________
 void	test_iterator_2(const ft::vector<char> &v)
 {
 	ft::vector<char>::const_reverse_iterator	ri = v.rbegin();
@@ -262,6 +270,7 @@ void	test_iterator_2(const ft::vector<char> &v)
 	std::cout << std::endl;
 }
 
+// _____________________________________________________________________________
 void	test_iterator()
 {
 	ft::vector<char>							v;
@@ -408,9 +417,9 @@ void my_reverse(BidirIt first, BidirIt last)
 
 int	main(void)
 {
-	test_vector();
-
 	test_iterator();
+
+	test_vector();
 
 	return (0);
 }
