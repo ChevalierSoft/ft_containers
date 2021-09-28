@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/28 03:37:02 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/28 04:03:47 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,7 @@ void	test_iterator()
 		if (rs == rs)
 			std::cout << "rs == rs" << std::endl;
 	}
+
 	// test_iterator_2(v);
 	// test_iterator_2(s);
 
