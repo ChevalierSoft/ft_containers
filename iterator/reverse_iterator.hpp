@@ -14,10 +14,10 @@ namespace ft
 		typedef Iter	iterator_type;
 
 		typedef typename ft::iterator_traits<Iter>::iterator_category	iterator_category;
-		typedef typename ft::iterator_traits<Iter>::value_type	  	value_type;
-		typedef typename ft::iterator_traits<Iter>::difference_type	 difference_type;
-		typedef typename ft::iterator_traits<Iter>::pointer	 		pointer;
-		typedef typename ft::iterator_traits<Iter>::reference   		reference;
+		typedef typename ft::iterator_traits<Iter>::value_type			value_type;
+		typedef typename ft::iterator_traits<Iter>::difference_type		difference_type;
+		typedef typename ft::iterator_traits<Iter>::pointer				pointer;
+		typedef typename ft::iterator_traits<Iter>::reference			reference;
 
 		typedef ft::reverse_iterator<Iter>		iterator;
 		typedef ft::reverse_iterator<Iter>		vector_iterator;
@@ -51,31 +51,29 @@ namespace ft
 		bool	operator> (const reverse_iterator &rhs) const	{ return (_it > rhs.get_it());  }
 
 		// ///  Dereferense
-		// reference			operator[](difference_type rhs)			{ return (*(_ptr + rhs)); }
-		// // const_reference		operator[](difference_type rhs) const	{ return (*(_ptr + rhs)); }
+		reference			operator[](difference_type rhs)			{ return (*(_it.base() - rhs)); }
+		// const_reference		operator[](difference_type rhs) const	{ return (*(_it.base() + rhs)); }	// iterator_trait doesn't have a const_reference
 
 		// ///   Random access vvv
-		// reverse_iterator	operator+ (difference_type rhs)			{ reverse_iterator	it(_ptr - rhs); return (it);		}
-		// reverse_iterator	operator- (difference_type rhs)			{ reverse_iterator	it(_ptr + rhs); return (it);		}
+		reverse_iterator	operator+ (difference_type rhs)			{ reverse_iterator	rit(_it.base() - rhs); return (rit);	}
+		reverse_iterator	operator- (difference_type rhs)			{ reverse_iterator	rit(_it.base() + rhs); return (rit);	}
 		// difference_type		operator- (reverse_iterator rhs)		{ difference_type	df(_ptr + rhs._ptr); return (df);	}	// not sure about this one
 
 		reverse_iterator&	operator+=(const difference_type rhs)	{ _it -= rhs; return ( *this );	}
 		reverse_iterator&	operator-=(const difference_type rhs)	{ _it += rhs; return ( *this );	}
 
 		// ///   Pre
-		// reverse_iterator	&operator++()	{ --(this->_ptr); return (*this);	}
 		reverse_iterator	&operator++()	{ --_it; return (*this);	}
-		// reverse_iterator	&operator--()	{ ++(this->_ptr); return (*this);	}
+		reverse_iterator	&operator--()	{ ++_it; return (*this);	}
 		// ///   Post
-		// reverse_iterator	operator++(int)	{ reverse_iterator tmp = *this; --(this->_ptr); return (tmp);	}
-		// reverse_iterator	operator--(int) { reverse_iterator tmp = *this; ++(this->_ptr); return (tmp);	}
+		reverse_iterator	operator++(int)	{ reverse_iterator tmp = _it; --_it; return (tmp);	}
+		reverse_iterator	operator--(int) { reverse_iterator tmp = _it; ++_it; return (tmp);	}
 
 		// // operator	reverse_iterator<const Iter> {	return reverse_iterator<const Iter>(_ptr);	}	// conversion from const iterator to iterator
 
-		// reference			operator* ()	{ return (*_ptr); }
 		reference			operator* ()	{ return (*_it); }
+		reference			operator->()	{ return &(*_it.operator->()); }
 
-		// iterator_type		base() const	{ return (*this); }
 		iterator_type		base() const	{ return (_it); }
 
 	// protected:

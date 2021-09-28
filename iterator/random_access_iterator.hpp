@@ -70,10 +70,11 @@ namespace ft
 		// operator	random_access_iterator<const T> {	return random_access_iterator<const T>(_ptr);	}	// conversion from const iterator to iterator
 
 		reference				operator* ()	{ return (*_ptr);	}
+		pointer					operator->()	{ return (_ptr);	}
 
 		pointer					base() const	{ return _ptr; 	}
 
-	private:
+	// private:
 	// protected:
 		pointer _ptr;
 

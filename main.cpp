@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/28 02:11:33 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/28 03:27:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ public:
 	char		c;
 	size_t		d;
 
-	menfou() : a(1), b(2), c('A' + _nb), d(-1) { ++_nb; }
+	menfou() : a(1), b(42), c('A' + _nb), d(-1) { ++_nb; }
 	~menfou() { std::cout << "~menfou" << std::endl;	}
 };
 int		menfou::_nb = 0;
@@ -273,7 +273,8 @@ void	test_iterator()
 
 	v.push_back('a'); v.push_back('b'); v.push_back('c'); v.push_back('d'); v.push_back('e');
 	s.push_back('a'); s.push_back('b'); s.push_back('c'); s.push_back('d'); s.push_back('e');
-	// egualities between const_reverse_iterator and reverse_iterator
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "egualities with const_reverse_iterator and reverse_iterator" <<RST<< std::endl;
 	{
 		cri = v.rbegin();
 		ri = v.rbegin();
@@ -283,20 +284,29 @@ void	test_iterator()
 			std::cout << "cri == ri" << std::endl;
 		if (cri != ri)
 			std::cout << "cri != ri" << std::endl;
+		if (cri == cri)
+			std::cout << "cri == cri" << std::endl;
+		if (ri == ri)
+			std::cout << "ri == ri" << std::endl;
 		if (crs == rs)
-			std::cout <<GRN<< "crs == rs" <<RST<< std::endl;
+			std::cout << "crs == rs" << std::endl;
 		if (crs != rs)
-			std::cout <<GRN<< "crs != rs" <<RST<< std::endl;
+			std::cout << "crs != rs" << std::endl;
+		if (crs == crs)
+			std::cout << "crs == crs" << std::endl;
+		if (rs == rs)
+			std::cout << "rs == rs" << std::endl;
 	}
-	test_iterator_2(v);
+	// test_iterator_2(v);
 	// test_iterator_2(s);
 
-	// test const_reverse_iterator
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "const_reverse_iterator" <<RST<< std::endl;
 	{
 		cri = v.rbegin();
 		while (cri != v.rend())
 		{
-			std::cout << *cri << "_";
+			std::cout << *cri << " ";
 			++cri;
 		}
 		cri = v.rbegin();
@@ -317,12 +327,59 @@ void	test_iterator()
 		std::cout << std::endl << *crs <<RST<< std::endl;
 	}
 
-	ft::iterator_traits<ft::vector<int>::iterator> tt;
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "testing the category" <<RST<< std::endl;
+	{
+		ft::iterator_traits<ft::vector<int>::iterator> tt;
+		typedef ft::iterator_traits<int*> traits;
+		if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
+			std::cout <<GRN<< "int* is a random-access iterator" <<RST<< std::endl;
+	}
+	{
+		std::iterator_traits<std::vector<int>::iterator> tt;
+		typedef std::iterator_traits<int*> traits;
+		if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
+			std::cout << "int* is a random-access iterator" << std::endl;
+	}
 
-	typedef ft::iterator_traits<int*> traits;
-	if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
-		std::cout << "int* is a random-access iterator" << std::endl;
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "+ - * []" <<RST<< std::endl;
+	{
+		cri = v.rbegin();
+		cri = cri + 3;
+		std::cout << *cri << " ";
+		cri = cri - 2;
+		std::cout << *cri << " ";
+		std::cout << cri[0] << cri[3] << cri[-1] << " ";
+		std::cout << std::endl;
+	}
+	{
+		crs = s.rbegin();
+		crs = crs + 3;
+		std::cout <<GRN<< *crs << " ";
+		crs = crs - 2;
+		std::cout << *crs << " ";
+		std::cout << crs[0] << crs[3] << cri[-1] << " ";
+		std::cout <<RST<< std::endl;
+	}
 
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "->" <<RST<< std::endl;
+	{
+		ft::vector<menfou>	vmf;
+		ft::vector<menfou>::iterator imf;
+		vmf.push_back(menfou());
+		imf = vmf.begin();
+		std::cout << imf->c << std::endl;
+	}
+	{
+		std::cout <<GRN;
+		std::vector<menfou>	vmf;
+		std::vector<menfou>::iterator imf;
+		vmf.push_back(menfou());
+		imf = vmf.begin();
+		std::cout <<GRN<< imf->c << std::endl;
+	}
 
 }
 
@@ -341,7 +398,7 @@ void my_reverse(BidirIt first, BidirIt last)
 
 int	main(void)
 {
-	// test_vector();
+	test_vector();
 
 	test_iterator();
 
