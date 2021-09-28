@@ -11,7 +11,7 @@ namespace ft
 	class reverse_iterator // : public ft::random_access_iterator_tag //___________________
 	{
 	public:
-		/// type definition _______________________________________________________________
+		/// Type definition _______________________________________________________________
 		typedef Iter	iterator_type;
 		typedef typename ft::iterator_traits<Iter>::iterator_category	iterator_category;
 		typedef typename ft::iterator_traits<Iter>::value_type			value_type;
@@ -53,10 +53,10 @@ namespace ft
 		reverse_iterator&	operator+=(const difference_type rhs)			{ _it -= rhs; return ( *this );	}
 		reverse_iterator&	operator-=(const difference_type rhs)			{ _it += rhs; return ( *this );	}
 
-		// ///   Pre ________________________________________________________________________
+		// ///   Pre
 		reverse_iterator	&operator++()									{ --_it; return (*this);	}
 		reverse_iterator	&operator--()									{ ++_it; return (*this);	}
-		// ///   Post _______________________________________________________________________
+		// ///   Post
 		reverse_iterator	operator++(int)									{ reverse_iterator tmp = _it; --_it; return (tmp);	}
 		reverse_iterator	operator--(int)									{ reverse_iterator tmp = _it; ++_it; return (tmp);	}
 
