@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/28 06:02:34 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/29 04:00:14 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ public:
 	char		c;
 	size_t		d;
 
-	menfou() : a(1), b(42), c('A' + _nb), d(-1) { ++_nb; }
+	explicit menfou() : a(1), b(42), c('A' + _nb), d(-1) { ++_nb; }
 	~menfou() { std::cout << "~menfou" << std::endl;	}
 };
 int		menfou::_nb = 0;
@@ -252,6 +252,42 @@ void	test_vector()
 		smf.clear();
 		delete mf;					// without this line it should leak
 	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "front(), back() and data()" <<RST<< std::endl;
+	{
+		ft::vector<menfou> sfm;
+		menfou *mf = new menfou();
+		sfm.push_back(*mf);
+
+		
+
+		ft::vector<menfou>::reference rsfm = sfm.front();
+		rsfm = sfm.back();
+		std::cout << rsfm;
+		ft::vector<menfou>::reference crsfm = sfm.front();
+		crsfm = sfm.back();
+		ft::vector<menfou>::pointer psfm = sfm.data();
+		ft::vector<menfou>::pointer cpsfm = sfm.data();
+		std::cout << ">>" <<psfm->b << std::endl;
+		// std::cout << *mf;
+		delete mf;
+	}
+	{
+		std::cout << GRN;
+		std::vector<menfou> sfm;
+		menfou *mf = new menfou();
+		sfm.push_back(*mf);
+		std::vector<menfou>::reference rsfm = sfm.front();
+		rsfm = sfm.back();
+		std::vector<menfou>::reference crsfm = sfm.front();
+		crsfm = sfm.back();
+		std::vector<menfou>::pointer psfm = sfm.data();
+		std::vector<menfou>::pointer cpsfm = sfm.data();
+		std::cout << psfm->b << std::endl;
+		delete mf;
+	}
+		std::cout << RST;
 
 	//__________________________________________________________________________
 

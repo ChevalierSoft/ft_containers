@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/29 03:10:40 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/29 03:52:24 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,6 @@ namespace ft
 
 		reference				at( size_type pos )
 		{
-			std::string errmsg;
-
 			if (pos <= 0 || pos >= _value_count)
 				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
 			return (_value_data[pos]);
@@ -190,22 +188,20 @@ namespace ft
 
 		/// Modifiers __________________________________________________________
 
-		void			clear() {
+		void					clear()
+		{
 			for (ptrdiff_t i = 0; i < _value_count; ++i)
 				_allocator.destroy(&_value_data[i]);
 			_value_count = 0;
 		}
 
 		// insert single element
-		iterator insert(iterator position, const value_type &val)
-		{
-
-		}
+		iterator				insert(iterator position, const value_type &val);
 		// insert fill n
-		void insert(iterator position, size_type n, const value_type &val);
+		void					insert(iterator position, size_type n, const value_type &val);
 		// insert by range
 		template <class InputIterator>
-		void insert(iterator position, InputIterator first, InputIterator last);
+		void					insert(iterator position, InputIterator first, InputIterator last);
 
 		// void std::vector<T>::push_back(const T &obj)
 		// {
@@ -216,18 +212,19 @@ namespace ft
 		{
 			pointer			data;
 			int				i;
-			iterator	it;
+			iterator		it;
 
 			if (_value_count >= _value_chunk_size)
 			{
-				data = _allocator.allocate(_value_size * (_value_count + 4));
-				_value_chunk_size = _value_count + 4;
-
+				_value_chunk_size = _value_count * 2;
+				data = _allocator.allocate(_value_size * (_value_chunk_size));
+				
 				i = 0;
 				it = this->begin();
 				while (it != this->end())
 				{
-					data[i++] = *it;
+					data[i] = *it;
+					++i;
 					++it;
 				}
 				data[i] = rhs;
