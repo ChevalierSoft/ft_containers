@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/25 09:55:29 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/29 03:10:40 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,19 @@ namespace ft
 				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
 			return (_value_data[pos]);
 		}
-		
+
+		reference				front() 		{	return (*begin());		}
+
+		const_reference			front() const	{	return (*begin());		}
+
+		reference				back()			{	return (*end());		}
+
+		const_reference			back() const	{	return (*end());		}
+
+		pointer					data()			{	return (_value_data);	}
+
+		const_pointer			data() const	{	return (_value_data);	}
+
 		/// Iterators __________________________________________________________
 
 		iterator				begin() 		{ return ( _value_data );					}
