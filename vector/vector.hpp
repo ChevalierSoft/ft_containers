@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/01 01:03:11 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/01 01:38:06 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,26 @@ namespace ft
 
 		size_type				max_size() const	{ return this->_allocator.max_size();	} // deprecated in C++17
 
+
+		void					reserve(size_type new_cap)
+		{
+			if (new_cap > max_size())
+				throw std::length_error("std::bad_alloc");
+			else if (!new_cap)
+				_value_chunk_size = 4;
+			if (new_cap > _value_chunk_size)
+				_value_chunk_size = new_cap;
+			pointer tmp = _allocator.allocate(_value_chunk_size);		// allocate _value_chunk_size * sizeof(_allocator::value_type)
+			for (size_type i = 0; i < _value_count; ++i)
+			{
+				_allocator.construct(tmp + i, _value_data[i]);			// create a copy in _value_data without calling the constructor
+				_allocator.destroy(&_value_data[i]);					// call destructor but don't clean the memory
+			}
+			_allocator.deallocate(_value_data, _value_count);			// free up _value_data's memory space
+			_value_data = tmp;
+		}
+
+
 		size_type				capacity() const	{ return ( _value_count * _value_size );}
 
 		/// Modifiers __________________________________________________________
@@ -207,22 +227,6 @@ namespace ft
 		// 	this->insert(this->end(), obj);
 		// }
 
-		void			_resize(size_type n)
-		{
-			if (!n)
-				_value_chunk_size = 4;
-			if (n > _value_chunk_size)
-				_value_chunk_size = n;
-			pointer tmp = _allocator.allocate(_value_chunk_size);
-			for (size_type i = 0; i < _value_count; ++i)
-			{
-				_allocator.construct(tmp + i, _value_data[i]);
-				_allocator.destroy(&_value_data[i]);
-			}
-			_allocator.deallocate(_value_data, _value_count);
-			_value_data = tmp;
-		}
-
 		void			push_back(const T & rhs)
 		{
 			static bool		first_push_back = true;
@@ -231,8 +235,8 @@ namespace ft
 			iterator		it;
 
 			if (_value_count >= _value_chunk_size)
-				_resize(_value_chunk_size * 2);
-			_allocator.construct(_value_data + _value_count, rhs);		// create a copy in _value_data
+				reserve(_value_chunk_size * 2);
+			_allocator.construct(_value_data + _value_count, rhs);		// create a copy in _value_data without calling the constructor
 			++_value_count;
 		}
 
@@ -240,7 +244,7 @@ namespace ft
 		{
 			if (_value_count > 0)
 			{
-				_allocator.destroy(&_value_data[_value_count - 1]);		// call destructor but don't clean the memory
+				_allocator.destroy(&_value_data[_value_count - 1]);		// call destructor but don't clean the memory (deprecated since c++17)
 				--_value_count;
 			}
 		}
