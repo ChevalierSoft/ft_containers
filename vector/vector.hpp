@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/30 03:25:43 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/01 01:03:11 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,13 +150,12 @@ namespace ft
 
 		const_reference			front() const	{	return (*begin());		}
 
-		reference				back()			{	return (*end());		}
+		reference				back()			{	return (_value_data[_value_count -1]);		}
 
-		const_reference			back() const	{	return (*end());		}
+		const_reference			back() const	{	return (_value_data[_value_count -1]);		}
 
-		pointer					data()			{	return (_value_data);	}
-
-		const_pointer			data() const	{	return (_value_data);	}
+		// pointer					data()			{	return (_value_data);	}	// c++11
+		// const_pointer			data() const	{	return (_value_data);	}	// c++11
 
 		/// Iterators __________________________________________________________
 

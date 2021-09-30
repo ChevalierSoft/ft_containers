@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/30 03:51:20 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/01 01:07:49 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,28 +261,29 @@ void	test_vector()
 		sfm.push_back(*mf);
 		sfm.push_back(menfou());
 		ft::vector<menfou>::reference rsfm = sfm.front();
-		std::cout << rsfm;
-		rsfm = sfm.back();
-		ft::vector<menfou>::reference crsfm = sfm.front();
-		crsfm = sfm.back();
-		// ft::vector<menfou>::const_pointer cpsfm = sfm.data();
-		// ft::vector<menfou>::pointer psfm = sfm.data();
-		// std::cout << ">>" <<psfm->b << std::endl;
-		// std::cout << "oui : " << *sfm.begin() << std::endl;
+		std::cout << rsfm.b << std::endl;
+		rsfm = sfm.back();					// by copy to be sure
+		std::cout << rsfm.b << std::endl;
+		ft::vector<menfou>::const_reference crsfm = sfm.front();
+		std::cout << crsfm.b << std::endl;
+		ft::vector<menfou>::const_reference crsfmb = sfm.back();
+		std::cout << crsfmb.b << std::endl;
 		delete mf;
 	}
 	{
-		std::cout << GRN;
-		std::vector<menfou> sfm;
+		std::cout << std::endl << GRN;
+		ft::vector<menfou> sfm;
 		menfou *mf = new menfou();
 		sfm.push_back(*mf);
-		std::vector<menfou>::reference rsfm = sfm.front();
+		sfm.push_back(menfou());
+		ft::vector<menfou>::reference rsfm = sfm.front();
+		std::cout << rsfm.b << std::endl;
 		rsfm = sfm.back();
-		std::vector<menfou>::reference crsfm = sfm.front();
-		crsfm = sfm.back();
-		std::vector<menfou>::pointer psfm = sfm.data();
-		std::vector<menfou>::pointer cpsfm = sfm.data();
-		std::cout << psfm->b << std::endl;
+		std::cout << rsfm.b << std::endl;
+		ft::vector<menfou>::const_reference crsfm = sfm.front();
+		std::cout << crsfm.b << std::endl;
+		ft::vector<menfou>::const_reference crsfmb = sfm.back();
+		std::cout << crsfmb.b << std::endl;
 		delete mf;
 	}
 	std::cout << RST;
