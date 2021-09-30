@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/29 04:00:14 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/30 03:51:20 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,18 +259,16 @@ void	test_vector()
 		ft::vector<menfou> sfm;
 		menfou *mf = new menfou();
 		sfm.push_back(*mf);
-
-		
-
+		sfm.push_back(menfou());
 		ft::vector<menfou>::reference rsfm = sfm.front();
-		rsfm = sfm.back();
 		std::cout << rsfm;
+		rsfm = sfm.back();
 		ft::vector<menfou>::reference crsfm = sfm.front();
 		crsfm = sfm.back();
-		ft::vector<menfou>::pointer psfm = sfm.data();
-		ft::vector<menfou>::pointer cpsfm = sfm.data();
-		std::cout << ">>" <<psfm->b << std::endl;
-		// std::cout << *mf;
+		// ft::vector<menfou>::const_pointer cpsfm = sfm.data();
+		// ft::vector<menfou>::pointer psfm = sfm.data();
+		// std::cout << ">>" <<psfm->b << std::endl;
+		// std::cout << "oui : " << *sfm.begin() << std::endl;
 		delete mf;
 	}
 	{
@@ -287,7 +285,7 @@ void	test_vector()
 		std::cout << psfm->b << std::endl;
 		delete mf;
 	}
-		std::cout << RST;
+	std::cout << RST;
 
 	//__________________________________________________________________________
 
@@ -453,7 +451,7 @@ void my_reverse(BidirIt first, BidirIt last)
 
 int	main(void)
 {
-	test_iterator();
+	// test_iterator();
 
 	test_vector();
 

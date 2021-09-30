@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/29 03:52:24 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/09/30 03:25:43 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ namespace ft
 	public:
 		typedef T										value_type;
 		typedef value_type *							pointer;
-		typedef const value_type 						const_pointer;
+		typedef const value_type * 						const_pointer;
 		typedef value_type &							reference;
 		typedef const value_type &						const_reference;
 		typedef typename std::ptrdiff_t					difference_type;
@@ -56,7 +56,7 @@ namespace ft
 
 		/// Constructors & Destructors _________________________________________
 
-		vector(void) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0)
+		vector() : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0)
 		{
 			_value_data = NULL;
 		}
@@ -208,42 +208,40 @@ namespace ft
 		// 	this->insert(this->end(), obj);
 		// }
 
+		void			_resize(size_type n)
+		{
+			if (!n)
+				_value_chunk_size = 4;
+			if (n > _value_chunk_size)
+				_value_chunk_size = n;
+			pointer tmp = _allocator.allocate(_value_chunk_size);
+			for (size_type i = 0; i < _value_count; ++i)
+			{
+				_allocator.construct(tmp + i, _value_data[i]);
+				_allocator.destroy(&_value_data[i]);
+			}
+			_allocator.deallocate(_value_data, _value_count);
+			_value_data = tmp;
+		}
+
 		void			push_back(const T & rhs)
 		{
+			static bool		first_push_back = true;
 			pointer			data;
 			int				i;
 			iterator		it;
 
 			if (_value_count >= _value_chunk_size)
-			{
-				_value_chunk_size = _value_count * 2;
-				data = _allocator.allocate(_value_size * (_value_chunk_size));
-				
-				i = 0;
-				it = this->begin();
-				while (it != this->end())
-				{
-					data[i] = *it;
-					++i;
-					++it;
-				}
-				data[i] = rhs;
-
-				++_value_count;
-				delete _value_data;
-				_value_data = data;
-			}
-			else
-			{
-				_value_data[_value_count] = rhs;
-				++_value_count;
-			}
-
+				_resize(_value_chunk_size * 2);
+			_allocator.construct(_value_data + _value_count, rhs);		// create a copy in _value_data
+			++_value_count;
 		}
 
 		void			pop_back()
 		{
-			if (_value_count > 0) {
+			if (_value_count > 0)
+			{
+				_allocator.destroy(&_value_data[_value_count - 1]);		// call destructor but don't clean the memory
 				--_value_count;
 			}
 		}

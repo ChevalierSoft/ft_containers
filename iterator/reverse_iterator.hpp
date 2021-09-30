@@ -73,6 +73,8 @@ namespace ft
 
 	};	// reverse_iterator ____________________________________________________
 
+	// if using explicit we need those
+
 	// template <class Iter_L, class Iter_R>
 	// 	bool operator!= (const reverse_iterator<Iter_L>& lhs,
 	// 					const reverse_iterator<Iter_R>& rhs) { return (lhs.base() != rhs.base()); }
