@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/01 01:55:09 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:35:13 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ namespace ft
 
 		/// Constructors & Destructors _________________________________________
 
-		vector() : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0)
-		{
-			_value_data = NULL;
-		}
+		vector() : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0) {}
 
 		// vector(std::initializer_list<T> list) : vector()				// c++11
 		// {
@@ -78,7 +75,6 @@ namespace ft
 		// vector (InputIterator first, InputIterator last,
 		// 	const allocator_type& alloc = allocator_type())
 		// {
-
 		// }
 
 		vector(const vector<T> & copy)
@@ -214,11 +210,27 @@ namespace ft
 		}
 
 		// insert single element
-		iterator				insert(iterator position, const value_type &val)
+		iterator				insert(iterator position, const value_type & val)
 		{
+			const size_type n = position - begin();
 
+			if (_value_count >= _value_chunk_size)
+				reserve(_value_chunk_size * 2);
+			if (position == end())
+			{
+				_allocator.construct(_value_data + _value_count, val);
+				++_value_count;
+			}
+			else
+			{
+				for (size_type i = _value_count; i > n; --i)
+					_value_data[i] = _value_data[i - 1];
+				_value_data[n] = val;
+				++_value_count;
+			}
+			return (_value_data + n);
 		}
-		
+
 		// insert fill n
 		void					insert(iterator position, size_type n, const value_type &val);
 		// insert by range
@@ -229,8 +241,6 @@ namespace ft
 		{
 			static bool		first_push_back = true;
 			pointer			data;
-			int				i;
-			iterator		it;
 
 			if (_value_count >= _value_chunk_size)
 				reserve(_value_chunk_size * 2);

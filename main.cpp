@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/01 02:12:51 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:32:04 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,32 @@ void	test_vector()
 	// 		std::cerr <<GRN<< e.what() <<RST<< '\n';
 	// 	}
 	// }
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
+	{
+		ft::vector<menfou> asd;
+		asd.push_back(menfou());
+		asd.insert(asd.begin(), menfou());
+		asd.insert(asd.end(), menfou());
+		for (auto & iasd : asd)
+			std::cout << iasd.b << " ";
+		std::cout << std::endl;
+
+
+	}
+	{
+		std::cout<<GRN;
+		std::vector<menfou> asd;
+		asd.push_back(menfou());
+		asd.insert(asd.begin(), menfou());
+		asd.insert(asd.end(), menfou());
+		for (auto & iasd : asd)
+			std::cout << iasd.b << " ";
+		std::cout << std::endl;
+	}
+	std::cout<<RST;
+
 
 	//__________________________________________________________________________
 
