@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/01 01:41:25 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/01 02:12:51 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,31 +288,29 @@ void	test_vector()
 	std::cout << RST;
 
 	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "reserve()" <<RST<< std::endl;
-	{
-		ft::vector<menfou> rev;
-		try
-		{
-			rev.reserve(UINT32_MAX);
-		}
-		catch(const std::exception& e)
-		{
-			std::cerr << e.what() << '\n';
-		}
-		
-	}
-	{
-		ft::vector<menfou> rev;
-		try
-		{
-			rev.reserve(UINT32_MAX);
-		}
-		catch(const std::exception& e)
-		{
-			std::cerr <<GRN<< e.what() <<RST<< '\n';
-		}
-		
-	}
+	std::cout <<std::endl<<CYN<< "reserve() without valgrind (remove comments)" <<RST<< std::endl;
+	// {
+	// 	ft::vector<menfou> rev;
+	// 	try
+	// 	{
+	// 		rev.reserve(UINT32_MAX);
+	// 	}
+	// 	catch(const std::exception& e)
+	// 	{
+	// 		std::cerr << e.what() << '\n';
+	// 	}
+	// }
+	// {
+	// 	ft::vector<menfou> rev;
+	// 	try
+	// 	{
+	// 		rev.reserve(UINT32_MAX);
+	// 	}
+	// 	catch(const std::exception& e)
+	// 	{
+	// 		std::cerr <<GRN<< e.what() <<RST<< '\n';
+	// 	}
+	// }
 
 	//__________________________________________________________________________
 
