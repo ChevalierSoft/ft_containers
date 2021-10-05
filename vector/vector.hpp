@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/01 01:38:06 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/01 01:55:09 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,14 @@ namespace ft
 			_value_chunk_size = copy._value_chunk_size;
 		}
 
-		virtual	~vector()
+		virtual ~vector()
 		{
 			// std::cout <<RED<< "vector destructor" <<RST<< std::endl;
 			this->clear();
 			_allocator.deallocate(_value_data, _value_chunk_size);
 		}
 
-		vector<T> &	operator= (vector<T> & copy)	// should be const
+		vector<T> &				operator= (vector<T> & copy)	// should be const
 		{
 			iterator i;	// this
 			iterator j;	// copy
@@ -202,7 +202,6 @@ namespace ft
 			_value_data = tmp;
 		}
 
-
 		size_type				capacity() const	{ return ( _value_count * _value_size );}
 
 		/// Modifiers __________________________________________________________
@@ -215,19 +214,18 @@ namespace ft
 		}
 
 		// insert single element
-		iterator				insert(iterator position, const value_type &val);
+		iterator				insert(iterator position, const value_type &val)
+		{
+
+		}
+		
 		// insert fill n
 		void					insert(iterator position, size_type n, const value_type &val);
 		// insert by range
 		template <class InputIterator>
 		void					insert(iterator position, InputIterator first, InputIterator last);
 
-		// void std::vector<T>::push_back(const T &obj)
-		// {
-		// 	this->insert(this->end(), obj);
-		// }
-
-		void			push_back(const T & rhs)
+		void					push_back(const T & rhs)
 		{
 			static bool		first_push_back = true;
 			pointer			data;
@@ -240,7 +238,7 @@ namespace ft
 			++_value_count;
 		}
 
-		void			pop_back()
+		void					pop_back()
 		{
 			if (_value_count > 0)
 			{
