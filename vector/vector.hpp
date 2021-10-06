@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/06 18:07:30 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/06 18:08:57 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,7 +299,6 @@ namespace ft
 				// std::cout << "end" << std::endl;
 				for (size_type i = 0; i < __n; ++i)
 				{
-					// _allocator.construct(_value_data + _value_count, *first);
 					_value_data[_value_count + i] = *first;
 					++first;
 					++position;
@@ -310,14 +309,13 @@ namespace ft
 			{
 				for (long j = _value_count; j >= pbeg; --j)
 					_value_data[j + __n] = _value_data[j];
-				_value_count += __n;
 				for (size_type i = 0; i < __n; ++i)
 				{
-					// _allocator.construct(_value_data + _value_count, *first);
 					_value_data[_value_count + i] = *first;
 					++first;
 					++position;
 				}
+				_value_count += __n;
 			}
 
 		}
