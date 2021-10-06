@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/06 17:08:57 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/06 18:07:30 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,15 +273,54 @@ namespace ft
 		}
 
 		// insert by range
-		// template <class InputIterator>
-		// void					insert(iterator position, InputIterator first, InputIterator last)
-		// {
-		// 	// while (first != last)
-		// 	// {
-		// 	// 	insert(position, first);
-		// 	// 	++first;
-		// 	// }
-		// }
+		template <class InputIterator>
+		void					insert(iterator position, InputIterator first, InputIterator last)
+		{
+			bool		at_the_end;
+			long		pbeg = position - begin();
+			size_type	__n = last - first;
+
+			if (__n < 1)
+				return ;
+
+			at_the_end = (position == end()) ? true : false;
+
+			if (_value_count + __n >= _value_chunk_size)
+			{
+				do
+				{
+					_value_chunk_size *= 2;
+				} while (_value_count + __n >= _value_chunk_size);
+				reserve(_value_chunk_size);
+			}
+
+			if (at_the_end)
+			{
+				// std::cout << "end" << std::endl;
+				for (size_type i = 0; i < __n; ++i)
+				{
+					// _allocator.construct(_value_data + _value_count, *first);
+					_value_data[_value_count + i] = *first;
+					++first;
+					++position;
+				}
+				_value_count += __n;
+			}
+			else
+			{
+				for (long j = _value_count; j >= pbeg; --j)
+					_value_data[j + __n] = _value_data[j];
+				_value_count += __n;
+				for (size_type i = 0; i < __n; ++i)
+				{
+					// _allocator.construct(_value_data + _value_count, *first);
+					_value_data[_value_count + i] = *first;
+					++first;
+					++position;
+				}
+			}
+
+		}
 
 		void					push_back(const T & rhs)
 		{

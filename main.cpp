@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/06 17:03:12 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/06 18:05:38 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,17 +322,19 @@ void	test_vector()
 		asd.insert(asd.begin(), menfou('b'));
 		asd.insert(asd.end(), menfou('c'));
 		asd.insert(asd.end(), menfou('d'));
-		asd.insert(asd.end(), menfou('e'));
+		asd.insert(asd.end() - 2, menfou('e'));
 		asd.insert(asd.end(), 3, menfou('f'));
 		asd.insert(asd.begin(), 2, menfou('g'));
 		asd.insert(asd.begin() + 2, 2, menfou('h'));
 
-		// asd.insert(begin() + 5, asd.begin() + 7, asd.end());
+		asd.insert(asd.end(), asd.begin(), asd.begin() + 4);
+
+		asd.insert(asd.begin(), asd.begin(), asd.end());
 		
 		for (auto & iasd : asd)
 			std::cout << iasd.c << " ";
 		std::cout << std::endl;
-		std::cout << "size : " << asd.size() << std::endl;
+		// std::cout << "size : " << asd.size() << std::endl;
 	}
 	{
 		std::cout<<GRN;
@@ -341,17 +343,19 @@ void	test_vector()
 		asd.insert(asd.begin(), menfou('b'));
 		asd.insert(asd.end(), menfou('c'));
 		asd.insert(asd.end(), menfou('d'));
-		asd.insert(asd.end(), menfou('e'));
+		asd.insert(asd.end() - 2, menfou('e'));
 		asd.insert(asd.end(), 3, menfou('f'));
 		asd.insert(asd.begin(), 2, menfou('g'));
 		asd.insert(asd.begin() + 2, 2, menfou('h'));
 		
-		// asd.insert(begin() + 5, asd.begin() + 7, asd.end());
+		asd.insert(asd.end(), asd.begin(), asd.begin() + 4);
+
+		asd.insert(asd.begin(), asd.begin(), asd.end());
 
 		for (auto & iasd : asd)
 			std::cout << iasd.c << " ";
 		std::cout << std::endl;
-		std::cout << "size : " << asd.size() << std::endl;;
+		// std::cout << "size : " << asd.size() << std::endl;;
 	}
 	std::cout<<RST;
 
