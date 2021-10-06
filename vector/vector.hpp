@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/06 15:56:05 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/06 16:05:09 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ namespace ft
 		}
 
 		// insert n time
-		void					insert(iterator position, size_type nfill, const value_type &val)
+		void					
 		{
 			bool		at_the_end;
 			long		pbeg = position - begin();
@@ -247,7 +247,6 @@ namespace ft
 
 			if (_value_count + nfill >= _value_chunk_size)
 			{
-				// std::cout << "loop"<<std::endl;
 				do
 				{
 					_value_chunk_size *= 2;
@@ -257,7 +256,6 @@ namespace ft
 			
 			if (at_the_end)
 			{
-				// std::cout << "end"<<std::endl;
 				for (size_type i = 0; i < nfill; ++i)
 				{
 					_allocator.construct(_value_data + _value_count, val);
@@ -266,17 +264,12 @@ namespace ft
 			}
 			else
 			{
-				// std::cout << "inside" <<std::endl;
 				for (long j = _value_count; j >= pbeg; --j)
-				{
-					// std::cout << j << " / " << pbeg << std::endl;
 					_value_data[j + nfill] = _value_data[j];
-				}
 				_value_count += nfill;
 				for (long i = 0; i < nfill; ++i)
 					_value_data[pbeg + i] = val;
 			}
-
 		}
 
 		// insert by range
