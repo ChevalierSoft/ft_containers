@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/05 11:32:04 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/06 15:55:19 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ public:
 
 	explicit menfou() : a(1), b(42), c('A' + _nb), d(-1) { ++_nb; }
 	~menfou() { std::cout << "~menfou" << std::endl;	}
+	// ~menfou(){}
 };
 int		menfou::_nb = 0;
 std::ostream &	operator<< (std::ostream & o, const menfou & m) { o << "menfou : " << m.c << std::endl;	return o; }
@@ -49,7 +50,7 @@ void	test_vector()
 	ft::vector<std::string>		st;
 
 	std::cout <<std::endl<<CYN<< "__________________ft::vector__________________" <<RST<< std::endl;
-
+/*
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "push_back()" <<RST<< std::endl;
 
@@ -311,28 +312,45 @@ void	test_vector()
 	// 		std::cerr <<GRN<< e.what() <<RST<< '\n';
 	// 	}
 	// }
-
+*/
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
 	{
-		ft::vector<menfou> asd;
-		asd.push_back(menfou());
-		asd.insert(asd.begin(), menfou());
-		asd.insert(asd.end(), menfou());
-		for (auto & iasd : asd)
-			std::cout << iasd.b << " ";
-		std::cout << std::endl;
-
-
+		// ft::vector<menfou>	asd;
+		// asd.push_back(menfou());
+		// asd.insert(asd.begin(), menfou());
+		// asd.insert(asd.end(), menfou());
+		// asd.insert(asd.end(), menfou());
+		// asd.insert(asd.end(), menfou());					// A B C D
+		// std::cout << "size : " << asd.size() << std::endl;
+		// asd.insert(asd.end(), 3, menfou());
+		// std::cout << "size : " << asd.size() << std::endl;	// A B C D E E E
+		// for (auto & iaasd : asd)
+		// 	std::cout << iaasd.c << " ";
+		// std::cout << std::endl;
+		// asd.insert(asd.begin(), 2, menfou());
+		// std::cout << "size : " << asd.size() << std::endl; 	// F F A B C D E E E
+		// for (auto & iasd : asd)
+		// 	std::cout << iasd.c << " ";
+		// std::cout << std::endl;
 	}
 	{
-		std::cout<<GRN;
-		std::vector<menfou> asd;
+		std::vector<menfou>	asd;
 		asd.push_back(menfou());
 		asd.insert(asd.begin(), menfou());
 		asd.insert(asd.end(), menfou());
+		asd.insert(asd.end(), menfou());
+		asd.insert(asd.end(), menfou());
+		std::cout << "size : " << asd.size() << std::endl;
+		asd.insert(asd.end(), 3, menfou());
+		std::cout << "size : " << asd.size() << std::endl;
+		for (auto & iaasd : asd)
+			std::cout << iaasd.c << " ";
+		std::cout << std::endl;
+		asd.insert(asd.begin(), 2, menfou());
+				std::cout << "size : " << asd.size() << std::endl;
 		for (auto & iasd : asd)
-			std::cout << iasd.b << " ";
+			std::cout << iasd.c << " ";
 		std::cout << std::endl;
 	}
 	std::cout<<RST;
