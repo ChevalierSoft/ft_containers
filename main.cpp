@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/06 16:04:09 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:03:12 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,6 +326,9 @@ void	test_vector()
 		asd.insert(asd.end(), 3, menfou('f'));
 		asd.insert(asd.begin(), 2, menfou('g'));
 		asd.insert(asd.begin() + 2, 2, menfou('h'));
+
+		// asd.insert(begin() + 5, asd.begin() + 7, asd.end());
+		
 		for (auto & iasd : asd)
 			std::cout << iasd.c << " ";
 		std::cout << std::endl;
@@ -333,7 +336,7 @@ void	test_vector()
 	}
 	{
 		std::cout<<GRN;
-		ft::vector<menfou>	asd;
+		std::vector<menfou>	asd;
 		asd.push_back(menfou('a'));
 		asd.insert(asd.begin(), menfou('b'));
 		asd.insert(asd.end(), menfou('c'));
@@ -342,6 +345,9 @@ void	test_vector()
 		asd.insert(asd.end(), 3, menfou('f'));
 		asd.insert(asd.begin(), 2, menfou('g'));
 		asd.insert(asd.begin() + 2, 2, menfou('h'));
+		
+		// asd.insert(begin() + 5, asd.begin() + 7, asd.end());
+
 		for (auto & iasd : asd)
 			std::cout << iasd.c << " ";
 		std::cout << std::endl;

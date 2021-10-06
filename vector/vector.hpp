@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/06 16:05:09 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:08:57 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ namespace ft
 		}
 
 		// insert n time
-		void					
+		void					insert(iterator position, size_type nfill, const value_type &val)
 		{
 			bool		at_the_end;
 			long		pbeg = position - begin();
@@ -273,8 +273,15 @@ namespace ft
 		}
 
 		// insert by range
-		template <class InputIterator>
-		void					insert(iterator position, InputIterator first, InputIterator last);
+		// template <class InputIterator>
+		// void					insert(iterator position, InputIterator first, InputIterator last)
+		// {
+		// 	// while (first != last)
+		// 	// {
+		// 	// 	insert(position, first);
+		// 	// 	++first;
+		// 	// }
+		// }
 
 		void					push_back(const T & rhs)
 		{
