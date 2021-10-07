@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/07 15:11:55 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/07 15:40:42 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,36 +92,26 @@ namespace ft
 			_allocator.deallocate(_value_data, _value_chunk_size);
 		}
 
-		vector<T> &				operator= (vector<T> & copy)	// should be const
+		vector					&operator=(vector<T> const &copy)
 		{
-			iterator i;	// this
-			iterator j;	// copy
-
-			if (*this == copy)
-				return (*this);
-
-			this->clear();
-			_allocator.deallocate(_value_data, _value_chunk_size);
-
-			_value_data = _allocator.allocate(copy._value_size * copy._value_chunk_size);
-
-			i = copy.begin();
-			j = this->begin();
-			while (i != copy.end())
+			if (_value_chunk_size < copy.capacity())
 			{
-				*j = *i;
-				++i;
-				++j;
+				_allocator.deallocate(_value_data, _value_chunk_size);
+				_value_data = _allocator.allocate(_value_chunk_size = copy.size());
 			}
-
-			_value_size			= copy._value_size;
-			_value_count		= copy._value_count;
-			_value_chunk_size	= copy._value_chunk_size;
-
+			for (size_type i = 0; i < copy.size(); ++i)
+				_allocator.construct(_value_data + i, copy._value_data[i]);
+			_value_count = copy.size();
 			return (*this);
 		}
 
 		/// * assign() & get_allocator() _________________________________________
+		
+		void					assign( size_type count, const T& value );
+
+		template< class InputIt >
+		void					assign( InputIt first, InputIt last );
+		
 		allocator_type			get_allocator() const { return this->_allocator; }
 
 		/// * Element access _____________________________________________________
@@ -148,8 +138,8 @@ namespace ft
 
 		const_reference			back() const	{	return (_value_data[_value_count -1]);		}
 
-		// pointer					data()			{	return (_value_data);	}	// c++11
-		// const_pointer			data() const	{	return (_value_data);	}	// c++11
+		// pointer				data()			{	return (_value_data);	}	// c++11
+		// const_pointer		data() const	{	return (_value_data);	}	// c++11
 
 		/// * Iterators __________________________________________________________
 
@@ -175,8 +165,7 @@ namespace ft
 
 		size_type				size() const		{ return ( _value_count );				}
 
-		size_type				max_size() const	{ return this->_allocator.max_size();	} // deprecated in C++17
-
+		size_type				max_size() const	{ return this->_allocator.max_size();	}	// ? deprecated in C++17
 
 		void					reserve(size_type new_cap)
 		{
@@ -211,10 +200,11 @@ namespace ft
 		iterator				insert(iterator position, const value_type & val)
 		{
 			bool			at_the_end;
-			const size_type	nb_elem = position - begin();
+			const size_type	elem_position = position - begin();
 
 			at_the_end = (position == end()) ? true : false;
 
+			// * checking vector's capacity
 			if (_value_count >= _value_chunk_size)
 				reserve(_value_chunk_size * 2);
 			if (at_the_end)
@@ -224,12 +214,14 @@ namespace ft
 			}
 			else
 			{
-				for (size_type i = _value_count; i > nb_elem; --i)
+				// * move every elemets by 1 to the right from the end to elem_position
+				for (size_type i = _value_count; i > elem_position; --i)
 					_value_data[i] = _value_data[i - 1];
-				_value_data[nb_elem] = val;
+				// * add the value at position
+				_value_data[elem_position] = val;
 				++_value_count;
 			}
-			return (_value_data + nb_elem);
+			return (_value_data + elem_position);
 		}
 
 		// insert n time
@@ -243,6 +235,7 @@ namespace ft
 
 			at_the_end = (position == end()) ? true : false;
 
+			// * check if the vector needs to be resized
 			if (_value_count + nb_elem > _value_chunk_size)
 			{
 				do
@@ -262,9 +255,11 @@ namespace ft
 			}
 			else
 			{
+				// * straff the content from position to nb_elem backward
 				for (long j = _value_count; j >= pbeg; --j)
 					_value_data[j + nb_elem] = _value_data[j];
 				_value_count += nb_elem;
+				// * add nb_elem time val, starting from pbeg
 				for (long i = 0; i < nb_elem; ++i)
 					_value_data[pbeg + i] = val;
 			}
