@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/07 15:40:42 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/07 16:00:51 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ namespace ft
 
 		/// * assign() & get_allocator() _________________________________________
 		
-		void					assign( size_type count, const T& value );
+		void					assign( size_type count, const T& value )
+		{
+			
+		}
 
 		template< class InputIt >
 		void					assign( InputIt first, InputIt last );
@@ -129,6 +132,10 @@ namespace ft
 				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
 			return (_value_data[pos]);
 		}
+
+		reference				operator[]( size_type pos )			{	return (_value_data[pos]);	}
+
+		const_reference			operator[]( size_type pos ) const	{	return (_value_data[pos]);	}
 
 		reference				front() 		{	return (*begin());		}
 

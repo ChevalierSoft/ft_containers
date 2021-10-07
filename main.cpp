@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/07 15:05:14 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/07 16:05:59 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 
 #include "./utils/color.h"
 #include "./utils/ft_print_memory.h"
+
+#define ENDL	std::cout<<std::endl;
+#define C_GRN	std::cout<<GRN;
+#define C_RST	std::cout<<RST;
 
 // #include "iterator/random_access_iterator.hpp"
 
@@ -87,7 +91,6 @@ void	test_vector()
 		for (auto & iv : ww)
 			std::cout << iv << " ";
 		std::cout << std::endl;
-
 	}
 
 	//__________________________________________________________________________
@@ -121,7 +124,6 @@ void	test_vector()
 		std::cout << std::endl <<GRN<< "should be        76 85 76 90 77 68 82"<<RST<< std::endl;
 		std::cout << std::endl;
 	}
-	
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "empty()" <<RST<< std::endl;
@@ -370,8 +372,31 @@ void	test_vector()
 		std::cout << std::endl;
 		std::cout << "size : " << asd.size() << std::endl;
 	}
-	std::cout<<RST;
+	C_RST
 
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "operator[]" <<RST<< std::endl;
+	{
+		ft::vector<menfou> ovh;
+		for (int i = 0; i < 3; ++i)
+			ovh.push_back(menfou('0' + i));
+		std::cout << ovh[2] << ovh[0] << ovh[1];
+		ft::vector<menfou>::const_reference crovh = ovh[0];
+		std::cout << crovh << std::endl;
+		// std::cout << ovh[334] <<std::endl;	// heap-buffer-overflow
+	}
+	{
+		C_GRN
+		std::vector<menfou> ovh;
+		for (int i = 0; i < 3; ++i)
+			ovh.push_back(menfou('0' + i));
+		std::cout << ovh[2] << ovh[0] << ovh[1];
+		ft::vector<menfou>::const_reference crovh = ovh[0];
+		std::cout << crovh << std::endl;
+		// std::cout << ovh[334] <<std::endl;	// heap-buffer-overflow
+		ENDL;
+		C_RST
+	}
 
 	//__________________________________________________________________________
 
