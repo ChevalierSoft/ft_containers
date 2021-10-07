@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/07 14:39:49 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/07 15:11:55 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@
 
 /*
 must be reimplemented :
-	iterator_traits,
-	reverse_iterator,
-	enable_if,
-	is_integral,
-	equal/lexicographical com-pare, 
-	std::pair,
-	std::make_pair
+	iterator_traits,					// ok
+	reverse_iterator,					// ok
+	enable_if,							//
+	is_integral,						//
+	equal/lexicographical com-pare, 	// ok
+	std::pair,							//
+	std::make_pair						//
 */
 
 namespace ft
 {
 	template <typename T, class Allocator = std::allocator<T> >
-	class vector //_____________________________________________________________
+	class vector /// * ___________________________________________________________
 	{
 	public:
 		typedef T										value_type;
@@ -49,12 +49,10 @@ namespace ft
 		typedef Allocator								allocator_type;
 		typedef ft::random_access_iterator<T>			iterator;
 		typedef ft::random_access_iterator<const T>		const_iterator;
-		// typedef ft::reverse_iterator<T>				reverse_iterator;
-		// typedef ft::reverse_iterator<const T>		const_reverse_iterator;
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
-		/// Constructors & Destructors _________________________________________
+		/// * Constructors & Destructors _________________________________________
 
 		vector() : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0) {}
 
@@ -123,10 +121,10 @@ namespace ft
 			return (*this);
 		}
 
-		/// assign() & get_allocator() _________________________________________
+		/// * assign() & get_allocator() _________________________________________
 		allocator_type			get_allocator() const { return this->_allocator; }
 
-		/// Element access _____________________________________________________
+		/// * Element access _____________________________________________________
 
 		reference				at( size_type pos )
 		{
@@ -153,7 +151,7 @@ namespace ft
 		// pointer					data()			{	return (_value_data);	}	// c++11
 		// const_pointer			data() const	{	return (_value_data);	}	// c++11
 
-		/// Iterators __________________________________________________________
+		/// * Iterators __________________________________________________________
 
 		iterator				begin() 		{ return ( _value_data );					}
 
@@ -171,7 +169,7 @@ namespace ft
 
 		const_reverse_iterator	rend() const	{ return const_reverse_iterator( _value_data - 1 );			}
 
-		/// Capacity ___________________________________________________________
+		/// * Capacity ___________________________________________________________
 
 		bool					empty() const		{ return ( _value_count == 0 );			}
 
@@ -200,7 +198,7 @@ namespace ft
 
 		size_type				capacity() const	{ return ( _value_count * _value_size );}
 
-		/// Modifiers __________________________________________________________
+		/// * Modifiers __________________________________________________________
 
 		void					clear()
 		{
@@ -273,88 +271,6 @@ namespace ft
 		}
 
 		// insert by range
-		// made without doing a copy
-/*
-		template <class InputIterator>
-		void					insert(iterator position, InputIterator first, InputIterator last)
-		{
-			bool			at_the_end;
-			long			pbeg = position - begin();
-			long			nb_elem = last - first;
-			bool			inserting_it_self = false;
-			long			res_first = first - begin();
-			long			res_last = last - begin();
-
-			if (first.itertor_tag == ft::reverse_itertor_tag)
-				std::cout << "alert" << std::endl;
-
-			if (nb_elem < 1)
-				return ;
-
-			if (first >= begin() && last <= end())	// check if the vector is copying himself
-				inserting_it_self = true;
-
-			at_the_end = (position == end()) ? true : false;
-
-			if (_value_count + nb_elem > _value_chunk_size)
-			{
-				do
-				{
-					_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
-				} while (_value_count + nb_elem > _value_chunk_size);
-				reserve(_value_chunk_size);
-				if (inserting_it_self)				// if the vector is reallocing space, first and last are in there old position
-				{
-					first = begin() + res_first;
-					last = begin() + res_last;
-				}
-			}
-
-			if (at_the_end)
-			{
-				for (size_type i = 0; i < nb_elem; ++i)
-				{
-					_allocator.construct(_value_data + _value_count + i, *first);
-					++first;
-				}
-				_value_count += nb_elem;
-			}
-			else
-			{
-				// straffing existing items to there new place
-				for (long j = _value_count; j >= pbeg; --j)
-					_value_data[j + nb_elem] = _value_data[j];
-				if (inserting_it_self)
-				{
-					size_type i = 0;
-					while (first < begin() + pbeg)
-					{
-						_value_data[pbeg + i] = *first;
-						++first;
-						++i;
-					}
-					first += nb_elem;
-					last += nb_elem;
-					while (first != last)
-					{
-						_value_data[pbeg + i] = *first;
-						++i;
-						++first;
-					}
-				}
-				else
-				{
-					for (size_type i = pbeg; first != last; ++i, ++first)
-					{
-						_allocator.construct(_value_data + i, *first);
-					}
-				}
-				_value_count += nb_elem;
-			}
-
-		}
-*/
-
 		template <class InputIterator>
 		void					insert(iterator position, InputIterator first, InputIterator last)
 		{
@@ -400,7 +316,6 @@ namespace ft
 
 		}
 
-
 		void					push_back(const T & rhs)
 		{
 			static bool		first_push_back = true;
@@ -421,18 +336,18 @@ namespace ft
 			}
 		}
 
-
-	// private:
+		/// * Variables __________________________________________________________
+	private:
 		pointer			_value_data;
 		size_t			_value_size;
 		size_t			_value_count;
 		size_t			_value_chunk_size;	// will be used for optimisation
 		Allocator		_allocator;
 
-	}; // vector _______________________________________________________________
+	}; /// * vector ______________________________________________________________
 
-	/// Non-member functions ___________________________________________________
-	//   https://en.cppreference.com/w/cpp/container/vector/operator_cmp
+	/// * Non-member functions ___________________________________________________
+	//  ? https://en.cppreference.com/w/cpp/container/vector/operator_cmp
 	template< class T, class Alloc >
 	bool operator==( const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs )
@@ -493,7 +408,6 @@ namespace ft
 		return (false);
 	}
 
-} // namespace ft ______________________________________________________________
-
+} /// * namespace ft _____________________________________________________________
 
 #endif

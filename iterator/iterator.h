@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:36:08 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/09/15 16:07:15 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/07 14:46:56 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 
 namespace ft
 {
-
-	/// iterator_tags: empty types, used to distinguish different iterators.
+	/// * iterator_tags: empty types, used to distinguish different iterators.
 	struct input_iterator_tag {};
 	struct output_iterator_tag {};
 	struct forward_iterator_tag : public input_iterator_tag {};
@@ -49,7 +48,7 @@ namespace ft
 		typedef typename _Iterator::reference			reference;
 	};
 
-	/// Partial specialization for pointer types.
+	/// * Partial specialization for pointer types.
 	template<typename _Tp>
 	struct iterator_traits<_Tp*>
 	{
@@ -60,7 +59,7 @@ namespace ft
 		typedef _Tp&						reference;
 	};
 
-	/// Partial specialization for const pointer types.
+	/// * Partial specialization for const pointer types.
 	template<typename _Tp>
 	struct iterator_traits<const _Tp*>
 	{
@@ -118,7 +117,7 @@ namespace ft
 
 	// 	// typedef iterator<const T>		const_iterator;
 
-	// 	/// Member functions
+	// 	/// * Member functions
 	// 	iterator_traits() {}
 	// 	// iterator(const_reference x_ptr) : _ptr(x_ptr._ptr) {}	// cpp11 : = default;
 	// 	// iterator(pointer x_t) : _ptr(x_t) {}
@@ -128,17 +127,17 @@ namespace ft
 
 	// 	virtual	~iterator_traits() {}
 
-	// 	/// Member Operators
+	// 	/// * Member Operators
 	// 	iterator_traits &operator=(const iterator_traits &rhs) { _ptr = rhs._ptr; return (*this);	}
 
-	// 	/// Non Member Operators
+	// 	/// * Non Member Operators
 
-	// 	///   Random access vvv
+	// 	/// *   Random access vvv
 	// 	// vector_iterator operator+(difference_type rhs)	{ vector_iterator	it(_ptr + rhs); return (it);		}	// optional
 	// 	// vector_iterator operator-(difference_type rhs)	{ vector_iterator	it(_ptr - rhs); return (it);		}	// optional
 	// 	// difference_type operator-(vector_iterator rhs)	{ difference_type	df(_ptr - rhs._ptr); return (df);	}	// optional
 
-	// 	///  Dereference
+	// 	/// *  Dereference
 	// 	// reference		operator* () { return (*_ptr); }
 	// 	// const_reference	operator* () const { return (*_ptr); }	// const_iterator
 	// 	// pointer			operator->() { return (_ptr); }
@@ -146,7 +145,7 @@ namespace ft
 	// 	// reference		operator[](difference_type rhs) { return (*(_ptr + rhs)); }			// optional
 	// 	// const_reference	operator[](difference_type rhs) const { return (*(_ptr + rhs)); }	// const_iterator // optional
 
-	// 	/// Equality Operators
+	// 	/// * Equality Operators
 	// 	// bool	operator==(const iterator &rhs) const	{ return (_ptr == rhs._ptr); }
 	// 	// bool	operator!=(const iterator &rhs) const	{ return (_ptr != rhs._ptr); }
 	// 	// bool	operator<=(const iterator &rhs) const	{ return (_ptr <= rhs._ptr); }	// optional
@@ -154,15 +153,15 @@ namespace ft
 	// 	// bool	operator< (const iterator &rhs)	const	{ return (_ptr < rhs._ptr);  }	// optional
 	// 	// bool	operator> (const iterator &rhs)	const	{ return (_ptr > rhs._ptr);  }	// optional
 
-	// 	///  Arithmetic Operators
+	// 	/// *  Arithmetic Operators
 
-	// 	///   Pre
+	// 	/// *   Pre
 	// 	// iterator	&operator++() { ++(this->_ptr); return (*this);	}
 	// 	// iterator	&operator--() { --(this->_ptr); return (*this);	}	// optional
-	// 	///   Post
+	// 	/// *   Post
 	// 	// iterator	operator++(int){ iterator tmp = *this; ++(this->_ptr); return (tmp);	}	// optional
 	// 	// iterator	operator--(int){ iterator tmp = *this; --(this->_ptr); return (tmp);	}	// optional
-	// 	///   Assignation
+	// 	/// *   Assignation
 	// 	// void		operator+=(difference_type rhs) { _ptr += rhs; }	// optional
 	// 	// void		operator-=(difference_type rhs) { _ptr -= rhs; }	// optional
 
@@ -172,8 +171,6 @@ namespace ft
 
 };
 
-
-#endif
 
 // R & D
 
@@ -209,3 +206,8 @@ namespace ft
 	// };
 
 	// template <typename T, bool IsConst>
+
+
+
+
+#endif

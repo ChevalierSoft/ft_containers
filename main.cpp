@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/07 14:33:14 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/07 15:05:14 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	test_vector()
 	ft::vector<std::string>		st;
 
 	std::cout <<std::endl<<CYN<< "__________________ft::vector__________________" <<RST<< std::endl;
-/*
+
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "push_back()" <<RST<< std::endl;
 
@@ -73,7 +73,7 @@ void	test_vector()
 			std::cout << iv << " ";
 		std::cout << std::endl;
 		ft::vector<int>				c(ww);
-		ft_print_memory(reinterpret_cast<void *>(c._value_data), c._value_count * c._value_size);
+		std::cout << c.size() << std::endl;
 		std::cout << std::endl;
 		v.pop_back();
 	}
@@ -118,8 +118,7 @@ void	test_vector()
 		std::cout << std::endl << "mine             ";
 		for (auto & iw : w)
 			std::cout << iw << " ";
-		std::cout << std::endl << "should be        76 85 76 90 77 68 82"<< std::endl;
-		ft_print_memory(reinterpret_cast<void *>(w._value_data), w._value_count * w._value_size);
+		std::cout << std::endl <<GRN<< "should be        76 85 76 90 77 68 82"<<RST<< std::endl;
 		std::cout << std::endl;
 	}
 	
@@ -313,7 +312,7 @@ void	test_vector()
 	// 		std::cerr <<GRN<< e.what() <<RST<< '\n';
 	// 	}
 	// }
-*/
+
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
 	{
