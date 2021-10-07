@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/06 18:08:57 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/07 12:14:56 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ namespace ft
 			for (size_type i = 0; i < _value_count; ++i)
 			{
 				_allocator.construct(tmp + i, _value_data[i]);			// create a copy in _value_data without calling the constructor
-				_allocator.destroy(&_value_data[i]);					// call destructor but don't clean the memory
+				_allocator.destroy(_value_data + i);					// call destructor but don't clean the memory
 			}
 			_allocator.deallocate(_value_data, _value_count);			// free up _value_data's memory space
 			_value_data = tmp;
@@ -245,12 +245,12 @@ namespace ft
 
 			at_the_end = (position == end()) ? true : false;
 
-			if (_value_count + nfill >= _value_chunk_size)
+			if (_value_count + nfill > _value_chunk_size)
 			{
 				do
 				{
-					_value_chunk_size *= 2;
-				} while (_value_count + nfill >= _value_chunk_size);
+					_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
+				} while (_value_count + nfill > _value_chunk_size);
 				reserve(_value_chunk_size);
 			}
 			
@@ -276,33 +276,45 @@ namespace ft
 		template <class InputIterator>
 		void					insert(iterator position, InputIterator first, InputIterator last)
 		{
-			bool		at_the_end;
-			long		pbeg = position - begin();
-			size_type	__n = last - first;
+			bool			at_the_end;
+			long			pbeg = position - begin();
+			size_type		__n = last - first;
+			bool			redo_first_last = false;
+			long			res_first = first - begin();
+			long			res_last = last - begin();
 
 			if (__n < 1)
 				return ;
 
+			if (first >= begin() && last <= end())	// check if the vector is copying himself
+				redo_first_last = true;
+
 			at_the_end = (position == end()) ? true : false;
 
-			if (_value_count + __n >= _value_chunk_size)
+			if (_value_count + __n > _value_chunk_size)
 			{
 				do
 				{
-					_value_chunk_size *= 2;
-				} while (_value_count + __n >= _value_chunk_size);
+					_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
+				} while (_value_count + __n > _value_chunk_size);
 				reserve(_value_chunk_size);
+				if (redo_first_last)				// if the vector is reallocing space, first and last are in there old position
+				{
+					first = begin() + res_first;
+					last = begin() + res_last;
+				}
 			}
 
 			if (at_the_end)
 			{
 				// std::cout << "end" << std::endl;
+				// std::cout << " > " << _value_count << " " << _value_chunk_size << std::endl;
 				for (size_type i = 0; i < __n; ++i)
 				{
-					_value_data[_value_count + i] = *first;
+					_allocator.construct(_value_data + _value_count + i, *first);
 					++first;
-					++position;
 				}
+				// std::cout << "/end" << std::endl;
 				_value_count += __n;
 			}
 			else
@@ -311,7 +323,7 @@ namespace ft
 					_value_data[j + __n] = _value_data[j];
 				for (size_type i = 0; i < __n; ++i)
 				{
-					_value_data[_value_count + i] = *first;
+					_allocator.construct(_value_data + _value_count + i, *first);
 					++first;
 					++position;
 				}
