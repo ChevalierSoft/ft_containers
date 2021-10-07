@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/07 13:27:07 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/07 14:39:49 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ namespace ft
 			for (size_type i = 0; i < _value_count; ++i)
 			{
 				_allocator.construct(tmp + i, _value_data[i]);			// create a copy in _value_data without calling the constructor
-				_allocator.destroy(_value_data + i);					// call destructor but don't clean the memory
+				// _allocator.destroy(_value_data + i);					// call destructor but don't clean the memory
 			}
 			_allocator.deallocate(_value_data, _value_count);			// free up _value_data's memory space
 			_value_data = tmp;
@@ -273,15 +273,20 @@ namespace ft
 		}
 
 		// insert by range
+		// made without doing a copy
+/*
 		template <class InputIterator>
 		void					insert(iterator position, InputIterator first, InputIterator last)
 		{
 			bool			at_the_end;
 			long			pbeg = position - begin();
-			size_type		nb_elem = last - first;
+			long			nb_elem = last - first;
 			bool			inserting_it_self = false;
 			long			res_first = first - begin();
 			long			res_last = last - begin();
+
+			if (first.itertor_tag == ft::reverse_itertor_tag)
+				std::cout << "alert" << std::endl;
 
 			if (nb_elem < 1)
 				return ;
@@ -316,7 +321,7 @@ namespace ft
 			}
 			else
 			{
-				std::cout << "inside" << std::endl;
+				// straffing existing items to there new place
 				for (long j = _value_count; j >= pbeg; --j)
 					_value_data[j + nb_elem] = _value_data[j];
 				if (inserting_it_self)
@@ -348,6 +353,53 @@ namespace ft
 			}
 
 		}
+*/
+
+		template <class InputIterator>
+		void					insert(iterator position, InputIterator first, InputIterator last)
+		{
+			long			nb_elem = 0;
+			long			new_size = _value_count;
+			long			pbeg = position - begin();
+			size_type		i = 0;
+			pointer			tmp;						// this will replace _value_data
+			
+			// * get nb_elem
+			for (InputIterator start = first; start != last; ++start, ++nb_elem)
+				;
+
+			// * get new size (can be the same)
+			if (new_size < _value_count + nb_elem)
+			{
+				do
+				{
+					new_size = new_size ? new_size * 2 : 1;
+				} while (new_size < _value_count + nb_elem);
+			}
+
+			tmp = _allocator.allocate(new_size);
+			
+			// * copy _value_data from begin() to position
+			for (; i < pbeg; ++i)
+			{
+				_allocator.construct(tmp + i, _value_data[i]);
+				// _allocator.destroy(_value_data + i);					// useless until I understand
+			}
+
+			// * copy the asked content (nb_elem will be copied)
+			for (InputIterator start = first; start != last; ++start, ++i)
+				_allocator.construct(tmp + i, *start);
+
+			// * copy from position to _value_count
+			for (; i < new_size; ++i)
+				_allocator.construct(tmp + i, _value_data[i]);
+
+			// * _value_data becomes tmp
+			_allocator.deallocate(_value_data, _value_count);
+			_value_data = tmp;
+
+		}
+
 
 		void					push_back(const T & rhs)
 		{

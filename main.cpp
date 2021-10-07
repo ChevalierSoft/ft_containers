@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/07 13:27:52 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/07 14:33:14 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,8 +317,8 @@ void	test_vector()
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
 	{
-		ft::vector<menfou>	asd;
-		ft::vector<menfou>	cpy(16, menfou('x'));
+		std::vector<menfou>	asd;
+		std::vector<menfou>	cpy(16, menfou('x'));
 
 		asd.push_back(menfou('a'));
 		asd.insert(asd.begin(), menfou('b'));
@@ -334,13 +334,14 @@ void	test_vector()
 		asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
 
 		asd.insert(asd.begin() + 3, asd.begin(), asd.end());
-		
+		// g g h h b a e c d f f f 
+		asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
+
 		for (auto & iasd : asd)
 			std::cout << iasd.c << " ";
 		std::cout << std::endl;
 		std::cout << "size : " << asd.size() << std::endl;
 
-		// test with reverse iterator kekwait
 	}
 	{
 		std::cout<<GRN;
@@ -362,7 +363,9 @@ void	test_vector()
 		asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
 
 		asd.insert(asd.begin() + 3, asd.begin(), asd.end());
-		
+		// g g h h b a e c d f f f 
+		asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
+
 		for (auto & iasd : asd)
 			std::cout << iasd.c << " ";
 		std::cout << std::endl;

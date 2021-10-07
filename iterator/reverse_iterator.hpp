@@ -49,6 +49,7 @@ namespace ft
 		// ///   Random access vvv _________________________________________________________
 		reverse_iterator	operator+ (difference_type rhs)					{ reverse_iterator	rit(_it.base() - rhs); return (rit);	}
 		reverse_iterator	operator- (difference_type rhs)					{ reverse_iterator	rit(_it.base() + rhs); return (rit);	}
+		// difference_type		operator- (reverse_iterator rhs)				{ difference_type	df(_it - rhs._it); return (df);		}
 
 		reverse_iterator&	operator+=(const difference_type rhs)			{ _it -= rhs; return ( *this );	}
 		reverse_iterator&	operator-=(const difference_type rhs)			{ _it += rhs; return ( *this );	}
