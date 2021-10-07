@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/07 12:14:56 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/07 13:27:07 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ namespace ft
 		iterator				insert(iterator position, const value_type & val)
 		{
 			bool			at_the_end;
-			const size_type	_n = position - begin();
+			const size_type	nb_elem = position - begin();
 
 			at_the_end = (position == end()) ? true : false;
 
@@ -226,37 +226,37 @@ namespace ft
 			}
 			else
 			{
-				for (size_type i = _value_count; i > _n; --i)
+				for (size_type i = _value_count; i > nb_elem; --i)
 					_value_data[i] = _value_data[i - 1];
-				_value_data[_n] = val;
+				_value_data[nb_elem] = val;
 				++_value_count;
 			}
-			return (_value_data + _n);
+			return (_value_data + nb_elem);
 		}
 
 		// insert n time
-		void					insert(iterator position, size_type nfill, const value_type &val)
+		void					insert(iterator position, size_type nb_elem, const value_type &val)
 		{
 			bool		at_the_end;
 			long		pbeg = position - begin();
 
-			if (nfill < 1)
+			if (nb_elem < 1)
 				return ;
 
 			at_the_end = (position == end()) ? true : false;
 
-			if (_value_count + nfill > _value_chunk_size)
+			if (_value_count + nb_elem > _value_chunk_size)
 			{
 				do
 				{
 					_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
-				} while (_value_count + nfill > _value_chunk_size);
+				} while (_value_count + nb_elem > _value_chunk_size);
 				reserve(_value_chunk_size);
 			}
 			
 			if (at_the_end)
 			{
-				for (size_type i = 0; i < nfill; ++i)
+				for (size_type i = 0; i < nb_elem; ++i)
 				{
 					_allocator.construct(_value_data + _value_count, val);
 					++_value_count;
@@ -265,9 +265,9 @@ namespace ft
 			else
 			{
 				for (long j = _value_count; j >= pbeg; --j)
-					_value_data[j + nfill] = _value_data[j];
-				_value_count += nfill;
-				for (long i = 0; i < nfill; ++i)
+					_value_data[j + nb_elem] = _value_data[j];
+				_value_count += nb_elem;
+				for (long i = 0; i < nb_elem; ++i)
 					_value_data[pbeg + i] = val;
 			}
 		}
@@ -278,27 +278,27 @@ namespace ft
 		{
 			bool			at_the_end;
 			long			pbeg = position - begin();
-			size_type		__n = last - first;
-			bool			redo_first_last = false;
+			size_type		nb_elem = last - first;
+			bool			inserting_it_self = false;
 			long			res_first = first - begin();
 			long			res_last = last - begin();
 
-			if (__n < 1)
+			if (nb_elem < 1)
 				return ;
 
 			if (first >= begin() && last <= end())	// check if the vector is copying himself
-				redo_first_last = true;
+				inserting_it_self = true;
 
 			at_the_end = (position == end()) ? true : false;
 
-			if (_value_count + __n > _value_chunk_size)
+			if (_value_count + nb_elem > _value_chunk_size)
 			{
 				do
 				{
 					_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
-				} while (_value_count + __n > _value_chunk_size);
+				} while (_value_count + nb_elem > _value_chunk_size);
 				reserve(_value_chunk_size);
-				if (redo_first_last)				// if the vector is reallocing space, first and last are in there old position
+				if (inserting_it_self)				// if the vector is reallocing space, first and last are in there old position
 				{
 					first = begin() + res_first;
 					last = begin() + res_last;
@@ -307,27 +307,44 @@ namespace ft
 
 			if (at_the_end)
 			{
-				// std::cout << "end" << std::endl;
-				// std::cout << " > " << _value_count << " " << _value_chunk_size << std::endl;
-				for (size_type i = 0; i < __n; ++i)
+				for (size_type i = 0; i < nb_elem; ++i)
 				{
 					_allocator.construct(_value_data + _value_count + i, *first);
 					++first;
 				}
-				// std::cout << "/end" << std::endl;
-				_value_count += __n;
+				_value_count += nb_elem;
 			}
 			else
 			{
+				std::cout << "inside" << std::endl;
 				for (long j = _value_count; j >= pbeg; --j)
-					_value_data[j + __n] = _value_data[j];
-				for (size_type i = 0; i < __n; ++i)
+					_value_data[j + nb_elem] = _value_data[j];
+				if (inserting_it_self)
 				{
-					_allocator.construct(_value_data + _value_count + i, *first);
-					++first;
-					++position;
+					size_type i = 0;
+					while (first < begin() + pbeg)
+					{
+						_value_data[pbeg + i] = *first;
+						++first;
+						++i;
+					}
+					first += nb_elem;
+					last += nb_elem;
+					while (first != last)
+					{
+						_value_data[pbeg + i] = *first;
+						++i;
+						++first;
+					}
 				}
-				_value_count += __n;
+				else
+				{
+					for (size_type i = pbeg; first != last; ++i, ++first)
+					{
+						_allocator.construct(_value_data + i, *first);
+					}
+				}
+				_value_count += nb_elem;
 			}
 
 		}
