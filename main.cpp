@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/08 13:50:34 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/08 14:10:14 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,71 +325,6 @@ void	test_vector()
 	// }
 
 	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
-	{
-		std::vector<menfou>	asd;						// ! NOT STD
-		std::vector<menfou>	cpy(16, menfou('x'));
-
-		asd.push_back(menfou('a'));
-		asd.insert(asd.begin(), menfou('b'));
-		asd.insert(asd.end(), menfou('c'));
-		asd.insert(asd.end(), menfou('d'));
-		asd.insert(asd.end() - 2, menfou('e'));
-		asd.insert(asd.end(), 3, menfou('f'));
-		asd.insert(asd.begin(), 2, menfou('g'));
-		asd.insert(asd.begin() + 2, 2, menfou('h'));
-		asd.insert(asd.end() - 3, 24, menfou('i'));
-
-		asd.insert(asd.end(), asd.begin(), asd.begin() + 5);
-		asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
-
-		asd.insert(asd.begin() + 3, asd.begin(), asd.end());
-		// g g h h b a e c d f f f 
-		asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
-
-		for (auto & iasd : asd)
-			std::cout << iasd.c << " ";
-		std::cout << std::endl;
-		std::cout << "size : " << asd.size() << std::endl;
-
-		// ft::vector<int> jkl;
-		// jkl.insert(jkl.begin(), 7, 7);
-
-	}
-	{
-		std::cout<<GRN;
-		
-		std::vector<menfou>	asd;
-		std::vector<menfou>	cpy(16, menfou('x'));
-
-		asd.push_back(menfou('a'));
-		asd.insert(asd.begin(), menfou('b'));
-		asd.insert(asd.end(), menfou('c'));
-		asd.insert(asd.end(), menfou('d'));
-		asd.insert(asd.end() - 2, menfou('e'));
-		asd.insert(asd.end(), 3, menfou('f'));
-		asd.insert(asd.begin(), 2, menfou('g'));
-		asd.insert(asd.begin() + 2, 2, menfou('h'));
-		asd.insert(asd.end() - 3, 24, menfou('i'));
-
-		asd.insert(asd.end(), asd.begin(), asd.begin() + 5);
-		asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
-
-		asd.insert(asd.begin() + 3, asd.begin(), asd.end());
-		// g g h h b a e c d f f f 
-		asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
-
-		for (auto & iasd : asd)
-			std::cout << iasd.c << " ";
-		std::cout << std::endl;
-		std::cout << "size : " << asd.size() << std::endl;
-
-		// std::vector<int> jkl;
-		// jkl.insert(jkl.begin(), 7, 7);
-	}
-	C_RST
-
-	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "operator[]" <<RST<< std::endl;
 	{
 		ft::vector<menfou> ovh;
@@ -426,19 +361,84 @@ void	test_vector()
 		std::cout << "float: \t" << std::is_integral<float>::value << std::endl;
 		C_RST
 	}
-	
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
+	{
+		ft::vector<menfou>	asd;
+		ft::vector<menfou>	cpy(16, menfou('x'));
+
+		asd.push_back(menfou('a'));
+		asd.insert(asd.begin(), menfou('b'));
+		asd.insert(asd.end(), menfou('c'));
+		asd.insert(asd.end(), menfou('d'));
+		asd.insert(asd.end() - 2, menfou('e'));
+		asd.insert(asd.end(), 3, menfou('f'));
+		asd.insert(asd.begin(), 2, menfou('g'));
+		asd.insert(asd.begin() + 2, 2, menfou('h'));
+		asd.insert(asd.end() - 3, 24, menfou('i'));
+
+		// asd.insert(asd.end(), asd.begin(), asd.begin() + 5);
+		// asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
+
+		// asd.insert(asd.begin() + 3, asd.begin(), asd.end());
+		// g g h h b a e c d f f f 
+		// asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
+
+		for (auto & iasd : asd)
+			std::cout << iasd.c << " ";
+		std::cout << std::endl;
+		std::cout << "size : " << asd.size() << std::endl;
+
+		// ft::vector<int> jkl;
+		// jkl.insert(jkl.begin(), 7, 7);
+
+	}
+	{
+		std::cout<<GRN;
+		
+		std::vector<menfou>	asd;
+		std::vector<menfou>	cpy(16, menfou('x'));
+
+		asd.push_back(menfou('a'));
+		asd.insert(asd.begin(), menfou('b'));
+		asd.insert(asd.end(), menfou('c'));
+		asd.insert(asd.end(), menfou('d'));
+		asd.insert(asd.end() - 2, menfou('e'));
+		asd.insert(asd.end(), 3, menfou('f'));
+		asd.insert(asd.begin(), 2, menfou('g'));
+		asd.insert(asd.begin() + 2, 2, menfou('h'));
+		asd.insert(asd.end() - 3, 24, menfou('i'));
+
+		// asd.insert(asd.end(), asd.begin(), asd.begin() + 5);
+		// asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
+
+		// asd.insert(asd.begin() + 3, asd.begin(), asd.end());
+		// // g g h h b a e c d f f f 
+		// asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
+
+		for (auto & iasd : asd)
+			std::cout << iasd.c << " ";
+		std::cout << std::endl;
+		std::cout << "size : " << asd.size() << std::endl;
+
+		// std::vector<int> jkl;
+		// jkl.insert(jkl.begin(), 7, 7);
+	}
+	C_RST
+
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "assign()" <<RST<< std::endl;
 	{
-		ft::vector<int> jkl;
+		// ft::vector<int> jkl;
 
-		jkl.insert(jkl.begin(), 7, 7);	// enable_if is working
-		jkl.assign(3, 9);				//
+		// jkl.insert(jkl.begin(), 7, 7);	// enable_if is working
+		// jkl.assign(3, 9);				//
 
-		// try {	jkl.assign(-3, 7);	}
-		// catch(const std::exception& e){	std::cerr << e.what() << '\n'; }
+		// // try {	jkl.assign(-3, 7);	}
+		// // catch(const std::exception& e){	std::cerr << e.what() << '\n'; }
 
-		display(jkl);
+		// display(jkl);
 
 	}
 	{
