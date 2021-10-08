@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 13:21:14 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/08 13:21:22 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/08 14:40:44 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <iostream>
 # include <sstream>
 # include "is_integral.hpp"
+# include "../iterator/iterator.h"
 
 namespace ft
 {
@@ -41,6 +42,17 @@ namespace ft
 			++first1; ++first2;
 		}
 		return (first2!=last2);
+	}
+
+	template <class InputIterator>
+	typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last)
+	{
+		typename iterator_traits<InputIterator>::difference_type	d;
+
+		d = 0;
+		for (InputIterator start = first; start != last; ++start)
+			++d;
+		return (d);
 	}
 
 }
