@@ -6,12 +6,12 @@
 #    By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/12 12:55:09 by dait-atm          #+#    #+#              #
-#    Updated: 2021/10/07 15:59:13 by dait-atm         ###   ########.fr        #
+#    Updated: 2021/10/08 10:31:18 by dait-atm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= a.out
-FLAGS	= #-std=c++98 #-Wall -Wextra -Werror
+FLAGS	= -std=c++98 #-Wall -Wextra -Werror
 FLAGS	+= -g -fsanitize=address
 SRCS	= main.cpp
 

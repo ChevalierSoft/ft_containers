@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:36:08 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/07 14:46:56 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/08 10:16:26 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define ITERATOR_H
 
 # include <iostream>
-# include <type_traits>
+// # include <type_traits>	// c++11
 
 namespace ft
 {
@@ -26,7 +26,7 @@ namespace ft
 	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 
 	// makes creation of iterator faster
-	template<typename _Category, typename _Tp, typename _Distance = ptrdiff_t,
+	template<typename _Category, typename _Tp, typename _Distance = std::ptrdiff_t,
 	typename _Pointer = _Tp*, typename _Reference = _Tp&>
 	struct iterator
 	{
@@ -54,7 +54,7 @@ namespace ft
 	{
 		typedef random_access_iterator_tag	iterator_category;
 		typedef _Tp							value_type;
-		typedef ptrdiff_t					difference_type;
+		typedef std::ptrdiff_t					difference_type;
 		typedef _Tp*						pointer;
 		typedef _Tp&						reference;
 	};
@@ -65,7 +65,7 @@ namespace ft
 	{
 		typedef random_access_iterator_tag	iterator_category;
 		typedef _Tp							value_type;
-		typedef ptrdiff_t					difference_type;
+		typedef typename std::ptrdiff_t		difference_type;
 		typedef const _Tp*					pointer;
 		typedef const _Tp&					reference;
 	};

@@ -6,12 +6,13 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/07 16:05:59 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/08 10:33:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <ostream>
+#include <typeinfo>
 #include <algorithm>
 #include <vector>
 #include <map>
@@ -45,6 +46,14 @@ public:
 };
 int		menfou::_nb = 0;
 std::ostream &	operator<< (std::ostream & o, const menfou & m) { o << "menfou : " << m.c << std::endl;	return o; }
+
+template <typename T>
+void	display(T v)
+{
+	for (auto & iv : v)
+		std::cout << iv << " ";
+	std::cout << std::endl;
+}
 
 // _____________________________________________________________________________
 void	test_vector()
@@ -399,8 +408,26 @@ void	test_vector()
 	}
 
 	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "assign()" <<RST<< std::endl;
+	{
+		ft::vector<char> jkl;
 
-}
+		jkl.assign(3, '7');		// doesn't work with int
+		// jkl.assign(-3, 7);
+		// display(jkl);
+	}
+	
+	{
+		std::vector<int> jkl;
+
+		jkl.assign(3, 7);
+		// jkl.assign(-3, 7);
+		display(jkl);
+	}
+
+
+}	//__________________________________________________________________________
+
 
 // _____________________________________________________________________________
 void	test_iterator_2(const ft::vector<char> &v)

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/07 16:00:51 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/08 10:31:05 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ namespace ft
 		// 	}
 		// }
 
-		vector(difference_type nb, const T & elem) : vector()
+		vector(difference_type nb, const T & elem) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0) // : vector() // c++11
 		{
 			for (int i = 0; i < nb; ++i)
 				this->push_back(elem);
@@ -109,6 +109,10 @@ namespace ft
 		
 		void					assign( size_type count, const T& value )
 		{
+			// if (count < 0)
+			// 	throw std::length_error();
+			// _allocator.deallocate(_value_data, _value_chunk_size);
+			// _allocator.allocate(_value_data, count);
 			
 		}
 
@@ -198,7 +202,7 @@ namespace ft
 
 		void					clear()
 		{
-			for (ptrdiff_t i = 0; i < _value_count; ++i)
+			for (difference_type i = 0; i < _value_count; ++i)
 				_allocator.destroy(&_value_data[i]);
 			_value_count = 0;
 		}
