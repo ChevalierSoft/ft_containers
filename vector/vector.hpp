@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/08 14:36:36 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/08 20:40:07 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ namespace ft
 		}
 
 		template<class InputIterator>
-		void					assign(InputIterator first, typename ft::enable_if< ! std::is_integral<InputIterator>::value, InputIterator>::type last)
+		void					assign(InputIterator first, typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type last)
 		{
 			size_type	i;
 			pointer		tmp;
