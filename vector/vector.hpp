@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/08 10:31:05 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/08 13:50:54 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include "../utils/color.h"
 #include "../utils/ft_print_memory.h"
 #include "../utils/utils.hpp"
+#include "../utils/enable_if.hpp"
 
 /*
 must be reimplemented :
@@ -109,15 +110,29 @@ namespace ft
 		
 		void					assign( size_type count, const T& value )
 		{
-			// if (count < 0)
-			// 	throw std::length_error();
-			// _allocator.deallocate(_value_data, _value_chunk_size);
-			// _allocator.allocate(_value_data, count);
-			
+			if (count > this->max_size())
+				throw std::length_error("cannot create ft::vector larger than max_size()");
+			// if (this->capacity() < count)
+			// {
+				
+				_allocator.deallocate(_value_data, _value_count);
+				_value_data = _allocator.allocate(count);
+				_value_chunk_size = count;
+			// }
+			// else
+			// {
+			// 	for (size_type i = 0; i < this->size(); ++i)
+			// 		_allocator.destroy(_value_data + i);
+			// }
+			for (size_type i = 0; i < count; ++i)
+				_value_data[i] = value;
+
+			_value_count = count;
+
 		}
 
-		template< class InputIt >
-		void					assign( InputIt first, InputIt last );
+		// template< class InputIt >
+		// void					assign( InputIt first, InputIt last );	// * need enable if
 		
 		allocator_type			get_allocator() const { return this->_allocator; }
 
@@ -278,7 +293,8 @@ namespace ft
 
 		// insert by range
 		template <class InputIterator>
-		void					insert(iterator position, InputIterator first, InputIterator last)
+		void					insert(iterator position, InputIterator first,
+			typename ft::enable_if<!std::is_integral<InputIterator>::value, InputIterator>::type last)
 		{
 			long			nb_elem = 0;
 			long			new_size = _value_count;

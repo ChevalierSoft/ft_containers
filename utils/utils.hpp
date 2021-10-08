@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/08 13:21:14 by dait-atm          #+#    #+#             */
+/*   Updated: 2021/10/08 13:21:22 by dait-atm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef UTILS_HPP
 # define UTILS_HPP
 
 # include <string>
 # include <iostream>
 # include <sstream>
+# include "is_integral.hpp"
 
 namespace ft
 {
-
 	template <typename T>
 	std::string		to_string(T __n)
 	{

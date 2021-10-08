@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/08 10:33:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/08 13:50:34 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,7 +327,7 @@ void	test_vector()
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
 	{
-		std::vector<menfou>	asd;
+		std::vector<menfou>	asd;						// ! NOT STD
 		std::vector<menfou>	cpy(16, menfou('x'));
 
 		asd.push_back(menfou('a'));
@@ -351,6 +351,9 @@ void	test_vector()
 			std::cout << iasd.c << " ";
 		std::cout << std::endl;
 		std::cout << "size : " << asd.size() << std::endl;
+
+		// ft::vector<int> jkl;
+		// jkl.insert(jkl.begin(), 7, 7);
 
 	}
 	{
@@ -380,6 +383,9 @@ void	test_vector()
 			std::cout << iasd.c << " ";
 		std::cout << std::endl;
 		std::cout << "size : " << asd.size() << std::endl;
+
+		// std::vector<int> jkl;
+		// jkl.insert(jkl.begin(), 7, 7);
 	}
 	C_RST
 
@@ -407,22 +413,46 @@ void	test_vector()
 		C_RST
 	}
 
+	std::cout <<std::endl<<CYN<< "is_integral" <<RST<< std::endl;
+	{
+		std::cout << "char: \t" << ft::is_integral<char>::value << std::endl;
+		std::cout << "int: \t" << ft::is_integral<int>::value << std::endl;
+		std::cout << "float: \t" << ft::is_integral<float>::value << std::endl;
+	}
+	{
+		C_GRN
+		std::cout << "char: \t" << std::is_integral<char>::value << std::endl;
+		std::cout << "int: \t" << std::is_integral<int>::value << std::endl;
+		std::cout << "float: \t" << std::is_integral<float>::value << std::endl;
+		C_RST
+	}
+	
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "assign()" <<RST<< std::endl;
 	{
-		ft::vector<char> jkl;
+		ft::vector<int> jkl;
 
-		jkl.assign(3, '7');		// doesn't work with int
-		// jkl.assign(-3, 7);
-		// display(jkl);
-	}
-	
-	{
-		std::vector<int> jkl;
+		jkl.insert(jkl.begin(), 7, 7);	// enable_if is working
+		jkl.assign(3, 9);				//
 
-		jkl.assign(3, 7);
-		// jkl.assign(-3, 7);
+		// try {	jkl.assign(-3, 7);	}
+		// catch(const std::exception& e){	std::cerr << e.what() << '\n'; }
+
 		display(jkl);
+
+	}
+	{
+		// C_GRN
+		// std::vector<int> jkl;
+
+		// jkl.insert(jkl.begin(), 7, 7);
+		// jkl.assign(3, 7);
+		
+		// // try {	jkl.assign(-3, 7);	}
+		// // catch(const std::exception& e){	std::cerr << e.what() << '\n'; }
+		
+		// display(jkl);
+		// C_RST
 	}
 
 
