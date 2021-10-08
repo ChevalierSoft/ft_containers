@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/08 14:10:14 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/08 14:41:36 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -430,29 +430,34 @@ void	test_vector()
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "assign()" <<RST<< std::endl;
 	{
-		// ft::vector<int> jkl;
+		ft::vector<int> jkl;
+		ft::vector<int> uio;
 
-		// jkl.insert(jkl.begin(), 7, 7);	// enable_if is working
-		// jkl.assign(3, 9);				//
+		uio.insert(jkl.begin(), 7, 3);	// enable_if is working
+		
+		jkl.assign(3, 9);				//
+		display(jkl);
 
-		// // try {	jkl.assign(-3, 7);	}
-		// // catch(const std::exception& e){	std::cerr << e.what() << '\n'; }
-
-		// display(jkl);
+		// try {	jkl.assign(-3, 7);	}
+		// catch(const std::exception& e){	std::cerr << e.what() << '\n'; }
+		
+		jkl.assign(uio.begin(), uio.end());
+		display(jkl);
 
 	}
 	{
-		// C_GRN
-		// std::vector<int> jkl;
+		C_GRN
+		std::vector<int> jkl;
+		
 
-		// jkl.insert(jkl.begin(), 7, 7);
-		// jkl.assign(3, 7);
+		jkl.insert(jkl.begin(), 7, 7);
+		jkl.assign(3, 7);
 		
-		// // try {	jkl.assign(-3, 7);	}
-		// // catch(const std::exception& e){	std::cerr << e.what() << '\n'; }
+		// try {	jkl.assign(-3, 7);	}
+		// catch(const std::exception& e){	std::cerr << e.what() << '\n'; }
 		
-		// display(jkl);
-		// C_RST
+		display(jkl);
+		C_RST
 	}
 
 
