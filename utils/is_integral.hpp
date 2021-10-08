@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 13:22:04 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/08 13:33:43 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/08 13:37:27 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,38 @@ namespace ft
 	// ? https://www.cplusplus.com/reference/type_traits/is_integral/
 	template <class T>
 	struct is_integral : public ft::false_type {};
+
+	template <>
+	struct is_integral<bool> : public ft::true_type {};
+	template <>
+	struct is_integral<char> : public ft::true_type {};
+	template <>
+	struct is_integral<char16_t> : public ft::true_type {};
+	template <>
+	struct is_integral<char32_t> : public ft::true_type {};
+	template <>
+	struct is_integral<wchar_t> : public ft::true_type {};
+	template <>
+	struct is_integral<signed char> : public ft::true_type {};
+	template <>
+	struct is_integral<short int> : public ft::true_type {};
+	template <>
+	struct is_integral<int> : public ft::true_type {};
+	template <>
+	struct is_integral<long int> : public ft::true_type {};
+	template <>
+	struct is_integral<long long int> : public ft::true_type {};
+	template <>
+	struct is_integral<unsigned char> : public ft::true_type {};
+	template <>
+	struct is_integral<unsigned short int> : public ft::true_type {};
+	template <>
+	struct is_integral<unsigned int> : public ft::true_type {};
+	template <>
+	struct is_integral<unsigned long int> : public ft::true_type {};
+	template <>
+	struct is_integral<unsigned long long int> : public ft::true_type {};
+
 }
 
 #endif
