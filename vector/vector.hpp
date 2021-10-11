@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/08 20:40:07 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/11 15:49:27 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,7 +314,7 @@ namespace ft
 		// insert by range
 		template <class InputIterator>
 		void					insert(iterator position, InputIterator first,
-									typename ft::enable_if< ! std::is_integral<InputIterator>::value, InputIterator>::type last)
+									typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type last)
 		{
 			long			nb_elem = 0;
 			long			new_size = _value_count;
