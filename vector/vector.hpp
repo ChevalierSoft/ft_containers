@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/11 15:49:27 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:18:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,28 +54,26 @@ namespace ft
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
 		/// * Constructors & Destructors _________________________________________
+		// ? https://cplusplus.com/reference/vector/vector/vector/
 
-		vector() : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0) {}
+		// default (1)
+		explicit vector(const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0), _allocator(alloc) {}
 
-		// vector(std::initializer_list<T> list) : vector()				// c++11
-		// {
-		// 	for (auto l : list) {
-		// 		this->push_back(l);
-		// 	}
-		// }
-
-		vector(difference_type nb, const T & elem) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0) // : vector() // c++11
+		// fill (2)
+		explicit vector(difference_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
 		{
 			for (int i = 0; i < nb; ++i)
 				this->push_back(elem);
 		}
 
-		// template <class InputIterator>
-		// vector (InputIterator first, InputIterator last,
-		// 	const allocator_type& alloc = allocator_type())
-		// {
-		// }
+		// range (3)
+		template <class InputIterator>
+		vector (InputIterator first, InputIterator last,
+			const allocator_type& alloc = allocator_type())
+		{
+		}
 
+		// copy (4)
 		vector(const vector<T> & copy)
 		{
 			_allocator = copy.get_allocator();
@@ -85,6 +83,14 @@ namespace ft
 			_value_size  = copy._value_size;
 			_value_chunk_size = copy._value_chunk_size;
 		}
+
+		// initializer list (6)
+		// vector(std::initializer_list<T> list) : vector()				// c++11
+		// {
+		// 	for (auto l : list) {
+		// 		this->push_back(l);
+		// 	}
+		// }
 
 		virtual ~vector()
 		{
