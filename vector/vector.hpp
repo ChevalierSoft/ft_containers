@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/11 16:18:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:40:15 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ namespace ft
 
 		// range (3)
 		template <class InputIterator>
-		vector (InputIterator first, InputIterator last,
-			const allocator_type& alloc = allocator_type())
+		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr) : _allocator(alloc), _value_size(sizeof(T))
 		{
+
 		}
 
 		// copy (4)
@@ -138,7 +139,8 @@ namespace ft
 		}
 
 		template<class InputIterator>
-		void					assign(InputIterator first, typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type last)
+		void					assign(InputIterator first, InputIterator last,
+									typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
 		{
 			size_type	i;
 			pointer		tmp;
