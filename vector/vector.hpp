@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/11 16:58:05 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:11:20 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,8 @@ namespace ft
 		// ? range (3)
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
-			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr) : _allocator(alloc)
+			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc)
 		{
-			// _value_count = ft::distance(first, last);
 			assign(first, last);
 		}
 
