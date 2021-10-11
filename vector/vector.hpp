@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/11 16:40:15 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:55:49 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,32 +56,32 @@ namespace ft
 		/// * Constructors & Destructors _________________________________________
 		// ? https://cplusplus.com/reference/vector/vector/vector/
 
-		// default (1)
-		explicit vector(const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0), _allocator(alloc) {}
+		// ? default (1)
+		explicit vector(const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) {}
 
-		// fill (2)
-		explicit vector(difference_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_size(sizeof(T)), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
+		// ? fill (2)
+		explicit vector(difference_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
 		{
 			for (int i = 0; i < nb; ++i)
 				this->push_back(elem);
 		}
 
-		// range (3)
+		// ? range (3)
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
-			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr) : _allocator(alloc), _value_size(sizeof(T))
+			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr) : _allocator(alloc)
 		{
+			_value_count = ft::distance(first, last);
 
 		}
 
-		// copy (4)
+		// ? copy (4)
 		vector(const vector<T> & copy)
 		{
 			_allocator = copy.get_allocator();
-			_value_data = _allocator.allocate(copy._value_size * copy._value_chunk_size);
+			_value_data = _allocator.allocate(copy.capacity());
 			std::copy(&copy._value_data[0], &copy._value_data[copy._value_count], _value_data);
 			_value_count = copy._value_count;
-			_value_size  = copy._value_size;
 			_value_chunk_size = copy._value_chunk_size;
 		}
 
@@ -145,7 +145,7 @@ namespace ft
 			size_type	i;
 			pointer		tmp;
 			long		count = ft::distance(first, last);
-			std::cout << "count : " << count << std::endl;
+			// std::cout << "count : " << count << std::endl;
 
 			if (count > this->max_size())
 				throw std::length_error("cannot create ft::vector larger than max_size()");
@@ -239,7 +239,7 @@ namespace ft
 			_value_data = tmp;
 		}
 
-		size_type				capacity() const	{ return ( _value_count * _value_size );}
+		size_type				capacity() const	{ return ( _value_count * sizeof(T) );}
 
 		/// * Modifiers __________________________________________________________
 
@@ -250,7 +250,7 @@ namespace ft
 			_value_count = 0;
 		}
 
-		// insert single element
+		// ? insert single element
 		iterator				insert(iterator position, const value_type & val)
 		{
 			bool			at_the_end;
@@ -278,7 +278,7 @@ namespace ft
 			return (_value_data + elem_position);
 		}
 
-		// insert n time
+		// ? insert n time
 		void					insert(iterator position, size_type nb_elem, const value_type &val)
 		{
 			bool		at_the_end;
@@ -319,7 +319,7 @@ namespace ft
 			}
 		}
 
-		// insert by range
+		// ? insert by range
 		template <class InputIterator>
 		void					insert(iterator position, InputIterator first,
 									typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type last)
@@ -395,13 +395,14 @@ namespace ft
 		pointer			_value_data;
 		size_t			_value_size;
 		size_t			_value_count;
-		size_t			_value_chunk_size;	// will be used for optimisation
+		size_t			_value_chunk_size;
 		Allocator		_allocator;
 
 	}; /// * vector ______________________________________________________________
 
 	/// * Non-member functions ___________________________________________________
 	//  ? https://en.cppreference.com/w/cpp/container/vector/operator_cmp
+
 	template< class T, class Alloc >
 	bool operator==( const ft::vector<T, Alloc>& lhs,
 					const ft::vector<T, Alloc>& rhs )
