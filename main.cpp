@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/11 17:16:00 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/11 17:06:04 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,20 @@ public:
 	~menfou(){}
 };
 int		menfou::_nb = 0;
-std::ostream &	operator<< (std::ostream & o, const menfou & m) { o << "menfou : " << m.c << std::endl;	return o; }
+std::ostream &	operator<< (std::ostream & o, const menfou & m) { o << "obj : " << m.c << std::endl;	return o; }
 
 template <typename T>
 void	display(T v)
 {
 	for (auto & iv : v)
-		std::cout << iv << " ";
+		std::cout << iv;
+	std::cout << std::endl;
+}
+template <typename T>
+void	display(T v, char c)
+{
+	for (auto & iv : v)
+		std::cout << iv << c;
 	std::cout << std::endl;
 }
 
@@ -62,6 +69,8 @@ void	test_vector()
 	ft::vector<int>				w;
 	ft::vector<char>			e;
 	ft::vector<std::string>		st;
+	std::string					strft;
+	std::string					strstd;
 
 	std::cout <<std::endl<<CYN<< "__________________ft::vector__________________" <<RST<< std::endl;
 
@@ -72,7 +81,7 @@ void	test_vector()
 	v.push_back(0x55);
 	v.push_back(0x4C);
 	v.push_back(0x5A);
-	display(v);
+	display(v, ' ');
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "contructor by copy" <<RST<< std::endl;
@@ -141,7 +150,6 @@ void	test_vector()
 		for (auto & iw : w)
 			std::cout << iw << " ";
 		std::cout << std::endl <<GRN<< "should be        76 85 76 90 77 68 82"<<RST<< std::endl;
-		std::cout << std::endl;
 	}
 
 	//__________________________________________________________________________
@@ -342,8 +350,8 @@ void	test_vector()
 			ovh.push_back(menfou('0' + i));
 		std::cout << ovh[2] << ovh[0] << ovh[1];
 		ft::vector<menfou>::const_reference crovh = ovh[0];
-		std::cout << crovh << std::endl;
-		// std::cout << ovh[334] <<std::endl;	// heap-buffer-overflow
+		std::cout << crovh;
+		// std::cout << ovh[334] <<std::endl;	// should be a heap-buffer-overflow
 	}
 	{
 		C_GRN
@@ -352,9 +360,8 @@ void	test_vector()
 			ovh.push_back(menfou('0' + i));
 		std::cout << ovh[2] << ovh[0] << ovh[1];
 		ft::vector<menfou>::const_reference crovh = ovh[0];
-		std::cout << crovh << std::endl;
-		// std::cout << ovh[334] <<std::endl;	// heap-buffer-overflow
-		ENDL;
+		std::cout << crovh;
+		// std::cout << ovh[334] <<std::endl;	// should be a heap-buffer-overflow
 		C_RST
 	}
 
@@ -388,25 +395,35 @@ void	test_vector()
 		asd.insert(asd.begin() + 2, 2, menfou('h'));
 		asd.insert(asd.end() - 3, 24, menfou('i'));
 
-		// asd.insert(asd.end(), asd.begin(), asd.begin() + 5);
-		// asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
+		// g g h h b a e c d i i i i i i i i i i i i i i i i i i i i i i i i f f f
+		asd.insert(asd.end(), asd.begin(), asd.begin() + 5);
 
-		// asd.insert(asd.begin() + 3, asd.begin(), asd.end());
-		// g g h h b a e c d f f f 
-		// asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
+			// for (auto & iasd : asd)
+			// 	std::cout << iasd.c << " ";
+			// std::cout << std::endl;
+			// std::cout << "size : " << asd.size() << std::endl;
 
+		// g g h h b a e c d i i i i i i i i i i i i i i i i i i i i i i i i f f f g g h h b
+		asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
+
+		// g g h x x x x x x x x x x x x x x x x h b a e c d i i i i i i i i i i i i i i i i i i i i i i i i f f f g g h h b
+		asd.insert(asd.begin() + 3, asd.begin(), asd.end());
+		// g g h g g h x x x x x x x x x x x x x x x x h b a e c d i i i i i i i i i i i i i i i i i i i i i i i i f f f g g h h b x x x x x x x x x x x x x x x x h b a e c d i i i i i i i i i i i i i i i i i i i i i i i i f f f g g h h b
+		asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
+
+		strft = "";
 		for (auto & iasd : asd)
-			std::cout << iasd.c << " ";
-		std::cout << std::endl;
+			strft += iasd.c;
+
 		std::cout << "size : " << asd.size() << std::endl;
 
-		// ft::vector<int> jkl;
-		// jkl.insert(jkl.begin(), 7, 7);
+		ft::vector<int> jkl;
+		jkl.insert(jkl.begin(), 7, 7);
 
 	}
 	{
-		std::cout<<GRN;
-		
+		C_GRN
+
 		std::vector<menfou>	asd;
 		std::vector<menfou>	cpy(16, menfou('x'));
 
@@ -420,22 +437,22 @@ void	test_vector()
 		asd.insert(asd.begin() + 2, 2, menfou('h'));
 		asd.insert(asd.end() - 3, 24, menfou('i'));
 
-		// asd.insert(asd.end(), asd.begin(), asd.begin() + 5);
-		// asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
+		asd.insert(asd.end(), asd.begin(), asd.begin() + 5);
+		asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
+		asd.insert(asd.begin() + 3, asd.begin(), asd.end());
+		asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
 
-		// asd.insert(asd.begin() + 3, asd.begin(), asd.end());
-		// // g g h h b a e c d f f f 
-		// asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
-
+		strstd = "";
 		for (auto & iasd : asd)
-			std::cout << iasd.c << " ";
-		std::cout << std::endl;
+			strstd += iasd.c;
 		std::cout << "size : " << asd.size() << std::endl;
 
-		// std::vector<int> jkl;
-		// jkl.insert(jkl.begin(), 7, 7);
+		std::vector<int> jkl;
+		jkl.insert(jkl.begin(), 7, 7);
+		C_RST
 	}
-	C_RST
+	if (strft != strstd)
+		std::cout << "error" <<std::endl<< strft <<std::endl<<GRN<< strstd <<RST<<std::endl;
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "assign()" <<RST<< std::endl;

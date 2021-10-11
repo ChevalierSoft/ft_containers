@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/11 16:11:20 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:57:33 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ namespace ft
 				throw std::length_error("cannot create ft::vector larger than max_size()");
 			// if (this->capacity() < count)
 			// {
-				
 				_allocator.deallocate(_value_data, _value_count);
 				_value_data = _allocator.allocate(count);
 				_value_chunk_size = count;
@@ -249,7 +248,7 @@ namespace ft
 			_value_count = 0;
 		}
 
-		// ? insert single element
+		// ? insert single element (1)
 		iterator				insert(iterator position, const value_type & val)
 		{
 			bool			at_the_end;
@@ -277,7 +276,7 @@ namespace ft
 			return (_value_data + elem_position);
 		}
 
-		// ? insert n time
+		// ? insert n times (2)
 		void					insert(iterator position, size_type nb_elem, const value_type &val)
 		{
 			bool		at_the_end;
@@ -318,20 +317,19 @@ namespace ft
 			}
 		}
 
-		// ? insert by range
+		// ? insert by range (3)
 		template <class InputIterator>
 		void					insert(iterator position, InputIterator first,
 									typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type last)
 		{
-			long			nb_elem = 0;
+			long			nb_elem;
 			long			new_size = _value_count;
 			long			pbeg = position - begin();
-			size_type		i = 0;
+			size_type		i;
 			pointer			tmp;						// this will replace _value_data
 			
 			// * get nb_elem
-			for (InputIterator start = first; start != last; ++start, ++nb_elem)
-				;
+			nb_elem = ft::distance(first, last);
 
 			// * get new size (can be the same)
 			if (new_size < _value_count + nb_elem)
@@ -345,27 +343,32 @@ namespace ft
 			tmp = _allocator.allocate(new_size);
 			
 			// * copy _value_data from begin() to position
+			i = 0;
 			for (; i < pbeg; ++i)
-			{
 				_allocator.construct(tmp + i, _value_data[i]);
-				// _allocator.destroy(_value_data + i);					// useless until I understand
-			}
+			// std::cout << "copy _value_data from begin() to position " << i << std::endl;
+
+			// ! ok
 
 			// * copy the asked content (nb_elem will be copied)
 			for (InputIterator start = first; start != last; ++start, ++i)
 				_allocator.construct(tmp + i, *start);
+			// std::cout << "copy the asked content : " << i << std::endl;
+
+			// ! ok
 
 			// * copy from position to _value_count
-			
-				for (; i < new_size; ++i)
-				{
-					std::cout << i << std::endl;
-					_allocator.construct(tmp + i, _value_data[i]);
-				}
+			// 19 - 16 < 41 - 3
+			for (; i - nb_elem < _value_count; ++i)
+			{
+				_allocator.construct(tmp + i, _value_data[i - nb_elem]);
+			}
+			// std::cout << "copy from position to _value_count " << i << std::endl;
 
 			// * _value_data becomes tmp
 			_allocator.deallocate(_value_data, _value_count);
 			_value_data = tmp;
+			_value_count = i;
 
 		}
 
