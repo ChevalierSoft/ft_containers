@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/11 15:56:54 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/11 17:16:00 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,7 @@ void	test_vector()
 	v.push_back(0x55);
 	v.push_back(0x4C);
 	v.push_back(0x5A);
-	for (auto & iv : v)
-		std::cout << iv << " ";
-	std::cout << std::endl;
+	display(v);
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "contructor by copy" <<RST<< std::endl;
@@ -86,9 +84,21 @@ void	test_vector()
 			std::cout << iv << " ";
 		std::cout << std::endl;
 		ft::vector<int>				c(ww);
-		std::cout << c.size() << std::endl;
-		std::cout << std::endl;
+		std::cout << "copied : " << c.size() << std::endl;
 		v.pop_back();
+	}
+
+	std::cout <<std::endl<<CYN<< "contructor by range" <<RST<< std::endl;
+	{
+		ft::vector<menfou>	pif;
+		pif.push_back(menfou('1'));
+		pif.push_back(menfou('2'));
+		pif.push_back(menfou('3'));
+		pif.push_back(menfou('4'));
+		pif.push_back(menfou('5'));
+
+		ft::vector<menfou>	vrange(pif.begin() + 1, pif.end() - 1);
+		display(vrange);
 	}
 
 	//__________________________________________________________________________
