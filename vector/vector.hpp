@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/11 16:57:33 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/11 17:08:52 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,24 +346,14 @@ namespace ft
 			i = 0;
 			for (; i < pbeg; ++i)
 				_allocator.construct(tmp + i, _value_data[i]);
-			// std::cout << "copy _value_data from begin() to position " << i << std::endl;
-
-			// ! ok
 
 			// * copy the asked content (nb_elem will be copied)
 			for (InputIterator start = first; start != last; ++start, ++i)
 				_allocator.construct(tmp + i, *start);
-			// std::cout << "copy the asked content : " << i << std::endl;
-
-			// ! ok
 
 			// * copy from position to _value_count
-			// 19 - 16 < 41 - 3
 			for (; i - nb_elem < _value_count; ++i)
-			{
 				_allocator.construct(tmp + i, _value_data[i - nb_elem]);
-			}
-			// std::cout << "copy from position to _value_count " << i << std::endl;
 
 			// * _value_data becomes tmp
 			_allocator.deallocate(_value_data, _value_count);
