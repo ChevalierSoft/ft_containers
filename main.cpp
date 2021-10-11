@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/11 17:06:04 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/11 19:24:39 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ void	test_vector()
 			std::cout << "empty" << std::endl;
 		else
 			std::cout << "full" << std::endl;
+		std::cout << "size : " << w.size() << std::endl;
 	}
 
 	//__________________________________________________________________________
@@ -473,6 +474,7 @@ void	test_vector()
 
 	}
 	{
+
 		C_GRN
 		std::vector<int> jkl;
 		
@@ -487,6 +489,14 @@ void	test_vector()
 		C_RST
 	}
 
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "erase()" <<RST<< std::endl;
+	{
+		// v.erase(v.begin());
+		display(v, ' ');
+	}
+
+	ft_print_memory((void *)v._value_data, 32);
 
 }	//__________________________________________________________________________
 

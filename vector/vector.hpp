@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/11 17:08:52 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/11 19:35:21 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,6 +362,28 @@ namespace ft
 
 		}
 
+		iterator				erase(iterator position)
+		{
+			value_type	pos = begin() - position;
+
+			if (position == end())
+			{
+				pop_back();
+				return (end());
+			}
+
+			for (int i = pos; i < _value_count; ++i)
+			{
+				_allocator.destroy(_value_data + i);
+				_allocator.construct(_value_data + i, _value_data + i + 1);
+			}
+			_allocator.destroy(_value_data + _value_count - 1);
+			--_value_count;
+			return (_value_data + pos);
+		}
+		
+		iterator				erase(iterator first, iterator last);
+
 		void					push_back(const T & rhs)
 		{
 			static bool		first_push_back = true;
@@ -383,7 +405,7 @@ namespace ft
 		}
 
 		/// * Variables __________________________________________________________
-	private:
+	// private:
 		pointer			_value_data;
 		size_t			_value_size;
 		size_t			_value_count;
