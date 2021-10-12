@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/12 16:18:00 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/12 22:53:47 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,7 +377,36 @@ namespace ft
 			return (position);
 		}
 		
-		iterator				erase(iterator first, iterator last);
+		iterator				erase(iterator first, iterator last)
+		{
+			long	dist = ft::distance(first, last);
+			long	pos = first - begin();
+			long	end_pos = end() - last();
+
+			if (dist == 0)
+				return (last);
+
+			// delete from first to last
+			for (long i = pos; i < pos + dist; ++i)
+			{
+				_allocator.destroy(_value_data + i);
+			}
+
+			// from end_pos to end() 
+			// mettre les elements apres last dans first et ce qui suit
+			while (last != end())
+			{
+				*first = *last;	
+				++last;
+				++last;
+			}
+
+			for (long j = end_pos; j != _value_count - 1; ++j)
+			{
+				_allocator.destroy(_value_data + j);
+			}
+
+		}
 
 		void					push_back(const T & rhs)
 		{
