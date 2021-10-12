@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/11 19:35:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/12 16:18:00 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ namespace ft
 
 		const_reference			back() const	{	return (_value_data[_value_count -1]);		}
 
-		// pointer				data()			{	return (_value_data);	}	// c++11
+		pointer				data()			{	return (_value_data);	}	// c++11
 		// const_pointer		data() const	{	return (_value_data);	}	// c++11
 
 		/// * Iterators __________________________________________________________
@@ -364,22 +364,17 @@ namespace ft
 
 		iterator				erase(iterator position)
 		{
-			value_type	pos = begin() - position;
+			value_type	pos = position - begin();
 
-			if (position == end())
+			for (int i = pos; i < _value_count - 1; ++i)
 			{
-				pop_back();
-				return (end());
-			}
-
-			for (int i = pos; i < _value_count; ++i)
-			{
+				std::cout << "not here" << std::endl;
 				_allocator.destroy(_value_data + i);
-				_allocator.construct(_value_data + i, _value_data + i + 1);
+				_allocator.construct(_value_data + i, _value_data[i + 1]);
 			}
 			_allocator.destroy(_value_data + _value_count - 1);
 			--_value_count;
-			return (_value_data + pos);
+			return (position);
 		}
 		
 		iterator				erase(iterator first, iterator last);
