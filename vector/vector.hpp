@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 19:00:18 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 19:53:30 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ namespace ft
 		explicit vector(const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) {}
 
 		// ? fill (2)
-		explicit vector(difference_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
+		explicit vector(size_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
 		{
 			for (int i = 0; i < nb; ++i)
 				this->push_back(elem);
@@ -80,8 +80,11 @@ namespace ft
 		vector(const vector<T> & copy)
 		{
 			_allocator = copy.get_allocator();
-			_value_data = _allocator.allocate(copy._value_count);
-			std::copy(&copy._value_data[0], &copy._value_data[copy._value_count], _value_data);
+			_value_data = _allocator.allocate(copy._value_chunk_size);
+
+			for (size_type i = 0; i < copy._value_count; ++i)
+				_allocator.construct(_value_data + i, copy._value_data[i]);
+
 			_value_count = copy._value_count;
 			_value_chunk_size = copy._value_chunk_size;
 		}
@@ -130,9 +133,15 @@ namespace ft
 			// __DEB("calling reserve() if needed")
 			if (_value_chunk_size < n)
 			{
-				_allocator.deallocate(_value_data, _value_chunk_size);
-				_value_data = _allocator.allocate(n);
-				_value_chunk_size = n;
+				const size_type	len = _value_chunk_size;
+				do
+				{
+					_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
+				} while (_value_chunk_size < n);
+				
+				_allocator.deallocate(_value_data, len);
+				_value_data = _allocator.allocate(_value_chunk_size);
+				// _value_chunk_size = n;
 			}
 
 			// __DEB("construct n elements")
@@ -233,8 +242,12 @@ namespace ft
 				throw std::length_error("std::bad_alloc");
 			else if (!new_cap)
 				_value_chunk_size = 4;
-			if (new_cap > _value_chunk_size)
-				_value_chunk_size = new_cap;
+			// if (new_cap > _value_chunk_size)
+			// 	_value_chunk_size = new_cap;
+			while (new_cap > _value_chunk_size)
+			{
+				_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
+			}
 			pointer tmp = _allocator.allocate(_value_chunk_size);		// allocate _value_chunk_size * sizeof(_allocator::value_type)
 			for (size_type i = 0; i < _value_count; ++i)
 			{
@@ -245,13 +258,13 @@ namespace ft
 			_value_data = tmp;
 		}
 
-		size_type				capacity() const	{ return ( _value_count );}	//  * sizeof(T)
+		size_type				capacity() const	{ return ( _value_count );}
 
 		/// * Modifiers __________________________________________________________
 
 		void					clear()
 		{
-			for (difference_type i = 0; i < _value_count; ++i)
+			for (size_type i = 0; i < _value_count; ++i)
 				_allocator.destroy(&_value_data[i]);
 			_value_count = 0;
 		}
@@ -288,7 +301,7 @@ namespace ft
 		void					insert(iterator position, size_type nb_elem, const value_type &val)
 		{
 			bool		at_the_end;
-			long		pbeg = position - begin();
+			const long	pbeg = position - begin();
 
 			if (nb_elem < 1)
 				return ;
@@ -347,7 +360,6 @@ namespace ft
 					new_size = new_size ? new_size * 2 : 1;
 				} while (new_size < _value_count + nb_elem);
 			}
-
 			tmp = _allocator.allocate(new_size);
 			
 			// * copy _value_data from begin() to position
@@ -364,10 +376,10 @@ namespace ft
 				_allocator.construct(tmp + i, _value_data[i - nb_elem]);
 
 			// * _value_data becomes tmp
-			_allocator.deallocate(_value_data, _value_count);
+			_allocator.deallocate(_value_data, _value_chunk_size);
 			_value_data = tmp;
 			_value_count = i;
-
+			_value_chunk_size = new_size;
 		}
 
 		iterator				erase(iterator position)
@@ -418,6 +430,7 @@ namespace ft
 
 			if (_value_count >= _value_chunk_size)
 				reserve(_value_chunk_size * 2);
+			
 			_allocator.construct(_value_data + _value_count, rhs);		// create a copy in _value_data without calling the constructor
 			++_value_count;
 		}

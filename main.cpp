@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 18:40:29 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 19:27:08 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -810,7 +810,7 @@ int	main(void)
 {
 	test_iterator();
 
-	// test_vector();
+	test_vector();
 
 	return (0);
 }
