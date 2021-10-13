@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 17:18:29 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 19:00:18 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ namespace ft
 		vector(const vector<T> & copy)
 		{
 			_allocator = copy.get_allocator();
-			_value_data = _allocator.allocate(copy.capacity());
+			_value_data = _allocator.allocate(copy._value_count);
 			std::copy(&copy._value_data[0], &copy._value_data[copy._value_count], _value_data);
 			_value_count = copy._value_count;
 			_value_chunk_size = copy._value_chunk_size;
@@ -103,7 +103,7 @@ namespace ft
 
 		vector					&operator=(vector<T> const &copy)
 		{
-			if (_value_chunk_size < copy.capacity())
+			if (_value_chunk_size < copy._value_chunk_size)
 			{
 				_allocator.deallocate(_value_data, _value_chunk_size);
 				_value_data = _allocator.allocate(_value_chunk_size = copy.size());
@@ -128,9 +128,9 @@ namespace ft
 				_allocator.destroy(_value_data + i);
 			
 			// __DEB("calling reserve() if needed")
-			if (this->capacity() < n)
+			if (_value_chunk_size < n)
 			{
-				_allocator.deallocate(_value_data, _value_count);
+				_allocator.deallocate(_value_data, _value_chunk_size);
 				_value_data = _allocator.allocate(n);
 				_value_chunk_size = n;
 			}
@@ -245,7 +245,7 @@ namespace ft
 			_value_data = tmp;
 		}
 
-		size_type				capacity() const	{ return ( _value_count * sizeof(T) );}
+		size_type				capacity() const	{ return ( _value_count );}	//  * sizeof(T)
 
 		/// * Modifiers __________________________________________________________
 
