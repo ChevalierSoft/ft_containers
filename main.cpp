@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 16:26:36 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 17:18:13 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #define __GRN	std::cout<<GRN;
 #define __RST	std::cout<<RST;
 
-// #include "iterator/random_access_iterator.hpp"
+#include "iterator/random_access_iterator.hpp"
 
 // _____________________________________________________________________________
 class	menfou
@@ -476,8 +476,8 @@ void	test_vector()
 	{
 
 		__GRN
-		ft::vector<int> jkl;
-		ft::vector<int> uio;
+		std::vector<int> jkl;
+		std::vector<int> uio;
 
 		uio.insert(jkl.begin(), 7, 3);	// enable_if is working
 		
@@ -683,8 +683,16 @@ void	test_iterator()
 			std::cout << "crs == crs" << std::endl;
 		if (rs == rs)
 			std::cout << "rs == rs" << std::endl;
+		
+		
 	}
 
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "egualities const an not const" <<RST<< std::endl;
+	// {
+	// 	std::vector<int>::iterator iv = s.rbegin();
+	// 	std::vector<int>::const_iterator ft_const_it = s.begin();
+	// }
 	// test_iterator_2(v);
 	// test_iterator_2(s);
 

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 16:33:56 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 17:18:29 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,25 +116,30 @@ namespace ft
 
 		/// * assign() & get_allocator() _________________________________________
 		
-		void					assign(size_type count, const T& value)
+		void					assign(size_type n, const T& value)
 		{
-			if (count > this->max_size())
-				throw std::length_error("cannot create ft::vector larger than max_size()");
-			// if (this->capacity() < count)
-			// {
-				_allocator.deallocate(_value_data, _value_count);
-				_value_data = _allocator.allocate(count);
-				_value_chunk_size = count;
-			// }
-			// else
-			// {
-			// 	for (size_type i = 0; i < this->size(); ++i)
-			// 		_allocator.destroy(_value_data + i);
-			// }
-			for (size_type i = 0; i < count; ++i)
-				_value_data[i] = value;
+			// __DEB("assign()")
 
-			_value_count = count;
+			if (n > this->max_size())
+				throw std::length_error("cannot create ft::vector larger than max_size()");
+			
+			// __DEB("destroying every elements in the vector")
+			for (size_type i = 0; i < this->size(); ++i)
+				_allocator.destroy(_value_data + i);
+			
+			// __DEB("calling reserve() if needed")
+			if (this->capacity() < n)
+			{
+				_allocator.deallocate(_value_data, _value_count);
+				_value_data = _allocator.allocate(n);
+				_value_chunk_size = n;
+			}
+
+			// __DEB("construct n elements")
+			for (size_type i = 0; i < n; ++i)
+				_allocator.construct(_value_data + i, value);
+
+			_value_count = n;
 
 		}
 
