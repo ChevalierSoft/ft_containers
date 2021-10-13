@@ -1,8 +1,8 @@
 Insert
 #################################
 Size :		16
-Max_size :	4611686018427387903
-Capacity :	20
+Max_size :	2305843009213693951
+Capacity :	16
 Content :
 			1
 			8
@@ -24,8 +24,8 @@ Content :
 Erase
 #################################
 Size :		13
-Max_size :	4611686018427387903
-Capacity :	20
+Max_size :	2305843009213693951
+Capacity :	13
 Content :
 			1
 			8

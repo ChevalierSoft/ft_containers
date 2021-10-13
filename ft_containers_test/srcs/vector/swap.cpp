@@ -62,10 +62,10 @@ int main(void)
 	err += check_capacity(v2, v4, monFlux1, monFlux2);
 	err += check_content(v2, v4, monFlux1, monFlux2);
 
-    if (!err)
+	if (!err)
 		std::cout << "\e[0;32m[⭐️]\e[0m\t";
-    else
-        std::cout << "\e[0;31m[💥]\e[0m\t"; 
+	else
+		std::cout << "\e[0;31m[💥]\e[0m\t"; 
 
 	std::cout << "\n";
 	monFlux1.close();
