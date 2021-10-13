@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 20:35:44 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 20:49:27 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,7 +301,7 @@ namespace ft
 		void					insert(iterator position, size_type nb_elem, const value_type &val)
 		{
 			bool			at_the_end;
-			const size_type	pbeg = position - begin();
+			const long		pbeg = position - begin();
 
 			if (nb_elem < 1)
 				return ;
@@ -329,11 +329,11 @@ namespace ft
 			else
 			{
 				// * straff the content from position to nb_elem backward
-				for (size_type j = _value_count; j >= pbeg; --j)
+				for (long long j = _value_count; j >= pbeg; --j)
 					_value_data[j + nb_elem] = _value_data[j];
 				_value_count += nb_elem;
 				// * add nb_elem time val, starting from pbeg
-				for (size_type i = 0; i < nb_elem; ++i)
+				for (long long i = 0; i < nb_elem; ++i)
 					_value_data[pbeg + i] = val;
 			}
 		}
