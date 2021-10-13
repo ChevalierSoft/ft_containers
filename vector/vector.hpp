@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 19:53:30 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 20:22:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ namespace ft
 		// ? fill (2)
 		explicit vector(size_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
 		{
-			for (int i = 0; i < nb; ++i)
+			for (size_type i = 0; i < nb; ++i)
 				this->push_back(elem);
 		}
 
@@ -158,7 +158,7 @@ namespace ft
 		{
 			size_type	i;
 			pointer		tmp;
-			long		count = ft::distance(first, last);
+			size_type	count = ft::distance(first, last);
 			// std::cout << "count : " << count << std::endl;
 
 			if (count > this->max_size())
@@ -345,7 +345,7 @@ namespace ft
 		{
 			long			nb_elem;
 			long			new_size = _value_count;
-			long			pbeg = position - begin();
+			size_type		pbeg = position - begin();
 			size_type		i;
 			pointer			tmp;						// this will replace _value_data
 			
@@ -425,12 +425,8 @@ namespace ft
 
 		void					push_back(const T & rhs)
 		{
-			static bool		first_push_back = true;
-			pointer			data;
-
 			if (_value_count >= _value_chunk_size)
 				reserve(_value_chunk_size * 2);
-			
 			_allocator.construct(_value_data + _value_count, rhs);		// create a copy in _value_data without calling the constructor
 			++_value_count;
 		}
@@ -451,8 +447,6 @@ namespace ft
 				return ;
 			else if (n < _value_count)
 			{
-				// __DEB("n < capacity")
-				size_type bpos = (begin() + n) - begin();
 				// __DEB("destroying elements from n to end() position")
 				for (size_type i = n; i != _value_count; ++i)
 					_allocator.destroy(_value_data + i);
