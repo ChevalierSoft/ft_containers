@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 04:16:55 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 05:20:54 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -570,6 +570,35 @@ void	test_vector()
 	}
 
 	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "resize()" <<RST<< std::endl;
+	{
+		ft::vector<menfou> vres;
+		vres.insert(vres.begin(), 6, menfou('r'));
+
+		vres.resize(1);
+		display(vres);
+		// vres.resize(5);
+		// display(vres);
+		vres.resize(9, menfou('x'));
+		display(vres);
+	}
+	{
+		__GRN
+
+		std::vector<menfou> vres;
+		vres.insert(vres.begin(), 6, menfou('r'));
+
+		vres.resize(1);
+		display(vres);
+		// vres.resize(5);				// ! needs to be compiled with -std=c++98
+		// display(vres);
+		vres.resize(9, menfou('x'));
+		display(vres);
+
+		__RST
+	}
+	/*
+	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "swap()" <<RST<< std::endl;
 	{
 		ft::vector<menfou> vmf1;
@@ -599,7 +628,7 @@ void	test_vector()
 
 		__RST
 	}
-
+	*/
 
 }	//__________________________________________________________________________
 

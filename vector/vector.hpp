@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 04:21:22 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 05:21:37 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #include "../utils/utils.hpp"
 #include "../utils/enable_if.hpp"
 
-#define __DEB(s) std::cerr<<YEL<<s<<RST<<std::endl;
+#define __DEB(s) std::cerr<<s<<std::endl;
 
 /*
 must be reimplemented :
@@ -234,7 +234,7 @@ namespace ft
 			for (size_type i = 0; i < _value_count; ++i)
 			{
 				_allocator.construct(tmp + i, _value_data[i]);			// create a copy in _value_data without calling the constructor
-				// _allocator.destroy(_value_data + i);					// call destructor but don't clean the memory
+				_allocator.destroy(_value_data + i);					// call destructor but don't clean the memory
 			}
 			_allocator.deallocate(_value_data, _value_count);			// free up _value_data's memory space
 			_value_data = tmp;
@@ -379,6 +379,7 @@ namespace ft
 			return (position);
 		}
 		
+		// ! Error here. see the lasts tests in test_vector
 		iterator				erase(iterator first, iterator last)
 		{
 			long	dist = ft::distance(first, last);
@@ -438,6 +439,36 @@ namespace ft
 				_allocator.destroy(&_value_data[_value_count - 1]);		// call destructor but don't clean the memory (deprecated since c++17)
 				--_value_count;
 			}
+		}
+
+		void resize (size_type n, value_type val = value_type())
+		{
+			// __DEB("resize()")
+			if (n == _value_count)
+				return ;
+			else if (n < _value_count)
+			{
+				// __DEB("n < capacity")
+				size_type bpos = (begin() + n) - begin();
+				// __DEB("destroying elements from n to end() position")
+				for (size_type i = n; i != _value_count; ++i)
+					_allocator.destroy(_value_data + i);
+			}
+			else
+			{
+				if (n > _value_chunk_size)
+				{
+					do
+					{
+						_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
+					} while (n > _value_chunk_size);
+					this->reserve(_value_chunk_size);
+				}
+				// ? in c++11 resize call each time the constructor
+				for (size_type i = _value_count; i < n; ++i)
+					_allocator.construct(_value_data + i, val);
+			}
+			_value_count = n;
 		}
 
 		void					swap (vector& x)
