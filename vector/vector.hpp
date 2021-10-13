@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 05:32:28 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 16:24:42 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,33 +389,20 @@ namespace ft
 			if (dist == 0)
 				return (last);
 
-
 			// __DEB("delete from first to last")
 			for (long i = pos; i < pos + dist; ++i)
 				_allocator.destroy(_value_data + i);
 
 			// __DEB("move last element at first position recurcively")
 			if (last != end())
-			{
-				// int d = 0;
-				while (last != end() - 1)
-				{
-					// d = end() - last - 1;
-					// __DEB(d)
-					*first = *(last - 1);	
-					++first;
-					++last;
-				}
-			}
+				for (iterator start = first; last != end(); ++start, ++last)
+					*start = *(last);
 			
 			// __DEB("destroy last part of the vector")
 			for (long j = end_pos; j < _value_count; ++j)
-			{
-				// std::cout << "j : " << j << std::endl;
 				_allocator.destroy(_value_data + j);
-			}
+			
 			_value_count -= dist;
-
 			return (first);
 		}
 
