@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 05:21:37 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 05:32:28 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,8 +378,7 @@ namespace ft
 			--_value_count;
 			return (position);
 		}
-		
-		// ! Error here. see the lasts tests in test_vector
+
 		iterator				erase(iterator first, iterator last)
 		{
 			long	dist = ft::distance(first, last);
@@ -403,7 +402,7 @@ namespace ft
 				{
 					// d = end() - last - 1;
 					// __DEB(d)
-					*first = *last;	
+					*first = *(last - 1);	
 					++first;
 					++last;
 				}
@@ -416,8 +415,7 @@ namespace ft
 				_allocator.destroy(_value_data + j);
 			}
 			_value_count -= dist;
-			
-			// __DEB("return new first position")
+
 			return (first);
 		}
 
@@ -441,7 +439,7 @@ namespace ft
 			}
 		}
 
-		void resize (size_type n, value_type val = value_type())
+		void					resize (size_type n, value_type val = value_type())
 		{
 			// __DEB("resize()")
 			if (n == _value_count)

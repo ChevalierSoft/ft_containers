@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 05:20:54 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 05:25:11 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -568,7 +568,7 @@ void	test_vector()
 		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		ENDL
 	}
-
+/*
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "resize()" <<RST<< std::endl;
 	{
@@ -597,7 +597,7 @@ void	test_vector()
 
 		__RST
 	}
-	/*
+
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "swap()" <<RST<< std::endl;
 	{
