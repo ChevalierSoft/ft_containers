@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 20:22:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 20:35:44 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,8 +300,8 @@ namespace ft
 		// ? insert n times (2)
 		void					insert(iterator position, size_type nb_elem, const value_type &val)
 		{
-			bool		at_the_end;
-			const long	pbeg = position - begin();
+			bool			at_the_end;
+			const size_type	pbeg = position - begin();
 
 			if (nb_elem < 1)
 				return ;
@@ -329,11 +329,11 @@ namespace ft
 			else
 			{
 				// * straff the content from position to nb_elem backward
-				for (long j = _value_count; j >= pbeg; --j)
+				for (size_type j = _value_count; j >= pbeg; --j)
 					_value_data[j + nb_elem] = _value_data[j];
 				_value_count += nb_elem;
 				// * add nb_elem time val, starting from pbeg
-				for (long i = 0; i < nb_elem; ++i)
+				for (size_type i = 0; i < nb_elem; ++i)
 					_value_data[pbeg + i] = val;
 			}
 		}
@@ -398,16 +398,16 @@ namespace ft
 
 		iterator				erase(iterator first, iterator last)
 		{
-			long	dist = ft::distance(first, last);
-			long	pos = first - begin();
-			long	end_pos = end() - last;
+			size_type	dist = ft::distance(first, last);
+			size_type	pos = first - begin();
+			size_type	end_pos = end() - last;
 
 			// __DEB("erase (2)")
 			if (dist == 0)
 				return (last);
 
 			// __DEB("delete from first to last")
-			for (long i = pos; i < pos + dist; ++i)
+			for (size_type i = pos; i < pos + dist; ++i)
 				_allocator.destroy(_value_data + i);
 
 			// __DEB("move last element at first position recurcively")
@@ -416,7 +416,7 @@ namespace ft
 					*start = *(last);
 			
 			// __DEB("destroy last part of the vector")
-			for (long j = end_pos; j < _value_count; ++j)
+			for (size_type j = end_pos; j < _value_count; ++j)
 				_allocator.destroy(_value_data + j);
 			
 			_value_count -= dist;
