@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 16:24:42 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 16:33:56 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -546,6 +546,12 @@ namespace ft
 		if ( lhs > rhs || lhs == rhs )
 			return (true);
 		return (false);
+	}
+
+	template < class T, class Alloc >
+	void swap (vector<T, Alloc>& lhs, vector<T, Alloc>& rhs)
+	{
+		lhs.swap(rhs);
 	}
 
 } /// * namespace ft _____________________________________________________________
