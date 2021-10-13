@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/12 22:53:47 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 04:02:40 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #include "../utils/ft_print_memory.h"
 #include "../utils/utils.hpp"
 #include "../utils/enable_if.hpp"
+
+#define __DEB(s) std::cerr<<YEL<<s<<RST<<std::endl;
 
 /*
 must be reimplemented :
@@ -190,8 +192,9 @@ namespace ft
 
 		const_reference			back() const	{	return (_value_data[_value_count -1]);		}
 
-		pointer				data()			{	return (_value_data);	}	// c++11
-		// const_pointer		data() const	{	return (_value_data);	}	// c++11
+		pointer					data()			{	return (_value_data);	}	// c++11
+		
+		const_pointer			data() const	{	return (_value_data);	}	// c++11
 
 		/// * Iterators __________________________________________________________
 
@@ -368,7 +371,6 @@ namespace ft
 
 			for (int i = pos; i < _value_count - 1; ++i)
 			{
-				std::cout << "not here" << std::endl;
 				_allocator.destroy(_value_data + i);
 				_allocator.construct(_value_data + i, _value_data[i + 1]);
 			}
@@ -381,31 +383,41 @@ namespace ft
 		{
 			long	dist = ft::distance(first, last);
 			long	pos = first - begin();
-			long	end_pos = end() - last();
+			long	end_pos = end() - last;
 
+			// __DEB("erase (2)")
 			if (dist == 0)
 				return (last);
 
-			// delete from first to last
+
+			// __DEB("delete from first to last")
 			for (long i = pos; i < pos + dist; ++i)
-			{
 				_allocator.destroy(_value_data + i);
-			}
 
-			// from end_pos to end() 
-			// mettre les elements apres last dans first et ce qui suit
-			while (last != end())
+			// __DEB("move last element at first position recurcively")
+			if (last != end())
 			{
-				*first = *last;	
-				++last;
-				++last;
+				// int d = 0;
+				while (last != end() - 1)
+				{
+					// d = end() - last - 1;
+					// __DEB(d)
+					*first = *last;	
+					++first;
+					++last;
+				}
 			}
-
-			for (long j = end_pos; j != _value_count - 1; ++j)
+			
+			// __DEB("destroy last part of the vector")
+			for (long j = end_pos; j < _value_count; ++j)
 			{
+				// std::cout << "j : " << j << std::endl;
 				_allocator.destroy(_value_data + j);
 			}
-
+			_value_count -= dist;
+			
+			// __DEB("return new first position")
+			return (first);
 		}
 
 		void					push_back(const T & rhs)

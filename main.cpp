@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/12 16:17:27 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 04:02:31 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -493,30 +493,48 @@ void	test_vector()
 	std::cout <<std::endl<<CYN<< "erase()" <<RST<< std::endl;
 	{
 		// ? use vector's type in sizeof : https://stackoverflow.com/a/53259979
-		ft::vector<int> vv;
-
+		ft::vector<int>	vv;
+		// ft::vector<int>::iterator ivv;
+		int rera;
 		vv.push_back('L');
 		vv.push_back('L');
 		vv.push_back('U');
 		vv.push_back('L');
-		ft_print_memory((void *)vv._value_data, vv.size() * sizeof(int)); ENDL
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.erase(vv.begin());
-		ft_print_memory((void *)vv._value_data, vv.size() * sizeof(int)); ENDL
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.erase(vv.end() - 1);
-		ft_print_memory((void *)vv._value_data, vv.size() * sizeof(int)); ENDL
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.push_back('V');
 		vv.push_back('U');
-		ft_print_memory((void *)vv._value_data, vv.size() * sizeof(int)); ENDL
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.erase(vv.begin() + 2);
 		vv.erase(vv.begin());
-		ft_print_memory((void *)vv._value_data, vv.size() * sizeof(int)); ENDL
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.insert(vv.begin() + 1, 'W');
-		ft_print_memory((void *)vv._value_data, vv.size() * sizeof(int)); ENDL
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); END
+		vv.insert(vv.end(), vv.begin(), vv.end());
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+
+		rera = vv.erase(vv.begin() + 1, vv.end() - 1) - vv.begin();
+		std::cout << "rera : " << rera << std::endl;
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+		rera = vv.erase(vv.end(), vv.end()) - vv.begin();
+		std::cout << "rera : " << rera << std::endl;
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+		rera = vv.erase(vv.begin(), vv.begin()) - vv.begin();
+		std::cout << "rera : " << rera << std::endl;
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+		rera = vv.erase(vv.begin(), vv.end()) - vv.begin();
+		std::cout << "rera : " << rera << std::endl;
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		ENDL
 	}
 	{
-		std::vector<int> vv;
 		C_GRN
+		std::vector<int> vv;
+		int rera;
+		vv.push_back('L');
 		vv.push_back('L');
 		vv.push_back('U');
 		vv.push_back('L');
@@ -525,14 +543,30 @@ void	test_vector()
 		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.erase(vv.end() - 1);
 		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-
 		vv.push_back('V');
 		vv.push_back('U');
 		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-		vv.erase(vv.begin() + 1);
+		vv.erase(vv.begin() + 2);
+		vv.erase(vv.begin());
 		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.insert(vv.begin() + 1, 'W');
 		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+		vv.insert(vv.end(), vv.begin(), vv.end());
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+
+		rera = vv.erase(vv.begin() + 1, vv.end() - 1) - vv.begin();
+		std::cout << "rera : " << rera << std::endl;
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+		rera = vv.erase(vv.end(), vv.end()) - vv.begin();
+		std::cout << "rera : " << rera << std::endl;
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+		rera = vv.erase(vv.begin(), vv.begin()) - vv.begin();
+		std::cout << "rera : " << rera << std::endl;
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+		rera = vv.erase(vv.begin(), vv.end()) - vv.begin();
+		std::cout << "rera : " << rera << std::endl;
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+		ENDL
 	}
 
 
