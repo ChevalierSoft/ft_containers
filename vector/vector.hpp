@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 04:02:40 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 04:21:22 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -440,12 +440,31 @@ namespace ft
 			}
 		}
 
+		void					swap (vector& x)
+		{
+			pointer		tmp_data;
+			size_type	tmp_count;
+			size_type	tmp_chunk_size;
+
+			tmp_data = x._value_data;
+			x._value_data = _value_data;
+			_value_data = tmp_data;
+
+			tmp_count = x._value_count;
+			x._value_count = _value_count;
+			_value_count = tmp_count;
+
+			tmp_chunk_size = x._value_chunk_size;
+			x._value_chunk_size = _value_chunk_size;
+			_value_chunk_size = tmp_chunk_size;
+		}
+
 		/// * Variables __________________________________________________________
-	// private:
+	private:
 		pointer			_value_data;
-		size_t			_value_size;
-		size_t			_value_count;
-		size_t			_value_chunk_size;
+		size_type		_value_size;
+		size_type		_value_count;
+		size_type		_value_chunk_size;
 		Allocator		_allocator;
 
 	}; /// * vector ______________________________________________________________

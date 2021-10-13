@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 04:02:31 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 04:16:55 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 #include "./utils/ft_print_memory.h"
 
 #define ENDL	std::cout<<std::endl;
-#define C_GRN	std::cout<<GRN;
-#define C_RST	std::cout<<RST;
+#define __GRN	std::cout<<GRN;
+#define __RST	std::cout<<RST;
 
 // #include "iterator/random_access_iterator.hpp"
 
@@ -355,7 +355,7 @@ void	test_vector()
 		// std::cout << ovh[334] <<std::endl;	// should be a heap-buffer-overflow
 	}
 	{
-		C_GRN
+		__GRN
 		std::vector<menfou> ovh;
 		for (int i = 0; i < 3; ++i)
 			ovh.push_back(menfou('0' + i));
@@ -363,7 +363,7 @@ void	test_vector()
 		ft::vector<menfou>::const_reference crovh = ovh[0];
 		std::cout << crovh;
 		// std::cout << ovh[334] <<std::endl;	// should be a heap-buffer-overflow
-		C_RST
+		__RST
 	}
 
 	std::cout <<std::endl<<CYN<< "is_integral" <<RST<< std::endl;
@@ -373,11 +373,11 @@ void	test_vector()
 		std::cout << "float: \t" << ft::is_integral<float>::value << std::endl;
 	}
 	{
-		C_GRN
+		__GRN
 		std::cout << "char: \t" << std::is_integral<char>::value << std::endl;
 		std::cout << "int: \t" << std::is_integral<int>::value << std::endl;
 		std::cout << "float: \t" << std::is_integral<float>::value << std::endl;
-		C_RST
+		__RST
 	}
 
 	//__________________________________________________________________________
@@ -423,7 +423,7 @@ void	test_vector()
 
 	}
 	{
-		C_GRN
+		__GRN
 
 		std::vector<menfou>	asd;
 		std::vector<menfou>	cpy(16, menfou('x'));
@@ -450,7 +450,7 @@ void	test_vector()
 
 		std::vector<int> jkl;
 		jkl.insert(jkl.begin(), 7, 7);
-		C_RST
+		__RST
 	}
 	if (strft != strstd)
 		std::cout << "error" <<std::endl<< strft <<std::endl<<GRN<< strstd <<RST<<std::endl;
@@ -475,7 +475,7 @@ void	test_vector()
 	}
 	{
 
-		C_GRN
+		__GRN
 		std::vector<int> jkl;
 		
 
@@ -486,7 +486,7 @@ void	test_vector()
 		// catch(const std::exception& e){	std::cerr << e.what() << '\n'; }
 		
 		display(jkl);
-		C_RST
+		__RST
 	}
 
 	//__________________________________________________________________________
@@ -512,7 +512,7 @@ void	test_vector()
 		vv.erase(vv.begin());
 		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.insert(vv.begin() + 1, 'W');
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); END
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.insert(vv.end(), vv.begin(), vv.end());
 		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 
@@ -531,7 +531,7 @@ void	test_vector()
 		ENDL
 	}
 	{
-		C_GRN
+		__GRN
 		std::vector<int> vv;
 		int rera;
 		vv.push_back('L');
@@ -567,6 +567,37 @@ void	test_vector()
 		std::cout << "rera : " << rera << std::endl;
 		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		ENDL
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "swap()" <<RST<< std::endl;
+	{
+		ft::vector<menfou> vmf1;
+		ft::vector<menfou> vmf2;
+
+		vmf1.insert(vmf1.begin(), 3, menfou('1'));
+		vmf2.insert(vmf2.begin(), 5, menfou('2'));
+
+		vmf1.swap(vmf2);
+
+		display(vmf1);
+		display(vmf2);
+	}
+	{
+		__GRN
+
+		std::vector<menfou> vmf1;
+		std::vector<menfou> vmf2;
+
+		vmf1.insert(vmf1.begin(), 3, menfou('1'));
+		vmf2.insert(vmf2.begin(), 5, menfou('2'));
+
+		vmf1.swap(vmf2);
+
+		display(vmf1);
+		display(vmf2);
+
+		__RST
 	}
 
 
