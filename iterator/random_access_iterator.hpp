@@ -2,6 +2,7 @@
 # define RANDOM_ACCESS_ITERATOR_HPP
 
 #include "iterator.h"
+#include "../utils/enable_if.hpp"
 
 namespace ft
 {
@@ -23,20 +24,19 @@ namespace ft
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_category;
 
 		/// * Constructors / Destructor _____________________________________________________
+		// ? not using explicit key word to make it easier to create
 		random_access_iterator() {}
 		random_access_iterator(pointer x_t) : _ptr(x_t) {}
-		random_access_iterator(const iterator_type &rhs) { *this = rhs; }
-		// template <class I>
-		// random_access_iterator(const I &rhs, typename std::enable_if<!std::is_integral<random_access_iterator>::value, random_access_iterator>::type* = 0) { _ptr = rhs; }
-		// random_access_iterator(const difference_type rhs) : ft::iterator<T>(rhs) {}
+		random_access_iterator(const ft::random_access_iterator<T> &rhs) { *this = rhs; }
+
+		// ? allows conversion between iterator of T to const T
+		operator random_access_iterator<const T>() const { return random_access_iterator<const T>(_ptr); }
 
 		~random_access_iterator() {}
 
 		/// * Member Operators _______________________________________________________________
-		template <typename Iter>
-		random_access_iterator	&operator= (const random_access_iterator<Iter> &rhs)	{	_ptr = rhs.base(); return (*this);	}
-		// random_access_iterator	&operator= (const random_access_iterator &rhs)	{	_ptr = rhs._ptr; return (*this);	}
-
+		template <typename U>
+		random_access_iterator&	operator= (const random_access_iterator<U> &rhs) { _ptr = rhs.base(); return (*this); }
 
 		/// * Equality Operators _____________________________________________________________
 		bool					operator==(const random_access_iterator &rhs) const	{ return (_ptr == rhs._ptr); }
@@ -65,8 +65,6 @@ namespace ft
 		random_access_iterator	operator++(int)	{ random_access_iterator tmp = *this; ++(this->_ptr); return (tmp);	}
 		random_access_iterator	operator--(int) { random_access_iterator tmp = *this; --(this->_ptr); return (tmp);	}
 
-		// operator	random_access_iterator<const T> {	return random_access_iterator<const T>(_ptr);	}	// conversion from const iterator to iterator
-
 		reference				operator* ()	{ return (*_ptr);	}
 		pointer					operator->()	{ return (_ptr);	}
 
@@ -77,6 +75,7 @@ namespace ft
 		pointer _ptr;
 
 	};	/// * random_access_iterator ____________________________________________________
+
 }
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 17:18:13 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/13 18:40:29 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -687,12 +687,6 @@ void	test_iterator()
 		
 	}
 
-	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "egualities const an not const" <<RST<< std::endl;
-	// {
-	// 	std::vector<int>::iterator iv = s.rbegin();
-	// 	std::vector<int>::const_iterator ft_const_it = s.begin();
-	// }
 	// test_iterator_2(v);
 	// test_iterator_2(s);
 
@@ -773,19 +767,30 @@ void	test_iterator()
 	{
 		ft::vector<menfou>	vmf;
 		ft::vector<menfou>::iterator imf;
-		vmf.push_back(menfou());
+		vmf.push_back(menfou('c'));
 		imf = vmf.begin();
 		std::cout << imf->c << std::endl;
 	}
 	{
-		std::cout <<GRN;
+		__GRN
 		std::vector<menfou>	vmf;
 		std::vector<menfou>::iterator imf;
-		vmf.push_back(menfou());
+		vmf.push_back(menfou('c'));
 		imf = vmf.begin();
-		std::cout <<GRN<< imf->c << std::endl;
+		std::cout << imf->c << std::endl;
+		__RST
 	}
 
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "egualities const an not const" <<RST<< std::endl;
+	{
+		ft::vector<char>::const_iterator iv1 = v.begin();
+		ft::vector<char>::const_iterator iv2(v.begin());
+	}
+	{
+		std::vector<char>::const_iterator sv1 = s.begin();
+		std::vector<char>::const_iterator sv2(s.begin());
+	}
 }
 
 template<class BidirIt>
@@ -803,9 +808,9 @@ void my_reverse(BidirIt first, BidirIt last)
 
 int	main(void)
 {
-	// test_iterator();
+	test_iterator();
 
-	test_vector();
+	// test_vector();
 
 	return (0);
 }
