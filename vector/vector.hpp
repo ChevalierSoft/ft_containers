@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 22:41:06 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 22:42:38 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ namespace ft
 		// ? fill (2)
 		explicit vector (size_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
 		{
-			__DEB("vector (2) fill")
+			// __DEB("vector (2) fill")
 
 			// for (size_type i = 0; i < nb; ++i)	// pld
 			// {
