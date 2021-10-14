@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 22:10:36 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 22:41:06 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,26 @@ namespace ft
 		// ? https://cplusplus.com/reference/vector/vector/vector/
 
 		// ? default (1)
-		explicit vector(const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) {}
+		explicit vector (const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) {}
 
 		// ? fill (2)
-		explicit vector(size_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
+		explicit vector (size_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
 		{
-			for (size_type i = 0; i < nb; ++i)
-				this->push_back(elem);
+			__DEB("vector (2) fill")
+
+			// for (size_type i = 0; i < nb; ++i)	// pld
+			// {
+			// 	__DEB("wtf les amis")
+			// 	this->push_back(elem);
+			// }
+
+			this->resize(nb, elem);
+			// _value_chunk_size = nb;
+			
+			// for (size_type i = 0; i < nb; ++i)
+			// {
+			// 	_
+			// }
 		}
 
 		// ? range (3)
@@ -105,7 +118,7 @@ namespace ft
 			_allocator.deallocate(_value_data, _value_chunk_size);
 		}
 
-		vector					&operator=(vector<T> const &copy)
+		vector					&operator= (vector<T> const &copy)
 		{
 			if (_value_chunk_size < copy._value_chunk_size)
 			{
@@ -120,7 +133,7 @@ namespace ft
 
 		/// * assign() & get_allocator() _________________________________________
 		
-		void					assign(size_type n, const T& value)
+		void					assign (size_type n, const T& value)
 		{
 			// __DEB("assign()")
 
@@ -154,7 +167,7 @@ namespace ft
 		}
 
 		template<class InputIterator>
-		void					assign(InputIterator first, InputIterator last,
+		void					assign (InputIterator first, InputIterator last,
 									typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
 		{
 			size_type	i;
@@ -177,78 +190,76 @@ namespace ft
 
 		}
 		
-		allocator_type			get_allocator() const { return this->_allocator; }
+		allocator_type			get_allocator () const { return this->_allocator; }
 
 		/// * Element access _____________________________________________________
 
-		reference				at( size_type pos )
+		reference				at ( size_type pos )
 		{
 			if (pos <= 0 || pos >= _value_count)
 				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
 			return (_value_data[pos]);
 		}
 
-		const_reference			at( size_type pos ) const
+		const_reference			at ( size_type pos ) const
 		{
 			if (pos <= 0 || pos >= _value_count)
 				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
 			return (_value_data[pos]);
 		}
 
-		reference				operator[]( size_type pos )			{	return (_value_data[pos]);	}
+		reference				operator[] ( size_type pos )			{	return (_value_data[pos]);	}
 
-		const_reference			operator[]( size_type pos ) const	{	return (_value_data[pos]);	}
+		const_reference			operator[] ( size_type pos ) const	{	return (_value_data[pos]);	}
 
-		reference				front() 		{	return (*begin());		}
+		reference				front () 		{	return (*begin());		}
 
-		const_reference			front() const	{	return (*begin());		}
+		const_reference			front () const	{	return (*begin());		}
 
-		reference				back()			{	return (_value_data[_value_count -1]);		}
+		reference				back ()			{	return (_value_data[_value_count -1]);		}
 
-		const_reference			back() const	{	return (_value_data[_value_count -1]);		}
+		const_reference			back () const	{	return (_value_data[_value_count -1]);		}
 
-		pointer					data()			{	return (_value_data);	}	// c++11
+		pointer					data ()			{	return (_value_data);	}	// c++11
 		
-		const_pointer			data() const	{	return (_value_data);	}	// c++11
+		const_pointer			data () const	{	return (_value_data);	}	// c++11
 
 		/// * Iterators __________________________________________________________
 
-		iterator				begin() 		{ return ( _value_data );					}
+		iterator				begin () 		{ return iterator( _value_data );					}
 
-		iterator				end() 			{ return ( _value_data + _value_count );	}
+		iterator				end () 			{ return iterator( _value_data + _value_count );	}
 
-		const_iterator			begin() const	{ return ( _value_data );					}
+		const_iterator			begin () const	{ return const_iterator( _value_data );					}
 
-		const_iterator			end() const		{ return ( _value_data + _value_count );	}
+		const_iterator			end () const		{ return const_iterator( _value_data + _value_count );	}
 
-		reverse_iterator		rbegin() 		{ return reverse_iterator( _value_data + _value_count - 1 );}
+		reverse_iterator		rbegin () 		{ return reverse_iterator( _value_data + _value_count - 1 );}
 
-		reverse_iterator		rend() 			{ return reverse_iterator( _value_data - 1 );				}
+		reverse_iterator		rend () 			{ return reverse_iterator( _value_data - 1 );				}
 
-		const_reverse_iterator	rbegin() const	{ return const_reverse_iterator( _value_data + _value_count - 1 );	}
+		const_reverse_iterator	rbegin () const	{ return const_reverse_iterator( _value_data + _value_count - 1 );	}
 
-		const_reverse_iterator	rend() const	{ return const_reverse_iterator( _value_data - 1 );			}
+		const_reverse_iterator	rend () const	{ return const_reverse_iterator( _value_data - 1 );			}
 
 		/// * Capacity ___________________________________________________________
 
-		bool					empty() const		{ return ( _value_count == 0 );			}
+		bool					empty () const		{ return ( _value_count == 0 );			}
 
-		size_type				size() const		{ return ( _value_count );				}
+		size_type				size () const		{ return ( _value_count );				}
 
-		size_type				max_size() const	{ return this->_allocator.max_size();	}	// ? deprecated in C++17
+		size_type				max_size () const	{ return this->_allocator.max_size();	}	// ? deprecated in C++17
 
-		void					reserve(size_type new_cap)
+		void					reserve (size_type new_cap)
 		{
 			if (new_cap > max_size())
 				throw std::length_error("std::bad_alloc");
 			else if (!new_cap)
 				_value_chunk_size = 1;
-			// if (new_cap > _value_chunk_size)
-			// 	_value_chunk_size = new_cap;
-			while (new_cap > _value_chunk_size)
-			{
-				_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
-			}
+			if (new_cap > _value_chunk_size)			// ? option 1
+				_value_chunk_size = new_cap;
+			// while (new_cap > _value_chunk_size)		// ? option 2
+			// 	_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
 			pointer tmp = _allocator.allocate(_value_chunk_size);		// allocate _value_chunk_size * sizeof(_allocator::value_type)
 			for (size_type i = 0; i < _value_count; ++i)
 			{
@@ -259,11 +270,11 @@ namespace ft
 			_value_data = tmp;
 		}
 
-		size_type				capacity() const	{ return ( _value_chunk_size );}
+		size_type				capacity () const	{ return ( _value_chunk_size );}
 
 		/// * Modifiers __________________________________________________________
 
-		void					clear()
+		void					clear ()
 		{
 			for (size_type i = 0; i < _value_count; ++i)
 				_allocator.destroy(&_value_data[i]);
@@ -271,7 +282,7 @@ namespace ft
 		}
 
 		// ? insert single element (1)
-		iterator				insert(iterator position, const value_type & val)
+		iterator				insert (iterator position, const value_type & val)
 		{
 			bool			at_the_end;
 			const size_type	elem_position = position - begin();
@@ -299,7 +310,7 @@ namespace ft
 		}
 
 		// ? insert n times (2)
-		void					insert(iterator position, size_type nb_elem, const value_type &val)
+		void					insert (iterator position, size_type nb_elem, const value_type &val)
 		{
 			bool			at_the_end;
 			const long		pbeg = position - begin();
@@ -342,7 +353,7 @@ namespace ft
 
 		// ? insert by range (3)
 		template <class InputIterator>
-		void					insert(iterator position, InputIterator first,
+		void					insert (iterator position, InputIterator first,
 									typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type last)
 		{
 			long			nb_elem;
@@ -384,7 +395,7 @@ namespace ft
 			_value_chunk_size = new_size;
 		}
 
-		iterator				erase(iterator position)
+		iterator				erase (iterator position)
 		{
 			value_type	pos = position - begin();
 
@@ -398,7 +409,7 @@ namespace ft
 			return (position);
 		}
 
-		iterator				erase(iterator first, iterator last)
+		iterator				erase (iterator first, iterator last)
 		{
 			size_type	dist = ft::distance(first, last);
 			size_type	pos = first - begin();
@@ -425,7 +436,7 @@ namespace ft
 			return (first);
 		}
 
-		void					push_back(const T & rhs)
+		void					push_back (const T & rhs)
 		{
 			if (_value_count >= _value_chunk_size)
 				reserve(_value_chunk_size * 2);
@@ -433,7 +444,7 @@ namespace ft
 			++_value_count;
 		}
 
-		void					pop_back()
+		void					pop_back ()
 		{
 			if (_value_count > 0)
 			{
@@ -457,11 +468,14 @@ namespace ft
 			{
 				if (n > _value_chunk_size)
 				{
-					do
-					{
-						_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
-					} while (n > _value_chunk_size);
-					this->reserve(_value_chunk_size);
+					// do																		// ? option 1
+					// {
+					// 	_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
+					// } while (n > _value_chunk_size);
+					// this->reserve(_value_chunk_size);
+
+					this->reserve(n);											// ? option 2
+
 				}
 				// ? in c++11 resize call each time the constructor
 				for (size_type i = _value_count; i < n; ++i)

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 22:08:55 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 22:29:19 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -793,36 +793,15 @@ void	test_iterator()
 	}
 }
 
-template<class BidirIt>
-void my_reverse(BidirIt first, BidirIt last)
-{
-    typename ft::iterator_traits<BidirIt>::difference_type n = std::distance(first, last);
-    --n;
-    while(n > 0) {
-        typename ft::iterator_traits<BidirIt>::value_type tmp = *first;
-        *first++ = *--last;
-        *last = tmp;
-        n -= 2;
-    }
-}
-
 int	main(void)
 {
 	// test_iterator();
 	// test_vector();
 
-	ft::vector<int>				v1;
-	std::vector<int>			v2;
+	ft::vector<int>		v1(5);
+	std::vector<int>	v2(5);
 
-	v1.push_back(1);
-	std::cout << v1.capacity() << std::endl;
-	v1.push_back(2);
-	std::cout << v1.capacity() << std::endl;
-	v1.push_back(3);
-	std::cout << v1.capacity() << std::endl;
+	std::cout << "Capacity :\t" << v1.capacity() << std::endl;
+	std::cout << "Capacity :\t" << v2.capacity() << std::endl;
 
-	v2.push_back(1); v2.push_back(2); v2.push_back(3);
-	std::cout << v2.capacity() << std::endl;
-
-	return (0);
 }
