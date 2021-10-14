@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 23:18:53 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 23:28:05 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,7 +347,7 @@ namespace ft
 			{
 				// * straff the content from position to nb_elem backward
 				for (long long j = _value_count; j >= pbeg; --j)
-					_value_data[j + nb_elem - 1] = _value_data[j];
+					_value_data[j + nb_elem - 1] = _value_data[j - 1];
 				_value_count += nb_elem;
 				// * add nb_elem time val, starting from pbeg
 				for (long long i = 0; i < len_elem; ++i)
