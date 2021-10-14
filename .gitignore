@@ -4,4 +4,5 @@
 *.exe
 *.out
 *.elf
-
+a.out.dSYM
+./vald/
