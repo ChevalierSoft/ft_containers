@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 22:57:56 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 23:01:37 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +148,13 @@ namespace ft
 			if (_value_chunk_size < n)
 			{
 				const size_type	len = _value_chunk_size;
-				do
-				{
-					_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
-				} while (_value_chunk_size < n);
-				
+				// do																	// ? option 1
+				// {
+				// 	_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
+				// } while (_value_chunk_size < n);
+
+				_value_chunk_size = n;													// ? option 2
+
 				_allocator.deallocate(_value_data, len);
 				_value_data = _allocator.allocate(_value_chunk_size);
 				// _value_chunk_size = n;
