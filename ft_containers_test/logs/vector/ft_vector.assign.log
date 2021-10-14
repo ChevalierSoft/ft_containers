@@ -1,7 +1,7 @@
 Fill
 #################################
 Size :		5
-Max_size :	2305843009213693951
+Max_size :	4611686018427387903
 Capacity :	5
 Content :
 			200
@@ -13,7 +13,7 @@ Content :
 After push & pop
 #################################
 Size :		8
-Max_size :	2305843009213693951
+Max_size :	4611686018427387903
 Capacity :	8
 Content :
 			200
@@ -28,7 +28,7 @@ Content :
 Range
 #################################
 Size :		8
-Max_size :	2305843009213693951
+Max_size :	4611686018427387903
 Capacity :	8
 Content :
 			200
@@ -43,7 +43,7 @@ Content :
 After push & pop
 #################################
 Size :		8
-Max_size :	2305843009213693951
+Max_size :	4611686018427387903
 Capacity :	8
 Content :
 			200

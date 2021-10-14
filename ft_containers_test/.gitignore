@@ -1,3 +1,5 @@
+./logs/
+
 a.out.dSYM/
 # Prerequisites
 *.d

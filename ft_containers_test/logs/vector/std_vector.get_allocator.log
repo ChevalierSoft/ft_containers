@@ -4,14 +4,14 @@ Empty vector
 After construct
 #################################
 Size :		0
-Max_size :	2305843009213693951
+Max_size :	4611686018427387903
 Capacity :	0
 Content :
 
 After destroy & deallocate
 #################################
 Size :		0
-Max_size :	2305843009213693951
+Max_size :	4611686018427387903
 Capacity :	0
 Content :
 
