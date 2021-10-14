@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 16:33:25 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 21:54:36 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -808,28 +808,34 @@ void my_reverse(BidirIt first, BidirIt last)
 
 int	main(void)
 {
-	test_iterator();
-
-	test_vector();
+	// test_iterator();
+	// test_vector();
 
 	{
-		ft::vector<int>	v1(10, 8);
-		ft::vector<int>	v2 = v1;
+		ft::vector<int>						v1(10, 8);
+		ft::vector<int>						v2(10, 8);
+		ft::vector<int>::reverse_iterator	it1 = v1.rbegin();
+		ft::vector<int>::reverse_iterator	it2 = v2.rbegin();
 
- 		// std::cout << "v1 < v2 = " << (v1 < v2) <<std::endl;
-		v1.pop_back();
-		std::cout << "v1 < v2 = " << (v1 < v2) <<std::endl;
-		std::cout << "v1 < v2 = " << !(v1 < v2) <<std::endl;
+		it1 = it2;
+		it1++;
+		// if (it1 > it2) && !(it1 < it2) && it1 >= it2 && !(it1 <= it2))
+		std::cout << "(it1 > it2) = " << (it1 > it2) << std::endl;
+
 	}
 	{
 		__GRN
-		std::vector<int>	v1(10, 8);
-		std::vector<int>	v2 = v1;
+		
+		std::vector<int>						v1(10, 8);
+		std::vector<int>						v2(10, 8);
+		std::vector<int>::reverse_iterator	it1 = v1.rbegin();
+		std::vector<int>::reverse_iterator	it2 = v2.rbegin();
 
-		// std::cout << "v1 < v2 = " << (v1 < v2) <<std::endl;
-		v1.pop_back();
-		std::cout << "v1 < v2 = " << (v1 < v2) <<std::endl;
-		std::cout << "v1 < v2 = " << !(v1 > v2) <<std::endl;
+		it1 = it2;
+		it1++;
+		// if (it1 > it2) && !(it1 < it2) && it1 >= it2 && !(it1 <= it2))
+		std::cout << "(it1 > it2) = " << (it1 > it2) << std::endl;
+
 		__RST
 	}
 

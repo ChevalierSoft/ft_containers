@@ -38,10 +38,10 @@ namespace ft
 		/// * Equality Operators __________________________________________________________
 		bool				operator==(const reverse_iterator &rhs) const	{ return (_it == rhs.base()); }
 		bool				operator!=(const reverse_iterator &rhs) const	{ return (_it != rhs.base()); }
-		bool				operator<=(const reverse_iterator &rhs) const	{ return (_it <= rhs.base()); }
-		bool				operator>=(const reverse_iterator &rhs) const	{ return (_it >= rhs.base()); }
-		bool				operator< (const reverse_iterator &rhs) const	{ return (_it < rhs.base());  }
-		bool				operator> (const reverse_iterator &rhs) const	{ return (_it > rhs.base());  }
+		bool				operator<=(const reverse_iterator &rhs) const	{ return (_it >= rhs.base()); }
+		bool				operator>=(const reverse_iterator &rhs) const	{ return (_it <= rhs.base()); }
+		bool				operator< (const reverse_iterator &rhs) const	{ return (_it > rhs.base());  }
+		bool				operator> (const reverse_iterator &rhs) const	{ return (_it < rhs.base());  }
 
 		/// * Dereferense ________________________________________________________________
 		reference			operator[](difference_type rhs)					{ return (*(_it.base() - rhs)); }
