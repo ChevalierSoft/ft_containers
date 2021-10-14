@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 23:01:37 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 23:18:53 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,11 +326,13 @@ namespace ft
 			// * check if the vector needs to be resized
 			if (_value_count + nb_elem > _value_chunk_size)
 			{
-				do
-				{
-					_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
-				} while (_value_count + nb_elem > _value_chunk_size);
-				reserve(_value_chunk_size);
+				// do																// ? option 1
+				// {
+				// 	_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
+				// } while (_value_count + nb_elem > _value_chunk_size);
+				// reserve(_value_chunk_size);
+
+				reserve(_value_count + nb_elem);									// ? option 2
 			}
 			
 			if (at_the_end)
@@ -345,7 +347,7 @@ namespace ft
 			{
 				// * straff the content from position to nb_elem backward
 				for (long long j = _value_count; j >= pbeg; --j)
-					_value_data[j + nb_elem] = _value_data[j];
+					_value_data[j + nb_elem - 1] = _value_data[j];
 				_value_count += nb_elem;
 				// * add nb_elem time val, starting from pbeg
 				for (long long i = 0; i < len_elem; ++i)
@@ -508,7 +510,6 @@ namespace ft
 		/// * Variables __________________________________________________________
 	private:
 		pointer			_value_data;
-		size_type		_value_size;
 		size_type		_value_count;
 		size_type		_value_chunk_size;
 		Allocator		_allocator;
