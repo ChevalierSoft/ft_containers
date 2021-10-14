@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 22:42:38 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 22:57:56 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,19 +196,19 @@ namespace ft
 
 		reference				at ( size_type pos )
 		{
-			if (pos <= 0 || pos >= _value_count)
+			if (pos >= _value_count)
 				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
 			return (_value_data[pos]);
 		}
 
 		const_reference			at ( size_type pos ) const
 		{
-			if (pos <= 0 || pos >= _value_count)
+			if (pos >= _value_count)
 				throw std::out_of_range("vector::_M_range_check: __n (which is "+ ft::to_string(pos) + ") >= this->size() (which is " + ft::to_string(_value_count) + ")");
 			return (_value_data[pos]);
 		}
 
-		reference				operator[] ( size_type pos )			{	return (_value_data[pos]);	}
+		reference				operator[] ( size_type pos )		{	return (_value_data[pos]);	}
 
 		const_reference			operator[] ( size_type pos ) const	{	return (_value_data[pos]);	}
 
