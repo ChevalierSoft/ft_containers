@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 16:17:06 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 22:34:22 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ must be reimplemented :
 	reverse_iterator,					// ok
 	enable_if,							// ok
 	is_integral,						// ok
-	equal/lexicographical com-pare, 	// ok
+	lexicographical_compare, 			// ok
+	equal								//
 	std::pair,							//
 	std::make_pair						//
 */
@@ -302,6 +303,7 @@ namespace ft
 		{
 			bool			at_the_end;
 			const long		pbeg = position - begin();
+			long long		len_elem = reinterpret_cast<long long&>(nb_elem);
 
 			if (nb_elem < 1)
 				return ;
@@ -333,7 +335,7 @@ namespace ft
 					_value_data[j + nb_elem] = _value_data[j];
 				_value_count += nb_elem;
 				// * add nb_elem time val, starting from pbeg
-				for (long long i = 0; i < nb_elem; ++i)
+				for (long long i = 0; i < len_elem; ++i)
 					_value_data[pbeg + i] = val;
 			}
 		}

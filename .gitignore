@@ -6,4 +6,5 @@
 *.elf
 a.out.dSYM
 vald/
+*.*.log
 *.log
