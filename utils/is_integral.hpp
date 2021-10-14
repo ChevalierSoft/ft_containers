@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 13:22:04 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/08 13:37:27 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 22:15:21 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ namespace ft
 	typedef integral_constant<bool, true>	true_type;
 	/// The type used as a compile-time boolean with false value.
 	typedef integral_constant<bool, false>	false_type;
-	
-	template<bool __v>
-		using __bool_constant = integral_constant<bool, __v>;
+
 	// * integral_constant ______________________________________________________________
 	
 	// ? https://www.cplusplus.com/reference/type_traits/is_integral/
