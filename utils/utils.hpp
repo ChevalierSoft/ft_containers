@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 13:21:14 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/08 14:40:44 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 16:14:00 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,12 @@ namespace ft
 	{
 		while (first1!=last1)
 		{
-			if (first2==last2 || *first2<*first1) return false;
-			else if (*first1<*first2) return true;
-			++first1; ++first2;
+			if (first2==last2 || *first2<*first1)
+				return false;
+			else if (*first1<*first2)
+				return true;
+			++first1;
+			++first2;
 		}
 		return (first2!=last2);
 	}

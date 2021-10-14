@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/13 19:27:08 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 16:33:25 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -811,6 +811,28 @@ int	main(void)
 	test_iterator();
 
 	test_vector();
+
+	{
+		ft::vector<int>	v1(10, 8);
+		ft::vector<int>	v2 = v1;
+
+ 		// std::cout << "v1 < v2 = " << (v1 < v2) <<std::endl;
+		v1.pop_back();
+		std::cout << "v1 < v2 = " << (v1 < v2) <<std::endl;
+		std::cout << "v1 < v2 = " << !(v1 < v2) <<std::endl;
+	}
+	{
+		__GRN
+		std::vector<int>	v1(10, 8);
+		std::vector<int>	v2 = v1;
+
+		// std::cout << "v1 < v2 = " << (v1 < v2) <<std::endl;
+		v1.pop_back();
+		std::cout << "v1 < v2 = " << (v1 < v2) <<std::endl;
+		std::cout << "v1 < v2 = " << !(v1 > v2) <<std::endl;
+		__RST
+	}
+
 
 	return (0);
 }
