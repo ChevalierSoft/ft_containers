@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 22:34:22 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 22:10:36 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ namespace ft
 			if (new_cap > max_size())
 				throw std::length_error("std::bad_alloc");
 			else if (!new_cap)
-				_value_chunk_size = 4;
+				_value_chunk_size = 1;
 			// if (new_cap > _value_chunk_size)
 			// 	_value_chunk_size = new_cap;
 			while (new_cap > _value_chunk_size)
@@ -259,7 +259,7 @@ namespace ft
 			_value_data = tmp;
 		}
 
-		size_type				capacity() const	{ return ( _value_count );}
+		size_type				capacity() const	{ return ( _value_chunk_size );}
 
 		/// * Modifiers __________________________________________________________
 

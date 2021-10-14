@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 21:54:36 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 22:08:55 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -811,34 +811,18 @@ int	main(void)
 	// test_iterator();
 	// test_vector();
 
-	{
-		ft::vector<int>						v1(10, 8);
-		ft::vector<int>						v2(10, 8);
-		ft::vector<int>::reverse_iterator	it1 = v1.rbegin();
-		ft::vector<int>::reverse_iterator	it2 = v2.rbegin();
+	ft::vector<int>				v1;
+	std::vector<int>			v2;
 
-		it1 = it2;
-		it1++;
-		// if (it1 > it2) && !(it1 < it2) && it1 >= it2 && !(it1 <= it2))
-		std::cout << "(it1 > it2) = " << (it1 > it2) << std::endl;
+	v1.push_back(1);
+	std::cout << v1.capacity() << std::endl;
+	v1.push_back(2);
+	std::cout << v1.capacity() << std::endl;
+	v1.push_back(3);
+	std::cout << v1.capacity() << std::endl;
 
-	}
-	{
-		__GRN
-		
-		std::vector<int>						v1(10, 8);
-		std::vector<int>						v2(10, 8);
-		std::vector<int>::reverse_iterator	it1 = v1.rbegin();
-		std::vector<int>::reverse_iterator	it2 = v2.rbegin();
-
-		it1 = it2;
-		it1++;
-		// if (it1 > it2) && !(it1 < it2) && it1 >= it2 && !(it1 <= it2))
-		std::cout << "(it1 > it2) = " << (it1 > it2) << std::endl;
-
-		__RST
-	}
-
+	v2.push_back(1); v2.push_back(2); v2.push_back(3);
+	std::cout << v2.capacity() << std::endl;
 
 	return (0);
 }
