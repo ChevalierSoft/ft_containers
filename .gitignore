@@ -5,4 +5,4 @@
 *.out
 *.elf
 a.out.dSYM
-./vald/
+vald/
