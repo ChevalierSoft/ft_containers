@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/15 07:58:04 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/15 09:16:16 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,7 +357,7 @@ namespace ft
 
 		void					insert (iterator position, size_type nb_elem, const value_type &val)
 		{
-			const long		pbeg = position - begin();
+			const size_type		pbeg = position - begin();
 
 			if (nb_elem < 1)
 				return ;
@@ -376,11 +376,18 @@ namespace ft
 			}
 			else
 			{
-				size_type	new_len = _value_count + nb_elem;
-				pointer		tmp = _allocator.allocate(new_len);
-				size_type	i = 0;
+				size_type	new_len;
+				pointer		tmp;
+				size_type	i;
+
+				new_len = _value_count + nb_elem;
+				if (new_len < _value_chunk_size)
+					new_len = _value_chunk_size;
+
+				tmp = _allocator.allocate(new_len);
 
 				// * fill until 'position'
+				i = 0;
 				for (; i < pbeg; ++i)
 				{
 					_allocator.construct(tmp + i, _value_data[i]);
@@ -400,7 +407,7 @@ namespace ft
 
 				_allocator.deallocate(_value_data, _value_chunk_size);
 				_value_data = tmp;
-				_value_count = new_len;
+				_value_count = _value_count + nb_elem;
 				_value_chunk_size = new_len;
 
 			}
