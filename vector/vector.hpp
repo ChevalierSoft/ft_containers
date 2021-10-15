@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/15 07:47:02 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/15 07:58:04 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -357,9 +357,7 @@ namespace ft
 
 		void					insert (iterator position, size_type nb_elem, const value_type &val)
 		{
-			bool			at_the_end;
 			const long		pbeg = position - begin();
-			long long		len_elem = reinterpret_cast<long long &>(nb_elem);
 
 			if (nb_elem < 1)
 				return ;
