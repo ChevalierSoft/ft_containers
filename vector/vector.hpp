@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/15 09:12:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/15 10:31:50 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,10 +408,10 @@ namespace ft
 					_allocator.construct(tmp + i, val);
 
 				// * adding the last part
-				for (size_type j = 0; i < new_len; ++i, ++j)
+				for (size_type j = pbeg; j < _value_count; ++i, ++j)
 				{
-					_allocator.construct(tmp + i, _value_data[pbeg + j]);
-					_allocator.destroy(&_value_data[pbeg + j]);
+					_allocator.construct(tmp + i, _value_data[j]);
+					_allocator.destroy(&_value_data[j]);
 				}
 
 				_allocator.deallocate(_value_data, _value_chunk_size);
