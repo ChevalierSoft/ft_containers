@@ -9,7 +9,7 @@
 #else
 	// #include <map.hpp>
 	// #include <stack.hpp>
-	#include "vector/vector.hpp"
+	#include "vector.hpp"
 #endif
 
 #include <stdlib.h>

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/16 00:31:00 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/16 00:48:08 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 #include <iostream>
 #include <cmath>
-#include "../iterator/iterator.h"
-#include "../iterator/random_access_iterator.hpp"
-#include "../iterator/reverse_iterator.hpp"
-#include "../utils/color.h"
-#include "../utils/ft_print_memory.h"
-#include "../utils/utils.hpp"
-#include "../utils/enable_if.hpp"
+#include "iterator/iterator.h"
+#include "iterator/random_access_iterator.hpp"
+#include "iterator/reverse_iterator.hpp"
+#include "utils/color.h"
+#include "utils/ft_print_memory.h"
+#include "utils/utils.hpp"
+#include "utils/enable_if.hpp"
 
 #define __DEB(s) std::cerr<<s<<std::endl;
 

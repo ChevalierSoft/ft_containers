@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/16 00:37:11 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/16 00:47:43 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <vector>
 #include <map>
 
-#include "./vector/vector.hpp"
+#include "vector.hpp"
 
 #include "./utils/color.h"
 #include "./utils/ft_print_memory.h"
