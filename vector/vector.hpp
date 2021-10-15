@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 23:28:05 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/15 07:47:02 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,31 +312,64 @@ namespace ft
 		}
 
 		// ? insert n times (2)
+		// void					insert (iterator position, size_type nb_elem, const value_type &val)
+		// {
+		// 	bool			at_the_end;
+		// 	const long		pbeg = position - begin();
+		// 	long long		len_elem = reinterpret_cast<long long&>(nb_elem);
+
+		// 	if (nb_elem < 1)
+		// 		return ;
+
+		// 	at_the_end = (position == end()) ? true : false;
+
+		// 	// * check if the vector needs to be resized
+		// 	if (_value_count + nb_elem > _value_chunk_size)
+		// 	{
+		// 		// do																// ? option 1
+		// 		// {
+		// 		// 	_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
+		// 		// } while (_value_count + nb_elem > _value_chunk_size);
+		// 		// reserve(_value_chunk_size);
+
+		// 		reserve(_value_count + nb_elem);									// ? option 2
+		// 	}
+			
+		// 	if (at_the_end)
+		// 	{
+		// 		for (size_type i = 0; i < nb_elem; ++i)
+		// 		{
+		// 			_allocator.construct(_value_data + _value_count, val);
+		// 			++_value_count;
+		// 		}
+		// 	}
+		// 	else
+		// 	{
+		// 		// * straff the content from position to nb_elem backward
+		// 		for (long long j = _value_count; j >= pbeg; --j)
+		// 			_value_data[j + nb_elem - 1] = _value_data[j - 1];
+		// 		_value_count += nb_elem;
+		// 		// * add nb_elem time val, starting from pbeg
+		// 		for (long long i = 0; i < len_elem; ++i)
+		// 			_value_data[pbeg + i] = val;
+		// 	}
+		// }
+
 		void					insert (iterator position, size_type nb_elem, const value_type &val)
 		{
 			bool			at_the_end;
 			const long		pbeg = position - begin();
-			long long		len_elem = reinterpret_cast<long long&>(nb_elem);
+			long long		len_elem = reinterpret_cast<long long &>(nb_elem);
 
 			if (nb_elem < 1)
 				return ;
 
-			at_the_end = (position == end()) ? true : false;
-
 			// * check if the vector needs to be resized
-			if (_value_count + nb_elem > _value_chunk_size)
+			if (position == end())
 			{
-				// do																// ? option 1
-				// {
-				// 	_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
-				// } while (_value_count + nb_elem > _value_chunk_size);
-				// reserve(_value_chunk_size);
-
-				reserve(_value_count + nb_elem);									// ? option 2
-			}
+				if (_value_count + nb_elem > _value_chunk_size)
+					reserve(_value_count + nb_elem);
 			
-			if (at_the_end)
-			{
 				for (size_type i = 0; i < nb_elem; ++i)
 				{
 					_allocator.construct(_value_data + _value_count, val);
@@ -345,13 +378,33 @@ namespace ft
 			}
 			else
 			{
-				// * straff the content from position to nb_elem backward
-				for (long long j = _value_count; j >= pbeg; --j)
-					_value_data[j + nb_elem - 1] = _value_data[j - 1];
-				_value_count += nb_elem;
-				// * add nb_elem time val, starting from pbeg
-				for (long long i = 0; i < len_elem; ++i)
-					_value_data[pbeg + i] = val;
+				size_type	new_len = _value_count + nb_elem;
+				pointer		tmp = _allocator.allocate(new_len);
+				size_type	i = 0;
+
+				// * fill until 'position'
+				for (; i < pbeg; ++i)
+				{
+					_allocator.construct(tmp + i, _value_data[i]);
+					_allocator.destroy(_value_data + i);
+				}
+
+				// * adding nb_elem val
+				for (; i < pbeg + nb_elem; ++i)
+					_allocator.construct(tmp + i, val);
+
+				// * adding the last part
+				for (size_type j = 0; i < new_len; ++i, ++j)
+				{
+					_allocator.construct(tmp + i, _value_data[pbeg + j]);
+					_allocator.destroy(&_value_data[pbeg + j]);
+				}
+
+				_allocator.deallocate(_value_data, _value_chunk_size);
+				_value_data = tmp;
+				_value_count = new_len;
+				_value_chunk_size = new_len;
+
 			}
 		}
 

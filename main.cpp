@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 23:14:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/14 23:26:30 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -798,19 +798,16 @@ int	main(void)
 	// test_iterator();
 	// test_vector();
 
-	std::vector<int>			v1(10, 1);
-	std::vector<int>			v2(8, 2);
-	ft::vector<int>				v3(10, 3);
-	ft::vector<int>				v4(8, 4);
+	std::vector<char>			v1(10, '1');
+	std::vector<char>			v2(8, '2');
+	ft::vector<char>			v3(10, '1');
+	ft::vector<char>			v4(8, '2');
 	int							err = 0;
 
-	ft::vector<int>::iterator	it0 = v3.begin();
-	ft::vector<int>::iterator	it2 = v4.begin();
-
-	v1.insert(v1.begin(), 40, 80);	// 50
+	v1.insert(v1.begin(), 10, 80);	// 50
 	v2.push_back(3);
 	
-	v3.insert(v3.begin(), 40, 80);
+	v3.insert(v3.begin(), 10, 80);
 	v4.push_back(3);
 
 	swap(v1, v2);
@@ -818,6 +815,9 @@ int	main(void)
 
 	std::cout << "size : " << v2.size() <<" "<< v4.size() << std::endl;
 	std::cout << "capacity : " << v2.capacity() <<" "<<  v4.capacity() << std::endl;
+
+	display(v4);
+	display(v2);
 
 	return (0);
 }
