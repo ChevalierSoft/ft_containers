@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/15 09:16:16 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/15 09:12:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,9 +380,18 @@ namespace ft
 				pointer		tmp;
 				size_type	i;
 
-				new_len = _value_count + nb_elem;
-				if (new_len < _value_chunk_size)
-					new_len = _value_chunk_size;
+				// new_len = _value_count + nb_elem;
+				// if (new_len < _value_chunk_size)
+				// 	new_len = _value_chunk_size;
+
+				new_len = _value_chunk_size;
+				if (new_len < _value_count + nb_elem)
+				{
+					if (new_len * 2 < _value_count + nb_elem)
+						new_len = _value_count + nb_elem;
+					else
+						new_len += _value_chunk_size;
+				}
 
 				tmp = _allocator.allocate(new_len);
 
