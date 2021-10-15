@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/15 10:31:50 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/16 00:31:00 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ must be reimplemented :
 	enable_if,							// ok
 	is_integral,						// ok
 	lexicographical_compare, 			// ok
-	equal								//
+	equal								// ok
 	std::pair,							//
 	std::make_pair						//
 */

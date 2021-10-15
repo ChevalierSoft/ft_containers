@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:36:08 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/15 23:26:29 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/16 00:33:56 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,18 @@
 namespace ft
 {
 	/// * iterator_tags: empty types, used to distinguish different iterators.
-	struct input_iterator_tag {};
-	struct output_iterator_tag {};
-	struct forward_iterator_tag : public input_iterator_tag {};
-	struct bidirectional_iterator_tag : public forward_iterator_tag {};
-	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+	// struct input_iterator_tag {};
+	// struct output_iterator_tag {};
+	// struct forward_iterator_tag : public input_iterator_tag {};
+	// struct bidirectional_iterator_tag : public forward_iterator_tag {};
+	// struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+
+	// * using typedef instead of creating a ft one. this allows comparisons using typeid()
+	typedef typename std::input_iterator_tag			input_iterator_tag;
+	typedef typename std::output_iterator_tag			output_iterator_tag;
+	typedef typename std::forward_iterator_tag			forward_iterator_tag;
+	typedef typename std::bidirectional_iterator_tag	bidirectional_iterator_tag;
+	typedef typename std::random_access_iterator_tag	random_access_iterator_tag;
 
 	// makes creation of iterator faster
 	template<typename _Category, typename _Tp, typename _Distance = std::ptrdiff_t,
