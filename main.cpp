@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/16 00:15:42 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/16 00:37:11 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 #define ENDL	std::cout<<std::endl;
 #define __GRN	std::cout<<GRN;
 #define __RST	std::cout<<RST;
-
-#include "iterator/random_access_iterator.hpp"
 
 // _____________________________________________________________________________
 class	menfou
