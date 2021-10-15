@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 14:36:08 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/08 10:16:26 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/15 23:26:29 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ namespace ft
 	{
 		typedef random_access_iterator_tag	iterator_category;
 		typedef _Tp							value_type;
-		typedef std::ptrdiff_t					difference_type;
+		typedef std::ptrdiff_t				difference_type;
 		typedef _Tp*						pointer;
 		typedef _Tp&						reference;
 	};

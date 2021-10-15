@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/15 09:12:40 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/15 23:38:30 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -452,6 +452,24 @@ void	test_vector()
 		jkl.insert(jkl.begin(), 7, 7);
 		__RST
 	}
+	{
+		std::vector<char>			v1(10, '1');
+		ft::vector<char>			v3(10, '1');
+
+		v1.insert(v1.begin(), 2, 80);
+		v3.insert(v3.begin(), 2, 80);
+		std::cout << "size : " << v1.size() <<" "<< v3.size() << std::endl;
+		std::cout << "capacity : " << v1.capacity() <<" "<<  v3.capacity() << std::endl;
+		display(v1);
+		display(v3);
+
+		v1.insert(v1.begin(), 20, 80);
+		v3.insert(v3.begin(), 20, 80);
+		std::cout << "size : " << v1.size() <<" "<< v3.size() << std::endl;
+		std::cout << "capacity : " << v1.capacity() <<" "<<  v3.capacity() << std::endl;
+		display(v1);
+		display(v3);
+	}
 	if (strft != strstd)
 		std::cout << "error" <<std::endl<< strft <<std::endl<<GRN<< strstd <<RST<<std::endl;
 
@@ -634,7 +652,6 @@ void	test_vector()
 
 }	//__________________________________________________________________________
 
-
 // _____________________________________________________________________________
 void	test_iterator_2(const ft::vector<char> &v)
 {
@@ -796,32 +813,17 @@ void	test_iterator()
 int	main(void)
 {
 	// test_iterator();
+	
 	// test_vector();
 
-	std::vector<char>			v1(10, '1');
-	std::vector<char>			v2(8, '2');
-	ft::vector<char>			v3(10, '1');
-	ft::vector<char>			v4(8, '2');
-	int							err = 0;
+	typedef ft::iterator_traits<int*> ft_tt;
+	typedef std::iterator_traits<int*> std_tt;
 
-	std::cout << "size : " << v2.size() <<" "<< v4.size() << std::endl;
-	std::cout << "capacity : " << v2.capacity() <<" "<<  v4.capacity() << std::endl;
-	display(v3);
-	display(v1);
-
-	v1.insert(v1.begin(), 2, 80);	// 50
-	v3.insert(v3.begin(), 2, 80);
-	// v1.push_back('p');v1.push_back('P');
-	// v3.push_back('p');v3.push_back('P');
-
-	// swap(v1, v2);
-	// swap(v3, v4);
-
-	std::cout << "size : " << v1.size() <<" "<< v3.size() << std::endl;
-	std::cout << "capacity : " << v1.capacity() <<" "<<  v3.capacity() << std::endl;
-
-	display(v1);
-	display(v3);
+	if ((typeid(ft_tt::iterator_category) == typeid(std::random_access_iterator_tag))
+		== (typeid(std_tt::iterator_category) == typeid(std::random_access_iterator_tag)))
+		std::cout << "yeet" << std::endl;
+	else
+		std::cout << "nope" << std::endl;
 
 	return (0);
 }
