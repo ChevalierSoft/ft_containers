@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/16 00:48:08 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/17 06:49:50 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,49 +312,6 @@ namespace ft
 		}
 
 		// ? insert n times (2)
-		// void					insert (iterator position, size_type nb_elem, const value_type &val)
-		// {
-		// 	bool			at_the_end;
-		// 	const long		pbeg = position - begin();
-		// 	long long		len_elem = reinterpret_cast<long long&>(nb_elem);
-
-		// 	if (nb_elem < 1)
-		// 		return ;
-
-		// 	at_the_end = (position == end()) ? true : false;
-
-		// 	// * check if the vector needs to be resized
-		// 	if (_value_count + nb_elem > _value_chunk_size)
-		// 	{
-		// 		// do																// ? option 1
-		// 		// {
-		// 		// 	_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
-		// 		// } while (_value_count + nb_elem > _value_chunk_size);
-		// 		// reserve(_value_chunk_size);
-
-		// 		reserve(_value_count + nb_elem);									// ? option 2
-		// 	}
-			
-		// 	if (at_the_end)
-		// 	{
-		// 		for (size_type i = 0; i < nb_elem; ++i)
-		// 		{
-		// 			_allocator.construct(_value_data + _value_count, val);
-		// 			++_value_count;
-		// 		}
-		// 	}
-		// 	else
-		// 	{
-		// 		// * straff the content from position to nb_elem backward
-		// 		for (long long j = _value_count; j >= pbeg; --j)
-		// 			_value_data[j + nb_elem - 1] = _value_data[j - 1];
-		// 		_value_count += nb_elem;
-		// 		// * add nb_elem time val, starting from pbeg
-		// 		for (long long i = 0; i < len_elem; ++i)
-		// 			_value_data[pbeg + i] = val;
-		// 	}
-		// }
-
 		void					insert (iterator position, size_type nb_elem, const value_type &val)
 		{
 			const size_type		pbeg = position - begin();
