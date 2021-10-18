@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/19 00:01:30 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 00:17:31 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -842,6 +842,9 @@ void	test_utility()
 
 		std::cout <<typeid(ft_tt::iterator_category).name() << std::endl;
 		std::cout <<typeid(std::random_access_iterator_tag).name() << std::endl;
+
+		// std::ptrdiff_t d = ft::distance(0x0, 0xA); // should not compile
+		
 	}
 
 	//__________________________________________________________________________
@@ -871,13 +874,15 @@ void	test_utility()
 		__RST
 	}
 
+	//__________________________________________________________________________
+	// std::cout <<std::endl<<CYN<< "" <<RST<< std::endl;
 }
 
 int	main(void)
 {
-	// test_iterator();
+	test_iterator();
 	
-	// test_vector();
+	test_vector();
 
 	test_utility();
 

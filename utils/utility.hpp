@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 13:21:14 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/19 00:03:49 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 00:16:06 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,23 @@ namespace ft
 		return (oss.str());
 	}
 
-	// http://www.cplusplus.com/reference/algorithm/lexicographical_compare/?kw=lexicographical_compare
+	// ? http://www.cplusplus.com/reference/algorithm/lexicographical_compare/?kw=lexicographical_compare
 	template <class InputIterator1, class InputIterator2>
-	bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
-									InputIterator2 first2, InputIterator2 last2)
+	bool lexicographical_compare (
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2,
+			InputIterator2 last2,
+			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = nullptr,
+			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = nullptr
+		)
 	{
 		while (first1!=last1)
 		{
 			if (first2==last2 || *first2<*first1)
-				return false;
+				return (false);
 			else if (*first1<*first2)
-				return true;
+				return (true);
 			++first1;
 			++first2;
 		}
@@ -50,16 +56,22 @@ namespace ft
 	}
 
 	template <class InputIterator1, class InputIterator2, class Compare>
-	bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
-									InputIterator2 first2, InputIterator2 last2,
-									Compare comp)
+	bool lexicographical_compare (
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2,
+			InputIterator2 last2,
+			Compare comp,
+			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = nullptr,
+			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = nullptr
+		)
 	{
 		while (first1!=last1)
 		{
 			if (first2==last2 || comp(*first2, *first1))
-				return false;
+				return (false);
 			else if (comp(*first1, *first2))
-				return true;
+				return (true);
 			++first1;
 			++first2;
 		}
@@ -78,10 +90,11 @@ namespace ft
 		while (first1 != last1)
 		{
 			if (!(*first1 == *first2))
-				return false;
-			++first1; ++first2;
+				return (false);
+			++first1;
+			++first2;
 		}
-		return true;
+		return (true);
 	}
 
 	template <class InputIterator1, class InputIterator2, class BinaryPredicate>
@@ -96,15 +109,20 @@ namespace ft
 	{
 		while (first1 != last1)
 		{
-			if (!pred(*first1,*first2))
-				return false;
-			++first1; ++first2;
+			if (!pred(*first1, *first2))
+				return (false);
+			++first1;
+			++first2;
 		}
-		return true;
+		return (true);
 	}
 
 	template <class InputIterator>
-	typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last)
+	typename iterator_traits<InputIterator>::difference_type	distance (
+			InputIterator first,
+			InputIterator last,
+			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr
+		)
 	{
 		typename iterator_traits<InputIterator>::difference_type	d;
 
