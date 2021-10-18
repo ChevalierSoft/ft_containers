@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/19 00:17:31 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 00:38:31 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,29 @@ void	test_vector()
 			std::cout << "cc.at(2) : " << (char)qwe << std::endl;
 		}
 		catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
+	}
+	{
+		__GRN
+		std::vector<int> ssss;
+		ssss.push_back(0x4C);
+		ssss.push_back(0x55);
+		ssss.push_back(0x4C);
+		ssss.push_back(0x5A);
+		const std::vector<int> cc(ssss);
+
+		try
+		{
+			int &qwe = v.at(16);
+			std::cout << "v.at(16) : " << (char)qwe << std::endl;
+		}
+		catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
+		try
+		{
+			const int qwe = cc.at(1);
+			std::cout << "cc.at(2) : " << (char)qwe << std::endl;
+		}
+		catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
+		__RST
 	}
 	
 	//__________________________________________________________________________
@@ -745,12 +768,14 @@ void	test_iterator()
 	std::cout <<std::endl<<CYN<< "testing the category" <<RST<< std::endl;
 	{
 		ft::iterator_traits<ft::vector<int>::iterator> tt;
+		(void)tt;
 		typedef ft::iterator_traits<int*> traits;
 		if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
 			std::cout <<GRN<< "int* is a random-access iterator" <<RST<< std::endl;
 	}
 	{
 		std::iterator_traits<std::vector<int>::iterator> tt;
+		(void)tt;
 		typedef std::iterator_traits<int*> traits;
 		if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
 			std::cout << "int* is a random-access iterator" << std::endl;
@@ -801,10 +826,14 @@ void	test_iterator()
 	{
 		ft::vector<char>::const_iterator iv1 = v.begin();
 		ft::vector<char>::const_iterator iv2(v.begin());
+		(void)iv1;
+		(void)iv2;
 	}
 	{
 		std::vector<char>::const_iterator sv1 = s.begin();
 		std::vector<char>::const_iterator sv2(s.begin());
+		(void)sv1;
+		(void)sv2;
 	}
 }
 

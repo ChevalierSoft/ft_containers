@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/18 23:14:36 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 00:33:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,8 +358,8 @@ namespace ft
 		void					insert (iterator position, InputIterator first,
 									typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type last)
 		{
-			long			nb_elem;
-			long			new_size = _value_count;
+			size_type		nb_elem;
+			size_type		new_size = _value_count;
 			size_type		pbeg = position - begin();
 			size_type		i;
 			pointer			tmp;						// this will replace _value_data
@@ -399,9 +399,9 @@ namespace ft
 
 		iterator				erase (iterator position)
 		{
-			value_type	pos = position - begin();
+			size_type	pos = position - begin();
 
-			for (int i = pos; i < _value_count - 1; ++i)
+			for (size_type i = pos; i < _value_count - 1; ++i)
 			{
 				_allocator.destroy(_value_data + i);
 				_allocator.construct(_value_data + i, _value_data[i + 1]);
