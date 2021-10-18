@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/19 00:38:31 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 01:24:50 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,15 @@
 #include <vector>
 #include <map>
 
-#include "vector.hpp"
+#include <iostream>
+#include <string>
+
+#ifdef MINE // CREATE A REAL STL EXAMPLE
+	# include "vector.hpp"
+#else
+	#include <stack>
+	namespace ft = std;
+#endif
 
 #include "./utils/color.h"
 #include "./utils/ft_print_memory.h"
@@ -126,8 +134,6 @@ void	test_vector()
 		v.pop_back();
 		v.pop_back();
 		v.pop_back();
-		v.pop_back();		
-		v.pop_back();		// one more
 		for (auto & iv : v)
 			std::cout << iv << " ";
 		std::cout << "(nothing should be printed)" << std::endl;
@@ -222,29 +228,6 @@ void	test_vector()
 		}
 		catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
 	}
-	{
-		__GRN
-		std::vector<int> ssss;
-		ssss.push_back(0x4C);
-		ssss.push_back(0x55);
-		ssss.push_back(0x4C);
-		ssss.push_back(0x5A);
-		const std::vector<int> cc(ssss);
-
-		try
-		{
-			int &qwe = v.at(16);
-			std::cout << "v.at(16) : " << (char)qwe << std::endl;
-		}
-		catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
-		try
-		{
-			const int qwe = cc.at(1);
-			std::cout << "cc.at(2) : " << (char)qwe << std::endl;
-		}
-		catch(const std::exception& e) {	std::cerr << e.what() << '\n';	}
-		__RST
-	}
 	
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "non member functions" <<RST<< std::endl;
@@ -321,23 +304,6 @@ void	test_vector()
 		std::cout << crsfmb.b << std::endl;
 		delete mf;
 	}
-	{
-		std::cout << std::endl << GRN;
-		ft::vector<menfou> sfm;
-		menfou *mf = new menfou();
-		sfm.push_back(*mf);
-		sfm.push_back(menfou());
-		ft::vector<menfou>::reference rsfm = sfm.front();
-		std::cout << rsfm.b << std::endl;
-		rsfm = sfm.back();
-		std::cout << rsfm.b << std::endl;
-		ft::vector<menfou>::const_reference crsfm = sfm.front();
-		std::cout << crsfm.b << std::endl;
-		ft::vector<menfou>::const_reference crsfmb = sfm.back();
-		std::cout << crsfmb.b << std::endl;
-		delete mf;
-	}
-	std::cout << RST;
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "reserve() without valgrind (remove comments)" <<RST<< std::endl;
@@ -375,30 +341,12 @@ void	test_vector()
 		std::cout << crovh;
 		// std::cout << ovh[334] <<std::endl;	// should be a heap-buffer-overflow
 	}
-	{
-		__GRN
-		std::vector<menfou> ovh;
-		for (int i = 0; i < 3; ++i)
-			ovh.push_back(menfou('0' + i));
-		std::cout << ovh[2] << ovh[0] << ovh[1];
-		ft::vector<menfou>::const_reference crovh = ovh[0];
-		std::cout << crovh;
-		// std::cout << ovh[334] <<std::endl;	// should be a heap-buffer-overflow
-		__RST
-	}
 
 	std::cout <<std::endl<<CYN<< "is_integral" <<RST<< std::endl;
 	{
-		std::cout << "char: \t" << ft::is_integral<char>::value << std::endl;
-		std::cout << "int: \t" << ft::is_integral<int>::value << std::endl;
-		std::cout << "float: \t" << ft::is_integral<float>::value << std::endl;
-	}
-	{
-		__GRN
-		std::cout << "char: \t" << std::is_integral<char>::value << std::endl;
-		std::cout << "int: \t" << std::is_integral<int>::value << std::endl;
-		std::cout << "float: \t" << std::is_integral<float>::value << std::endl;
-		__RST
+		std::cout << "char: \t"		<< ft::is_integral<char>::value		<< std::endl;
+		std::cout << "int: \t"		<< ft::is_integral<int>::value		<< std::endl;
+		std::cout << "float: \t"	<< ft::is_integral<float>::value	<< std::endl;
 	}
 
 	//__________________________________________________________________________
@@ -419,15 +367,8 @@ void	test_vector()
 
 		// g g h h b a e c d i i i i i i i i i i i i i i i i i i i i i i i i f f f
 		asd.insert(asd.end(), asd.begin(), asd.begin() + 5);
-
-			// for (auto & iasd : asd)
-			// 	std::cout << iasd.c << " ";
-			// std::cout << std::endl;
-			// std::cout << "size : " << asd.size() << std::endl;
-
 		// g g h h b a e c d i i i i i i i i i i i i i i i i i i i i i i i i f f f g g h h b
 		asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
-
 		// g g h x x x x x x x x x x x x x x x x h b a e c d i i i i i i i i i i i i i i i i i i i i i i i i f f f g g h h b
 		asd.insert(asd.begin() + 3, asd.begin(), asd.end());
 		// g g h g g h x x x x x x x x x x x x x x x x h b a e c d i i i i i i i i i i i i i i i i i i i i i i i i f f f g g h h b x x x x x x x x x x x x x x x x h b a e c d i i i i i i i i i i i i i i i i i i i i i i i i f f f g g h h b
@@ -441,58 +382,24 @@ void	test_vector()
 
 		ft::vector<int> jkl;
 		jkl.insert(jkl.begin(), 7, 7);
+		std::cout << strft << std::endl;
 
 	}
+
 	{
-		__GRN
-
-		std::vector<menfou>	asd;
-		std::vector<menfou>	cpy(16, menfou('x'));
-
-		asd.push_back(menfou('a'));
-		asd.insert(asd.begin(), menfou('b'));
-		asd.insert(asd.end(), menfou('c'));
-		asd.insert(asd.end(), menfou('d'));
-		asd.insert(asd.end() - 2, menfou('e'));
-		asd.insert(asd.end(), 3, menfou('f'));
-		asd.insert(asd.begin(), 2, menfou('g'));
-		asd.insert(asd.begin() + 2, 2, menfou('h'));
-		asd.insert(asd.end() - 3, 24, menfou('i'));
-
-		asd.insert(asd.end(), asd.begin(), asd.begin() + 5);
-		asd.insert(asd.begin() + 3, cpy.begin(), cpy.end());
-		asd.insert(asd.begin() + 3, asd.begin(), asd.end());
-		asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
-
-		strstd = "";
-		for (auto & iasd : asd)
-			strstd += iasd.c;
-		std::cout << "size : " << asd.size() << std::endl;
-
-		std::vector<int> jkl;
-		jkl.insert(jkl.begin(), 7, 7);
-		__RST
-	}
-	{
-		std::vector<char>			v1(10, '1');
 		ft::vector<char>			v3(10, '1');
 
-		v1.insert(v1.begin(), 2, 80);
 		v3.insert(v3.begin(), 2, 80);
-		std::cout << "size : " << v1.size() <<" "<< v3.size() << std::endl;
-		std::cout << "capacity : " << v1.capacity() <<" "<<  v3.capacity() << std::endl;
-		display(v1);
+		std::cout << "size : " << v3.size() << std::endl;
+		std::cout << "capacity : " <<" "<<  v3.capacity() << std::endl;
 		display(v3);
 
-		v1.insert(v1.begin(), 20, 80);
 		v3.insert(v3.begin(), 20, 80);
-		std::cout << "size : " << v1.size() <<" "<< v3.size() << std::endl;
-		std::cout << "capacity : " << v1.capacity() <<" "<<  v3.capacity() << std::endl;
-		display(v1);
+		std::cout << "size : " << v3.size() << std::endl;
+		std::cout << "capacity : " <<  v3.capacity() << std::endl;
 		display(v3);
 	}
-	if (strft != strstd)
-		std::cout << "error" <<std::endl<< strft <<std::endl<<GRN<< strstd <<RST<<std::endl;
+
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "assign()" <<RST<< std::endl;
@@ -510,25 +417,6 @@ void	test_vector()
 		
 		jkl.assign(uio.begin(), uio.end());
 		display(jkl);
-
-	}
-	{
-
-		__GRN
-		std::vector<int> jkl;
-		std::vector<int> uio;
-
-		uio.insert(jkl.begin(), 7, 3);	// enable_if is working
-		
-		jkl.assign(3, 9);				//
-		display(jkl);
-
-		// try {	jkl.assign(-3, 7);	}
-		// catch(const std::exception& e){	std::cerr << e.what() << '\n'; }
-		
-		jkl.assign(uio.begin(), uio.end());
-		display(jkl);
-		__RST
 	}
 
 	//__________________________________________________________________________
@@ -572,72 +460,19 @@ void	test_vector()
 		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		ENDL
 	}
-	{
-		__GRN
-		std::vector<int> vv;
-		int rera;
-		vv.push_back('L');
-		vv.push_back('L');
-		vv.push_back('U');
-		vv.push_back('L');
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-		vv.erase(vv.begin());
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-		vv.erase(vv.end() - 1);
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-		vv.push_back('V');
-		vv.push_back('U');
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-		vv.erase(vv.begin() + 2);
-		vv.erase(vv.begin());
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-		vv.insert(vv.begin() + 1, 'W');
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-		vv.insert(vv.end(), vv.begin(), vv.end());
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-
-		rera = vv.erase(vv.begin() + 1, vv.end() - 1) - vv.begin();
-		std::cout << "rera : " << rera << std::endl;
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-		rera = vv.erase(vv.end(), vv.end()) - vv.begin();
-		std::cout << "rera : " << rera << std::endl;
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-		rera = vv.erase(vv.begin(), vv.begin()) - vv.begin();
-		std::cout << "rera : " << rera << std::endl;
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-		rera = vv.erase(vv.begin(), vv.end()) - vv.begin();
-		std::cout << "rera : " << rera << std::endl;
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
-		ENDL
-	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "resize()" <<RST<< std::endl;
 	{
 		ft::vector<menfou> vres;
 		vres.insert(vres.begin(), 6, menfou('r'));
-
 		vres.resize(1);
 		display(vres);
-		// vres.resize(5);
-		// display(vres);
-		vres.resize(9, menfou('x'));
-		display(vres);
-	}
-	{
-		__GRN
-
-		std::vector<menfou> vres;
-		vres.insert(vres.begin(), 6, menfou('r'));
-
-		vres.resize(1);
-		display(vres);
+		// std::cout << "resize() needs to be compiled with -std=c++98 : "
 		// vres.resize(5);				// ! needs to be compiled with -std=c++98
 		// display(vres);
 		vres.resize(9, menfou('x'));
 		display(vres);
-
-		__RST
 	}
 
 	//__________________________________________________________________________
@@ -653,22 +488,6 @@ void	test_vector()
 
 		display(vmf1);
 		display(vmf2);
-	}
-	{
-		__GRN
-
-		std::vector<menfou> vmf1;
-		std::vector<menfou> vmf2;
-
-		vmf1.insert(vmf1.begin(), 3, menfou('1'));
-		vmf2.insert(vmf2.begin(), 5, menfou('2'));
-
-		vmf1.swap(vmf2);
-
-		display(vmf1);
-		display(vmf2);
-
-		__RST
 	}
 
 }	//__________________________________________________________________________
@@ -692,19 +511,13 @@ void	test_iterator()
 	ft::vector<char>							v;
 	ft::vector<char>::const_reverse_iterator	cri;
 	ft::vector<char>::reverse_iterator			ri;
-	std::vector<char>							s;
-	std::vector<char>::const_reverse_iterator	crs;
-	std::vector<char>::reverse_iterator			rs;
 
 	v.push_back('a'); v.push_back('b'); v.push_back('c'); v.push_back('d'); v.push_back('e');
-	s.push_back('a'); s.push_back('b'); s.push_back('c'); s.push_back('d'); s.push_back('e');
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "egualities with const_reverse_iterator and reverse_iterator" <<RST<< std::endl;
 	{
 		cri = v.rbegin();
 		ri = v.rbegin();
-		crs = s.rbegin();
-		rs = s.rbegin();
 		if (cri == ri)
 			std::cout << "cri == ri" << std::endl;
 		if (cri != ri)
@@ -713,16 +526,6 @@ void	test_iterator()
 			std::cout << "cri == cri" << std::endl;
 		if (ri == ri)
 			std::cout << "ri == ri" << std::endl;
-		if (crs == rs)
-			std::cout << "crs == rs" << std::endl;
-		if (crs != rs)
-			std::cout << "crs != rs" << std::endl;
-		if (crs == crs)
-			std::cout << "crs == crs" << std::endl;
-		if (rs == rs)
-			std::cout << "rs == rs" << std::endl;
-		
-		
 	}
 
 	// test_iterator_2(v);
@@ -747,22 +550,6 @@ void	test_iterator()
 		// ri = cri;
 		std::cout << *cri << std::endl;
 	}
-	{
-		crs = s.rbegin();
-		rs = s.rbegin();
-		while (crs != s.rend())
-		{
-			std::cout <<GRN<< *crs << " ";
-			++crs;
-		}
-		crs = s.rbegin();
-		crs += 2;
-		crs -= 1;
-		std::cout << std::endl << *crs << std::endl;
-		crs = rs;
-		// rs = crs;
-		std::cout << *crs <<RST<< std::endl;
-	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "testing the category" <<RST<< std::endl;
@@ -772,13 +559,6 @@ void	test_iterator()
 		typedef ft::iterator_traits<int*> traits;
 		if (typeid(traits::iterator_category)==typeid(ft::random_access_iterator_tag))
 			std::cout <<GRN<< "int* is a random-access iterator" <<RST<< std::endl;
-	}
-	{
-		std::iterator_traits<std::vector<int>::iterator> tt;
-		(void)tt;
-		typedef std::iterator_traits<int*> traits;
-		if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
-			std::cout << "int* is a random-access iterator" << std::endl;
 	}
 
 	//__________________________________________________________________________
@@ -792,15 +572,6 @@ void	test_iterator()
 		std::cout << cri[0] << cri[3] << cri[-1] << " ";
 		std::cout << std::endl;
 	}
-	{
-		crs = s.rbegin();
-		crs = crs + 3;
-		std::cout <<GRN<< *crs << " ";
-		crs = crs - 2;
-		std::cout << *crs << " ";
-		std::cout << crs[0] << crs[3] << cri[-1] << " ";
-		std::cout <<RST<< std::endl;
-	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "->" <<RST<< std::endl;
@@ -811,15 +582,6 @@ void	test_iterator()
 		imf = vmf.begin();
 		std::cout << imf->c << std::endl;
 	}
-	{
-		__GRN
-		std::vector<menfou>	vmf;
-		std::vector<menfou>::iterator imf;
-		vmf.push_back(menfou('c'));
-		imf = vmf.begin();
-		std::cout << imf->c << std::endl;
-		__RST
-	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "egualities const an not const" <<RST<< std::endl;
@@ -829,12 +591,7 @@ void	test_iterator()
 		(void)iv1;
 		(void)iv2;
 	}
-	{
-		std::vector<char>::const_iterator sv1 = s.begin();
-		std::vector<char>::const_iterator sv2(s.begin());
-		(void)sv1;
-		(void)sv2;
-	}
+
 }
 
 void	test_utility()
@@ -846,14 +603,6 @@ void	test_utility()
 		ft::pair<menfou, menfou>	prmm = ft::make_pair(menfou('A'), menfou('B'));
 		std::cout << prfi.first << std::endl << prfi.second << std::endl;
 		std::cout << prmm.first << prmm.second << std::endl;
-	}
-	{
-		__GRN
-		std::pair<float, int>		prfi(1.5, 12);
-		std::pair<menfou, menfou>	prmm = std::make_pair(menfou('A'), menfou('B'));
-		std::cout << prfi.first << std::endl << prfi.second << std::endl;
-		std::cout << prmm.first << prmm.second << std::endl;
-		__RST
 	}
 
 	//__________________________________________________________________________
@@ -891,20 +640,7 @@ void	test_utility()
 		std::cout << ft::equal(v1.rbegin(), v1.rend(), v2.begin()) << std::endl;
 		ENDL
 	}
-	{
-		__GRN
-		std::vector<int> v1(4, 4);
-		std::vector<int> v2(5, 5);
 
-		std::cout << std::equal(v1.begin(), v1.end(), v1.begin()) << std::endl;
-		std::cout << std::equal(v1.begin(), v1.end(), v2.begin()) << std::endl;
-		std::cout << std::equal(v1.rbegin(), v1.rend(), v1.begin()) << std::endl;
-		std::cout << std::equal(v1.rbegin(), v1.rend(), v2.begin()) << std::endl;
-		__RST
-	}
-
-	//__________________________________________________________________________
-	// std::cout <<std::endl<<CYN<< "" <<RST<< std::endl;
 }
 
 int	main(void)

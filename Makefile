@@ -6,7 +6,7 @@
 #    By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/12 12:55:09 by dait-atm          #+#    #+#              #
-#    Updated: 2021/10/19 00:22:38 by dait-atm         ###   ########.fr        #
+#    Updated: 2021/10/19 01:19:07 by dait-atm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,12 @@ endif
 
 all : $(NAME)
 
-$(NAME) :
+$(NAME) : ft
+
+ft:
+	$(CC) $(FLAGS) -DMINE=1 -o $(NAME) $(SRCS)
+
+std:
 	$(CC) $(FLAGS) -o $(NAME) $(SRCS)
 
 clean :
