@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 13:21:14 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/18 23:54:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 00:03:49 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ namespace ft
 			InputIterator2 first2,
 			BinaryPredicate pred,
 			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = nullptr,
-			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = nullptr
+			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = nullptr
 		)
 	{
 		while (first1 != last1)
