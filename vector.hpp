@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/17 06:49:50 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/17 06:52:48 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,7 @@ namespace ft
 		explicit vector (size_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
 		{
 			// __DEB("vector (2) fill")
-
-			// for (size_type i = 0; i < nb; ++i)	// pld
-			// {
-			// 	__DEB("wtf les amis")
-			// 	this->push_back(elem);
-			// }
-
 			this->resize(nb, elem);
-			// _value_chunk_size = nb;
-			
-			// for (size_type i = 0; i < nb; ++i)
-			// {
-			// 	_
-			// }
 		}
 
 		// ? range (3)
@@ -148,16 +135,10 @@ namespace ft
 			if (_value_chunk_size < n)
 			{
 				const size_type	len = _value_chunk_size;
-				// do																	// ? option 1
-				// {
-				// 	_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
-				// } while (_value_chunk_size < n);
 
-				_value_chunk_size = n;													// ? option 2
-
+				_value_chunk_size = n;
 				_allocator.deallocate(_value_data, len);
 				_value_data = _allocator.allocate(_value_chunk_size);
-				// _value_chunk_size = n;
 			}
 
 			// __DEB("construct n elements")
@@ -175,7 +156,6 @@ namespace ft
 			size_type	i;
 			pointer		tmp;
 			size_type	count = ft::distance(first, last);
-			// std::cout << "count : " << count << std::endl;
 
 			if (count > this->max_size())
 				throw std::length_error("cannot create ft::vector larger than max_size()");
@@ -234,11 +214,11 @@ namespace ft
 
 		const_iterator			begin () const	{ return const_iterator( _value_data );					}
 
-		const_iterator			end () const		{ return const_iterator( _value_data + _value_count );	}
+		const_iterator			end () const	{ return const_iterator( _value_data + _value_count );	}
 
 		reverse_iterator		rbegin () 		{ return reverse_iterator( _value_data + _value_count - 1 );}
 
-		reverse_iterator		rend () 			{ return reverse_iterator( _value_data - 1 );				}
+		reverse_iterator		rend () 		{ return reverse_iterator( _value_data - 1 );				}
 
 		const_reverse_iterator	rbegin () const	{ return const_reverse_iterator( _value_data + _value_count - 1 );	}
 
@@ -258,10 +238,8 @@ namespace ft
 				throw std::length_error("std::bad_alloc");
 			else if (!new_cap)
 				_value_chunk_size = 1;
-			if (new_cap > _value_chunk_size)			// ? option 1
+			if (new_cap > _value_chunk_size)
 				_value_chunk_size = new_cap;
-			// while (new_cap > _value_chunk_size)		// ? option 2
-			// 	_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
 			pointer tmp = _allocator.allocate(_value_chunk_size);		// allocate _value_chunk_size * sizeof(_allocator::value_type)
 			for (size_type i = 0; i < _value_count; ++i)
 			{
@@ -336,10 +314,6 @@ namespace ft
 				size_type	new_len;
 				pointer		tmp;
 				size_type	i;
-
-				// new_len = _value_count + nb_elem;
-				// if (new_len < _value_chunk_size)
-				// 	new_len = _value_chunk_size;
 
 				new_len = _value_chunk_size;
 				if (new_len < _value_count + nb_elem)
@@ -495,16 +469,7 @@ namespace ft
 			else
 			{
 				if (n > _value_chunk_size)
-				{
-					// do																		// ? option 1
-					// {
-					// 	_value_chunk_size = _value_chunk_size ? _value_chunk_size * 2 : 1;
-					// } while (n > _value_chunk_size);
-					// this->reserve(_value_chunk_size);
-
-					this->reserve(n);											// ? option 2
-
-				}
+					this->reserve(n);
 				// ? in c++11 resize call each time the constructor
 				for (size_type i = _value_count; i < n; ++i)
 					_allocator.construct(_value_data + i, val);
