@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 13:21:14 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/15 18:44:12 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/18 06:12:41 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sstream>
 # include "is_integral.hpp"
 # include "../iterator/iterator.h"
+# include "pair.hpp"
 
 namespace ft
 {
