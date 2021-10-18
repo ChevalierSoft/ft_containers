@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/18 23:13:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 00:01:30 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -842,6 +842,33 @@ void	test_utility()
 
 		std::cout <<typeid(ft_tt::iterator_category).name() << std::endl;
 		std::cout <<typeid(std::random_access_iterator_tag).name() << std::endl;
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "equal" <<RST<< std::endl;
+	{
+		std::vector<int> v1(4, 4);
+		std::vector<int> v2(5, 5);
+		
+		// ft::equal(15, 13, 29);							// should not compile
+		// ft::equal(v1.begin(), v1.end(), v2.begin(), 3);	// should not compile
+		
+		std::cout << ft::equal(v1.begin(), v1.end(), v1.begin()) << std::endl;
+		std::cout << ft::equal(v1.begin(), v1.end(), v2.begin()) << std::endl;
+		std::cout << ft::equal(v1.rbegin(), v1.rend(), v1.begin()) << std::endl;
+		std::cout << ft::equal(v1.rbegin(), v1.rend(), v2.begin()) << std::endl;
+		ENDL
+	}
+	{
+		__GRN
+		std::vector<int> v1(4, 4);
+		std::vector<int> v2(5, 5);
+
+		std::cout << std::equal(v1.begin(), v1.end(), v1.begin()) << std::endl;
+		std::cout << std::equal(v1.begin(), v1.end(), v2.begin()) << std::endl;
+		std::cout << std::equal(v1.rbegin(), v1.rend(), v1.begin()) << std::endl;
+		std::cout << std::equal(v1.rbegin(), v1.rend(), v2.begin()) << std::endl;
+		__RST
 	}
 
 }

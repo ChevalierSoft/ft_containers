@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 13:21:14 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/18 22:30:24 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/18 23:54:21 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sstream>
 # include "is_integral.hpp"
 # include "../iterator/iterator.h"
+# include "enable_if.hpp"
 # include "pair.hpp"
 
 namespace ft
@@ -66,7 +67,13 @@ namespace ft
 	}
 
 	template <class InputIterator1, class InputIterator2>
- 	bool equal ( InputIterator1 first1, InputIterator1 last1, InputIterator2 first2 )
+ 	bool equal (
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2,
+			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = nullptr,
+			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = nullptr
+		)
 	{
 		while (first1 != last1)
 		{
@@ -78,8 +85,14 @@ namespace ft
 	}
 
 	template <class InputIterator1, class InputIterator2, class BinaryPredicate>
-	bool equal (InputIterator1 first1, InputIterator1 last1,
-				InputIterator2 first2, BinaryPredicate pred)
+	bool equal (
+			InputIterator1 first1,
+			InputIterator1 last1,
+			InputIterator2 first2,
+			BinaryPredicate pred,
+			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = nullptr,
+			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = nullptr
+		)
 	{
 		while (first1 != last1)
 		{
