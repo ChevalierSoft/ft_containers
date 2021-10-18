@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/16 00:47:43 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/18 23:13:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -808,24 +808,51 @@ void	test_iterator()
 	}
 }
 
+void	test_utility()
+{
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "pair" <<RST<< std::endl;
+	{
+		ft::pair<float, int>		prfi(1.5, 12);
+		ft::pair<menfou, menfou>	prmm = ft::make_pair(menfou('A'), menfou('B'));
+		std::cout << prfi.first << std::endl << prfi.second << std::endl;
+		std::cout << prmm.first << prmm.second << std::endl;
+	}
+	{
+		__GRN
+		std::pair<float, int>		prfi(1.5, 12);
+		std::pair<menfou, menfou>	prmm = std::make_pair(menfou('A'), menfou('B'));
+		std::cout << prfi.first << std::endl << prfi.second << std::endl;
+		std::cout << prmm.first << prmm.second << std::endl;
+		__RST
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "iterator_traits" <<RST<< std::endl;
+	{
+		typedef ft::iterator_traits<int*> ft_tt;
+		typedef std::iterator_traits<int*> std_tt;
+
+		if ((typeid(ft_tt::iterator_category) == typeid(std::random_access_iterator_tag))
+			== (typeid(std_tt::iterator_category) == typeid(std::random_access_iterator_tag)))
+			std::cout << "ok" << std::endl;
+		else
+			std::cout << "Error : if ((typeid(ft_tt::iterator_category) == typeid(std::random_access_iterator_tag)) \
+			== (typeid(std_tt::iterator_category) == typeid(std::random_access_iterator_tag)))" << std::endl;
+
+		std::cout <<typeid(ft_tt::iterator_category).name() << std::endl;
+		std::cout <<typeid(std::random_access_iterator_tag).name() << std::endl;
+	}
+
+}
+
 int	main(void)
 {
 	// test_iterator();
 	
 	// test_vector();
 
-	typedef ft::iterator_traits<int*> ft_tt;
-	typedef std::iterator_traits<int*> std_tt;
-
-	if ((typeid(ft_tt::iterator_category) == typeid(std::random_access_iterator_tag))
-		== (typeid(std_tt::iterator_category) == typeid(std::random_access_iterator_tag)))
-		std::cout << "yeet" << std::endl;
-	else
-		std::cout << "nope" << std::endl;
-
-	std::cout <<typeid(ft_tt::iterator_category).name() << std::endl;
-	std::cout <<typeid(std::random_access_iterator_tag).name() << std::endl;
-
+	test_utility();
 
 	return (0);
 }

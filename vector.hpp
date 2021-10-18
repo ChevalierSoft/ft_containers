@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/17 06:52:48 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/18 23:14:36 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "iterator/reverse_iterator.hpp"
 #include "utils/color.h"
 #include "utils/ft_print_memory.h"
-#include "utils/utils.hpp"
+#include "utils/utility.hpp"
 #include "utils/enable_if.hpp"
 
 #define __DEB(s) std::cerr<<s<<std::endl;
@@ -33,14 +33,14 @@ must be reimplemented :
 	is_integral,						// ok
 	lexicographical_compare, 			// ok
 	equal								// ok
-	std::pair,							//
-	std::make_pair						//
+	std::pair,							// ok
+	std::make_pair						// ok
 */
 
 namespace ft
 {
 	template <typename T, class Allocator = std::allocator<T> >
-	class vector /// * ___________________________________________________________
+	class vector /// * _________________________________________________________
 	{
 	public:
 		typedef T										value_type;
@@ -56,7 +56,7 @@ namespace ft
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
-		/// * Constructors & Destructors _________________________________________
+		/// * Constructors & Destructors _______________________________________
 		// ? https://cplusplus.com/reference/vector/vector/vector/
 
 		// ? default (1)
