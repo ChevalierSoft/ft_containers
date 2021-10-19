@@ -6,16 +6,17 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/19 23:26:13 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 23:47:08 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include <iostream>
-#include <stdexcept>
-#include <cmath>
+#include <iostream>		// std::cout
+#include <stdexcept>	// std::exception
+#include <memory>		// std::allocator
+// #include <cmath>
 #include "iterator/iterator.h"
 #include "iterator/random_access_iterator.hpp"
 #include "iterator/reverse_iterator.hpp"
