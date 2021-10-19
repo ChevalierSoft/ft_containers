@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 05:50:36 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/18 05:50:36 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 22:31:50 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,30 @@ namespace ft // * ______________________________________________________________
 		typedef	T1		first_type;
 		typedef	T2		second_type;
 
-		// * Constructor _______________________________________________________
+		// * Constructor / Destrtuctor ___________________________________________
 
 		// ? (1) default constructor
 		pair ()	: first(T1()), second(T2()) {}
 
 		// ? (2) copy / move constructor (and implicit conversion)
 		template< class U, class V >
-		pair (const pair< U, V > & pr)
-		{
-			first = pr.first;
-			second = pr.second;
-		}
+		pair (const pair< U, V > & pr) : first(pr.first), second(pr.second) {}
 
 		// ? (3) initialization constructor
-		pair (const first_type & a, const second_type & b) : first(T1(a)), second(T2(b)) {}
+		pair (const first_type & a, const second_type & b) : first(a), second(b) {}
+
+		virtual ~pair() {}
 
 		// * Other Member functions ____________________________________________
 
 		pair &		operator= (const pair & pr)
 		{
-			first = pr.first;
-			second = pr.second;
+			if (this != &pr)
+			{
+				first = pr.first;
+				second = pr.second;
+			}
+			
 			return (*this);
 		}
 
@@ -98,7 +100,7 @@ namespace ft // * ______________________________________________________________
 	template <class T1, class T2>
 	pair<T1, T2>		make_pair (T1 x, T2 y)
 	{
-		return (pair<T1,T2>(x,y));
+		return (pair<T1, T2>(x, y));
 	}
 
 } // * namespace ft ____________________________________________________________
