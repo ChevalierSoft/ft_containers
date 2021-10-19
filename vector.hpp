@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/19 22:51:37 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 23:26:13 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define VECTOR_HPP
 
 #include <iostream>
+#include <stdexcept>
 #include <cmath>
 #include "iterator/iterator.h"
 #include "iterator/random_access_iterator.hpp"
@@ -65,7 +66,6 @@ namespace ft
 		// ? fill (2)
 		explicit vector (size_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
 		{
-			// __DEB("vector (2) fill")
 			this->resize(nb, elem);
 		}
 
@@ -100,7 +100,6 @@ namespace ft
 
 		virtual ~vector()
 		{
-			// std::cout <<RED<< "vector destructor" <<RST<< std::endl;
 			this->clear();
 			_allocator.deallocate(_value_data, _value_chunk_size);
 		}
@@ -314,21 +313,22 @@ namespace ft
 				pointer		tmp;
 				size_type	i;
 
-				new_len = _value_chunk_size;
-				if (new_len < _value_count + nb_elem)
+				if (_value_chunk_size < _value_count + nb_elem)
 				{
 					// ? WORKS ON WINDOWS 11 AND OSX 11
-					// if (new_len * 2 < _value_count + nb_elem)
+					// if (_value_chunk_size * 2 < _value_count + nb_elem)
 					// 	new_len = _value_count + nb_elem;
 					// else
-					// 	new_len += _value_chunk_size;
+					// 	new_len = _value_chunk_size + _value_chunk_size;
 					
 					// ? WORKS ON POP-OS 21 (based on ubuntu 21)
-					if (_value_count * 2 > _value_count + nb_elem)
-						new_len = _value_count * 2;
+					if (_value_count > nb_elem)
+						new_len = _value_count + _value_count;
 					else
 						new_len = _value_count + nb_elem;
 				}
+				else
+					new_len = _value_chunk_size;
 
 				tmp = _allocator.allocate(new_len);
 
@@ -553,9 +553,7 @@ namespace ft
 	bool operator<=( const ft::vector<T,Alloc>& lhs,
 					const ft::vector<T,Alloc>& rhs )
 	{
-		if ( lhs < rhs || lhs == rhs )
-			return (true);
-		return (false);
+		return !(rhs < lhs);
 	}
 
 	template< class T, class Alloc >
@@ -569,9 +567,7 @@ namespace ft
 	bool operator>=( const ft::vector<T,Alloc>& lhs,
 					const ft::vector<T,Alloc>& rhs )
 	{
-		if ( lhs > rhs || lhs == rhs )
-			return (true);
-		return (false);
+		return !(lhs < rhs);
 	}
 
 	template < class T, class Alloc >
