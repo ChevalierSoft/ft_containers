@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/19 00:33:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 22:51:37 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,9 +300,8 @@ namespace ft
 			// * check if the vector needs to be resized
 			if (position == end())
 			{
-				if (_value_count + nb_elem > _value_chunk_size)
+				if (_value_chunk_size < _value_count + nb_elem)
 					reserve(_value_count + nb_elem);
-			
 				for (size_type i = 0; i < nb_elem; ++i)
 				{
 					_allocator.construct(_value_data + _value_count, val);
@@ -318,10 +317,17 @@ namespace ft
 				new_len = _value_chunk_size;
 				if (new_len < _value_count + nb_elem)
 				{
-					if (new_len * 2 < _value_count + nb_elem)
-						new_len = _value_count + nb_elem;
+					// ? WORKS ON WINDOWS 11 AND OSX 11
+					// if (new_len * 2 < _value_count + nb_elem)
+					// 	new_len = _value_count + nb_elem;
+					// else
+					// 	new_len += _value_chunk_size;
+					
+					// ? WORKS ON POP-OS 21 (based on ubuntu 21)
+					if (_value_count * 2 > _value_count + nb_elem)
+						new_len = _value_count * 2;
 					else
-						new_len += _value_chunk_size;
+						new_len = _value_count + nb_elem;
 				}
 
 				tmp = _allocator.allocate(new_len);
