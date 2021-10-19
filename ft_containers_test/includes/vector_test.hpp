@@ -2,8 +2,8 @@
 # define VECTOR_TEST_HPP
 
 # include <vector>
-# include "../../vector/vector.hpp"
-# include "../../utils/utils.hpp"
+# include "../../vector.hpp"
+# include "../../utils/utility.hpp"
 
 //# include "../../srcs/Vector/Vector_functions.hpp"
 # include "../srcs/vector/utils.cpp"
