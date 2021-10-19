@@ -6,11 +6,13 @@
 #    By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/12 12:55:09 by dait-atm          #+#    #+#              #
-#    Updated: 2021/10/19 01:19:07 by dait-atm         ###   ########.fr        #
+#    Updated: 2021/10/19 21:51:56 by dait-atm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= a.out
+FTNAME	= ft.out
+STDNAME	= std.out
+
 FLAGS	= #-std=c++98
 FLAGS	= -Wall -Wextra -Werror
 FLAGS	+= -g #-fsanitize=address
@@ -18,26 +20,30 @@ SRCS	= main.cpp
 
 ifeq ($(OS),Windows_NT)
 	CC	= g++
-	NAME= a.exe
+	RM	= del
+	FTNAME	= ft.exe
+	STDNAME	= std.exe
 else
 	CC	= clang++
+	RM	= rm -f
 endif
 
-all : $(NAME)
+all : std ft
 
-$(NAME) : ft
+$(FTNAME) : ft
+$(STDNAME) : std
 
 ft:
-	$(CC) $(FLAGS) -DMINE=1 -o $(NAME) $(SRCS)
+	$(CC) $(FLAGS) -DMINE=1 -o $(FTNAME) $(SRCS)
 
 std:
-	$(CC) $(FLAGS) -o $(NAME) $(SRCS)
+	$(CC) $(FLAGS) -o $(STDNAME) $(SRCS)
 
 clean :
-	rm -f *.o
+	$(RM) *.o
 
 fclean : clean
-	rm -f $(NAME)
+	$(RM) $(FTNAME) $(STDNAME)
 
 re : fclean all
 
