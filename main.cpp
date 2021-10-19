@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/19 22:18:02 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/19 23:36:12 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -654,13 +654,24 @@ void	test_utility()
 
 }
 
+void	test_map()
+{
+	std::cout <<std::endl<<CYN<< "___________________ft::map___________________" <<RST<< std::endl;
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "map" <<RST<< std::endl;
+	{
+		
+	}
+}
+
 int	main(void)
 {
-	test_iterator();
-	
-	test_vector();
+	// test_utility();
+	// test_iterator();
+	// test_vector();
 
-	test_utility();
+	test_map();
 
 	return (0);
 }
