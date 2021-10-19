@@ -7,6 +7,7 @@
 namespace ft
 {
 	/// * random_access_iterator ____________________________________________________________
+	//  ? http://www.cplusplus.com/reference/iterator/
 	template <typename T>
 	class random_access_iterator : ft::iterator<ft::random_access_iterator_tag, T>
 	{
