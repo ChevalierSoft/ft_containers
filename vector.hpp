@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/19 23:47:08 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/20 01:03:57 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,7 +286,7 @@ namespace ft
 				_value_data[elem_position] = val;
 				++_value_count;
 			}
-			return (_value_data + elem_position);
+			return (iterator(_value_data + elem_position));
 		}
 
 		// ? insert n times (2)

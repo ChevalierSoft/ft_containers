@@ -25,9 +25,11 @@ namespace ft
 		typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category	iterator_category;
 
 		/// * Constructors / Destructor _____________________________________________________
-		// ? not using explicit key word to make it easier to create
-		random_access_iterator() {}
-		random_access_iterator(pointer x_t) : _ptr(x_t) {}
+
+		explicit random_access_iterator() {}
+
+		explicit random_access_iterator(pointer x_t) : _ptr(x_t) {}
+		
 		random_access_iterator(const ft::random_access_iterator<T> &rhs) { *this = rhs; }
 
 		// ? allows conversion between iterator of T to const T
