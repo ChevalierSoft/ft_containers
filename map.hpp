@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/20 07:20:26 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 00:16:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@
 #include <memory>		// std::allocator
 #include "iterator/iterator.h"
 // #include "iterator/random_access_iterator.hpp"
-#include "iterator/bidirectional_iterator.hpp"
+#include "iterator/BST_bidirectional_iterator.hpp"
 #include "iterator/reverse_iterator.hpp"
 #include "utils/color.h"
 #include "utils/ft_print_memory.h"
 #include "utils/utility.hpp"
 #include "utils/enable_if.hpp"
+
+#include "utils/BinarySearchTree.hpp"
 
 #define __DEB(s) std::cerr<<s<<std::endl;
 
@@ -46,84 +48,11 @@ namespace ft
 		typedef	const value_type&						const_reference;
 		typedef typename Allocator::pointer				pointer;
 		typedef typename Allocator::const_pointer		const_pointer;
-		typedef ft::bidirectional_iterator<T>			iterator;
-		typedef ft::bidirectional_iterator<const T>		const_iterator;
+		typedef ft::bidirectional_iterator<typename BinarySearchTree<value_type>::Node>			iterator;
+		typedef ft::bidirectional_iterator<typename BinarySearchTree<const value_type>::Node>		const_iterator;
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 	
-	// protected:
-		class BinarySearchTree // ? ___________________________________________  BinarySearchTree
-		{
-		// protected:
-			// ? BST_Node is a node used in BinarySearchTree
-			struct BST_Node // ! _______________________________________________  BST_Node
-			{
-				// ! Constructors & Destructors _______________________________
-
-				// ! default (1)
-				BST_Node() : content(), parent(NULL), left(NULL), right(NULL) {}
-
-				// ! default with initialisation (2)
-				BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL) : content(val), parent(p), left(l), right(r) {}
-
-				// ! copy (3)
-				BST_Node(const BST_Node & copy) : content(copy.content), parent(copy.parent), left(copy.left), right(copy.right) {}
-
-				~BST_Node() {}
-
-				// ! Operators ________________________________________________
-				BST_Node &		operator= (const BST_Node & rhs)
-				{
-					if (this != &rhs)
-					{
-						content = rhs.content;
-						parent = rhs.parent;
-						left = rhs.left;
-						right = rhs.right;
-					}
-					return (*this);
-				}
-
-				bool			operator==(const BST_Node & rhs)
-				{
-					return (content == rhs.content);
-				}
-
-				// ! Variables ________________________________________________
-				value_type		content;
-				BST_Node*		parent;		// parent node
-				BST_Node*		left;		// left node
-				BST_Node*		right;		// right node
-
-			};  // ! BST_Node _________________________________________________  
-
-			// ? Constructors & Destructors ___________________________________
-		public:
-			BinarySearchTree() : _root() {}
-
-			BinarySearchTree(const_reference val) : _root(val) {}
-			
-			~BinarySearchTree() {}
-
-			// ? Modifiers ____________________________________________________
-
-			void			insert(const_reference val)
-			{
-				// BST_Node	n(val);
-				// BST_Node*	pos = get_closest_preorder();
-
-				// if (pos->parent->right == pos)
-				// 	pos->parent->right = &n
-
-			}
-
-			// ? Variables ____________________________________________________
-		protected:
-			BST_Node		_root;		// node data
-			allocator_type	_allocator;
-			
-		}; // ? BinarySearchTree ______________________________________________
-
 		/// * Constructors & Destructors ______________________________________
 
 	public:
@@ -158,9 +87,9 @@ namespace ft
 		/// * Variables _______________________________________________________
 	 	// ? Maps are typically implemented as balanced binary trees.
 	private:
-		BinarySearchTree	_bst;
-		key_compare			_comp;
-		allocator_type		_allocator;
+		BinarySearchTree<value_type>	_bst;
+		key_compare						_comp;
+		allocator_type					_allocator;
 
 	}; /// * map ______________________________________________________________
 
