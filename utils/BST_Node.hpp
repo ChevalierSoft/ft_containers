@@ -6,12 +6,15 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 00:04:15 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 01:26:27 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BST_NODE_HPP
 # define BST_NODE_HPP
+
+#include <ostream>
+#include "pair.hpp"
 
 namespace ft
 {
@@ -65,6 +68,7 @@ namespace ft
 		BST_Node*		right;		// right node
 
 	};  // * BST_Node _________________________________________________  
+
 }
 
 #endif
