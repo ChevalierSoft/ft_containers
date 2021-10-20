@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/20 02:25:10 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/20 02:32:06 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,21 @@ namespace ft
 		public:
 			Tree() : _node(NULL), _left(NULL), _right(NULL) {}
 			Tree(pointer rhs) : _node(rhs), _left(NULL), _right(NULL) {}
-			~Tree() {}
+			~Tree() {	this->clear();	}
 
+			void	clear()
+			{
+				_node->~value_type();
+				_node = NULL;
+				_left = NULL;
+				_right = NULL;
+			}
 
+			void	replace(pointer rhs)
+			{
+				_node->~value_type();
+				_node = rhs;
+			}
 
 			// * variables ______________________
 		protected:
