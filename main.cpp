@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/20 02:25:37 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 00:36:25 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@
 #include <stack>
 #include <string>
 
-#ifdef MINE
+#include "./utils/BST_Node.hpp"
+
+#ifdef ORIGINAL
+	namespace ft = std;
+#else
 	# include "vector.hpp"
 	# include "map.hpp"
 	# include "stack.hpp"
-#else
-	namespace ft = std;
 #endif
 
 #include "./utils/color.h"
@@ -661,6 +663,10 @@ void	test_map()
 	ft::map<int, float> m;
 
 	// m[0] = 0.1;
+
+	// ft::BST_Node<menfou> bn;
+
+
 
 }
 

@@ -6,7 +6,7 @@
 #    By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/12 12:55:09 by dait-atm          #+#    #+#              #
-#    Updated: 2021/10/20 02:09:19 by dait-atm         ###   ########.fr        #
+#    Updated: 2021/10/21 00:34:52 by dait-atm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,10 +34,10 @@ $(FTNAME) : ft
 $(STDNAME) : std
 
 ft:
-	$(CC) $(FLAGS) -DMINE=1 -o $(FTNAME) $(SRCS)
+	$(CC) $(FLAGS) -o $(FTNAME) $(SRCS)
 
 std:
-	$(CC) $(FLAGS) -o $(STDNAME) $(SRCS)
+	$(CC) $(FLAGS) -o $(STDNAME) $(SRCS) -DORIGINAL=1
 
 clean :
 	$(RM) *.o
