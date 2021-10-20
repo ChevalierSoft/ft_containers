@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/20 02:10:23 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/20 02:25:10 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,23 @@ namespace ft
 		class Tree // * _________________________
 		{
 			// * Constructors & Destructors
-		private:
-			Tree() : _node(NULL), _left(NULL), _right(NULL) {}
 		public:
+			Tree() : _node(NULL), _left(NULL), _right(NULL) {}
 			Tree(pointer rhs) : _node(rhs), _left(NULL), _right(NULL) {}
 			~Tree() {}
 
+
+
 			// * variables ______________________
 		protected:
-			pointer		_node;
-			pointer		_left;
-			pointer		_right;
+			pointer		_node;		// node data
+			Tree*		_left;		// left leaf
+			Tree*		_right;		// right leaf
 		};
 
-	public:
 		/// * Constructors & Destructors ______________________________________
 
+	public:
 		// ? empty (1)
 		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {}
 
@@ -86,13 +87,28 @@ namespace ft
 		~map(void) {}
 
 		map &	operator=(const map &	copy);
+
+		/// * Element access __________________________________________________
+
+		/// * Iterators _______________________________________________________
 		
+		/// * Capacity ________________________________________________________
+
+		/// * Modifiers _______________________________________________________
+
+		/// * Lookup  _________________________________________________________
+
+		/// * Observers  ______________________________________________________
+
 		/// * Variables _______________________________________________________
 	 	// ? Maps are typically implemented as balanced binary trees.
 	private:
-
+		Tree	_root;
 
 	}; /// * map ______________________________________________________________
-}
+
+	/// * Non-member functions ________________________________________________
+	
+} /// * namespace ft __________________________________________________________
 
 #endif
