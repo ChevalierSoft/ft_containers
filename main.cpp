@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 01:26:17 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 01:48:13 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -676,15 +676,16 @@ void	test_map()
 {
 	std::cout <<std::endl<<CYN<< "___________________ft::map___________________" <<RST<< std::endl;
 
+	// creating a pair
 	ft::pair<int, std::string> dp(0, "😇");
-
-	std::cout << dp << std::endl;
-
+	// creating a node with the pair
+	ft::BST_Node<ft::pair<int, std::string> >	nd(dp);
+	std::cout << nd << std::endl;
+	// creating a bst with the node
 	ft::BinarySearchTree<ft::pair<int, std::string> > bst(dp);
+	std::cout << bst._root->content << std::endl;
 
-	// ft::BST_Node<ft::pair<int, std::string>> bn(ft::make_pair<int, std::string>(0, ""));
-
-
+	
 
 
 }

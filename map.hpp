@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 00:27:26 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 01:34:13 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ namespace ft
 
 		/// * Variables _______________________________________________________
 	 	// ? Maps are typically implemented as balanced binary trees.
-	private:
+	// protected:
 		BinarySearchTree<value_type>	_bst;
 		key_compare						_comp;
 		allocator_type					_allocator;

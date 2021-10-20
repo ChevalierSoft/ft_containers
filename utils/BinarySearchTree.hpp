@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 01:17:30 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 01:35:14 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,15 @@ namespace ft
 
 		// * Constructors & Destructors _______________________________________
 	public:
-		BinarySearchTree() : _root() {}
+		BinarySearchTree() : _root(NULL) {}
 
 		BinarySearchTree(const_reference val)
 		{
-			// _root = new Node(val);
 			_root = _node_allocator.allocate(1);
-			*_root = val;
+			_node_allocator.construct(_root, val);
 		}
 		
-		~BinarySearchTree() {}
+		~BinarySearchTree() {	_node_allocator.deallocate(_root, 1);	}
 
 		// * Modifiers ________________________________________________________
 
@@ -84,7 +83,7 @@ namespace ft
 
 
 		// * Variables ________________________________________________________
-	protected:
+	// protected:
 		Node_pointer	_root;		// node data
 		Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
