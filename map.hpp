@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 00:16:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 00:27:26 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ namespace ft
 		typedef	const value_type&						const_reference;
 		typedef typename Allocator::pointer				pointer;
 		typedef typename Allocator::const_pointer		const_pointer;
-		typedef ft::bidirectional_iterator<typename BinarySearchTree<value_type>::Node>			iterator;
-		typedef ft::bidirectional_iterator<typename BinarySearchTree<const value_type>::Node>		const_iterator;
-		typedef ft::reverse_iterator<iterator>			reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+		// typedef ft::BST_bidirectional_iterator<typename BinarySearchTree<value_type>::Node>			iterator;
+		// typedef ft::BST_bidirectional_iterator<typename BinarySearchTree<const value_type>::Node>		const_iterator;
+		// typedef ft::reverse_iterator<iterator>			reverse_iterator;
+		// typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 	
 		/// * Constructors & Destructors ______________________________________
 

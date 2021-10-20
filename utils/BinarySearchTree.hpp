@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 00:19:44 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 00:26:57 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ namespace ft
 		typedef const T*								const_pointer;
 		typedef typename Node_Allocator::pointer		Node_pointer;
 		typedef typename Node_Allocator::const_pointer	Node_const_pointer;
-		typedef ft::bidirectional_iterator<Node>		iterator;
-		typedef ft::bidirectional_iterator<const Node>	const_iterator;
+		typedef ft::BST_bidirectional_iterator<Node>	iterator;
+		typedef ft::BST_bidirectional_iterator<const Node>	const_iterator;
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
