@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/20 00:58:05 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/20 02:10:23 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,47 @@ namespace ft
 		typedef ft::bidirectional_iterator<const T>		const_iterator;
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+	
+	protected:
+		class Tree // * _________________________
+		{
+			// * Constructors & Destructors
+		private:
+			Tree() : _node(NULL), _left(NULL), _right(NULL) {}
+		public:
+			Tree(pointer rhs) : _node(rhs), _left(NULL), _right(NULL) {}
+			~Tree() {}
 
+			// * variables ______________________
+		protected:
+			pointer		_node;
+			pointer		_left;
+			pointer		_right;
+		};
+
+	public:
 		/// * Constructors & Destructors ______________________________________
 
-		map(void);
-		// map(/* args */);
-		~map(void);
+		// ? empty (1)
+		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {}
 
-		// Copy constructor
-		map(const map & copy);
+		// ? range (2)
+		template <class InputIterator>
+		map (InputIterator first, InputIterator last,
+			const key_compare& comp = key_compare(),
+			const allocator_type& alloc = allocator_type());
 
-		// Operation overload =
+		// ? copy (3)
+		map (const map& x);
+
+		~map(void) {}
+
 		map &	operator=(const map &	copy);
 		
-		/// * Variables __________________________________________________________
+		/// * Variables _______________________________________________________
+	 	// ? Maps are typically implemented as balanced binary trees.
+	private:
+
 
 	}; /// * map ______________________________________________________________
 }
