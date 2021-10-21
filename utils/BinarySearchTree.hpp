@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 04:09:59 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 05:45:25 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,13 @@ namespace ft
 			}
 		}
 
+		// ? (1) default inserting from _root
+		Node_pointer	insert(const_reference val)
+		{
+			return (insert(_root, val));
+		}
+
+		// ? (2) using a specific node (this might be private)
 		Node_pointer	insert(Node_pointer node, const_reference val)
 		{
 			// __DEB("insert");
@@ -80,12 +87,12 @@ namespace ft
 				// __DEB("position found")
 				node = _node_allocator.allocate(1);
 				_node_allocator.construct(node, Node(val));
-				node->parent = NULL;
-				node->left = NULL;
-				node->right = NULL;
+				// node->parent = NULL;
+				// node->left = NULL;
+				// node->right = NULL;
 			}
 			else if (val.first == node->content.first)
-				node->content = val;
+				node->content.second = val.second;
 			else if(val.first < node->content.first)
 			{
 				// __DEB("going left")
@@ -102,25 +109,51 @@ namespace ft
 			return (node);
 		}
 
-		size_type		get_max_floor(Node_pointer node)
+		size_type		get_last_floor(Node_pointer node)
 		{
 			int l = 0;
 			int r = 0;
 
 			if (node->left)
-				l = 1 + get_max_floor(node->left);
-
+				l = 1 + get_last_floor(node->left);
 			if (node->right)
-				r = 1 + get_max_floor(node->right);
+				r = 1 + get_last_floor(node->right);
 
 			return (l > r) ? l : r;
 		}
 
-		// ? (1) default
+		Node_pointer	search(Node_pointer node, typename T::first_type key)
+		{
+			Node_pointer	res = NULL;
+
+			if (node == NULL)
+				return (NULL);
+			else if (node->content.first == key)
+				return (node);
+
+			if (key < node->content.first)
+			{
+				__DEB("(key < node->content.first)")
+				if (node->left != NULL)
+					res = search(node->left, key);
+			}
+			else if (key > node->content.first)
+			{
+				__DEB("(key > node->content.first)")
+				if (node->right != NULL)
+					res = search(node->right, key);
+			}
+			return (res);
+		}
+
+		Node_pointer	search(typename T::first_type key)
+		{
+			return (search(_root, key));
+		}
+
 		void			display(Node_pointer node)
 		{
-			size_type	len = get_max_floor(node);
-			// std::cout << "get_max_floor : " << len << std::endl;
+			size_type	len = get_last_floor(node);
 
 			if (node->left)
 				display(node->left);
@@ -135,7 +168,6 @@ namespace ft
 			
 			if (node->right)
 				display(node->right);
-
 		}
 
 		// * Variables ________________________________________________________

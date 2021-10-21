@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 03:51:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 05:47:02 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -669,25 +669,31 @@ void	test_map()
 
 	// creating a node with the pair
 	ft::BST_Node<ft::pair<int, std::string> >	nd(dp);
-	// std::cout << nd << std::endl;
+
 	// creating a bst with the node
 	ft::BinarySearchTree<ft::pair<int, std::string> > bst(dp);
-	// std::cout << bst._root->content << std::endl;
 
-	// ft::BinarySearchTree<ft::pair<int, std::string> > bst;
+	// right part
+	bst.insert(ft::make_pair<int, std::string>(6, "🧙"));
+	bst.insert(ft::make_pair<int, std::string>(5, "🧚"));
+	bst.insert(ft::make_pair<int, std::string>(7, "🧚"));
+	// left part
 	bst.insert(bst._root, ft::make_pair<int, std::string>(2, "🧙"));
-	bst.insert(bst._root, ft::make_pair<int, std::string>(3, "🧛"));
-	bst.insert(bst._root, ft::make_pair<int, std::string>(1, "🧛"));
+	bst.insert(ft::make_pair<int, std::string>(3, "🧛"));
+	bst.insert(ft::make_pair<int, std::string>(1, "🧛"));
 
-	bst.insert(bst._root, ft::make_pair<int, std::string>(6, "🧙"));
-	bst.insert(bst._root, ft::make_pair<int, std::string>(5, "🧚"));
-	bst.insert(bst._root, ft::make_pair<int, std::string>(7, "🧚"));
-
-	bst.insert(bst._root, ft::make_pair<int, std::string>(1, "🧚"));
-	// std::cout << bst._root->left << std::endl;
+	// replacing key==1
+	bst.insert(ft::make_pair<int, std::string>(1, "🥷"));
 
 	bst.display(bst._root);
 	ENDL;
+
+	std::cout << bst.search(1) << std::endl;
+
+	// std::cout << bst.search(-1) << std::endl;
+
+	if (bst.search(404) == NULL)
+		std::cout << "404 not found" << std::endl;
 
 }
 
