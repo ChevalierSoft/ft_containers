@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 03:55:50 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 04:09:59 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ namespace ft
 		typedef ft::BST_bidirectional_iterator<const Node>	const_iterator;
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
-
 
 		// * Constructors & Destructors _______________________________________
 	public:
@@ -85,9 +84,9 @@ namespace ft
 				node->left = NULL;
 				node->right = NULL;
 			}
-			else if (val == node->content)
+			else if (val.first == node->content.first)
 				node->content = val;
-			else if(val < node->content)
+			else if(val.first < node->content.first)
 			{
 				// __DEB("going left")
 				node->left = insert(node->left, val);
