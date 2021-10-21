@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 02:43:39 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 03:55:50 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,10 @@ namespace ft
 
 		Node_pointer	insert(Node_pointer node, const_reference val)
 		{
-			// _recursive_insert(node, val);
-			__DEB("_recursive_insert");
+			// __DEB("insert");
 			if(node == NULL)
 			{
-				__DEB("position found")
+				// __DEB("position found")
 				node = _node_allocator.allocate(1);
 				_node_allocator.construct(node, Node(val));
 				node->parent = NULL;
@@ -90,13 +89,13 @@ namespace ft
 				node->content = val;
 			else if(val < node->content)
 			{
-				__DEB("going left")
+				// __DEB("going left")
 				node->left = insert(node->left, val);
 				node->left->parent = node;
 			}
 			else
 			{
-				__DEB("going right")
+				// __DEB("going right")
 				node->right = insert(node->right, val);
 				node->right->parent = node;
 			}
@@ -104,21 +103,72 @@ namespace ft
 			return (node);
 		}
 
+		size_type		get_max_floor(Node_pointer node)
+		{
+			int l = 0;
+			int r = 0;
 
-		// void			display(Node_pointer)
-		// {
-		// 	// size_type	sizes[2];
+			if (node->left)
+				l = 1 + get_max_floor(node->left);
 
+			if (node->right)
+				r = 1 + get_max_floor(node->right);
 
-		// }
+			return (l > r) ? l : r;
+		}
+
+		// ? (1) default
+		void			display(Node_pointer node)
+		{
+			size_type	len = get_max_floor(node);
+			// std::cout << "get_max_floor : " << len << std::endl;
+
+			if (node->left)
+				display(node->left);
+			if (node)
+			{
+				std::cout << std::string( ((len * 6) / 2) + 1, ' ' );
+				std::cout << node->content;
+				std::cout << std::string( ((len * 6) / 2) + 1, ' ' );
+			}
+			else
+				std::cout << std::string( len * 6 + 1 + 6, ' ' );
+			
+			if (node->right)
+				display(node->right);
+
+		}
 
 		// * Variables ________________________________________________________
 	// protected:
-		Node_pointer	_root;		// node data
+		Node_pointer	_root;				// node data
 		Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
 		
 	}; // * BinarySearchTree __________________________________________________
+
+	// ? DEBUG
+
+	std::ostream&	operator<<(std::ostream & o, ft::pair<int, std::string> & pr)
+	{
+		o << pr.first << pr.second ;
+		return (o);
+	}
+
+	template< class T, class Type_Allocator = std::allocator< T > >
+	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> & bn)
+	{
+		o << ", " << bn.content << " .";
+		return (o);
+	}
+
+	template< class T, class Type_Allocator = std::allocator< T > >
+	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> * bn)
+	{
+		o << ", " << bn->content << " .";
+		return (o);
+	}
+
 }
 
 #endif

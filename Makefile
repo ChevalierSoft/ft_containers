@@ -6,7 +6,7 @@
 #    By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/12 12:55:09 by dait-atm          #+#    #+#              #
-#    Updated: 2021/10/21 00:34:52 by dait-atm         ###   ########.fr        #
+#    Updated: 2021/10/21 02:56:47 by dait-atm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ else
 	RM	= rm -f
 endif
 
-all : ft std
+all : ft # std
 
 $(FTNAME) : ft
 $(STDNAME) : std

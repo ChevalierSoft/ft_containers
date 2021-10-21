@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 02:33:46 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 03:51:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -659,25 +659,6 @@ void	test_utility()
 
 // ____________________________________________________________________________
 
-std::ostream&	operator<<(std::ostream & o, ft::pair<int, std::string> & pr)
-{
-	o << pr.first << pr.second ;
-	return (o);
-}
-
-template< class T, class Type_Allocator = std::allocator< T > >
-std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> & bn)
-{
-	o << ", " << bn.content << " .";
-	return (o);
-}
-
-template< class T, class Type_Allocator = std::allocator< T > >
-std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> * bn)
-{
-	o << ", " << bn->content << " .";
-	return (o);
-}
 
 void	test_map()
 {
@@ -691,14 +672,22 @@ void	test_map()
 	// std::cout << nd << std::endl;
 	// creating a bst with the node
 	ft::BinarySearchTree<ft::pair<int, std::string> > bst(dp);
-	std::cout << bst._root->content << std::endl;
+	// std::cout << bst._root->content << std::endl;
 
 	// ft::BinarySearchTree<ft::pair<int, std::string> > bst;
-	bst.insert(bst._root, ft::make_pair<int, std::string>(3, "🧚"));
-	std::cout << bst._root->left << std::endl;
+	bst.insert(bst._root, ft::make_pair<int, std::string>(2, "🧙"));
+	bst.insert(bst._root, ft::make_pair<int, std::string>(3, "🧛"));
+	bst.insert(bst._root, ft::make_pair<int, std::string>(1, "🧛"));
 
-	
+	bst.insert(bst._root, ft::make_pair<int, std::string>(6, "🧙"));
+	bst.insert(bst._root, ft::make_pair<int, std::string>(5, "🧚"));
+	bst.insert(bst._root, ft::make_pair<int, std::string>(7, "🧚"));
 
+	bst.insert(bst._root, ft::make_pair<int, std::string>(1, "🧚"));
+	// std::cout << bst._root->left << std::endl;
+
+	bst.display(bst._root);
+	ENDL;
 
 }
 
