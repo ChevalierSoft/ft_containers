@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 05:50:36 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 01:22:43 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 04:00:20 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,6 @@ namespace ft // * ______________________________________________________________
 			
 			return (*this);
 		}
-
-		// bool operator==(const pair<T1 , T2> & lhs, const pair<T1, T2> & rhs);
-		// bool operator!=(const pair<T1 , T2> & lhs, const pair<T1, T2> & rhs);
-		// bool operator< (const pair<T1 , T2> & lhs, const pair<T1, T2> & rhs);
-		// bool operator<=(const pair<T1 , T2> & lhs, const pair<T1, T2> & rhs);
-		// bool operator> (const pair<T1 , T2> & lhs, const pair<T1, T2> & rhs);
-		// bool operator>=(const pair<T1 , T2> & lhs, const pair<T1, T2> & rhs);
 
 		// * Variables _________________________________________________________
 
