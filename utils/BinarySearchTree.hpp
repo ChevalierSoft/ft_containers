@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 01:35:14 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 02:29:31 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include "../iterator/iterator.h"
 #include "../iterator/BST_bidirectional_iterator.hpp"
 #include "BST_Node.hpp"
+
+#define __DEB(s) std::cerr<<s<<std::endl;
 
 namespace ft
 {
@@ -58,29 +60,35 @@ namespace ft
 
 		// * Modifiers ________________________________________________________
 
-		Node_pointer*	get_closest_preorder(Node_pointer r)
+		Node_pointer			insert(Node_pointer node, const_reference val)
 		{
-			if (r == NULL)
-				return (r);
-			
-			while (1)
+			// _recursive_insert(node, val);
+			__DEB("_recursive_insert");
+			if(node == NULL)
 			{
-
+				__DEB("position found")
+				node = _node_allocator.allocate(1);
+				_node_allocator.construct(node, Node(val));
+				node->parent = NULL;
+				node->left = NULL;
+				node->right = NULL;
 			}
+			else if (val == node->content)
+				node->content = val;
+			else if(val > node->content)
+			{
+				__DEB("going right")
+				node->right = insert(node->right, val);
+				node->right->parent = node;
+			}
+			else
+			{
+				__DEB("going left")
+				node->left = insert(node->left, val);
+				node->left->parent = node;
+			}
+			return (node);
 		}
-
-		void			insert(const_reference val)
-		{
-			// BST_Node	n(val);
-			// BST_Node*	pos = get_closest_preorder();
-
-			// if (pos->parent->right == pos)
-			// 	pos->parent->right = &n
-
-			// if ()
-
-		}
-
 
 		// * Variables ________________________________________________________
 	// protected:

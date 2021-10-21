@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 01:48:13 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 02:33:46 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -672,18 +672,30 @@ std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> & bn)
 	return (o);
 }
 
+template< class T, class Type_Allocator = std::allocator< T > >
+std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> * bn)
+{
+	o << ", " << bn->content << " .";
+	return (o);
+}
+
 void	test_map()
 {
 	std::cout <<std::endl<<CYN<< "___________________ft::map___________________" <<RST<< std::endl;
 
 	// creating a pair
-	ft::pair<int, std::string> dp(0, "😇");
+	ft::pair<int, std::string> dp(4, "😇");
+
 	// creating a node with the pair
 	ft::BST_Node<ft::pair<int, std::string> >	nd(dp);
-	std::cout << nd << std::endl;
+	// std::cout << nd << std::endl;
 	// creating a bst with the node
 	ft::BinarySearchTree<ft::pair<int, std::string> > bst(dp);
 	std::cout << bst._root->content << std::endl;
+
+	// ft::BinarySearchTree<ft::pair<int, std::string> > bst;
+	bst.insert(bst._root, ft::make_pair<int, std::string>(3, "🧚"));
+	std::cout << bst._root->left << std::endl;
 
 	
 
