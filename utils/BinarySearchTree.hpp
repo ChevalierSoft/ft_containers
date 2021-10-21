@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 02:29:31 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 02:43:39 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,24 @@ namespace ft
 			_node_allocator.construct(_root, val);
 		}
 		
-		~BinarySearchTree() {	_node_allocator.deallocate(_root, 1);	}
+		~BinarySearchTree() {	erase(_root);	}
 
 		// * Modifiers ________________________________________________________
 
-		Node_pointer			insert(Node_pointer node, const_reference val)
+		void			erase(Node_pointer node)
+		{
+			if(node != NULL)
+			{
+				if (node->left)
+					erase(node->left);
+				if (node->right)
+					erase(node->right);
+				_node_allocator.destroy(node);
+				_node_allocator.deallocate(node, 1);
+			}
+		}
+
+		Node_pointer	insert(Node_pointer node, const_reference val)
 		{
 			// _recursive_insert(node, val);
 			__DEB("_recursive_insert");
@@ -75,20 +88,29 @@ namespace ft
 			}
 			else if (val == node->content)
 				node->content = val;
-			else if(val > node->content)
-			{
-				__DEB("going right")
-				node->right = insert(node->right, val);
-				node->right->parent = node;
-			}
-			else
+			else if(val < node->content)
 			{
 				__DEB("going left")
 				node->left = insert(node->left, val);
 				node->left->parent = node;
 			}
+			else
+			{
+				__DEB("going right")
+				node->right = insert(node->right, val);
+				node->right->parent = node;
+			}
+			
 			return (node);
 		}
+
+
+		// void			display(Node_pointer)
+		// {
+		// 	// size_type	sizes[2];
+
+
+		// }
 
 		// * Variables ________________________________________________________
 	// protected:
