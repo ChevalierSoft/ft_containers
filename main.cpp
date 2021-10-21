@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 05:47:02 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 05:47:57 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -689,8 +689,6 @@ void	test_map()
 	ENDL;
 
 	std::cout << bst.search(1) << std::endl;
-
-	// std::cout << bst.search(-1) << std::endl;
 
 	if (bst.search(404) == NULL)
 		std::cout << "404 not found" << std::endl;

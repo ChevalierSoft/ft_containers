@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 05:45:25 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/21 05:50:00 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,17 +132,9 @@ namespace ft
 				return (node);
 
 			if (key < node->content.first)
-			{
-				__DEB("(key < node->content.first)")
-				if (node->left != NULL)
-					res = search(node->left, key);
-			}
+				res = search(node->left, key);
 			else if (key > node->content.first)
-			{
-				__DEB("(key > node->content.first)")
-				if (node->right != NULL)
-					res = search(node->right, key);
-			}
+				res = search(node->right, key);
 			return (res);
 		}
 
