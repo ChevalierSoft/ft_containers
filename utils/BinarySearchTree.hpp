@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 05:50:00 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/22 05:46:18 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,129 @@ namespace ft
 
 		// * Constructors & Destructors _______________________________________
 	public:
-		BinarySearchTree() : _root(NULL) {}
+		BinarySearchTree (void) : _root(NULL) {}
 
-		BinarySearchTree(const_reference val)
+		BinarySearchTree (const_reference val)
 		{
 			_root = _node_allocator.allocate(1);
 			_node_allocator.construct(_root, val);
 		}
 		
-		~BinarySearchTree() {	erase(_root);	}
+		~BinarySearchTree (void) {	erase(_root);	}
 
+	// protected:
+		size_type		get_last_floor (Node_pointer node)
+		{
+			int l = -1;
+			int r = -1;
+
+			if (!node)
+				return (0);
+
+			// if (node->left)
+				l = get_last_floor(node->left);
+			// if (node->right)
+				r = get_last_floor(node->right);
+
+			return (l > r) ? l + 1 : r + 1;
+		}
+
+		long			get_balance (Node_pointer node)
+		{
+			if (node)
+				return(get_last_floor(node->right) - get_last_floor(node->left));
+			return (0);
+		}
+
+		// * Rotations
+
+		Node_pointer	right_rotation(Node_pointer node)
+		{
+			Node_pointer	tmp;
+
+			tmp = node->left;
+			node->left = tmp->right;
+			tmp->right = node;
+			return (tmp);
+		}
+
+		Node_pointer	left_rotation(Node_pointer node)
+		{
+			Node_pointer	tmp;
+
+			tmp = node->right;
+			node->right = tmp->left;
+			tmp->left = node;
+			return (tmp);
+		}
+
+		//	    ,o.
+		//    ,o.
+		//  ,o.
+		Node_pointer	left_left_rotation(Node_pointer node)
+		{
+			return (right_rotation(node));
+		}
+
+		//	    ,o.
+		//    ,o.
+		//      ,o.
+		Node_pointer	left_right_rotation(Node_pointer node)
+		{
+			node->left = left_rotation(node->left);
+			return (right_rotation(node));
+		}
+
+		//	    ,o.
+		//        ,o.
+		//          ,o.
+		Node_pointer	right_right_rotation(Node_pointer node)
+		{
+			return (left_rotation(node));
+		}
+
+		//	    ,o.
+		//        ,o.
+		//      ,o.
+		Node_pointer	right_left_rotation(Node_pointer node)
+		{
+			node->right = right_rotation(node->right);
+			return (left_rotation(node));
+		}
+
+		Node_pointer	balance (Node_pointer node)
+		{
+			long	b;
+
+			if (!node)
+				return (NULL);
+
+			b = get_balance(node);
+
+			// too much nodes left
+			if (b == -2)
+			{
+				if (get_balance(node->left) <= 0)
+					return (left_left_rotation(node));
+				else
+					return (left_right_rotation(node));
+			}
+			// too much nodes right
+			else if (b == 2)
+			{
+				if (get_balance(node->right) <= 0)
+					return (right_left_rotation(node));
+				else
+					return (right_right_rotation(node));
+			}
+			// node is already balanced
+			return (node);
+		}
+
+	// public:
 		// * Modifiers ________________________________________________________
 
-		void			erase(Node_pointer node)
+		void			erase (Node_pointer node)
 		{
 			if(node != NULL)
 			{
@@ -73,13 +183,13 @@ namespace ft
 		}
 
 		// ? (1) default inserting from _root
-		Node_pointer	insert(const_reference val)
+		Node_pointer	insert (const_reference val)
 		{
 			return (insert(_root, val));
 		}
 
 		// ? (2) using a specific node (this might be private)
-		Node_pointer	insert(Node_pointer node, const_reference val)
+		Node_pointer	insert (Node_pointer node, const_reference val)
 		{
 			// __DEB("insert");
 			if(node == NULL)
@@ -106,23 +216,17 @@ namespace ft
 				node->right->parent = node;
 			}
 			
+			balance(node);
+
 			return (node);
 		}
 
-		size_type		get_last_floor(Node_pointer node)
+		Node_pointer	search (typename T::first_type key)
 		{
-			int l = 0;
-			int r = 0;
-
-			if (node->left)
-				l = 1 + get_last_floor(node->left);
-			if (node->right)
-				r = 1 + get_last_floor(node->right);
-
-			return (l > r) ? l : r;
+			return (search(_root, key));
 		}
 
-		Node_pointer	search(Node_pointer node, typename T::first_type key)
+		Node_pointer	search (Node_pointer node, typename T::first_type key)
 		{
 			Node_pointer	res = NULL;
 
@@ -138,28 +242,22 @@ namespace ft
 			return (res);
 		}
 
-		Node_pointer	search(typename T::first_type key)
-		{
-			return (search(_root, key));
-		}
-
-		void			display(Node_pointer node)
+		void			display (Node_pointer node)
 		{
 			size_type	len = get_last_floor(node);
 
-			if (node->left)
-				display(node->left);
 			if (node)
 			{
+				if (node->left)
+					display(node->left);
 				std::cout << std::string( ((len * 6) / 2) + 1, ' ' );
 				std::cout << node->content;
 				std::cout << std::string( ((len * 6) / 2) + 1, ' ' );
+				if (node->right)
+					display(node->right);
 			}
 			else
 				std::cout << std::string( len * 6 + 1 + 6, ' ' );
-			
-			if (node->right)
-				display(node->right);
 		}
 
 		// * Variables ________________________________________________________
