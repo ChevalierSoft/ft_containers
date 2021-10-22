@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/22 05:46:18 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/22 08:11:05 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ namespace ft
 		{
 			Node_pointer	tmp;
 
+			// __DEB("left_rotation")
 			tmp = node->right;
 			node->right = tmp->left;
 			tmp->left = node;
@@ -125,6 +126,7 @@ namespace ft
 		//          ,o.
 		Node_pointer	right_right_rotation(Node_pointer node)
 		{
+			// __DEB("right_right_rotation")
 			return (left_rotation(node));
 		}
 
@@ -185,7 +187,8 @@ namespace ft
 		// ? (1) default inserting from _root
 		Node_pointer	insert (const_reference val)
 		{
-			return (insert(_root, val));
+			_root = insert(_root, val);
+			return (_root);
 		}
 
 		// ? (2) using a specific node (this might be private)
@@ -197,9 +200,6 @@ namespace ft
 				// __DEB("position found")
 				node = _node_allocator.allocate(1);
 				_node_allocator.construct(node, Node(val));
-				// node->parent = NULL;
-				// node->left = NULL;
-				// node->right = NULL;
 			}
 			else if (val.first == node->content.first)
 				node->content.second = val.second;
@@ -216,9 +216,8 @@ namespace ft
 				node->right->parent = node;
 			}
 			
-			balance(node);
-
-			return (node);
+			// __DEB("balance")
+			return (balance(node));
 		}
 
 		Node_pointer	search (typename T::first_type key)
@@ -250,14 +249,14 @@ namespace ft
 			{
 				if (node->left)
 					display(node->left);
-				std::cout << std::string( ((len * 6) / 2) + 1, ' ' );
+				std::cout << std::string( ((len * 6) / 2), ' ' );
 				std::cout << node->content;
-				std::cout << std::string( ((len * 6) / 2) + 1, ' ' );
+				std::cout << std::string( ((len * 6) / 2), ' ' );
 				if (node->right)
 					display(node->right);
 			}
 			else
-				std::cout << std::string( len * 6 + 1 + 6, ' ' );
+				std::cout << std::string( len * 6 + 6, ' ' );
 		}
 
 		// * Variables ________________________________________________________
