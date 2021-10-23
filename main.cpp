@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/22 08:09:27 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/23 08:21:03 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -665,7 +665,7 @@ void	test_map()
 	std::cout <<std::endl<<CYN<< "___________________ft::map___________________" <<RST<< std::endl;
 
 	// creating a pair
-	ft::pair<int, std::string> dp(4, "😇");
+	ft::pair<int, std::string> dp(7, "😇");
 
 	// creating a node with the pair
 	ft::BST_Node<ft::pair<int, std::string> >	nd(dp);
@@ -695,23 +695,24 @@ void	test_map()
 
 	std::cout << "balance : " << bst.get_balance(bst._root) << std::endl;
 
-	bst.insert(ft::make_pair<int, std::string>(11, "👽"));
+	bst.insert(ft::make_pair<int, std::string>(4, "👽"));
 	bst.display(bst._root); ENDL;
 	std::cout << "balance : " << bst.get_balance(bst._root) << std::endl;
 
-	bst.insert(ft::make_pair<int, std::string>(12, "👽"));
+	bst.insert(ft::make_pair<int, std::string>(20, "👽"));
 		bst.display(bst._root); ENDL;
 	std::cout << "balance : " << bst.get_balance(bst._root) << std::endl;
 
-	bst.insert(ft::make_pair<int, std::string>(13, "👽"));
+	bst.insert(ft::make_pair<int, std::string>(3, "👽"));
+	bst.insert(ft::make_pair<int, std::string>(5, "👽"));
+	bst.insert(ft::make_pair<int, std::string>(11, "👽"));
+	bst.insert(ft::make_pair<int, std::string>(30, "👽"));
 	bst.insert(ft::make_pair<int, std::string>(14, "👽"));
-	bst.insert(ft::make_pair<int, std::string>(15, "👽"));
-	bst.insert(ft::make_pair<int, std::string>(23, "👽"));
-	bst.insert(ft::make_pair<int, std::string>(24, "👽"));
-	bst.insert(ft::make_pair<int, std::string>(25, "👽"));
-	bst.insert(ft::make_pair<int, std::string>(33, "👽"));
-	bst.insert(ft::make_pair<int, std::string>(34, "👽"));
-	bst.insert(ft::make_pair<int, std::string>(35, "👽"));
+
+	bst.display(bst._root); ENDL;
+	std::cout << "balance : " << bst.get_balance(bst._root) << std::endl;
+
+	bst.remove(7);
 
 	bst.display(bst._root); ENDL;
 	std::cout << "balance : " << bst.get_balance(bst._root) << std::endl;
