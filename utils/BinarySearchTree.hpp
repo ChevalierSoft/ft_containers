@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/23 07:56:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/23 08:04:00 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ namespace ft
 		}
 
 		// ? (2) remove a specific 'node' identified by key
+		// the recursion is used to balance the tree from the removed Node to 'node'
 		Node_pointer	remove (Node_pointer node, typename T::first_type key)
 		{
 			Node_pointer	target = this->search(node, key);
@@ -232,6 +233,8 @@ namespace ft
 				if (!node->right)
 				{
 					Node_pointer	ret = node->left;
+					// update parent
+					node->left->parent = node->parent;
 					// delete the node
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
@@ -242,6 +245,8 @@ namespace ft
 				else if (!node->left)
 				{
 					Node_pointer	ret = node->right;
+					// update parent
+					node->left->parent = node->parent;
 					// delete the node
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
