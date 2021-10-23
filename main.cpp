@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/23 08:21:03 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/23 08:33:29 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -705,7 +705,7 @@ void	test_map()
 
 	bst.insert(ft::make_pair<int, std::string>(3, "👽"));
 	bst.insert(ft::make_pair<int, std::string>(5, "👽"));
-	bst.insert(ft::make_pair<int, std::string>(11, "👽"));
+	bst.insert(ft::make_pair<int, std::string>(11, "🧚"));
 	bst.insert(ft::make_pair<int, std::string>(30, "👽"));
 	bst.insert(ft::make_pair<int, std::string>(14, "👽"));
 

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/23 07:50:35 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/23 08:44:21 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ namespace ft
 		// * Constructors & Destructors _______________________________
 
 		// * default (1)
-		BST_Node() : content(), parent(NULL), left(NULL), right(NULL) {}
+		BST_Node() : content(), left(NULL), right(NULL), parent(NULL) {}
 
 		// * default with initialisation (2)
-		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL) : content(val), parent(p), left(l), right(r) {}
+		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL) : content(val), left(l), right(r), parent(p) {}
 
 		// * copy (3)
-		BST_Node(const BST_Node & copy) : content(copy.content), parent(copy.parent), left(copy.left), right(copy.right) {}
+		BST_Node(const BST_Node & copy) : content(copy.content), left(copy.left), right(copy.right), parent(copy.parent) {}
 
 		~BST_Node() {}
 
@@ -49,9 +49,9 @@ namespace ft
 			if (this != &rhs)
 			{
 				content = rhs.content;
-				parent = rhs.parent;
 				left = rhs.left;
 				right = rhs.right;
+				parent = rhs.parent;
 			}
 			return (*this);
 		}
