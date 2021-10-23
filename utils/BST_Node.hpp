@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 05:50:27 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/23 07:50:35 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ namespace ft
 
 		// * Variables ________________________________________________
 		value_type		content;
-		BST_Node*		parent;		// parent node
 		BST_Node*		left;		// left node
 		BST_Node*		right;		// right node
+		BST_Node*		parent;		// parent node
 
 	};  // * BST_Node _________________________________________________  
 

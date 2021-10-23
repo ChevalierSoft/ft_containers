@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/22 08:11:05 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/23 07:56:21 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ namespace ft
 			_node_allocator.construct(_root, val);
 		}
 		
-		~BinarySearchTree (void) {	erase(_root);	}
+		~BinarySearchTree (void) {	clear(_root);	}
 
 	// protected:
 		size_type		get_last_floor (Node_pointer node)
@@ -90,6 +90,9 @@ namespace ft
 			tmp = node->left;
 			node->left = tmp->right;
 			tmp->right = node;
+			// update parent
+			tmp->parent = node->parent;
+			node->parent = tmp;
 			return (tmp);
 		}
 
@@ -101,6 +104,9 @@ namespace ft
 			tmp = node->right;
 			node->right = tmp->left;
 			tmp->left = node;
+			// update parent
+			tmp->parent = node->parent;
+			node->parent = tmp;
 			return (tmp);
 		}
 
@@ -171,18 +177,148 @@ namespace ft
 	// public:
 		// * Modifiers ________________________________________________________
 
-		void			erase (Node_pointer node)
+		void			clear ()
+		{
+			clear(_root);
+		}
+
+		void			clear (Node_pointer node)
 		{
 			if(node != NULL)
 			{
 				if (node->left)
-					erase(node->left);
+					clear(node->left);
 				if (node->right)
-					erase(node->right);
+					clear(node->right);
 				_node_allocator.destroy(node);
 				_node_allocator.deallocate(node, 1);
 			}
 		}
+
+		bool			remove (typename T::first_type key)
+		{
+			if (this->search(key))
+			{
+				_root = remove(_root, key);
+				return (true);
+			}
+			return (false);
+		}
+
+		// ? (2) remove a specific 'node' identified by key
+		Node_pointer	remove (Node_pointer node, typename T::first_type key)
+		{
+			Node_pointer	target = this->search(node, key);
+			Node_pointer	successor;
+			Node_pointer	replacer;
+
+			if (!target)
+				return (NULL);
+			// search for the key in the tree
+			if (key < node->content.first)
+			{
+				node->left = this->remove(node->left, key);
+				return (node);
+			}
+			else if (key > node->content.first)
+			{
+				node->right = this->remove(node->right, key);
+				return (node);
+			}
+			// got the key
+			else
+			{
+				// the node have no left branch
+				if (!node->right)
+				{
+					Node_pointer	ret = node->left;
+					// delete the node
+					_node_allocator.destroy(node);
+					_node_allocator.deallocate(node, 1);
+					// return the right branch (can be NULL)
+					return (ret);
+				}
+				// the node have no right branch
+				else if (!node->left)
+				{
+					Node_pointer	ret = node->right;
+					// delete the node
+					_node_allocator.destroy(node);
+					_node_allocator.deallocate(node, 1);
+					// return the left branch (can be NULL)
+					return (ret);
+				}
+
+				// replace node with the biggest sub tree
+				if (get_last_floor(node->left) > get_last_floor(node->right))
+				{
+					// get the max of the left branch
+					successor = find_min(node->left);
+
+					Node_pointer	old_left = node->left;
+					Node_pointer	old_right = node->right;
+					Node_pointer	old_parent = node->parent;
+					// root becomes lowest value of it's right
+					// ! need to use pointers in Node, not directly the data
+					node = successor;
+					// update the branches of the fresh root
+					node->left = old_left;
+					node->right = old_right;
+					node->parent = old_parent;
+					// isolate successor
+					successor->parent->right = successor->left;
+					// delete successor
+					_node_allocator.destroy(successor);
+					_node_allocator.deallocate(successor, 1);
+
+				}
+				else
+				{
+					// get the min of the right branch
+					successor = find_min(node->right);
+
+					Node_pointer	old_left = node->left;
+					Node_pointer	old_right = node->right;
+					Node_pointer	old_parent = node->parent;
+					// root becomes lowest value of it's right
+					node = successor;
+					// update the branches of the fresh root
+					node->left = old_left;
+					node->right = old_right;
+					node->parent = old_parent;
+					// isolate successor
+					successor->parent->left = successor->right;
+
+					_node_allocator.destroy(successor);
+					_node_allocator.deallocate(successor, 1);
+				}
+
+			}
+				
+			return (this->balance());
+
+		}
+
+		// ? get to the maximum key from node
+		Node_pointer	find_max (Node_pointer node)
+		{
+			if (!node)
+				return (NULL);
+			while (node->left != NULL)
+				node = node->left;
+			return (node);
+		}
+
+		// ? get to the minimum key from node
+		Node_pointer	find_min (Node_pointer node)
+		{
+			if (!node)
+				return (NULL);
+			while (node->left != NULL)
+				node = node->left;
+			return (node);
+		}
+
 
 		// ? (1) default inserting from _root
 		Node_pointer	insert (const_reference val)
