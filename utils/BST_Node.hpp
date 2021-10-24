@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/23 07:50:35 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/24 09:38:41 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,24 @@ namespace ft
 		BST_Node() : content(), parent(NULL), left(NULL), right(NULL) {}
 
 		// * default with initialisation (2)
-		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL) : content(val), parent(p), left(l), right(r) {}
+		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL) : parent(p), left(l), right(r)
+		{
+			this->content = _allocator.allocate(1);
+			_allocator.construct(this->content, val);
+		}
 
-		// * copy (3)
-		BST_Node(const BST_Node & copy) : content(copy.content), parent(copy.parent), left(copy.left), right(copy.right) {}
+		// * (3) copy by duplicating data
+		BST_Node(const BST_Node & copy) : parent(copy.parent), left(copy.left), right(copy.right)
+		{
+			content = _allocator.allocate(1);
+			_allocator.construct(&this->content, copy.content);
+		}
 
-		~BST_Node() {}
+		~BST_Node()
+		{
+			_allocator.destroy(this->content);
+			_allocator.deallocate(this->content, 1);
+		}
 
 		// * Operators ________________________________________________
 		BST_Node &		operator= (const BST_Node & rhs)
@@ -62,10 +74,11 @@ namespace ft
 		}
 
 		// * Variables ________________________________________________
-		value_type		content;
+		value_type*		content;
 		BST_Node*		left;		// left node
 		BST_Node*		right;		// right node
 		BST_Node*		parent;		// parent node
+		Type_Allocator	_allocator;
 
 	};  // * BST_Node _________________________________________________  
 

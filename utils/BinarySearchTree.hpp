@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/23 08:04:00 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/24 08:51:29 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,9 +342,9 @@ namespace ft
 				node = _node_allocator.allocate(1);
 				_node_allocator.construct(node, Node(val));
 			}
-			else if (val.first == node->content.first)
-				node->content.second = val.second;
-			else if(val.first < node->content.first)
+			else if (val.first == node->content->first)
+				node->content->second = val.second;
+			else if(val.first < node->content->first)
 			{
 				// __DEB("going left")
 				node->left = insert(node->left, val);
@@ -419,14 +419,14 @@ namespace ft
 	template< class T, class Type_Allocator = std::allocator< T > >
 	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> & bn)
 	{
-		o << ", " << bn.content << " .";
+		o << ", " << bn->content->first << " .";
 		return (o);
 	}
 
 	template< class T, class Type_Allocator = std::allocator< T > >
 	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> * bn)
 	{
-		o << ", " << bn->content << " .";
+		o << ", " << bn->content->first << " .";
 		return (o);
 	}
 
