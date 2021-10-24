@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/24 11:20:14 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/25 01:05:40 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,12 +209,13 @@ namespace ft
 		// the recursion is used to balance the tree from the removed Node to 'node'
 		Node_pointer	remove (Node_pointer node, typename T::first_type key)
 		{
-			Node_pointer	target = this->search(node, key);
+			// Node_pointer	target = this->search(node, key);
 			Node_pointer	successor;
-			Node_pointer	replacer;
 
-			if (!target)
-				return (NULL);
+			// if (!target)
+			// 	return (NULL);
+			if (!node)
+				return (node);
 			// search for the key in the tree
 			if (key < node->content->first)
 			{
@@ -258,46 +259,30 @@ namespace ft
 				if (get_last_floor(node->left) > get_last_floor(node->right))
 				{
 					// get the max of the left branch
-					successor = find_min(node->left);
-
-					//Node_pointer	old_left = node->left;
-					//Node_pointer	old_right = node->right;
-					//Node_pointer	old_parent = node->parent;
-					// root becomes lowest value of it's right
-					// ! need to use pointers in Node, not directly the data
+					successor = find_max(node->left);
+					// destroy the targeted node content
+					_type_allocator.destroy(node->content);
+					_type_allocator.deallocate(node->content, 1);
+					// node content becomes the biggest element of it's left branch
 					node->content = successor->content;
-					// update the branches of the fresh root
-					//node->left = old_left;
-					//node->right = old_right;
-					//node->parent = old_parent;
-
 					// isolate successor
-					successor->parent->right = successor->left;
-					// delete successor
-					_type_allocator.destroy(successor->content);
-					_type_allocator.deallocate(successor->content, 1);
-					_node_allocator.destroy(successor);
+					successor->parent->left = successor->left;
+					// deallocate successor without calling the destructor of the content
 					_node_allocator.deallocate(successor, 1);
-					//delete successor->content;
-
 				}
 				else
 				{
 					// get the min of the right branch
 					successor = find_min(node->right);
-
-					// std::cout << "successor : " << successor->content.first << std::endl;
-					// std::cout << "successor->parent : " << successor->parent->content.first << std::endl;
-
-					// root becomes lowest value of it's right
-
-					//_node_allocator.destroy(successor);
-					//_node_allocator.deallocate(successor, 1);
-
+					// destroy the targeted node content
+					_type_allocator.destroy(node->content);
+					_type_allocator.deallocate(node->content, 1);
+					// node content becomes the lowest element of it's right branch
 					node->content = successor->content;
 					// isolate successor
 					successor->parent->left = successor->right;
-
+					// deallocate successor without calling the destructor of the content
+					_node_allocator.deallocate(successor, 1);
 				}
 
 			}
