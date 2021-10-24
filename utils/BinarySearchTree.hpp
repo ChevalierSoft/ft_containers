@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/25 01:05:40 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/25 01:16:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ namespace ft
 		
 		~BinarySearchTree (void) {	clear(_root);	}
 
-	// protected:
+		// * Modifiers ________________________________________________________
+
+	protected:
 		size_type		get_last_floor (Node_pointer node)
 		{
 			int l = -1;
@@ -81,7 +83,7 @@ namespace ft
 			return (0);
 		}
 
-		// * Rotations
+		// * Rotations ________________________________________________________
 
 		Node_pointer	right_rotation(Node_pointer node)
 		{
@@ -174,27 +176,25 @@ namespace ft
 			return (node);
 		}
 
-	// public:
-		// * Modifiers ________________________________________________________
-
+	public:
 		void			clear ()
 		{
 			clear(_root);
 		}
 
+	private:
 		void			clear (Node_pointer node)
 		{
 			if(node != NULL)
 			{
-				//if (node->left)
-					clear(node->left);
-				//if (node->right)
-					clear(node->right);
+				clear(node->left);
+				clear(node->right);
 				_node_allocator.destroy(node);
 				_node_allocator.deallocate(node, 1);
 			}
 		}
-
+	public:
+		// ? (1) public remove
 		bool			remove (typename T::first_type key)
 		{
 			if (this->search(key))
@@ -205,15 +205,12 @@ namespace ft
 			return (false);
 		}
 
+	private:
 		// ? (2) remove a specific 'node' identified by key
-		// the recursion is used to balance the tree from the removed Node to 'node'
 		Node_pointer	remove (Node_pointer node, typename T::first_type key)
 		{
-			// Node_pointer	target = this->search(node, key);
 			Node_pointer	successor;
 
-			// if (!target)
-			// 	return (NULL);
 			if (!node)
 				return (node);
 			// search for the key in the tree
@@ -291,6 +288,7 @@ namespace ft
 
 		}
 
+	public:
 		// ? get to the maximum key from node
 		Node_pointer	find_max (Node_pointer node)
 		{
@@ -311,7 +309,6 @@ namespace ft
 			return (node);
 		}
 
-
 		// ? (1) default inserting from _root
 		Node_pointer	insert (const_reference val)
 		{
@@ -319,6 +316,7 @@ namespace ft
 			return (_root);
 		}
 
+	protected:
 		// ? (2) using a specific node (this might be private)
 		Node_pointer	insert (Node_pointer node, const_reference val)
 		{
@@ -353,6 +351,7 @@ namespace ft
 			return (balance(node));
 		}
 
+	public:
 		Node_pointer	search (typename T::first_type key)
 		{
 			return (search(_root, key));
