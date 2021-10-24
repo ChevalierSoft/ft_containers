@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/24 09:50:26 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/24 11:20:14 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,9 +186,9 @@ namespace ft
 		{
 			if(node != NULL)
 			{
-				if (node->left)
+				//if (node->left)
 					clear(node->left);
-				if (node->right)
+				//if (node->right)
 					clear(node->right);
 				_node_allocator.destroy(node);
 				_node_allocator.deallocate(node, 1);
@@ -216,12 +216,12 @@ namespace ft
 			if (!target)
 				return (NULL);
 			// search for the key in the tree
-			if (key < node->content.first)
+			if (key < node->content->first)
 			{
 				node->left = this->remove(node->left, key);
 				return (node);
 			}
-			else if (key > node->content.first)
+			else if (key > node->content->first)
 			{
 				node->right = this->remove(node->right, key);
 				return (node);
@@ -260,21 +260,25 @@ namespace ft
 					// get the max of the left branch
 					successor = find_min(node->left);
 
-					Node_pointer	old_left = node->left;
-					Node_pointer	old_right = node->right;
-					Node_pointer	old_parent = node->parent;
+					//Node_pointer	old_left = node->left;
+					//Node_pointer	old_right = node->right;
+					//Node_pointer	old_parent = node->parent;
 					// root becomes lowest value of it's right
 					// ! need to use pointers in Node, not directly the data
-					node = successor;
+					node->content = successor->content;
 					// update the branches of the fresh root
-					node->left = old_left;
-					node->right = old_right;
-					node->parent = old_parent;
+					//node->left = old_left;
+					//node->right = old_right;
+					//node->parent = old_parent;
+
 					// isolate successor
 					successor->parent->right = successor->left;
 					// delete successor
+					_type_allocator.destroy(successor->content);
+					_type_allocator.deallocate(successor->content, 1);
 					_node_allocator.destroy(successor);
 					_node_allocator.deallocate(successor, 1);
+					//delete successor->content;
 
 				}
 				else
@@ -285,20 +289,15 @@ namespace ft
 					// std::cout << "successor : " << successor->content.first << std::endl;
 					// std::cout << "successor->parent : " << successor->parent->content.first << std::endl;
 
-					Node_pointer	old_left = node->left;
-					Node_pointer	old_right = node->right;
-					Node_pointer	old_parent = node->parent;
 					// root becomes lowest value of it's right
-					*node = *successor;
-					// update the branches of the fresh root
-					node->left = old_left;
-					node->right = old_right;
-					node->parent = old_parent;
+
+					//_node_allocator.destroy(successor);
+					//_node_allocator.deallocate(successor, 1);
+
+					node->content = successor->content;
 					// isolate successor
 					successor->parent->left = successor->right;
 
-					_node_allocator.destroy(successor);
-					_node_allocator.deallocate(successor, 1);
 				}
 
 			}
@@ -343,7 +342,12 @@ namespace ft
 			{
 				// __DEB("position found")
 				node = _node_allocator.allocate(1);
-				_node_allocator.construct(node, Node(val));
+				// ? should create a insert function in Node
+				node->content = _type_allocator.allocate(1);
+				_type_allocator.construct(node->content, val);
+				node->left = NULL;
+				node->right = NULL;
+				node->parent = NULL;
 			}
 			else if (val.first == node->content->first)
 				node->content->second = val.second;
@@ -375,12 +379,12 @@ namespace ft
 
 			if (node == NULL)
 				return (NULL);
-			else if (node->content.first == key)
+			else if (node->content->first == key)
 				return (node);
 
-			if (key < node->content.first)
+			if (key < node->content->first)
 				res = search(node->left, key);
-			else if (key > node->content.first)
+			else if (key > node->content->first)
 				res = search(node->right, key);
 			return (res);
 		}
@@ -394,7 +398,7 @@ namespace ft
 				if (node->left)
 					display(node->left);
 				std::cout << std::string( ((len * 6) / 2), ' ' );
-				std::cout << node->content;
+				std::cout << node->content->first << node->content->second;
 				std::cout << std::string( ((len * 6) / 2), ' ' );
 				if (node->right)
 					display(node->right);

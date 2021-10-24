@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/24 09:50:28 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/24 11:03:10 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,17 @@ namespace ft
 		// * Constructors & Destructors _______________________________
 
 		// * default (1)
-		BST_Node() : content(), left(NULL), right(NULL), parent(NULL) {}
+		BST_Node() : content(NULL), left(NULL), right(NULL), parent(NULL) {}
 
 		// * default with initialisation (2)
-		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL) : parent(p), left(l), right(r)
+		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL)
 		{
 			this->content = _allocator.allocate(1);
 			_allocator.construct(this->content, val);
+			parent = p;
+			left = l;
+			right = r;
+
 		}
 
 		// * (3) copy by duplicating data
@@ -51,8 +55,11 @@ namespace ft
 
 		~BST_Node()
 		{
-			_allocator.destroy(this->content);
-			_allocator.deallocate(this->content, 1);
+			if (this->content)
+			{
+				_allocator.destroy(this->content);
+				_allocator.deallocate(this->content, 1);
+			}
 		}
 
 		// * Operators ________________________________________________
@@ -60,7 +67,13 @@ namespace ft
 		{
 			if (this != &rhs)
 			{
-				content = rhs.content;
+				//content = rhs.content;
+				if (content)
+				{
+					_allocator.destroy(this->content);
+					_allocator.construct(this->content, rhs.content);
+				}
+
 				left = rhs.left;
 				right = rhs.right;
 				parent = rhs.parent;
@@ -70,7 +83,7 @@ namespace ft
 
 		bool			operator==(const BST_Node & rhs)
 		{
-			return (content == rhs.content);
+			return (*content == rhs.content);
 		}
 
 		// * Variables ________________________________________________
