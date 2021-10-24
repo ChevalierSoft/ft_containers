@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/24 09:38:41 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/24 09:50:28 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ namespace ft
 		// * Constructors & Destructors _______________________________
 
 		// * default (1)
-		BST_Node() : content(), parent(NULL), left(NULL), right(NULL) {}
+		BST_Node() : content(), left(NULL), right(NULL), parent(NULL) {}
 
 		// * default with initialisation (2)
 		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL) : parent(p), left(l), right(r)
@@ -61,9 +61,9 @@ namespace ft
 			if (this != &rhs)
 			{
 				content = rhs.content;
-				parent = rhs.parent;
 				left = rhs.left;
 				right = rhs.right;
+				parent = rhs.parent;
 			}
 			return (*this);
 		}

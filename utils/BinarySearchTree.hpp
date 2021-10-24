@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/24 08:51:29 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/24 09:50:26 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,11 +282,14 @@ namespace ft
 					// get the min of the right branch
 					successor = find_min(node->right);
 
+					// std::cout << "successor : " << successor->content.first << std::endl;
+					// std::cout << "successor->parent : " << successor->parent->content.first << std::endl;
+
 					Node_pointer	old_left = node->left;
 					Node_pointer	old_right = node->right;
 					Node_pointer	old_parent = node->parent;
 					// root becomes lowest value of it's right
-					node = successor;
+					*node = *successor;
 					// update the branches of the fresh root
 					node->left = old_left;
 					node->right = old_right;
@@ -300,7 +303,7 @@ namespace ft
 
 			}
 				
-			return (this->balance());
+			return (this->balance(node));
 
 		}
 
