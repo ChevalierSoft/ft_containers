@@ -6,15 +6,15 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/25 01:16:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/25 01:35:03 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BINARYSEARCHTREE_HPP
 # define BINARYSEARCHTREE_HPP
 
-#include <functional>	// std::less
-#include <memory>		// std::allocator
+#include <functional>										// std::less
+#include <memory>											// std::allocator
 #include "BST_Node.hpp"
 #include "../iterator/iterator.h"
 #include "../iterator/BST_bidirectional_iterator.hpp"
@@ -68,10 +68,8 @@ namespace ft
 			if (!node)
 				return (0);
 
-			// if (node->left)
-				l = get_last_floor(node->left);
-			// if (node->right)
-				r = get_last_floor(node->right);
+			l = get_last_floor(node->left);
+			r = get_last_floor(node->right);
 
 			return (l > r) ? l + 1 : r + 1;
 		}
@@ -102,7 +100,6 @@ namespace ft
 		{
 			Node_pointer	tmp;
 
-			// __DEB("left_rotation")
 			tmp = node->right;
 			node->right = tmp->left;
 			tmp->left = node;
@@ -134,7 +131,6 @@ namespace ft
 		//          ,o.
 		Node_pointer	right_right_rotation(Node_pointer node)
 		{
-			// __DEB("right_right_rotation")
 			return (left_rotation(node));
 		}
 
@@ -197,7 +193,7 @@ namespace ft
 		// ? (1) public remove
 		bool			remove (typename T::first_type key)
 		{
-			if (this->search(key))
+			if (this->search(key))	// * this can be inproved with a pointer on a variable sent in remove(2)
 			{
 				_root = remove(_root, key);
 				return (true);
@@ -210,6 +206,7 @@ namespace ft
 		Node_pointer	remove (Node_pointer node, typename T::first_type key)
 		{
 			Node_pointer	successor;
+			Node_pointer	ret;
 
 			if (!node)
 				return (node);
@@ -227,28 +224,28 @@ namespace ft
 			// got the key
 			else
 			{
-				// the node have no left branch
+				// the node have no right branch
 				if (!node->right)
 				{
-					Node_pointer	ret = node->left;
+					ret = node->left;
 					// update parent
-					node->left->parent = node->parent;
-					// delete the node
-					_node_allocator.destroy(node);
-					_node_allocator.deallocate(node, 1);
-					// return the right branch (can be NULL)
-					return (ret);
-				}
-				// the node have no right branch
-				else if (!node->left)
-				{
-					Node_pointer	ret = node->right;
-					// update parent
-					node->left->parent = node->parent;
+					ret->parent = node->parent;
 					// delete the node
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
 					// return the left branch (can be NULL)
+					return (ret);
+				}
+				// the node have no left branch
+				else if (!node->left)
+				{
+					ret = node->right;
+					// update parent
+					ret->parent = node->parent;
+					// delete the node
+					_node_allocator.destroy(node);
+					_node_allocator.deallocate(node, 1);
+					// return the right branch (can be NULL)
 					return (ret);
 				}
 
@@ -309,7 +306,7 @@ namespace ft
 			return (node);
 		}
 
-		// ? (1) default inserting from _root
+		// ? (1) default: insert from _root
 		Node_pointer	insert (const_reference val)
 		{
 			_root = insert(_root, val);
@@ -317,7 +314,7 @@ namespace ft
 		}
 
 	protected:
-		// ? (2) using a specific node (this might be private)
+		// ? (2) using a specific node
 		Node_pointer	insert (Node_pointer node, const_reference val)
 		{
 			// __DEB("insert");
@@ -393,7 +390,7 @@ namespace ft
 
 		// * Variables ________________________________________________________
 	// protected:
-		Node_pointer	_root;				// node data
+		Node_pointer	_root;
 		Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
 		
