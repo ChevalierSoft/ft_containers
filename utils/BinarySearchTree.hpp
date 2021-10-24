@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/25 01:35:03 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/25 01:50:51 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ namespace ft
 
 		// * Constructors & Destructors _______________________________________
 	public:
-		BinarySearchTree (void) : _root(NULL) {}
+		BinarySearchTree (void) : _root(NULL), _type_allocator(Type_Allocator()), _node_allocator(Node_Allocator()) {}
 
-		BinarySearchTree (const_reference val)
+		BinarySearchTree (const_reference val, Type_Allocator ta = Type_Allocator(), Node_Allocator na = Node_Allocator()) : _type_allocator(ta), _node_allocator(na)
 		{
 			_root = _node_allocator.allocate(1);
 			_node_allocator.construct(_root, val);
@@ -190,10 +190,11 @@ namespace ft
 			}
 		}
 	public:
-		// ? (1) public remove
+		// ? (1) default: public
 		bool			remove (typename T::first_type key)
 		{
-			if (this->search(key))	// * this can be inproved with a pointer on a variable sent in remove(2)
+			// this can be inproved for performences
+			if (this->search(key))
 			{
 				_root = remove(_root, key);
 				return (true);
@@ -317,10 +318,8 @@ namespace ft
 		// ? (2) using a specific node
 		Node_pointer	insert (Node_pointer node, const_reference val)
 		{
-			// __DEB("insert");
 			if(node == NULL)
 			{
-				// __DEB("position found")
 				node = _node_allocator.allocate(1);
 				// ? should create a insert function in Node
 				node->content = _type_allocator.allocate(1);
@@ -333,27 +332,26 @@ namespace ft
 				node->content->second = val.second;
 			else if(val.first < node->content->first)
 			{
-				// __DEB("going left")
 				node->left = insert(node->left, val);
 				node->left->parent = node;
 			}
 			else
 			{
-				// __DEB("going right")
 				node->right = insert(node->right, val);
 				node->right->parent = node;
 			}
 			
-			// __DEB("balance")
 			return (balance(node));
 		}
 
 	public:
+		// ? (1) default: search from root
 		Node_pointer	search (typename T::first_type key)
 		{
 			return (search(_root, key));
 		}
 
+		// ? (2) search from a given node
 		Node_pointer	search (Node_pointer node, typename T::first_type key)
 		{
 			Node_pointer	res = NULL;
@@ -370,6 +368,15 @@ namespace ft
 			return (res);
 		}
 
+		// ? (1) default: public
+		void			display (void)
+		{
+			this->display(_root);
+			std::cout << std::endl;
+		}
+		
+		// ? (2) protected
+	private:
 		void			display (Node_pointer node)
 		{
 			size_type	len = get_last_floor(node);
@@ -389,7 +396,8 @@ namespace ft
 		}
 
 		// * Variables ________________________________________________________
-	// protected:
+
+	protected:
 		Node_pointer	_root;
 		Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
