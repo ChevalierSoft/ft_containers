@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/25 01:47:47 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/25 02:48:05 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -697,8 +697,13 @@ void	test_map()
 
 	std::cout <<std::endl<<CYN<< "remove()" <<RST<< std::endl;
 	{
-		bst.remove(7);
+		bst.remove(4);
 		bst.display();
+
+		// ft::BST_Node<ft::pair<int, std::string> >	*nd;
+		// nd = bst.search(3);
+		// std::cout << nd << std::endl;
+		// std::cout << (int *)nd->left << (int *)nd->right << nd->parent->content->first << std::endl;
 	}
 
 

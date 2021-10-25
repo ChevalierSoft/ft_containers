@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/25 01:50:51 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/25 02:55:16 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ namespace ft
 			if (!node)
 				return (0);
 
-			l = get_last_floor(node->left);
-			r = get_last_floor(node->right);
+			if (node->left)
+				l = get_last_floor(node->left);
+			if (node->right)
+				r = get_last_floor(node->right);
 
 			return (l > r) ? l + 1 : r + 1;
 		}
@@ -215,12 +217,12 @@ namespace ft
 			if (key < node->content->first)
 			{
 				node->left = this->remove(node->left, key);
-				return (node);
+				// return (node);
 			}
 			else if (key > node->content->first)
 			{
 				node->right = this->remove(node->right, key);
-				return (node);
+				// return (node);
 			}
 			// got the key
 			else
@@ -228,12 +230,15 @@ namespace ft
 				// the node have no right branch
 				if (!node->right)
 				{
+					__DEB("here")
 					ret = node->left;
 					// update parent
-					ret->parent = node->parent;
+					// if (ret)
+					// 	ret->parent = node->parent;
 					// delete the node
-					_node_allocator.destroy(node);
-					_node_allocator.deallocate(node, 1);
+					// _node_allocator.destroy(node);
+					// _node_allocator.deallocate(node, 1);
+
 					// return the left branch (can be NULL)
 					return (ret);
 				}
@@ -242,10 +247,11 @@ namespace ft
 				{
 					ret = node->right;
 					// update parent
-					ret->parent = node->parent;
-					// delete the node
-					_node_allocator.destroy(node);
-					_node_allocator.deallocate(node, 1);
+					// if (ret)
+					// 	ret->parent = node->parent;
+					// // delete the node
+					// _node_allocator.destroy(node);
+					// _node_allocator.deallocate(node, 1);
 					// return the right branch (can be NULL)
 					return (ret);
 				}
@@ -256,28 +262,36 @@ namespace ft
 					// get the max of the left branch
 					successor = find_max(node->left);
 					// destroy the targeted node content
-					_type_allocator.destroy(node->content);
-					_type_allocator.deallocate(node->content, 1);
+					// _type_allocator.destroy(node->content);
+					// _type_allocator.deallocate(node->content, 1);
 					// node content becomes the biggest element of it's left branch
 					node->content = successor->content;
 					// isolate successor
-					successor->parent->left = successor->left;
+					// successor->parent->left = successor->left;
 					// deallocate successor without calling the destructor of the content
-					_node_allocator.deallocate(successor, 1);
+					// _node_allocator.deallocate(successor, 1);
+					// remove(node->left, successor->content->first);
+					node->left = remove(node->left, successor->content->first);
 				}
 				else
 				{
+					__DEB("HERE")
 					// get the min of the right branch
 					successor = find_min(node->right);
 					// destroy the targeted node content
-					_type_allocator.destroy(node->content);
-					_type_allocator.deallocate(node->content, 1);
+					__DEB("ALERT")
+					// _type_allocator.destroy(node->content);
+					// _type_allocator.deallocate(node->content, 1);
 					// node content becomes the lowest element of it's right branch
-					node->content = successor->content;
-					// isolate successor
-					successor->parent->left = successor->right;
+					*node->content = *successor->content;
+
+					// // isolate successor
+					// successor->parent->left = successor->right;
+					remove(node->right, successor->content->first);
 					// deallocate successor without calling the destructor of the content
-					_node_allocator.deallocate(successor, 1);
+					// _node_allocator.deallocate(successor, 1);
+					__DEB("HELP")
+					node->right = remove(node->right, successor->content->first);
 				}
 
 			}
@@ -397,7 +411,7 @@ namespace ft
 
 		// * Variables ________________________________________________________
 
-	protected:
+	// protected:
 		Node_pointer	_root;
 		Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
