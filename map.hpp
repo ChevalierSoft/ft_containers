@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/26 07:45:27 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/26 08:21:45 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,16 @@ namespace ft
 		/// * Constructors & Destructors ______________________________________
 
 	public:
-		// ? empty (1)
+		// ? (1) default empty map
 		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _allocator(alloc), _size(0) {}
 
-		// ? range (2)
+		// ? (2) range
 		// template <class InputIterator>
 		// explicit map (InputIterator first, InputIterator last,
 		// 	const key_compare& comp = key_compare(),
 		// 	const allocator_type& alloc = allocator_type());
 
-		// ? copy (3)
+		// ? (3) copy
 		// map (const map& x);
 
 		~map(void)
@@ -81,6 +81,12 @@ namespace ft
 		
 		/// * Capacity ________________________________________________________
 
+		bool		empty() const		{ return (_size > 0);	}
+
+		size_type	size() const		{ return (_size);		}
+
+		size_type	max_size() const	{ return (_allocator.max_size());	}
+
 		/// * Modifiers _______________________________________________________
 		// ? (1) default
 		// pair<iterator, bool> 
@@ -90,6 +96,11 @@ namespace ft
 			++_size;
 		}
 
+		// void		erase (iterator position)
+		// {
+
+		// }
+
 		void clear()
 		{
 			_bst.clear();
@@ -97,10 +108,14 @@ namespace ft
 		}
 
 		/// * Lookup  _________________________________________________________
-		void		display()
+
+		size_type	count(const Key & key) const	{ return (bst.search(key) ? true : false)	}
+
+		void		display()	// ? debug
 		{
 			_bst.display();
 		}
+		
 		/// * Observers  ______________________________________________________
 
 		/// * Variables _______________________________________________________
