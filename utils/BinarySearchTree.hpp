@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/26 05:39:10 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/26 06:05:26 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,12 +175,15 @@ namespace ft
 		}
 
 	public:
+		// ? (1) default: public
 		void			clear ()
 		{
 			clear(_root);
+			_root = NULL;
 		}
 
 	private:
+		// ? (2) clear from a specific node
 		void			clear (Node_pointer node)
 		{
 			if(node != NULL)
@@ -189,6 +192,7 @@ namespace ft
 				clear(node->right);
 				_node_allocator.destroy(node);
 				_node_allocator.deallocate(node, 1);
+				// node = NULL;	// * it may be faster without
 			}
 		}
 	public:
@@ -229,9 +233,7 @@ namespace ft
 				if (!node->left && !node->right)
 				{
 					// __DEB("no child")
-					_type_allocator.destroy(node->content);
-					_type_allocator.deallocate(node->content, 1);
-					// _node_allocator.destroy(node);
+					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
 					return (NULL);
 				}
@@ -416,7 +418,15 @@ namespace ft
 	template< class T, class Type_Allocator = std::allocator< T > >
 	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> & bn)
 	{
-		o << ", " << bn->content->first << " .";
+		if (bn->left)
+			o << ", ";
+		else
+			o << "  ";
+		o << bn->content->first;
+		if (bn->right)
+			o << " .";
+		else
+			o << "  ";
 		return (o);
 	}
 
