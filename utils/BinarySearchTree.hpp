@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/25 02:55:16 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/26 05:39:10 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,31 +213,39 @@ namespace ft
 
 			if (!node)
 				return (node);
+				
 			// search for the key in the tree
 			if (key < node->content->first)
 			{
 				node->left = this->remove(node->left, key);
-				// return (node);
 			}
 			else if (key > node->content->first)
 			{
 				node->right = this->remove(node->right, key);
-				// return (node);
 			}
 			// got the key
 			else
 			{
+				if (!node->left && !node->right)
+				{
+					// __DEB("no child")
+					_type_allocator.destroy(node->content);
+					_type_allocator.deallocate(node->content, 1);
+					// _node_allocator.destroy(node);
+					_node_allocator.deallocate(node, 1);
+					return (NULL);
+				}
 				// the node have no right branch
 				if (!node->right)
 				{
-					__DEB("here")
+					// __DEB("(!node->right)")
 					ret = node->left;
 					// update parent
-					// if (ret)
-					// 	ret->parent = node->parent;
+					if (ret)
+						ret->parent = node->parent;
 					// delete the node
-					// _node_allocator.destroy(node);
-					// _node_allocator.deallocate(node, 1);
+					_node_allocator.destroy(node);
+					_node_allocator.deallocate(node, 1);
 
 					// return the left branch (can be NULL)
 					return (ret);
@@ -245,13 +253,14 @@ namespace ft
 				// the node have no left branch
 				else if (!node->left)
 				{
+					// __DEB("(!node->left)")
 					ret = node->right;
 					// update parent
-					// if (ret)
-					// 	ret->parent = node->parent;
-					// // delete the node
-					// _node_allocator.destroy(node);
-					// _node_allocator.deallocate(node, 1);
+					if (ret)
+						ret->parent = node->parent;
+					// delete the node
+					_node_allocator.destroy(node);
+					_node_allocator.deallocate(node, 1);
 					// return the right branch (can be NULL)
 					return (ret);
 				}
@@ -259,38 +268,16 @@ namespace ft
 				// replace node with the biggest sub tree
 				if (get_last_floor(node->left) > get_last_floor(node->right))
 				{
-					// get the max of the left branch
+					// __DEB("(balance left)")
 					successor = find_max(node->left);
-					// destroy the targeted node content
-					// _type_allocator.destroy(node->content);
-					// _type_allocator.deallocate(node->content, 1);
-					// node content becomes the biggest element of it's left branch
-					node->content = successor->content;
-					// isolate successor
-					// successor->parent->left = successor->left;
-					// deallocate successor without calling the destructor of the content
-					// _node_allocator.deallocate(successor, 1);
-					// remove(node->left, successor->content->first);
+					*node->content = *successor->content;
 					node->left = remove(node->left, successor->content->first);
 				}
 				else
 				{
-					__DEB("HERE")
-					// get the min of the right branch
+					// __DEB("(other balances)")
 					successor = find_min(node->right);
-					// destroy the targeted node content
-					__DEB("ALERT")
-					// _type_allocator.destroy(node->content);
-					// _type_allocator.deallocate(node->content, 1);
-					// node content becomes the lowest element of it's right branch
 					*node->content = *successor->content;
-
-					// // isolate successor
-					// successor->parent->left = successor->right;
-					remove(node->right, successor->content->first);
-					// deallocate successor without calling the destructor of the content
-					// _node_allocator.deallocate(successor, 1);
-					__DEB("HELP")
 					node->right = remove(node->right, successor->content->first);
 				}
 
