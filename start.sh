@@ -10,7 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-make
+make ft
+make std
 mkdir -p logs
 ./ft.out > logs/ft.log
 ./std.out > logs/std.log
