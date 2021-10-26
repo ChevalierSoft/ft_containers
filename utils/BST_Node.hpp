@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/26 06:23:35 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/26 08:43:47 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ namespace ft
 		typedef	const value_type&						const_reference;
 		typedef typename Type_Allocator::pointer		pointer;
 		typedef typename Type_Allocator::const_pointer	const_pointer;
+		typedef Compare									key_compare;
 
 		// * Constructors & Destructors _______________________________
 
@@ -91,12 +92,42 @@ namespace ft
 
 	};  // * BST_Node _________________________________________________  
 
-	// // * Comparisons specific to BST so we will be comparing only the key
-	// template< class T, class Compare = std::less<T>, class Type_Allocator = std::allocator< T > >
-	// bool			operator==(const ft::BST_Node<T, Compare, Type_Allocator> & lhs, const ft::BST_Node<T, Compare, Type_Allocator> & rhs)
-	// {
-	// 	return (!Compare(lhs.content->first, rhs.content->first) && !Compare(rhs.content->first, lhs.content->first));
-	// }
+	// * Comparisons specific to BST so we will be comparing only the key
+	template< class T, class Compare = std::less<T>, class Type_Allocator = std::allocator< T > >
+	bool			operator==(const ft::BST_Node<T, Compare, Type_Allocator> & lhs, const ft::BST_Node<T, Compare, Type_Allocator> & rhs)
+	{
+		return (!Compare(lhs.content->first, rhs.content->first) && !Compare(rhs.content->first, lhs.content->first));
+	}
+
+	template< class T, class Compare = std::less<T>, class Type_Allocator = std::allocator< T > >
+	bool			operator!=(const ft::BST_Node<T, Compare, Type_Allocator> & lhs, const ft::BST_Node<T, Compare, Type_Allocator> & rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template< class T, class Compare = std::less<T>, class Type_Allocator = std::allocator< T > >
+	bool			operator< (const ft::BST_Node<T, Compare, Type_Allocator> & lhs, const ft::BST_Node<T, Compare, Type_Allocator> & rhs)
+	{
+		return (Compare(lhs.content->first, rhs.content->first));
+	}
+
+	template< class T, class Compare = std::less<T>, class Type_Allocator = std::allocator< T > >
+	bool			operator> (const ft::BST_Node<T, Compare, Type_Allocator> & lhs, const ft::BST_Node<T, Compare, Type_Allocator> & rhs)
+	{
+		return !(Compare(rhs.content->first, lhs.content->first));
+	}
+
+	template< class T, class Compare = std::less<T>, class Type_Allocator = std::allocator< T > >
+	bool			operator<=(const ft::BST_Node<T, Compare, Type_Allocator> & lhs, const ft::BST_Node<T, Compare, Type_Allocator> & rhs)
+	{
+		return !(Compare(rhs.content->first, lhs.content->first));
+	}
+
+	template< class T, class Compare = std::less<T>, class Type_Allocator = std::allocator< T > >
+	bool			operator>=(const ft::BST_Node<T, Compare, Type_Allocator> & lhs, const ft::BST_Node<T, Compare, Type_Allocator> & rhs)
+	{
+		return !(Compare(lhs.content->first, rhs.content->first));
+	}
 
 
 }

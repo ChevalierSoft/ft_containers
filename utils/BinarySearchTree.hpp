@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/26 07:35:59 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/26 08:55:54 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ namespace ft
 		// * Modifiers ________________________________________________________
 
 	protected:
-		size_type		get_last_floor (Node_pointer node)
+		size_type		get_last_floor (Node_pointer node) const
 		{
 			int l = -1;
 			int r = -1;
@@ -290,7 +290,14 @@ namespace ft
 		}
 
 	public:
-		// ? get to the maximum key from node
+
+		// ? (1) default
+		Node_pointer	find_max (void)
+		{
+			return (find_max(_root));
+		}
+
+		// ? (2) get to the maximum key from node
 		Node_pointer	find_max (Node_pointer node)
 		{
 			if (!node)
@@ -300,7 +307,13 @@ namespace ft
 			return (node);
 		}
 
-		// ? get to the minimum key from node
+		// ? (1) default
+		Node_pointer	find_min (void)
+		{
+			return (find_min(_root));
+		}
+
+		// ? (2) get to the minimum key from node
 		Node_pointer	find_min (Node_pointer node)
 		{
 			if (!node)
@@ -350,13 +363,13 @@ namespace ft
 
 	public:
 		// ? (1) default: search from root
-		Node_pointer	search (typename T::first_type key)
+		Node_pointer	search (typename T::first_type key) const
 		{
 			return (search(_root, key));
 		}
 
 		// ? (2) search from a given node
-		Node_pointer	search (Node_pointer node, typename T::first_type key)
+		Node_pointer	search (Node_pointer node, typename T::first_type key) const
 		{
 			Node_pointer	res = NULL;
 
@@ -372,8 +385,10 @@ namespace ft
 			return (res);
 		}
 
+		Node_pointer	base ()	const { return (_root);	}
+
 		// ? (1) default: public
-		void			display (void)
+		void			display (void) const
 		{
 			if (_root)
 			{
@@ -383,8 +398,8 @@ namespace ft
 		}
 		
 		// ? (2) protected
-	private:
-		void			display (Node_pointer node)
+	protected:
+		void			display (Node_pointer node) const
 		{
 			size_type	len = get_last_floor(node);
 
@@ -404,7 +419,7 @@ namespace ft
 
 		// * Variables ________________________________________________________
 
-	// protected:
+	protected:
 		Node_pointer	_root;
 		Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;

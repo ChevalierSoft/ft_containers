@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/26 08:21:45 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/26 09:23:26 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ namespace ft
 		typedef	const value_type&						const_reference;
 		typedef typename Allocator::pointer				pointer;
 		typedef typename Allocator::const_pointer		const_pointer;
+
 		typedef ft::BST_bidirectional_iterator<typename BinarySearchTree<value_type>::Node>			iterator;
-		typedef ft::BST_bidirectional_iterator<typename BinarySearchTree<const value_type>::Node>		const_iterator;
+		typedef ft::BST_bidirectional_iterator<typename BinarySearchTree<const value_type>::Node>	const_iterator;
 		typedef ft::reverse_iterator<iterator>			reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 	
@@ -78,7 +79,20 @@ namespace ft
 		/// * Element access __________________________________________________
 
 		/// * Iterators _______________________________________________________
-		
+
+		iterator	begin()				{ return (iterator(_bst.find_min()));	};
+
+		iterator	end()		// ? could use a sentinel here and in begin
+		{
+			if (!_size)
+				return (iterator(NULL));
+			std::cout << sizeof(std::string) << std::endl;
+			return ( iterator(_bst.find_max() + sizeof(value_type)) );
+		};
+
+
+
+
 		/// * Capacity ________________________________________________________
 
 		bool		empty() const		{ return (_size > 0);	}
@@ -96,10 +110,7 @@ namespace ft
 			++_size;
 		}
 
-		// void		erase (iterator position)
-		// {
-
-		// }
+		// void		erase (iterator position);
 
 		void clear()
 		{
@@ -109,7 +120,7 @@ namespace ft
 
 		/// * Lookup  _________________________________________________________
 
-		size_type	count(const Key & key) const	{ return (bst.search(key) ? true : false)	}
+		size_type	count(const Key & key) const	{ return (_bst.search(key) ? true : false);	}
 
 		void		display()	// ? debug
 		{
@@ -122,9 +133,9 @@ namespace ft
 	 	// ? Maps are typically implemented as balanced binary trees.
 	// protected:
 		BinarySearchTree<value_type, key_compare, allocator_type>	_bst;
-		size_type						_size;
-		allocator_type					_allocator;
-		key_compare						_comp;
+		size_type													_size;
+		allocator_type												_allocator;
+		key_compare													_comp;
 
 	}; /// * map ______________________________________________________________
 

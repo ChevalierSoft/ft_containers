@@ -13,7 +13,7 @@ namespace ft
 	public:
 		/// * Type definition ________________________________________________________________
 		
-		typedef Iter		iterator_type;
+		typedef				Iter											iterator_type;
 		typedef typename	ft::iterator_traits<Iter>::iterator_category	iterator_category;
 		typedef typename	ft::iterator_traits<Iter>::value_type			value_type;
 		typedef typename	ft::iterator_traits<Iter>::difference_type		difference_type;
@@ -23,13 +23,17 @@ namespace ft
 		typedef				ft::reverse_iterator<Iter>						vector_iterator;
 
 		/// * Constructors / Destructor _______________________________________________________
-		reverse_iterator() {}
-		reverse_iterator(typename Iter::value_type * x_t) : _it(x_t) {}
-		reverse_iterator(iterator_type rhs) : _it(rhs) {}
+
+		reverse_iterator () {}
+
+		reverse_iterator (typename Iter::value_type * x_t) : _it(x_t) {}
+
+		reverse_iterator (iterator_type rhs) : _it(rhs) {}
+
 		template <class I>
 		reverse_iterator (const reverse_iterator<I>& rhs) { *this = rhs; }
 
-		~reverse_iterator() {}
+		~reverse_iterator () {}
 
 		/// * Member Operators ________________________________________________________________
 
@@ -71,6 +75,7 @@ namespace ft
 		// operator	reverse_iterator<const Iter> {	return reverse_iterator<const Iter>(_it.base*());	}	// conversion from const iterator to iterator
 
 		/// * Variables ______________________________________________________________________
+
 	protected:
 		iterator_type		_it;
 

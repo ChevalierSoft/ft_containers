@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/26 06:56:19 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/26 10:13:41 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stack>
 #include <string>
 
-#include "./utils/BST_Node.hpp"
+// #include "./utils/BST_Node.hpp"
 
 #ifdef ORIGINAL
 	namespace ft = std;
@@ -69,6 +69,8 @@ void	display(T v, char c)
 		std::cout << iv << c;
 	std::cout << std::endl;
 }
+
+// * ___________________________________________________________________________ ft::vector
 
 // _____________________________________________________________________________
 void	test_vector()
@@ -582,7 +584,7 @@ void	test_iterator()
 		std::cout << *cri << " ";
 		cri = cri - 2;
 		std::cout << *cri << " ";
-		std::cout << cri[0] << cri[3] << cri[-1] << " ";
+		std::cout << cri[0] << cri[1] ; // << cri[-1] << " "; no bound checking is performed
 		std::cout << std::endl;
 	}
 
@@ -657,9 +659,9 @@ void	test_utility()
 
 }
 
+// ? __________________________________________________________________________ ft::map
+
 // ____________________________________________________________________________
-
-
 void	test_bst()
 {
 	std::cout <<std::endl<<CYN<< "___________________ 🧚 ft::BinarySearchTree 👽 ___________________" <<RST<< std::endl;
@@ -710,6 +712,7 @@ void	test_bst()
 
 }
 
+// ____________________________________________________________________________
 void	test_map()
 {
 	std::cout <<std::endl<<CYN<< "___________________ 🧛 ft::map 🧙 ___________________" <<RST<< std::endl;
@@ -749,10 +752,20 @@ void	test_map()
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "bidirictional_iterator" <<RST<< std::endl;
 	{
+		ft::map<int, std::string>::iterator it;
+
+		it = m.begin();
+
+		if (m._bst.search(3) == it.base())
+			std::cout << "too easy" << std::endl;
+		it = m.end();
+		if (m._bst.search(30) == it.base())
+			std::cout << "too easy" << std::endl;
 	}
 
 }
 
+// ____________________________________________________________________________
 int	main(void)
 {
 	// test_utility();
