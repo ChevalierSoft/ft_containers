@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/26 06:05:26 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/26 07:35:59 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,7 @@ namespace ft
 		// ? (2) using a specific node
 		Node_pointer	insert (Node_pointer node, const_reference val)
 		{
+			// ! comparisons should be done using map's Comp
 			if(node == NULL)
 			{
 				node = _node_allocator.allocate(1);
@@ -374,8 +375,11 @@ namespace ft
 		// ? (1) default: public
 		void			display (void)
 		{
-			this->display(_root);
-			std::cout << std::endl;
+			if (_root)
+			{
+				this->display(_root);
+				std::cout << std::endl;
+			}
 		}
 		
 		// ? (2) protected

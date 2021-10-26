@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/26 05:28:07 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/26 06:23:35 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 namespace ft
 {
 	// ? BST_Node is a node used in BinarySearchTree
-	template< class T, class Type_Allocator = std::allocator< T > >
+	template< class T, class Compare = std::less<T>, class Type_Allocator = std::allocator< T > >
 	struct BST_Node // * _______________________________________________  BST_Node
 	{
 		typedef T										value_type;
@@ -81,10 +81,6 @@ namespace ft
 			return (*this);
 		}
 
-		bool			operator==(const BST_Node & rhs)
-		{
-			return (*content == rhs.content);
-		}
 
 		// * Variables ________________________________________________
 		value_type*		content;
@@ -94,6 +90,14 @@ namespace ft
 		Type_Allocator	_allocator;
 
 	};  // * BST_Node _________________________________________________  
+
+	// // * Comparisons specific to BST so we will be comparing only the key
+	// template< class T, class Compare = std::less<T>, class Type_Allocator = std::allocator< T > >
+	// bool			operator==(const ft::BST_Node<T, Compare, Type_Allocator> & lhs, const ft::BST_Node<T, Compare, Type_Allocator> & rhs)
+	// {
+	// 	return (!Compare(lhs.content->first, rhs.content->first) && !Compare(rhs.content->first, lhs.content->first));
+	// }
+
 
 }
 

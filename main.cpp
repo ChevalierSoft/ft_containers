@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/26 05:38:41 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/26 06:56:19 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -660,10 +660,10 @@ void	test_utility()
 // ____________________________________________________________________________
 
 
-void	test_map()
+void	test_bst()
 {
-	std::cout <<std::endl<<CYN<< "___________________ 🧚 ft::BinarySearchTree 🧙 ___________________" <<RST<< std::endl;
-	//🧙  🧚  🧛  👽
+	std::cout <<std::endl<<CYN<< "___________________ 🧚 ft::BinarySearchTree 👽 ___________________" <<RST<< std::endl;
+	// 🧙  🧚  🧛  👽 🥷 🕵️ 🧜
 
 	// creating a pair
 	ft::pair<int, std::string> dp(7, "😇");
@@ -682,26 +682,74 @@ void	test_map()
 			std::cout << "404 not found" << std::endl;
 	}
 
+	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
 	{
-		bst.insert(ft::make_pair<int, std::string>(4, "👽"));
-		bst.insert(ft::make_pair<int, std::string>(20, "👽"));
-		bst.insert(ft::make_pair<int, std::string>(3, "👽"));
-		bst.insert(ft::make_pair<int, std::string>(5, "👽"));
+		bst.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
+		bst.insert(ft::make_pair<int, std::string>(20, "🧙"));
+		bst.insert(ft::make_pair<int, std::string>(3, "🧛"));
+		bst.insert(ft::make_pair<int, std::string>(5, "🧛"));
 		bst.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		bst.insert(ft::make_pair<int, std::string>(30, "👽"));
-		bst.insert(ft::make_pair<int, std::string>(14, "👽"));
+		bst.insert(ft::make_pair<int, std::string>(30, "🕵️"));
+		bst.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 		bst.display();
 	}
 	
-
+	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "remove()" <<RST<< std::endl;
 	{
 		bst.remove(4);
 		bst.display();
 
+		// ft::BST_Node<ft::pair<int, std::string> >	*nd;
+		// nd = bst.search(5);
+		// std::cout << nd << std::endl;
+		// std::cout << (int *)nd->left <<"|"<< nd->parent->content->first <<"|"<< (int *)nd->right << std::endl;
 	}
 
+
+}
+
+void	test_map()
+{
+	std::cout <<std::endl<<CYN<< "___________________ 🧛 ft::map 🧙 ___________________" <<RST<< std::endl;
+
+	ft::map<int, std::string> m;
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
+	{
+		m.insert(ft::make_pair<int, std::string>(7, "😇"));
+		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
+		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
+		m.insert(ft::make_pair<int, std::string>(3, "🧛"));
+		m.insert(ft::make_pair<int, std::string>(5, "🧛"));
+		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
+		m.insert(ft::make_pair<int, std::string>(30, "🕵️"));
+		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+		m.display();
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
+	{
+		m.clear();
+		m.display();
+
+		m.insert(ft::make_pair<int, std::string>(7, "😇"));
+		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
+		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
+		m.insert(ft::make_pair<int, std::string>(3, "🧛"));
+		m.insert(ft::make_pair<int, std::string>(5, "🧛"));
+		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
+		m.insert(ft::make_pair<int, std::string>(30, "🕵️"));
+		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "bidirictional_iterator" <<RST<< std::endl;
+	{
+	}
 
 }
 
@@ -710,6 +758,8 @@ int	main(void)
 	// test_utility();
 	// test_iterator();
 	// test_vector();
+
+	test_bst();
 
 	test_map();
 

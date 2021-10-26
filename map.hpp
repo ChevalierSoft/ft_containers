@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 01:34:13 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/26 07:45:27 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@
 namespace ft
 {
 	template< class Key, class T, class Compare = std::less<Key>,
-				class Allocator = std::allocator<std::pair<const Key, T> > >
+				class Allocator = std::allocator<ft::pair<const Key, T> > >
 	class map /// * ___________________________________________________________  map
 	{
 	public:
 		typedef Key										key_type;
 		typedef T										mapped_type;
-		typedef std::pair<const Key, T>					value_type;
+		typedef ft::pair<const Key, T>					value_type;
 		typedef Compare									key_compare;
 		typedef Allocator								allocator_type;
 		typedef typename std::ptrdiff_t					difference_type;
@@ -48,16 +48,16 @@ namespace ft
 		typedef	const value_type&						const_reference;
 		typedef typename Allocator::pointer				pointer;
 		typedef typename Allocator::const_pointer		const_pointer;
-		// typedef ft::BST_bidirectional_iterator<typename BinarySearchTree<value_type>::Node>			iterator;
-		// typedef ft::BST_bidirectional_iterator<typename BinarySearchTree<const value_type>::Node>		const_iterator;
-		// typedef ft::reverse_iterator<iterator>			reverse_iterator;
-		// typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+		typedef ft::BST_bidirectional_iterator<typename BinarySearchTree<value_type>::Node>			iterator;
+		typedef ft::BST_bidirectional_iterator<typename BinarySearchTree<const value_type>::Node>		const_iterator;
+		typedef ft::reverse_iterator<iterator>			reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 	
 		/// * Constructors & Destructors ______________________________________
 
 	public:
 		// ? empty (1)
-		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _allocator(alloc) {}
+		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _allocator(alloc), _size(0) {}
 
 		// ? range (2)
 		// template <class InputIterator>
@@ -68,9 +68,12 @@ namespace ft
 		// ? copy (3)
 		// map (const map& x);
 
-		~map(void) {}
+		~map(void)
+		{
+			clear();
+		}
 
-		map &	operator=(const map &	copy);
+		map &		operator=(const map &	copy);
 
 		/// * Element access __________________________________________________
 
@@ -79,17 +82,34 @@ namespace ft
 		/// * Capacity ________________________________________________________
 
 		/// * Modifiers _______________________________________________________
+		// ? (1) default
+		// pair<iterator, bool> 
+		void		insert (const value_type& val)
+		{
+			_bst.insert(val);
+			++_size;
+		}
+
+		void clear()
+		{
+			_bst.clear();
+			_size = 0;
+		}
 
 		/// * Lookup  _________________________________________________________
-
+		void		display()
+		{
+			_bst.display();
+		}
 		/// * Observers  ______________________________________________________
 
 		/// * Variables _______________________________________________________
 	 	// ? Maps are typically implemented as balanced binary trees.
 	// protected:
-		BinarySearchTree<value_type>	_bst;
-		key_compare						_comp;
+		BinarySearchTree<value_type, key_compare, allocator_type>	_bst;
+		size_type						_size;
 		allocator_type					_allocator;
+		key_compare						_comp;
 
 	}; /// * map ______________________________________________________________
 
