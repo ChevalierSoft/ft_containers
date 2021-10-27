@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/27 02:36:04 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/27 05:34:56 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ namespace ft
 				class Compare = std::less<Key>, 
 				class Type_Allocator = std::allocator< ft::pair<Key, T> >,
 				class N = ft::BST_Node<Key, T, Compare, Type_Allocator>,
-				class Node_Allocator = std::allocator< ft::BST_Node<Key, T, Compare, Type_Allocator> >
+				class Node_Allocator = std::allocator< N >
 			>
 	class BinarySearchTree // * _______________________________________________  BinarySearchTree
 	{
@@ -203,7 +203,7 @@ namespace ft
 		}
 	public:
 		// ? (1) default: public
-		bool			remove (Key key)
+		bool			remove (const Key key)
 		{
 			// this can be inproved for performences
 			if (this->search(key))
@@ -216,7 +216,7 @@ namespace ft
 
 	private:
 		// ? (2) remove a specific 'node' identified by key
-		Node_pointer	remove (Node_pointer node, Key key)
+		Node_pointer	remove (Node_pointer node, const Key key)
 		{
 			Node_pointer	successor;
 			Node_pointer	ret;
@@ -298,13 +298,13 @@ namespace ft
 	public:
 
 		// ? (1) default
-		Node_pointer	find_max (void)
+		Node_pointer	find_max (void) const
 		{
 			return (find_max(_root));
 		}
 
 		// ? (2) get to the maximum key from node
-		Node_pointer	find_max (Node_pointer node)
+		Node_pointer	find_max (Node_pointer node) const
 		{
 			if (!node)
 				return (NULL);
@@ -314,13 +314,13 @@ namespace ft
 		}
 
 		// ? (1) default
-		Node_pointer	find_min (void)
+		Node_pointer	find_min (void) const
 		{
 			return (find_min(_root));
 		}
 
 		// ? (2) get to the minimum key from node
-		Node_pointer	find_min (Node_pointer node)
+		Node_pointer	find_min (Node_pointer node) const
 		{
 			if (!node)
 				return (NULL);
@@ -369,13 +369,13 @@ namespace ft
 
 	public:
 		// ? (1) default: search from root
-		Node_pointer	search (Key key) const
+		Node_pointer	search (const Key key) const
 		{
 			return (search(_root, key));
 		}
 
 		// ? (2) search from a given node
-		Node_pointer	search (Node_pointer node, Key key) const
+		Node_pointer	search (Node_pointer node, const Key key) const
 		{
 			Node_pointer	res = NULL;
 

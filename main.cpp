@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/27 03:15:33 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/27 06:03:53 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -661,6 +661,8 @@ void	test_utility()
 
 // ? __________________________________________________________________________ ft::map
 
+/*
+
 // ____________________________________________________________________________
 void	test_bst()
 {
@@ -712,6 +714,8 @@ void	test_bst()
 
 }
 
+*/
+
 // ____________________________________________________________________________
 void	test_map()
 {
@@ -730,20 +734,20 @@ void	test_map()
 		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
 		m.insert(ft::make_pair<int, std::string>(30, "🕵️"));
 		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
-		m.display();
+		// m.display();
 	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
 	{
 		m.clear();
-		m.display();
+		// m.display();
 	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "bidirictional_iterator" <<RST<< std::endl;
 	{
-		// ft::map<int, std::string>::iterator it;
+		ft::map<int, std::string>::iterator it;
 
 		// if (m.begin() == m.end())
 		// 	std::cout << "(m.begin() == m.end())" << std::endl;
@@ -757,13 +761,24 @@ void	test_map()
 		m.insert(ft::make_pair<int, std::string>(30, "🕵️"));
 		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 
-		// it = m.begin();
-		// if (it->first == 3)
-		// 	std::cout << "too easy" << std::endl;
-		// it = m.end();
-		// if (it->first == 30)
-		// 	std::cout << "too easy" << std::endl;
+		std::cout<< "begin : " << m.begin()->second <<std::endl<< "end : " << m.end()->second <<std::endl;
 	}
+
+	std::map<int, std::string>				mup;
+	std::map<int, std::string>::iterator	uwu;
+
+	mup.insert(std::make_pair<int, std::string>(7, "😇"));
+	mup.insert(std::make_pair<int, std::string>(4, "🧜‍"));
+	mup.insert(std::make_pair<int, std::string>(20, "🧙"));
+	mup.insert(std::make_pair<int, std::string>(3, "🧛"));
+	mup.insert(std::make_pair<int, std::string>(5, "🧛"));
+	mup.insert(std::make_pair<int, std::string>(11, "🧚"));
+	mup.insert(std::make_pair<int, std::string>(30, "🕵️"));
+	mup.insert(std::make_pair<int, std::string>(14, "🕵️"));
+
+	uwu = mup.end();
+	--uwu;
+	std::cout << uwu->first << std::endl;
 
 }
 
@@ -774,7 +789,7 @@ int	main(void)
 	// test_iterator();
 	// test_vector();
 
-	test_bst();
+	// test_bst();
 
 	test_map();
 

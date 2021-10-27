@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/27 02:39:20 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/27 05:13:08 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 namespace ft
 {
 	// ? BST_Node is a node used in BinarySearchTree
-	template< class Key,
+	template<	class Key,
 				class T,
 				class Compare = std::less<Key>,
 				class Type_Allocator = std::allocator< ft::pair<Key, T> >
@@ -31,6 +31,8 @@ namespace ft
 		typedef size_t									size_type;
 		typedef	value_type&								reference;
 		typedef	const value_type&						const_reference;
+		// typedef	value_type*								pointer;
+		// typedef	const value_type*						const_pointer;
 		typedef typename Type_Allocator::pointer		pointer;
 		typedef typename Type_Allocator::const_pointer	const_pointer;
 		typedef Compare									key_compare;

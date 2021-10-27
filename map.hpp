@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/27 02:26:08 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/27 05:42:04 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,34 @@
 
 namespace ft
 {
-	template< class Key, class T, class Compare = std::less<Key>,
-				class Allocator = std::allocator<ft::pair<const Key, T> > >
+	template<	class Key,
+				class T,
+				class Compare = std::less<Key>,
+				class Allocator = std::allocator< ft::pair<Key, T> >
+			>
 	class map /// * ___________________________________________________________  map
 	{
 	public:
-		typedef Key											key_type;
-		typedef T											mapped_type;
-		typedef ft::pair<Key, T>							value_type;
-		typedef Compare										key_compare;
-		typedef Allocator									allocator_type;
-		typedef typename std::ptrdiff_t						difference_type;
-		typedef size_t										size_type;
-		typedef	value_type&									reference;
-		typedef	const value_type&							const_reference;
-		typedef typename Allocator::pointer					pointer;
-		typedef typename Allocator::const_pointer			const_pointer;
-
-		// typedef ft::BST_bidirectional_iterator<typename BinarySearchTree<value_type>::Node>			iterator;
-		// typedef ft::BST_bidirectional_iterator<typename BinarySearchTree<const value_type>::Node>	const_iterator;
-		typedef ft::BST_bidirectional_iterator<value_type>	iterator;
-		typedef ft::BST_bidirectional_iterator<value_type>	const_iterator;
-		typedef ft::reverse_iterator<iterator>				reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
+		typedef Key												key_type;
+		typedef T												mapped_type;
+		typedef ft::pair<Key, T>								value_type;
+		typedef Compare											key_compare;
+		typedef Allocator										allocator_type;
+		typedef typename std::ptrdiff_t							difference_type;
+		typedef size_t											size_type;
+		typedef	value_type&										reference;
+		typedef	const value_type&								const_reference;
+		typedef typename Allocator::pointer						pointer;
+		typedef typename Allocator::const_pointer				const_pointer;
+		typedef ft::BST_bidirectional_iterator<Key, T>			iterator;
+		typedef const iterator									const_iterator;
+		typedef ft::reverse_iterator<iterator>					reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
+	
+	protected:
+		typedef	BinarySearchTree<Key, T, key_compare, allocator_type>	Tree_Type;
+		typedef	typename Tree_Type::Node								Node_Type;
+		typedef	typename Tree_Type::Node*								Node_pointer;
 	
 		/// * Constructors & Destructors ______________________________________
 
@@ -82,25 +87,29 @@ namespace ft
 
 		/// * Iterators _______________________________________________________
 
-		iterator	begin()
+		iterator	begin() const
 		{
-			// BST_Node<value_type, Compare, Allocator>* node = _bst.find_min();
+			Node_pointer node = _bst.find_min();
 
-			// if (node)
-			// 	return (iterator(node->content));
+			if (node)
+			{
+				iterator it(node->content);
+				return (it);
+			}
 			return (iterator(NULL));
-		};
+		}
 
 		iterator	end()		// ? could use a sentinel here and in begin
 		{
-			// if (!_size)
-			// 	return (iterator(NULL));
+			if (!_size)
+				return (iterator(NULL));
 			// std::cout << sizeof(std::string) << std::endl;
-			// return ( iterator(_bst.find_max()->content + sizeof(value_type)) );
-			return (iterator(NULL));
+			return ( iterator(_bst.find_max()->content) );	// + sizeof(value_type)
+			// return (iterator(NULL));
 		};
 
-
+// ft::BST_Node<int, std::__cxx11::basic_string<char>, std::less<int>, std::allocator<ft::pair<int, std::__cxx11::basic_string<char> > > > *
+// BST_bidirectional_iterator<int, std::__cxx11::basic_string<char> >
 
 
 		/// * Capacity ________________________________________________________
@@ -142,7 +151,7 @@ namespace ft
 		/// * Variables _______________________________________________________
 	 	// ? Maps are typically implemented as balanced binary trees.
 	// protected:
-		BinarySearchTree<Key, T, key_compare, allocator_type>		_bst;
+		Tree_Type													_bst;
 		size_type													_size;
 		allocator_type												_allocator;
 		key_compare													_comp;
