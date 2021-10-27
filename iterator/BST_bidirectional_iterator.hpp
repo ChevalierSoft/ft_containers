@@ -8,30 +8,31 @@ namespace ft
 {
 	/// * BST_bidirectional_iterator ____________________________________________________________
 	//  ? http://www.cplusplus.com/reference/iterator/
-	template <typename Tn>
-	class BST_bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, Tn>
+	template <typename Td>
+	class BST_bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, Td>
 	{
 	public:
 		/// * Type definition _______________________________________________________________
-		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::value_type		value_type;
+		// typedef typename ft::iterator<ft::bidirectional_iterator_tag, Td>::value_type		value_type;
+		typedef	Td											value_type;
 		typedef value_type *								pointer;
 		typedef const value_type 							const_pointer;
 		typedef value_type &								reference;
 		typedef const value_type &							const_reference;
-		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::difference_type       difference_type;
-		typedef ft::BST_bidirectional_iterator<Tn>			iterator;
-		typedef ft::BST_bidirectional_iterator<Tn>			vector_iterator;
-		typedef ft::BST_bidirectional_iterator<Tn>			iterator_type;
-		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::iterator_category	iterator_category;
+		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Td>::difference_type       difference_type;
+		typedef ft::BST_bidirectional_iterator<Td>			iterator;
+		typedef ft::BST_bidirectional_iterator<Td>			vector_iterator;
+		typedef ft::BST_bidirectional_iterator<Td>			iterator_type;
+		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Td>::iterator_category	iterator_category;
 
 		/// * Constructors / Destructor _____________________________________________________
 		// ? not using explicit key word to make it easier to create
 		BST_bidirectional_iterator () {}
 		BST_bidirectional_iterator (pointer node) : _ptr(node) {}
-		BST_bidirectional_iterator (const ft::BST_bidirectional_iterator<Tn> &rhs) { *this = rhs; }
+		BST_bidirectional_iterator (const ft::BST_bidirectional_iterator<Td> &rhs) { *this = rhs; }
 
 		// ? allows conversion between iterator of T to const T
-		operator BST_bidirectional_iterator<const Tn>() const { return BST_bidirectional_iterator<const Tn>(_ptr); }
+		operator BST_bidirectional_iterator<const Td>() const { return BST_bidirectional_iterator<const Td>(_ptr); }
 
 		~BST_bidirectional_iterator () {}
 

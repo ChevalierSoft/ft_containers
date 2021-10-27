@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/26 10:13:41 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/27 03:15:33 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -670,9 +670,9 @@ void	test_bst()
 	// creating a pair
 	ft::pair<int, std::string> dp(7, "😇");
 	// creating a node with the pair
-	ft::BST_Node<ft::pair<int, std::string> >	nd(dp);
+	ft::BST_Node<int, std::string>	nd(dp);
 	// creating a bst with the node
-	ft::BinarySearchTree<ft::pair<int, std::string> > bst(dp);
+	ft::BinarySearchTree<int, std::string> bst(dp);
 	
 	bst.display();
 
@@ -738,6 +738,15 @@ void	test_map()
 	{
 		m.clear();
 		m.display();
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "bidirictional_iterator" <<RST<< std::endl;
+	{
+		// ft::map<int, std::string>::iterator it;
+
+		// if (m.begin() == m.end())
+		// 	std::cout << "(m.begin() == m.end())" << std::endl;
 
 		m.insert(ft::make_pair<int, std::string>(7, "😇"));
 		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
@@ -747,20 +756,13 @@ void	test_map()
 		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
 		m.insert(ft::make_pair<int, std::string>(30, "🕵️"));
 		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
-	}
 
-	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "bidirictional_iterator" <<RST<< std::endl;
-	{
-		ft::map<int, std::string>::iterator it;
-
-		it = m.begin();
-
-		if (m._bst.search(3) == it.base())
-			std::cout << "too easy" << std::endl;
-		it = m.end();
-		if (m._bst.search(30) == it.base())
-			std::cout << "too easy" << std::endl;
+		// it = m.begin();
+		// if (it->first == 3)
+		// 	std::cout << "too easy" << std::endl;
+		// it = m.end();
+		// if (it->first == 30)
+		// 	std::cout << "too easy" << std::endl;
 	}
 
 }

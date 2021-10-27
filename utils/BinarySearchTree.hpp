@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/26 08:55:54 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/27 02:36:04 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,18 @@
 
 namespace ft
 {
-	template< class T, class Compare = std::less<T>, class N = ft::BST_Node<T>, 
-				class Type_Allocator = std::allocator< T >, class Node_Allocator = std::allocator< ft::BST_Node<T> > >
+	template<	class Key,
+				class T,
+				class Compare = std::less<Key>, 
+				class Type_Allocator = std::allocator< ft::pair<Key, T> >,
+				class N = ft::BST_Node<Key, T, Compare, Type_Allocator>,
+				class Node_Allocator = std::allocator< ft::BST_Node<Key, T, Compare, Type_Allocator> >
+			>
 	class BinarySearchTree // * _______________________________________________  BinarySearchTree
 	{
 	public:
-		typedef T										value_type;
+		typedef ft::pair<Key, T>						value_type;
+		typedef	T										data_type;
 		typedef N										Node;
 		typedef Compare									type_compare;
 		typedef typename std::ptrdiff_t					difference_type;
@@ -40,10 +46,10 @@ namespace ft
 		typedef const T*								const_pointer;
 		typedef typename Node_Allocator::pointer		Node_pointer;
 		typedef typename Node_Allocator::const_pointer	Node_const_pointer;
-		typedef ft::BST_bidirectional_iterator<Node>	iterator;
-		typedef ft::BST_bidirectional_iterator<const Node>	const_iterator;
-		typedef ft::reverse_iterator<iterator>			reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+		// typedef ft::BST_bidirectional_iterator<Node>	iterator;
+		// typedef ft::BST_bidirectional_iterator<const Node>	const_iterator;
+		// typedef ft::reverse_iterator<iterator>			reverse_iterator;
+		// typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
 		// * Constructors & Destructors _______________________________________
 	public:
@@ -197,7 +203,7 @@ namespace ft
 		}
 	public:
 		// ? (1) default: public
-		bool			remove (typename T::first_type key)
+		bool			remove (Key key)
 		{
 			// this can be inproved for performences
 			if (this->search(key))
@@ -210,7 +216,7 @@ namespace ft
 
 	private:
 		// ? (2) remove a specific 'node' identified by key
-		Node_pointer	remove (Node_pointer node, typename T::first_type key)
+		Node_pointer	remove (Node_pointer node, Key key)
 		{
 			Node_pointer	successor;
 			Node_pointer	ret;
@@ -363,13 +369,13 @@ namespace ft
 
 	public:
 		// ? (1) default: search from root
-		Node_pointer	search (typename T::first_type key) const
+		Node_pointer	search (Key key) const
 		{
 			return (search(_root, key));
 		}
 
 		// ? (2) search from a given node
-		Node_pointer	search (Node_pointer node, typename T::first_type key) const
+		Node_pointer	search (Node_pointer node, Key key) const
 		{
 			Node_pointer	res = NULL;
 
@@ -434,8 +440,8 @@ namespace ft
 		return (o);
 	}
 
-	template< class T, class Type_Allocator = std::allocator< T > >
-	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> & bn)
+	template< class Key, class T, class Type_Allocator = std::allocator< T > >
+	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<Key, T, Type_Allocator> & bn)
 	{
 		if (bn->left)
 			o << ", ";
@@ -449,8 +455,8 @@ namespace ft
 		return (o);
 	}
 
-	template< class T, class Type_Allocator = std::allocator< T > >
-	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> * bn)
+	template< class Key, class T, class Type_Allocator = std::allocator< T > >
+	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<Key, T, Type_Allocator> * bn)
 	{
 		o << ", " << bn->content->first << " .";
 		return (o);
