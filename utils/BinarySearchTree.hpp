@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/29 05:37:06 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/29 05:40:30 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -404,26 +404,13 @@ namespace ft
 		{
 			if (current)
 			{
-				space += 12;
+				space += 11;
 				print_bst(current->right, space);
-				std::cout << std::endl;
-
-				for (int i = 0; i < space; ++i)
-					std::cout << " ";
-
-				std::cout << "( " << current->content->first << " : " << current->content->second  << " )";
-
-				// if (current->right)
-				// {
-				// 	if (current->left)
-				// 		std::cout << '<';
-				// 	else
-				// 		std::cout << '/';
-				// }
-				// else if (current->left)
-				// 	std::cout << '\\';
 
 				std::cout << std::endl;
+				std::cout << std::string(space, ' ');
+
+				std::cout << "( " << current->content->first << " : " << current->content->second  << " )" << std::endl;
 
 				print_bst(current->left, space);
 			}
