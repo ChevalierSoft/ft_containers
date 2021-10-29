@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/27 06:03:53 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/29 05:15:31 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -764,21 +764,23 @@ void	test_map()
 		std::cout<< "begin : " << m.begin()->second <<std::endl<< "end : " << m.end()->second <<std::endl;
 	}
 
-	std::map<int, std::string>				mup;
-	std::map<int, std::string>::iterator	uwu;
+	// std::map<int, std::string>				mup;
+	// std::map<int, std::string>::iterator	uwu;
 
-	mup.insert(std::make_pair<int, std::string>(7, "😇"));
-	mup.insert(std::make_pair<int, std::string>(4, "🧜‍"));
-	mup.insert(std::make_pair<int, std::string>(20, "🧙"));
-	mup.insert(std::make_pair<int, std::string>(3, "🧛"));
-	mup.insert(std::make_pair<int, std::string>(5, "🧛"));
-	mup.insert(std::make_pair<int, std::string>(11, "🧚"));
-	mup.insert(std::make_pair<int, std::string>(30, "🕵️"));
-	mup.insert(std::make_pair<int, std::string>(14, "🕵️"));
+	// mup.insert(std::make_pair<int, std::string>(7, "😇"));
+	// mup.insert(std::make_pair<int, std::string>(4, "🧜‍"));
+	// mup.insert(std::make_pair<int, std::string>(20, "🧙"));
+	// mup.insert(std::make_pair<int, std::string>(3, "🧛"));
+	// mup.insert(std::make_pair<int, std::string>(5, "🧛"));
+	// mup.insert(std::make_pair<int, std::string>(11, "🧚"));
+	// mup.insert(std::make_pair<int, std::string>(30, "🕵️"));
+	// mup.insert(std::make_pair<int, std::string>(14, "🕵️"));
 
-	uwu = mup.end();
-	--uwu;
-	std::cout << uwu->first << std::endl;
+	// uwu = mup.end();
+	// --uwu;
+	// std::cout << uwu->first << std::endl;
+
+	m.print_bst();
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/27 05:42:04 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/10/29 05:13:23 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,13 @@ namespace ft
 		/// * Lookup  _________________________________________________________
 
 		size_type	count(const Key & key) const	{ return (_bst.search(key) ? true : false);	}
+
+		// DEBUG
+	public:
+		void	print_bst()
+		{
+			_bst.print_bst();
+		}
 
 		void		display()	// ? debug
 		{
