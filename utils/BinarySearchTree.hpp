@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/29 05:40:30 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/05 14:31:44 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -450,6 +450,7 @@ namespace ft
 
 	protected:
 		Node_pointer	_root;
+		Node_pointer	_cardinal;			// ? parent will be root, left will be first node, last will be last node
 		Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
 		
