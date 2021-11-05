@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/05 14:31:44 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/05 16:32:24 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,32 @@ namespace ft
 
 		// * Constructors & Destructors _______________________________________
 	public:
-		BinarySearchTree (void) : _root(NULL), _type_allocator(Type_Allocator()), _node_allocator(Node_Allocator()) {}
+		BinarySearchTree (void) : _root(NULL), _type_allocator(Type_Allocator()), _node_allocator(Node_Allocator()) 
+		{
+			_cardinal = _node_allocator.allocate(1);
+			_cardinal->content = NULL;
+			_cardinal->parent = NULL;
+			_cardinal->left = NULL;
+			_cardinal->right = NULL;
+		}
 
 		BinarySearchTree (const_reference val, Type_Allocator ta = Type_Allocator(), Node_Allocator na = Node_Allocator()) : _type_allocator(ta), _node_allocator(na)
 		{
 			_root = _node_allocator.allocate(1);
 			_node_allocator.construct(_root, val);
+
+			_cardinal = _node_allocator.allocate(1);
+			_cardinal->content = NULL;
+			_cardinal->parent = _root;
+			_cardinal->left = _root;
+			_cardinal->right = _root;
 		}
 		
-		~BinarySearchTree (void) {	clear(_root);	}
+		~BinarySearchTree (void)
+		{
+			_node_allocator.deallocate(_cardinal, 1);
+			clear(_root);
+		}
 
 		// * Modifiers ________________________________________________________
 
@@ -205,18 +222,27 @@ namespace ft
 		// ? (1) default: public
 		bool			remove (const Key key)
 		{
+			bool	found = false;
 			// this can be inproved for performences
-			if (this->search(key))
-			{
-				_root = remove(_root, key);
-				return (true);
-			}
-			return (false);
+			// if (this->search(key))
+			// {
+
+				if (_cardinal->left && key == _cardinal->left->content->first)
+					_cardinal->left = _cardinal->left->parent;
+				else if (_cardinal->right && key == _cardinal->right->content->first)
+					_cardinal->right = _cardinal->right->parent;					
+
+				_root = remove(_root, key, &found);
+				_cardinal->parent = _root;
+				// return (true);
+			// }
+			// return (false);
+			return (found);
 		}
 
 	private:
 		// ? (2) remove a specific 'node' identified by key
-		Node_pointer	remove (Node_pointer node, const Key key)
+		Node_pointer	remove (Node_pointer node, const Key key, bool *found)
 		{
 			Node_pointer	successor;
 			Node_pointer	ret;
@@ -227,15 +253,16 @@ namespace ft
 			// search for the key in the tree
 			if (key < node->content->first)
 			{
-				node->left = this->remove(node->left, key);
+				node->left = this->remove(node->left, key, found);
 			}
 			else if (key > node->content->first)
 			{
-				node->right = this->remove(node->right, key);
+				node->right = this->remove(node->right, key, found);
 			}
 			// got the key
 			else
 			{
+				*found = true;
 				if (!node->left && !node->right)
 				{
 					// __DEB("no child")
@@ -279,14 +306,14 @@ namespace ft
 					// __DEB("(balance left)")
 					successor = find_max(node->left);
 					*node->content = *successor->content;
-					node->left = remove(node->left, successor->content->first);
+					node->left = remove(node->left, successor->content->first, found);
 				}
 				else
 				{
 					// __DEB("(other balances)")
 					successor = find_min(node->right);
 					*node->content = *successor->content;
-					node->right = remove(node->right, successor->content->first);
+					node->right = remove(node->right, successor->content->first, found);
 				}
 
 			}
@@ -332,15 +359,30 @@ namespace ft
 		// ? (1) default: insert from _root
 		Node_pointer	insert (const_reference val)
 		{
-			_root = insert(_root, val);
+			// std::cout << "insert()" << std::endl;
+			Node_pointer	created_node = NULL;
+
+			_root = insert(_root, val, &created_node);	// _root is not useful anymore, it will be deleted in future version
+			_cardinal->parent = _root;
+
+			if (!_cardinal->left)
+				// _cardinal->left = _cardinal->parent;			// ! ALERT
+				;
+			else if (val.first < _cardinal->left->content->first)
+				_cardinal->left = created_node;
+
+			if (!_cardinal->right)
+				// _cardinal->right = _cardinal->parent;
+				;
+			else if (val.first > _cardinal->right->content->first)
+				_cardinal->right = created_node;
 			return (_root);
 		}
 
 	protected:
 		// ? (2) using a specific node
-		Node_pointer	insert (Node_pointer node, const_reference val)
+		Node_pointer	insert (Node_pointer node, const_reference val, Node_pointer *created_node)
 		{
-			// ! comparisons should be done using map's Comp
 			if(node == NULL)
 			{
 				node = _node_allocator.allocate(1);
@@ -350,17 +392,22 @@ namespace ft
 				node->left = NULL;
 				node->right = NULL;
 				node->parent = NULL;
+				*created_node = node;
+				// std::cout << "found node : " << (void *)*created_node << std::endl;
 			}
-			else if (val.first == node->content->first)
-				node->content->second = val.second;
-			else if(val.first < node->content->first)
+			else if (val.first == node->content->first)					// ! comparisons should be done using map's Comp
 			{
-				node->left = insert(node->left, val);
+				node->content->second = val.second;
+				*created_node = node;
+			}
+			else if(val.first < node->content->first)					// ! comparisons should be done using map's Comp
+			{
+				node->left = insert(node->left, val, created_node);		
 				node->left->parent = node;
 			}
 			else
 			{
-				node->right = insert(node->right, val);
+				node->right = insert(node->right, val, created_node);
 				node->right->parent = node;
 			}
 			
@@ -395,12 +442,30 @@ namespace ft
 
 		// !  DEBUG
 
-		void			print_bst()
+		void			print_bst() const
 		{
 			print_bst(_root, 0);
+			std::cout << "_cardinal [" ;
+			if (_cardinal->left)
+				std::cout << _cardinal->left->content->second ;
+			else
+				std::cout << " ";
+
+			if (_cardinal->parent)
+				std::cout << _cardinal->parent->content->second ;
+			else
+				std::cout << " ";
+			
+			if (_cardinal->right)
+				std::cout << _cardinal->right->content->second ;
+			else
+				std::cout << " ";
+
+			std::cout << "]" << std::endl<< std::endl;
+
 		}
 
-		void			print_bst(Node_pointer current, int space = 0)
+		void			print_bst(Node_pointer current, int space = 0) const
 		{
 			if (current)
 			{
@@ -417,12 +482,13 @@ namespace ft
 		}
 
 		// ? (1) default: public
-		void			display (void) const
+		void			display () const
 		{
 			if (_root)
 			{
-				this->display(_root);
-				std::cout << std::endl;
+				// this->display(_root);
+				// std::cout << std::endl;
+				this->print_bst();
 			}
 		}
 		
