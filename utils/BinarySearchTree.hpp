@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/05 16:32:24 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/07 08:39:10 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ namespace ft
 
 		// * Constructors & Destructors _______________________________________
 	public:
-		BinarySearchTree (void) : _root(NULL), _type_allocator(Type_Allocator()), _node_allocator(Node_Allocator()) 
+		BinarySearchTree () : _root(NULL), _type_allocator(Type_Allocator()), _node_allocator(Node_Allocator()) 
 		{
 			_cardinal = _node_allocator.allocate(1);
 			_cardinal->content = NULL;
@@ -203,13 +203,16 @@ namespace ft
 		{
 			clear(_root);
 			_root = NULL;
+			_cardinal->parent = NULL;
+			_cardinal->left = NULL;
+			_cardinal->right = NULL;
 		}
 
 	private:
 		// ? (2) clear from a specific node
 		void			clear (Node_pointer node)
 		{
-			if(node != NULL)
+			if(node != NULL && node != _cardinal)
 			{
 				clear(node->left);
 				clear(node->right);
@@ -366,14 +369,12 @@ namespace ft
 			_cardinal->parent = _root;
 
 			if (!_cardinal->left)
-				// _cardinal->left = _cardinal->parent;			// ! ALERT
-				;
+				_cardinal->left = created_node;			// ! ALERT
 			else if (val.first < _cardinal->left->content->first)
 				_cardinal->left = created_node;
 
 			if (!_cardinal->right)
-				// _cardinal->right = _cardinal->parent;
-				;
+				_cardinal->right = created_node;
 			else if (val.first > _cardinal->right->content->first)
 				_cardinal->right = created_node;
 			return (_root);

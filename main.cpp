@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/05 16:23:14 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/07 08:34:11 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -675,8 +675,8 @@ void	test_bst()
 	ft::BST_Node<int, std::string>	nd(dp);
 	// creating a bst with the node
 	ft::BinarySearchTree<int, std::string> bst(dp);
-	
-	bst.display();
+
+	// bst.display();
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "search()" <<RST<< std::endl;
@@ -754,13 +754,15 @@ void	test_map()
 		// 	std::cout << "(m.begin() == m.end())" << std::endl;
 
 		m.insert(ft::make_pair<int, std::string>(7, "😇"));
-		// m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
-		// m.insert(ft::make_pair<int, std::string>(20, "🧙"));
-		// m.insert(ft::make_pair<int, std::string>(3, "🧛"));
-		// m.insert(ft::make_pair<int, std::string>(5, "🧛"));
-		// m.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		// m.insert(ft::make_pair<int, std::string>(30, "🕵️"));
-		// m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
+		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
+		m.insert(ft::make_pair<int, std::string>(3, "🧛"));
+		m.insert(ft::make_pair<int, std::string>(5, "🧛"));
+		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
+		m.insert(ft::make_pair<int, std::string>(30, "🕵️"));
+		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+
+		m.display();
 
 		// std::cout<< "begin : " << m.begin()->second <<std::endl<< "end : " << m.end()->second <<std::endl;
 	}
