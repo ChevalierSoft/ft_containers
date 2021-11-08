@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 10:33:46 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 10:48:39 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,15 +365,15 @@ namespace ft
 
 			if (!_cardinal->left)
 				find_min(_cardinal->parent);
-			else if (val.first < _cardinal->left->content->first)					// ! need _comp
+			else if (_comp(val.first, _cardinal->left->content->first))					// ! using _comp
 			{
 				_cardinal->left = created_node;
 				created_node->left = _cardinal;
 			}
 
-			if (!_cardinal->right)													// ! need _comp
+			if (!_cardinal->right)													
 				find_max(_cardinal->parent);
-			else if (val.first > _cardinal->right->content->first)
+			else if (_comp(_cardinal->right->content->first, val.first))				// ! using _comp
 			{
 				_cardinal->right = created_node;
 				created_node->right = _cardinal;
@@ -389,25 +389,20 @@ namespace ft
 			if (node == NULL)
 			{
 				node = _node_allocator.allocate(1);
-				// ? should create a insert function in Node
-				// node->content = _type_allocator.allocate(1);
-				// _type_allocator.construct(node->content, val);
-				// node->left = NULL;
-				// node->right = NULL;
-				// node->parent = NULL;
 				node->insert(val);
 				*created_node = node;
-				// std::cout << "found node : " << (void *)*created_node << std::endl;
 			}
 			else if (node == _cardinal)
 				return (_cardinal);
-			else if (val.first == node->content->first)					// ! comparisons should be done using map's Comp
-			// else if ()
+			// else if (val.first == node->content->first)					
+			else if (!_comp(val.first, node->content->first) && 
+						!_comp(node->content->first, val.first))					// ! comparisons using map's Comp
 			{
 				node->content->second = val.second;
 				*created_node = node;
 			}
-			else if (val.first < node->content->first)					// ! comparisons should be done using map's Comp
+			// else if (val.first < node->content->first)					
+			else if (_comp(val.first, node->content->first))						// ! comparisons using map's Comp
 			{
 				node->left = insert(node->left, val, created_node);
 				if (node->left == _cardinal)
@@ -435,11 +430,6 @@ namespace ft
 		Node_pointer	create_node(const value_type & val)
 		{
 			Node_pointer node = _node_allocator.allocate(1);
-			// node->content = _type_allocator.allocate(1);
-			// _type_allocator.construct(node->content, val);
-			// node->left = NULL;
-			// node->right = NULL;
-			// node->parent = NULL;
 			node->insert(val);
 			return (node);
 		}
