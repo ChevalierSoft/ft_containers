@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/07 08:39:10 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 09:33:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ namespace ft
 
 		// * Constructors & Destructors _______________________________________
 	public:
-		BinarySearchTree () : _root(NULL), _type_allocator(Type_Allocator()), _node_allocator(Node_Allocator()) 
+		BinarySearchTree () : _root(NULL), _comp(Compare()), _type_allocator(Type_Allocator()), _node_allocator(Node_Allocator()) 
 		{
 			_cardinal = _node_allocator.allocate(1);
 			_cardinal->content = NULL;
@@ -62,7 +62,7 @@ namespace ft
 			_cardinal->right = NULL;
 		}
 
-		BinarySearchTree (const_reference val, Type_Allocator ta = Type_Allocator(), Node_Allocator na = Node_Allocator()) : _type_allocator(ta), _node_allocator(na)
+		BinarySearchTree (const_reference val, Compare cmp = Compare(), Type_Allocator ta = Type_Allocator(), Node_Allocator na = Node_Allocator()) : _comp(cmp), _type_allocator(ta), _node_allocator(na)
 		{
 			_root = _node_allocator.allocate(1);
 			_node_allocator.construct(_root, val);
@@ -216,7 +216,7 @@ namespace ft
 			{
 				clear(node->left);
 				clear(node->right);
-				_node_allocator.destroy(node);
+				_node_allocator.destroy(node);						// need to test first
 				_node_allocator.deallocate(node, 1);
 				// node = NULL;	// * it may be faster without
 			}
@@ -250,8 +250,8 @@ namespace ft
 			Node_pointer	successor;
 			Node_pointer	ret;
 
-			if (!node)
-				return (node);
+			if (!node || node == _cardinal)
+				return (NULL);
 				
 			// search for the key in the tree
 			if (key < node->content->first)
@@ -365,11 +365,11 @@ namespace ft
 			// std::cout << "insert()" << std::endl;
 			Node_pointer	created_node = NULL;
 
-			_root = insert(_root, val, &created_node);	// _root is not useful anymore, it will be deleted in future version
+			_root = insert(_root, val, &created_node);	// _root is not useful anymore, it will be deleted in a future version
 			_cardinal->parent = _root;
 
 			if (!_cardinal->left)
-				_cardinal->left = created_node;			// ! ALERT
+				_cardinal->left = created_node;
 			else if (val.first < _cardinal->left->content->first)
 				_cardinal->left = created_node;
 
@@ -384,35 +384,62 @@ namespace ft
 		// ? (2) using a specific node
 		Node_pointer	insert (Node_pointer node, const_reference val, Node_pointer *created_node)
 		{
-			if(node == NULL)
+			if (node == NULL)
 			{
 				node = _node_allocator.allocate(1);
 				// ? should create a insert function in Node
-				node->content = _type_allocator.allocate(1);
-				_type_allocator.construct(node->content, val);
-				node->left = NULL;
-				node->right = NULL;
-				node->parent = NULL;
+				// node->content = _type_allocator.allocate(1);
+				// _type_allocator.construct(node->content, val);
+				// node->left = NULL;
+				// node->right = NULL;
+				// node->parent = NULL;
+				node->insert(val);
 				*created_node = node;
 				// std::cout << "found node : " << (void *)*created_node << std::endl;
 			}
+			else if (node == _cardinal)
+				return (_cardinal);
 			else if (val.first == node->content->first)					// ! comparisons should be done using map's Comp
+			// else if ()
 			{
 				node->content->second = val.second;
 				*created_node = node;
 			}
-			else if(val.first < node->content->first)					// ! comparisons should be done using map's Comp
+			else if (val.first < node->content->first)					// ! comparisons should be done using map's Comp
 			{
-				node->left = insert(node->left, val, created_node);		
+				node->left = insert(node->left, val, created_node);
+				if (node->left == _cardinal)
+				{
+					node->left = create_node(val);
+					*created_node = node;
+				}
 				node->left->parent = node;
 			}
 			else
 			{
 				node->right = insert(node->right, val, created_node);
+				if (node->right == _cardinal)
+				{
+					node->right = create_node(val);
+					*created_node = node;
+				}
 				node->right->parent = node;
 			}
 			
 			return (balance(node));
+		}
+
+	private:
+		Node_pointer	create_node(const value_type & val)
+		{
+			Node_pointer node = _node_allocator.allocate(1);
+			// node->content = _type_allocator.allocate(1);
+			// _type_allocator.construct(node->content, val);
+			// node->left = NULL;
+			// node->right = NULL;
+			// node->parent = NULL;
+			node->insert(val);
+			return (node);
 		}
 
 	public:
@@ -427,7 +454,7 @@ namespace ft
 		{
 			Node_pointer	res = NULL;
 
-			if (node == NULL)
+			if (node == NULL || node == _cardinal)
 				return (NULL);
 			else if (node->content->first == key)
 				return (node);
@@ -468,7 +495,7 @@ namespace ft
 
 		void			print_bst(Node_pointer current, int space = 0) const
 		{
-			if (current)
+			if (current && current != _cardinal)
 			{
 				space += 11;
 				print_bst(current->right, space);
@@ -518,6 +545,7 @@ namespace ft
 	protected:
 		Node_pointer	_root;
 		Node_pointer	_cardinal;			// ? parent will be root, left will be first node, last will be last node
+		Compare			_comp;
 		Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
 		

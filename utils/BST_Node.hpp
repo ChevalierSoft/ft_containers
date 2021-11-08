@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/27 05:13:08 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 09:08:54 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,27 @@ namespace ft
 			return (*this);
 		}
 
+		// * non member functions
+
+		BST_Node*		insert(const value_type &val)
+		{
+			content = _pair_allocator.allocate(1);
+			_pair_allocator.construct(content, val);
+			left = NULL;
+			right = NULL;
+			parent = NULL;
+			return (this);
+		}
+
+		// BST_Node*		insert(value_type &val, BST_Node *cardinal)
+		// {
+		// 	content = _type_allocator.allocate(1);
+		// 	_type_allocator.construct(content, val);
+		// 	left = cardinal;
+		// 	right = cardinal;
+		// 	parent = cardinal;
+		// 	return (*this);
+		// }
 
 		// * Variables ________________________________________________
 		pointer			content;

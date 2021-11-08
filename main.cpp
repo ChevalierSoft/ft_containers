@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/07 08:34:11 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 09:25:40 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -692,9 +692,9 @@ void	test_bst()
 		bst.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
 		bst.insert(ft::make_pair<int, std::string>(20, "🧙"));
 		bst.insert(ft::make_pair<int, std::string>(3, "🧛"));
-		bst.insert(ft::make_pair<int, std::string>(5, "🧛"));
+		bst.insert(ft::make_pair<int, std::string>(5, "👽"));
 		bst.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		bst.insert(ft::make_pair<int, std::string>(30, "🕵️"));
+		bst.insert(ft::make_pair<int, std::string>(30, "🥷"));
 		bst.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 		bst.display();
 	}
@@ -731,9 +731,9 @@ void	test_map()
 		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
 		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
 		m.insert(ft::make_pair<int, std::string>(3, "🧛"));
-		m.insert(ft::make_pair<int, std::string>(5, "🧛"));
+		m.insert(ft::make_pair<int, std::string>(5, "👽"));
 		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		m.insert(ft::make_pair<int, std::string>(30, "🕵️"));
+		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
 		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 		// m.display();
 	}
@@ -757,9 +757,10 @@ void	test_map()
 		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
 		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
 		m.insert(ft::make_pair<int, std::string>(3, "🧛"));
-		m.insert(ft::make_pair<int, std::string>(5, "🧛"));
+		m.insert(ft::make_pair<int, std::string>(5, "👽"));
 		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		m.insert(ft::make_pair<int, std::string>(30, "🕵️"));
+		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
+		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
 		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 
 		m.display();
