@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 10:48:39 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 11:13:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,11 +225,13 @@ namespace ft
 		{
 			bool	found = false;
 
+			// if (_cardinal->left && key == _cardinal->left->content->first)
 			if (_cardinal->left &&
-				key == _cardinal->left->content->first)
+				(!_comp(key, _cardinal->left->content->first) && !_comp(_cardinal->left->content->first, key)) )	// ! using _comp
 				_cardinal->left = _cardinal->left->parent;
+			// if (_cardinal->right && key == _cardinal->right->content->first)
 			if (_cardinal->right &&
-				key == _cardinal->right->content->first)
+				(!_comp(key, _cardinal->right->content->first) && !_comp(_cardinal->right->content->first, key)) )	// ! using _comp
 				_cardinal->right = _cardinal->right->parent;
 
 			_root = remove(_root, key, &found);
@@ -249,11 +251,13 @@ namespace ft
 				return (NULL);
 				
 			// search for the key in the tree
-			if (key < node->content->first)
+			// if (key < node->content->first)									// ! using _comp
+			if (_comp(key, node->content->first))
 			{
 				node->left = this->remove(node->left, key, found);
 			}
-			else if (key > node->content->first)
+			// else if (key > node->content->first)
+			else if (_comp(node->content->first, key))							// ! using _comp
 			{
 				node->right = this->remove(node->right, key, found);
 			}
@@ -448,12 +452,15 @@ namespace ft
 
 			if (node == NULL || node == _cardinal)
 				return (NULL);
-			else if (node->content->first == key)
+			// else if (node->content->first == key)
+			else if (!_comp(node->content->first, key) && !_comp(key, node->content->first))	// ! using _comp
 				return (node);
 
-			if (key < node->content->first)
+			// if (key < node->content->first)
+			if (_comp(key, node->content->first))								// ! using _comp
 				res = search(node->left, key);
-			else if (key > node->content->first)
+			// else if (key > node->content->first)
+			else if (_comp(node->content->first, key))							// ! using _comp
 				res = search(node->right, key);
 			return (res);
 		}
