@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 16:08:36 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 19:17:55 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ namespace ft
 			>
 	class map /// * ___________________________________________________________  map
 	{
+
+	protected:
+		typedef	BinarySearchTree<Key, T, Compare, Allocator>	Tree_Type;
+		typedef	typename Tree_Type::Node						Node_Type;
+		typedef	typename Tree_Type::Node*						Node_pointer;
+
 	public:
 		typedef Key												key_type;
 		typedef T												mapped_type;
@@ -51,15 +57,11 @@ namespace ft
 		typedef	const value_type&								const_reference;
 		typedef typename Allocator::pointer						pointer;
 		typedef typename Allocator::const_pointer				const_pointer;
-		typedef ft::BST_bidirectional_iterator<ft::pair<Key, T> > iterator;
+		typedef ft::BST_bidirectional_iterator<Node_Type, Compare> iterator;
 		typedef const iterator									const_iterator;
 		typedef ft::reverse_iterator<iterator>					reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 	
-	protected:
-		typedef	BinarySearchTree<Key, T, key_compare, allocator_type>	Tree_Type;
-		typedef	typename Tree_Type::Node								Node_Type;
-		typedef	typename Tree_Type::Node*								Node_pointer;
 	
 		/// * Constructors & Destructors ______________________________________
 
@@ -89,23 +91,30 @@ namespace ft
 
 		iterator	begin() const
 		{
-			Node_pointer node = _bst.find_min();
+			// if (_bst._cardinal->left)
+			// 	return (iterator(_bst._cardinal->left));
+			// return (iterator(_bst._cardinal));
 
-			if (node)
+			if (_bst._cardinal->left)
 			{
-				iterator it(node->content);
-				return (it);
+				iterator i(_bst._cardinal->left, _bst._cardinal);
+				std::cout << "begin() -> " << i->second << std::endl;
+				std::cout << "begin() *  " << (*i) << std::endl;
 			}
-			return (iterator(NULL));
+			else
+				std::cout << "! (_bst._cardinal->left)" << std::endl;
+
+			return (iterator());
 		}
 
 		iterator	end()		// ? could use a sentinel here and in begin
 		{
-			if (!_size)
-				return (iterator(NULL));
-			// std::cout << sizeof(std::string) << std::endl;
-			return ( iterator(_bst.find_max()->content) );	// + sizeof(value_type)
-			// return (iterator(NULL));
+			// if (!_size)
+			// 	return (iterator(NULL));
+			// // std::cout << sizeof(std::string) << std::endl;
+			// return ( iterator(_bst.find_max()->content) );	// + sizeof(value_type)
+			// // return (iterator(NULL));
+			return (iterator(_bst._cardinal));
 		};
 
 // ft::BST_Node<int, std::__cxx11::basic_string<char>, std::less<int>, std::allocator<ft::pair<int, std::__cxx11::basic_string<char> > > > *

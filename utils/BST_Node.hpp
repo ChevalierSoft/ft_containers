@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 15:55:15 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:57:56 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,22 @@
 namespace ft
 {
 	// ? BST_Node is a node used in BinarySearchTree
-	// template<	class Key,
-	// 			class T,
-	// 			class Compare = std::less<Key>,
-	// 			class Type_Allocator = std::allocator< ft::pair<Key, T> >
-	// 		>
-	template <typename T, class Type_Allocator = std::allocator<T> >
+	template<	class Key,
+				class T,
+				class Compare = std::less<Key>,
+				class Type_Allocator = std::allocator< ft::pair<Key, T> >
+			>
+	// template <typename T, class Type_Allocator = std::allocator<T> >
 	struct BST_Node // * _______________________________________________  BST_Node
 	{
-		//typedef ft::pair<Key, T>						value_type;
-		typedef	T										value_type;
+		typedef ft::pair<Key, T>						value_type;
+		// typedef	T										value_type;
 		typedef typename std::ptrdiff_t					difference_type;
 		typedef size_t									size_type;
 		typedef	value_type&								reference;
 		typedef	const value_type&						const_reference;
-		// typedef	value_type*								pointer;
-		// typedef	const value_type*						const_pointer;
 		typedef typename Type_Allocator::pointer		pointer;
-		typedef typename Type_Allocator::const_pointer	const_pointer;
+		typedef const pointer							const_pointer;
 		// typedef Compare									key_compare;
 
 		// * Constructors & Destructors _______________________________
@@ -71,6 +69,7 @@ namespace ft
 		}
 
 		// * Operators ________________________________________________
+		
 		BST_Node &		operator= (const BST_Node & rhs)
 		{
 			if (this != &rhs)
@@ -109,6 +108,7 @@ namespace ft
 	};  // * BST_Node _________________________________________________  
 
 	// * Comparisons specific to BST so we will be comparing only the key
+
 	// template< class Key, class T, class Compare = std::less<Key>, class Type_Allocator = std::allocator< T > >
 	// bool			operator==(const ft::BST_Node<Key, T, Compare, Type_Allocator> & lhs, const ft::BST_Node<Key, T, Compare, Type_Allocator> & rhs)
 	// {
@@ -149,3 +149,8 @@ namespace ft
 }
 
 #endif
+
+
+
+//  (aka 'ft::pair<int, std::__cxx11::basic_string<char> > *')
+//  (aka 'ft::pair<int, std::__cxx11::basic_string<char> > **')

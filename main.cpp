@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 15:59:00 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:24:09 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -672,7 +672,7 @@ void	test_bst()
 	// creating a pair
 	ft::pair<int, std::string> dp(7, "😇");
 	// creating a node with the pair
-	ft::BST_Node<ft::pair<int, std::string>>	nd(dp);
+	ft::BST_Node<int, std::string>	nd(dp);
 	// creating a bst with the node
 	ft::BinarySearchTree<int, std::string> bst(dp);
 
@@ -743,13 +743,13 @@ void	test_map()
 	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
 	{
 		m.clear();
-		// m.display();
+		m.display();
 	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "bidirictional_iterator" <<RST<< std::endl;
 	{
-		// ft::map<int, std::string>::iterator it;
+		ft::map<int, std::string>::iterator it;
 
 		// if (m.begin() == m.end())
 		// 	std::cout << "(m.begin() == m.end())" << std::endl;
@@ -766,7 +766,13 @@ void	test_map()
 
 		m.display();
 
-		// std::cout<< "begin : " << m.begin()->second <<std::endl<< "end : " << m.end()->second <<std::endl;
+
+		it = m.begin();
+		// std::cout<< "begin : " << m.begin()->second <<std::endl;
+		// std::cout<< "end : "   << m.end()->second   <<std::endl;
+
+		// ft::pair<int, std::string> l = *m.begin();
+		// std::cout << *it << std::endl;
 	}
 
 	// std::map<int, std::string>				mup;
@@ -796,9 +802,9 @@ int	main(void)
 	// test_iterator();
 	// test_vector();
 
-	test_bst();
+	// test_bst();
 
-	// test_map();
+	test_map();
 
 	return (0);
 }

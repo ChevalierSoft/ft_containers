@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 15:58:11 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 18:23:29 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ namespace ft
 				class T,
 				class Compare = std::less<Key>, 
 				class Type_Allocator = std::allocator< ft::pair<Key, T> >,
-				class N = ft::BST_Node<ft::pair<Key, T>, Type_Allocator>,
+				class N = ft::BST_Node<Key, T, Compare, Type_Allocator>,
 				class Node_Allocator = std::allocator< N >
 			>
 	class BinarySearchTree // * _______________________________________________  BinarySearchTree
@@ -368,7 +368,8 @@ namespace ft
 			_cardinal->parent = _root;
 
 			if (!_cardinal->left)
-				find_min(_cardinal->parent);
+				_cardinal->left = find_min(_cardinal->parent);
+			// else if (val.first < _cardinal->left->content->first)
 			else if (_comp(val.first, _cardinal->left->content->first))					// ! using _comp
 			{
 				_cardinal->left = created_node;
@@ -376,7 +377,8 @@ namespace ft
 			}
 
 			if (!_cardinal->right)													
-				find_max(_cardinal->parent);
+				_cardinal->right = find_max(_cardinal->parent);
+			// else if (val.first > _cardinal->right->content->first)
 			else if (_comp(_cardinal->right->content->first, val.first))				// ! using _comp
 			{
 				_cardinal->right = created_node;
@@ -541,9 +543,10 @@ namespace ft
 
 		// * Variables ________________________________________________________
 
+	public:
+		Node_pointer	_cardinal;
 	protected:
 		Node_pointer	_root;
-		Node_pointer	_cardinal;			// ? parent is root, left is first node, last is last node
 		Compare			_comp;
 		Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
@@ -561,12 +564,12 @@ namespace ft
 	template<class T, class Type_Allocator = std::allocator< T > >
 	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> & bn)
 	{
-		if (bn->left)
+		if (bn.left)
 			o << ", ";
 		else
 			o << "  ";
-		o << bn->content->first;
-		if (bn->right)
+		o << bn.content->first;
+		if (bn.right)
 			o << " .";
 		else
 			o << "  ";
