@@ -68,8 +68,8 @@ namespace ft
 		random_access_iterator	operator++(int)	{ random_access_iterator tmp = *this; ++(this->_ptr); return (tmp);	}
 		random_access_iterator	operator--(int) { random_access_iterator tmp = *this; --(this->_ptr); return (tmp);	}
 
-		reference				operator* ()	{ return (*_ptr);	}
-		pointer					operator->()	{ return (_ptr);	}
+		reference				operator* () const	{ return (*_ptr);	}
+		pointer					operator->() const	{ return (_ptr);	}
 
 		pointer					base() const	{ return _ptr; 	}
 
