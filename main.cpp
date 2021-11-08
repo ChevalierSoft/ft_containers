@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 10:45:42 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 15:59:00 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -672,7 +672,7 @@ void	test_bst()
 	// creating a pair
 	ft::pair<int, std::string> dp(7, "😇");
 	// creating a node with the pair
-	ft::BST_Node<int, std::string>	nd(dp);
+	ft::BST_Node<ft::pair<int, std::string>>	nd(dp);
 	// creating a bst with the node
 	ft::BinarySearchTree<int, std::string> bst(dp);
 

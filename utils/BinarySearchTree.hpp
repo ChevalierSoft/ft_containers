@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 11:13:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 15:58:11 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ namespace ft
 				class T,
 				class Compare = std::less<Key>, 
 				class Type_Allocator = std::allocator< ft::pair<Key, T> >,
-				class N = ft::BST_Node<Key, T, Compare, Type_Allocator>,
+				class N = ft::BST_Node<ft::pair<Key, T>, Type_Allocator>,
 				class Node_Allocator = std::allocator< N >
 			>
 	class BinarySearchTree // * _______________________________________________  BinarySearchTree
@@ -558,8 +558,8 @@ namespace ft
 		return (o);
 	}
 
-	template< class Key, class T, class Type_Allocator = std::allocator< T > >
-	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<Key, T, Type_Allocator> & bn)
+	template<class T, class Type_Allocator = std::allocator< T > >
+	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> & bn)
 	{
 		if (bn->left)
 			o << ", ";
@@ -573,8 +573,8 @@ namespace ft
 		return (o);
 	}
 
-	template< class Key, class T, class Type_Allocator = std::allocator< T > >
-	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<Key, T, Type_Allocator> * bn)
+	template<class T, class Type_Allocator = std::allocator<T> >
+	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<T, Type_Allocator> * bn)
 	{
 		o << ", " << bn->content->first << " .";
 		return (o);
