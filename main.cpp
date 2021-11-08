@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 09:25:40 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 10:35:34 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -696,6 +696,7 @@ void	test_bst()
 		bst.insert(ft::make_pair<int, std::string>(11, "🧚"));
 		bst.insert(ft::make_pair<int, std::string>(30, "🥷"));
 		bst.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+		// bst.insert(ft::make_pair<int, std::string>(1, "🥷"));
 		bst.display();
 	}
 	
@@ -703,7 +704,6 @@ void	test_bst()
 	std::cout <<std::endl<<CYN<< "remove()" <<RST<< std::endl;
 	{
 		bst.remove(4);
-		bst.remove(30);
 		bst.remove(7);
 		bst.display();
 
@@ -758,7 +758,7 @@ void	test_map()
 		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
 		m.insert(ft::make_pair<int, std::string>(3, "🧛"));
 		m.insert(ft::make_pair<int, std::string>(5, "👽"));
-		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
+		m.insert(ft::make_pair<int, std::string>(11, "👽"));
 		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
 		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
 		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));

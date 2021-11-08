@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 09:33:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/08 10:33:46 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,11 @@ namespace ft
 			int l = -1;
 			int r = -1;
 
-			if (!node)
+			if (!node || node == _cardinal)
 				return (0);
 
-			if (node->left)
-				l = get_last_floor(node->left);
-			if (node->right)
-				r = get_last_floor(node->right);
+			l = get_last_floor(node->left);
+			r = get_last_floor(node->right);
 
 			return (l > r) ? l + 1 : r + 1;
 		}
@@ -178,7 +176,7 @@ namespace ft
 			b = get_balance(node);
 
 			// too much nodes left
-			if (b == -2)
+			if (b <= -2)
 			{
 				if (get_balance(node->left) <= 0)
 					return (left_left_rotation(node));
@@ -186,7 +184,7 @@ namespace ft
 					return (left_right_rotation(node));
 			}
 			// too much nodes right
-			else if (b == 2)
+			else if (b >= 2)
 			{
 				if (get_balance(node->right) <= 0)
 					return (right_left_rotation(node));
@@ -226,20 +224,17 @@ namespace ft
 		bool			remove (const Key key)
 		{
 			bool	found = false;
-			// this can be inproved for performences
-			// if (this->search(key))
-			// {
 
-				if (_cardinal->left && key == _cardinal->left->content->first)
-					_cardinal->left = _cardinal->left->parent;
-				else if (_cardinal->right && key == _cardinal->right->content->first)
-					_cardinal->right = _cardinal->right->parent;					
+			if (_cardinal->left &&
+				key == _cardinal->left->content->first)
+				_cardinal->left = _cardinal->left->parent;
+			if (_cardinal->right &&
+				key == _cardinal->right->content->first)
+				_cardinal->right = _cardinal->right->parent;
 
-				_root = remove(_root, key, &found);
-				_cardinal->parent = _root;
-				// return (true);
-			// }
-			// return (false);
+			_root = remove(_root, key, &found);
+			_cardinal->parent = _root;
+
 			return (found);
 		}
 
@@ -338,7 +333,7 @@ namespace ft
 		{
 			if (!node)
 				return (NULL);
-			while (node->left != NULL)
+			while (node->left != NULL && node->left != _cardinal)
 				node = node->left;
 			return (node);
 		}
@@ -354,7 +349,7 @@ namespace ft
 		{
 			if (!node)
 				return (NULL);
-			while (node->left != NULL)
+			while (node->left != NULL && node->left != _cardinal)
 				node = node->left;
 			return (node);
 		}
@@ -369,14 +364,21 @@ namespace ft
 			_cardinal->parent = _root;
 
 			if (!_cardinal->left)
+				find_min(_cardinal->parent);
+			else if (val.first < _cardinal->left->content->first)					// ! need _comp
+			{
 				_cardinal->left = created_node;
-			else if (val.first < _cardinal->left->content->first)
-				_cardinal->left = created_node;
+				created_node->left = _cardinal;
+			}
 
-			if (!_cardinal->right)
-				_cardinal->right = created_node;
+			if (!_cardinal->right)													// ! need _comp
+				find_max(_cardinal->parent);
 			else if (val.first > _cardinal->right->content->first)
+			{
 				_cardinal->right = created_node;
+				created_node->right = _cardinal;
+			}
+
 			return (_root);
 		}
 
@@ -411,7 +413,7 @@ namespace ft
 				if (node->left == _cardinal)
 				{
 					node->left = create_node(val);
-					*created_node = node;
+					*created_node = node->left;
 				}
 				node->left->parent = node;
 			}
@@ -421,7 +423,7 @@ namespace ft
 				if (node->right == _cardinal)
 				{
 					node->right = create_node(val);
-					*created_node = node;
+					*created_node = node->right;
 				}
 				node->right->parent = node;
 			}
@@ -526,7 +528,7 @@ namespace ft
 		{
 			size_type	len = get_last_floor(node);
 
-			if (node)
+			if (node && node != _cardinal)
 			{
 				if (node->left)
 					display(node->left);
@@ -544,7 +546,7 @@ namespace ft
 
 	protected:
 		Node_pointer	_root;
-		Node_pointer	_cardinal;			// ? parent will be root, left will be first node, last will be last node
+		Node_pointer	_cardinal;			// ? parent is root, left is first node, last is last node
 		Compare			_comp;
 		Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
