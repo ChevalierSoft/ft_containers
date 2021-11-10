@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 18:24:09 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:29:06 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -677,7 +677,6 @@ void	test_bst()
 	ft::BinarySearchTree<int, std::string> bst(dp);
 
 	// bst.display();
-
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "search()" <<RST<< std::endl;
 	{
@@ -713,7 +712,6 @@ void	test_bst()
 		// std::cout << nd << std::endl;
 		// std::cout << (int *)nd->left <<"|"<< nd->parent->content->first <<"|"<< (int *)nd->right << std::endl;
 	}
-
 
 }
 
@@ -764,12 +762,10 @@ void	test_map()
 		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
 		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 
-		m.display();
+		// m.display();
 
-
-		it = m.begin();
+		// it = m.begin();
 		// std::cout<< "begin : " << m.begin()->second <<std::endl;
-		// std::cout<< "end : "   << m.end()->second   <<std::endl;
 
 		// ft::pair<int, std::string> l = *m.begin();
 		// std::cout << *it << std::endl;
@@ -802,7 +798,7 @@ int	main(void)
 	// test_iterator();
 	// test_vector();
 
-	// test_bst();
+	test_bst();
 
 	test_map();
 

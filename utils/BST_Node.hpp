@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 18:57:56 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:22:01 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,15 @@
 namespace ft
 {
 	// ? BST_Node is a node used in BinarySearchTree
+	// template <typename T, class Type_Allocator = std::allocator<T> >
 	template<	class Key,
 				class T,
 				class Compare = std::less<Key>,
 				class Type_Allocator = std::allocator< ft::pair<Key, T> >
 			>
-	// template <typename T, class Type_Allocator = std::allocator<T> >
-	struct BST_Node // * _______________________________________________  BST_Node
+	struct BST_Node // * _______________________________________________________ BST_Node
 	{
 		typedef ft::pair<Key, T>						value_type;
-		// typedef	T										value_type;
 		typedef typename std::ptrdiff_t					difference_type;
 		typedef size_t									size_type;
 		typedef	value_type&								reference;
@@ -37,16 +36,48 @@ namespace ft
 		typedef const pointer							const_pointer;
 		// typedef Compare									key_compare;
 
-		// * Constructors & Destructors _______________________________
+			// ? Node_content will allow the use of references on v
+			struct Node_content // ? _______________________________________________ Node_content
+			{
+				// ? Constructor
+				Node_content() : v(value_type()) {}
+				Node_content(const_reference val) : v(val) {}
+				Node_content(const Node_content & copy) {	*this = copy;	}
+				~Node_content() {}
+				// ? Non Member functions
+				Node_content&	operator= (const Node_content & rhs)
+				{
+					if (this != &rhs)
+						v = rhs.v;
+					return (*this);
+				}
+				// ? Variables
+				value_type	v;
+			}; // ? ________________________________________________________________
+			typedef std::allocator<Node_content>			Content_Allocator;
 
-		// * default (1)
-		BST_Node() : content(NULL), left(NULL), right(NULL), parent(NULL) {}
+		// * Constructors & Destructors ________________________________________
 
-		// * default with initialisation (2)
+		// * (1) default
+		BST_Node()
+		{
+			// content = _content_allocator.allocate(1);
+			content = new Node_content();
+			// content->v = value_type();
+			left = NULL;
+			right = NULL;
+			parent = NULL;
+		}
+
+		// * (2) default with initialisation
 		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL)
 		{
-			this->content = _type_allocator.allocate(1);
-			_type_allocator.construct(this->content, val);
+			// _content_allocator = std::allocator<Node_content>();
+			// content = _content_allocator.allocate(1);
+			// // this->content->v = val;
+
+			content = new Node_content();
+			content->v = val;
 			parent = p;
 			left = l;
 			right = r;
@@ -55,30 +86,39 @@ namespace ft
 		// * (3) copy by duplicating data
 		BST_Node(const BST_Node & copy) : parent(copy.parent), left(copy.left), right(copy.right)
 		{
-			content = _type_allocator.allocate(1);
-			_type_allocator.construct(this->content, copy.content);
+			// _content_allocator = std::allocator<Node_content>();
+			// content = _content_allocator.allocate(1);
+			// // _type_allocator.construct(this->content->v, copy.content->v);
+			// this->content->v = copy.content->v;
+			
+			content = new Node_content();
+			content = copy.content;
 		}
 
 		~BST_Node()
 		{
-			if (this->content)
-			{
-				_type_allocator.destroy(this->content);
-				_type_allocator.deallocate(this->content, 1);
-			}
+			// // if (this->content)
+			// // {
+			// 	// _content_allocator.destroy(this->content);
+				// _content_allocator.deallocate(this->content, 1);
+			// // }
+			
+			delete content;
 		}
 
-		// * Operators ________________________________________________
+		// * Operators _________________________________________________________
 		
 		BST_Node &		operator= (const BST_Node & rhs)
 		{
 			if (this != &rhs)
 			{
-				if (content)
-				{
-					_type_allocator.destroy(this->content);
-					_type_allocator.construct(this->content, rhs.content);
-				}
+				// // if (content)
+				// // {
+				// 	// _type_allocator.destroy(this->content);
+				// 	_type_allocator.construct(this->content, rhs.content);
+				// 	this->content->v = rhs.content->v;
+				// // }
+				this->content = rhs->content;
 				left = rhs.left;
 				right = rhs.right;
 				parent = rhs.parent;
@@ -86,24 +126,27 @@ namespace ft
 			return (*this);
 		}
 
-		// * non member functions
-
+		// ? makes the creation of nodes easier
 		BST_Node*		insert(const value_type &val)
 		{
-			content = _type_allocator.allocate(1);
-			_type_allocator.construct(content, val);
+			// content = _content_allocator.allocate(1);
+			// content->v = val;
+			content = new Node_content(val);
 			left = NULL;
 			right = NULL;
 			parent = NULL;
 			return (this);
 		}
 
-		// * Variables ________________________________________________
-		pointer			content;
-		BST_Node*		left;		// left node
-		BST_Node*		right;		// right node
-		BST_Node*		parent;		// parent node
-		Type_Allocator	_type_allocator;
+		// * Variables _________________________________________________________
+		// pointer			content;
+		Node_content*		content;			// pointer on Node_content
+		BST_Node*			left;				// left node
+		BST_Node*			right;				// right node
+		BST_Node*			parent;				// parent node
+		Type_Allocator		_type_allocator;	// allocator for value_type
+		Content_Allocator	_content_allocator;	// allocator for Content
+		// std::allocator<Node_content>	_content_allocator;
 
 	};  // * BST_Node _________________________________________________  
 
@@ -149,8 +192,3 @@ namespace ft
 }
 
 #endif
-
-
-
-//  (aka 'ft::pair<int, std::__cxx11::basic_string<char> > *')
-//  (aka 'ft::pair<int, std::__cxx11::basic_string<char> > **')
