@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/10 14:29:06 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:39:15 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -764,8 +764,12 @@ void	test_map()
 
 		// m.display();
 
-		// it = m.begin();
-		// std::cout<< "begin : " << m.begin()->second <<std::endl;
+		it = m.begin();
+		std::cout<< "begin->second : " << m.begin()->second <<std::endl;
+
+		ft::pair<int, std::string> pr = *it;
+		std::cout << "pr = *it; pr.second : " << pr.second << std::endl;
+
 
 		// ft::pair<int, std::string> l = *m.begin();
 		// std::cout << *it << std::endl;

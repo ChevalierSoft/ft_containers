@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/10 14:32:54 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:36:51 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,7 +371,7 @@ namespace ft
 
 			if (_cardinal->left == _cardinal)
 				_cardinal->left = find_min(_cardinal->parent);
-			else if (_comp(val.first, _cardinal->left->content->v.first))					// ! using _comp
+			else if (_comp(val.first, _cardinal->left->content->v.first))
 			{
 				_cardinal->left = created_node;
 				created_node->left = _cardinal;
@@ -379,7 +379,7 @@ namespace ft
 
 			if (_cardinal->right == _cardinal)													
 				_cardinal->right = find_max(_cardinal->parent);
-			else if (_comp(_cardinal->right->content->v.first, val.first))				// ! using _comp
+			else if (_comp(_cardinal->right->content->v.first, val.first))
 			{
 				_cardinal->right = created_node;
 				created_node->right = _cardinal;
