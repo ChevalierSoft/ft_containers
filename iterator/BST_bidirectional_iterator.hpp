@@ -72,15 +72,11 @@ namespace ft
 		// BST_bidirectional_iterator	operator++(int)	{ BST_bidirectional_iterator tmp = *this; ++(this->_ptr); return (tmp);	}
 		// BST_bidirectional_iterator	operator--(int) { BST_bidirectional_iterator tmp = *this; --(this->_ptr); return (tmp);	}
 
-		// typename Tn::reference		operator* () const	{ return (_ptr->content);	}
-		reference					operator* () const
-		{
-			const_pointer oui = _ptr->content;
-			return (oui);
-		}
-		pointer						operator->() const	{ return (_ptr->content);		}
+		reference					operator* () const	{ return (_ptr->content);	}
 
-		Node_pointer				base() const		{ return (_ptr); 	}
+		pointer						operator->() const	{ return (&_ptr->content);	}
+
+		Node_pointer				base() const		{ return (_ptr); 			}
 
 	// protected:
 		Node_pointer 				_ptr;		// actual node
@@ -92,8 +88,3 @@ namespace ft
 }
 
 #endif
-
-
-
-// 'ft::BST_Node<int, std::__cxx11::basic_string<char>, std::less<int>, std::allocator<ft::pair<int, std::__cxx11::basic_string<char> > > >'
-// 'ft::pair<int, std::__cxx11::basic_string<char> > *'

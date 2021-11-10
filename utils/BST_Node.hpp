@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 18:57:56 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/09 09:45:11 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ namespace ft
 	// template <typename T, class Type_Allocator = std::allocator<T> >
 	struct BST_Node // * _______________________________________________  BST_Node
 	{
-		typedef ft::pair<Key, T>						value_type;
-		// typedef	T										value_type;
+		typedef	typename Type_Allocator::value_type		value_type;
+		// typedef ft::pair<Key, T>						value_type;
 		typedef typename std::ptrdiff_t					difference_type;
 		typedef size_t									size_type;
 		typedef	value_type&								reference;
@@ -39,33 +39,35 @@ namespace ft
 
 		// * Constructors & Destructors _______________________________
 
-		// * default (1)
-		BST_Node() : content(NULL), left(NULL), right(NULL), parent(NULL) {}
+		// ? (1) default
+		BST_Node() : content(value_type()), left(NULL), right(NULL), parent(NULL) {}
 
-		// * default with initialisation (2)
-		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL)
+		// ? (2) default with initialisation
+		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL)// : content(val)
 		{
-			this->content = _type_allocator.allocate(1);
-			_type_allocator.construct(this->content, val);
+			// this->content = _type_allocator.allocate(1);
+			// _type_allocator.construct(this->content, val);
+			content = val;
 			parent = p;
 			left = l;
 			right = r;
 		}
 
-		// * (3) copy by duplicating data
-		BST_Node(const BST_Node & copy) : parent(copy.parent), left(copy.left), right(copy.right)
+		// ? (3) copy by duplicating data
+		BST_Node(const BST_Node & copy)
 		{
-			content = _type_allocator.allocate(1);
-			_type_allocator.construct(this->content, copy.content);
+			// content = _type_allocator.allocate(1);
+			// _type_allocator.construct(this->content, copy.content);
+			*this = copy;
 		}
 
 		~BST_Node()
 		{
-			if (this->content)
-			{
-				_type_allocator.destroy(this->content);
-				_type_allocator.deallocate(this->content, 1);
-			}
+			// if (this->content)
+			// {
+			// 	_type_allocator.destroy(this->content);
+			// 	_type_allocator.deallocate(this->content, 1);
+			// }
 		}
 
 		// * Operators ________________________________________________
@@ -74,11 +76,14 @@ namespace ft
 		{
 			if (this != &rhs)
 			{
-				if (content)
-				{
-					_type_allocator.destroy(this->content);
-					_type_allocator.construct(this->content, rhs.content);
-				}
+				// if (content)
+				// {
+					// _type_allocator.destroy(this->content);
+				// 	_type_allocator.construct(this->content, rhs.content);
+				// }
+				// content = rhs.content;
+				// _type_allocator.construct(this->content, rhs.content);
+				content = rhs.content;
 				left = rhs.left;
 				right = rhs.right;
 				parent = rhs.parent;
@@ -90,8 +95,9 @@ namespace ft
 
 		BST_Node*		insert(const value_type &val)
 		{
-			content = _type_allocator.allocate(1);
-			_type_allocator.construct(content, val);
+			// content = _type_allocator.allocate(1);
+			// _type_allocator.construct(content, val);
+			content = val;
 			left = NULL;
 			right = NULL;
 			parent = NULL;
@@ -99,10 +105,12 @@ namespace ft
 		}
 
 		// * Variables ________________________________________________
-		pointer			content;
-		BST_Node*		left;		// left node
-		BST_Node*		right;		// right node
-		BST_Node*		parent;		// parent node
+
+		// pointer			content;
+		value_type		content;
+		BST_Node*		left;				// left node
+		BST_Node*		right;				// right node
+		BST_Node*		parent;				// parent node
 		Type_Allocator	_type_allocator;
 
 	};  // * BST_Node _________________________________________________  
@@ -149,8 +157,3 @@ namespace ft
 }
 
 #endif
-
-
-
-//  (aka 'ft::pair<int, std::__cxx11::basic_string<char> > *')
-//  (aka 'ft::pair<int, std::__cxx11::basic_string<char> > **')
