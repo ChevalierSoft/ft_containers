@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/10 14:39:15 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/10 15:32:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -662,7 +662,7 @@ void	test_utility()
 // ? __________________________________________________________________________ ft::map
 
 
-
+/*
 // ____________________________________________________________________________
 void	test_bst()
 {
@@ -714,7 +714,7 @@ void	test_bst()
 	}
 
 }
-
+*/
 
 // ____________________________________________________________________________
 void	test_map()
@@ -741,7 +741,7 @@ void	test_map()
 	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
 	{
 		m.clear();
-		m.display();
+		// m.display();
 	}
 
 	//__________________________________________________________________________
@@ -764,12 +764,13 @@ void	test_map()
 
 		// m.display();
 
-		it = m.begin();
 		std::cout<< "begin->second : " << m.begin()->second <<std::endl;
 
+		it = m.begin();
 		ft::pair<int, std::string> pr = *it;
 		std::cout << "pr = *it; pr.second : " << pr.second << std::endl;
 
+		auto et = m.end();
 
 		// ft::pair<int, std::string> l = *m.begin();
 		// std::cout << *it << std::endl;
@@ -795,6 +796,16 @@ void	test_map()
 
 }
 
+void	speed_map()
+{
+	srand(time(NULL));
+	ft::map<int, std::string> m;
+	for (size_t i = 0; i < 100000; ++i)
+	{
+		m.insert(ft::make_pair<int, std::string>(rand(), "🥷"));
+	}
+}
+
 // ____________________________________________________________________________
 int	main(void)
 {
@@ -802,9 +813,11 @@ int	main(void)
 	// test_iterator();
 	// test_vector();
 
-	test_bst();
+	// test_bst();
 
-	test_map();
+	// test_map();
+
+	speed_map();
 
 	return (0);
 }
