@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/10 15:35:12 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:03:33 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ namespace ft
 			left = NULL;
 			right = NULL;
 			parent = NULL;
+			depth = 0;
+			bf = 0;
 		}
 
 		// * (2) default with initialisation
@@ -89,6 +91,8 @@ namespace ft
 			parent = p;
 			left = l;
 			right = r;
+			depth = 0;
+			bf = 0;
 		}
 
 		// * (3) copy by duplicating data
@@ -103,6 +107,9 @@ namespace ft
 			parent = copy.parent;
 			left = copy.left;
 			right = copy.right;
+
+			depth = copy.depth;
+			bf = copy.bf;
 		}
 
 		~BST_Node()
@@ -129,6 +136,8 @@ namespace ft
 				left = rhs.left;
 				right = rhs.right;
 				parent = rhs.parent;
+				depth = rhs.depth;
+				bf = rhs.bf;
 			}
 			return (*this);
 		}
@@ -142,6 +151,8 @@ namespace ft
 			left = NULL;
 			right = NULL;
 			parent = NULL;
+			depth = 0;
+			bf = 0;
 			return (this);
 		}
 
@@ -151,7 +162,9 @@ namespace ft
 		BST_Node*					left;				// left node
 		BST_Node*					right;				// right node
 		BST_Node*					parent;				// parent node
+		
 		size_t						depth;
+		size_t						bf;
 		// Type_Allocator				_type_allocator;	// allocator for value_type
 		// Content_Allocator	_content_allocator;	// allocator for content
 		// std::allocator<Node_content<ft::pair<Key, T> > >	_content_allocator;
