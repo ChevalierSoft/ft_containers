@@ -75,10 +75,9 @@ namespace ft
 		// typename Tn::reference		operator* () const	{ return (_ptr->content);	}
 		reference					operator* () const
 		{
-			const_pointer oui = _ptr->content;
-			return (oui);
+			return (_ptr->content->v);
 		}
-		pointer						operator->() const	{ return (_ptr->content);		}
+		pointer						operator->() const	{ return (&_ptr->content->v);		}
 
 		Node_pointer				base() const		{ return (_ptr); 	}
 

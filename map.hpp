@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 19:17:55 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:26:52 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,13 @@ namespace ft
 
 			if (_bst._cardinal->left)
 			{
-				iterator i(_bst._cardinal->left, _bst._cardinal);
-				std::cout << "begin() -> " << i->second << std::endl;
-				std::cout << "begin() *  " << (*i) << std::endl;
+				// iterator i(_bst._cardinal->left, _bst._cardinal);
+				// std::cout << "begin() -> " << i->second << std::endl;
+				// std::cout << "begin() *  " << (*i) << std::endl;
+				return (iterator(_bst._cardinal->left, _bst._cardinal));
 			}
-			else
-				std::cout << "! (_bst._cardinal->left)" << std::endl;
+			// else
+			// 	std::cout << "! (_bst._cardinal->left)" << std::endl;
 
 			return (iterator());
 		}
@@ -114,7 +115,7 @@ namespace ft
 			// // std::cout << sizeof(std::string) << std::endl;
 			// return ( iterator(_bst.find_max()->content) );	// + sizeof(value_type)
 			// // return (iterator(NULL));
-			return (iterator(_bst._cardinal));
+			return (iterator(_bst._cardinal, _bst._cardinal));
 		};
 
 // ft::BST_Node<int, std::__cxx11::basic_string<char>, std::less<int>, std::allocator<ft::pair<int, std::__cxx11::basic_string<char> > > > *

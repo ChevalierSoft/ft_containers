@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 18:57:56 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:03:33 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,39 @@
 
 namespace ft
 {
+	// ? Node_content will allow the use of references on v
+	template<class value_type>
+	struct Node_content // * ___________________________________________________ Node_content
+	{
+		// * Constructor
+		Node_content() : v(value_type()) {}
+		Node_content(const value_type & val) : v(val) {}
+		Node_content(const Node_content & copy) {	*this = copy;	}
+		~Node_content() {}
+		// * Non Member functions
+		Node_content&	operator= (const Node_content & rhs)
+		{
+			if (this != &rhs)
+				v = rhs.v;
+			return (*this);
+		}
+		// * Variables
+		value_type	v;
+	}; // * ____________________________________________________________________
+
+
+
 	// ? BST_Node is a node used in BinarySearchTree
+	// template <typename T, class Type_Allocator = std::allocator<T> >
 	template<	class Key,
 				class T,
 				class Compare = std::less<Key>,
-				class Type_Allocator = std::allocator< ft::pair<Key, T> >
+				class Type_Allocator = std::allocator< ft::pair<Key, T> >,
+				class Content_Allocator = std::allocator<Node_content< ft::pair<Key, T> > >
 			>
-	// template <typename T, class Type_Allocator = std::allocator<T> >
-	struct BST_Node // * _______________________________________________  BST_Node
+	struct BST_Node // * _______________________________________________________ BST_Node
 	{
 		typedef ft::pair<Key, T>						value_type;
-		// typedef	T										value_type;
 		typedef typename std::ptrdiff_t					difference_type;
 		typedef size_t									size_type;
 		typedef	value_type&								reference;
@@ -37,73 +59,115 @@ namespace ft
 		typedef const pointer							const_pointer;
 		// typedef Compare									key_compare;
 
-		// * Constructors & Destructors _______________________________
+			
+			// typedef std::allocator<Node_content>			Content_Allocator;
 
-		// * default (1)
-		BST_Node() : content(NULL), left(NULL), right(NULL), parent(NULL) {}
+		// * Constructors & Destructors ________________________________________
 
-		// * default with initialisation (2)
+		// * (1) default
+		BST_Node()
+		{
+			// content = _content_allocator.allocate(1);
+			// content->v = value_type();
+			
+			content = NULL; //new Node_content<value_type>();
+			left = NULL;
+			right = NULL;
+			parent = NULL;
+			depth = 0;
+			bf = 0;
+		}
+
+		// * (2) default with initialisation
 		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL)
 		{
-			this->content = _type_allocator.allocate(1);
-			_type_allocator.construct(this->content, val);
+			// content = _content_allocator.allocate(1);
+
+			// std::cout << "sizeof(content) : " << sizeof(Node_content<value_type>) << std::endl;
+			// content = (Node_content<value_type> *)malloc(sizeof(Node_content<value_type>));
+			
+			content = new Node_content<value_type>();
+			content->v = val;
 			parent = p;
 			left = l;
 			right = r;
+			depth = 0;
+			bf = 0;
 		}
 
 		// * (3) copy by duplicating data
-		BST_Node(const BST_Node & copy) : parent(copy.parent), left(copy.left), right(copy.right)
+		BST_Node(const BST_Node & copy)
 		{
-			content = _type_allocator.allocate(1);
-			_type_allocator.construct(this->content, copy.content);
+			// content = _content_allocator.allocate(1);
+			// this->content->v = copy.content->v;
+			
+			content = new Node_content<value_type>();
+			content = copy.content;
+
+			parent = copy.parent;
+			left = copy.left;
+			right = copy.right;
+
+			depth = copy.depth;
+			bf = copy.bf;
 		}
 
 		~BST_Node()
 		{
-			if (this->content)
-			{
-				_type_allocator.destroy(this->content);
-				_type_allocator.deallocate(this->content, 1);
-			}
+			// // if (this->content)
+			// // {
+			// 	// _content_allocator.destroy(this->content);
+				// _content_allocator.deallocate(this->content, 1);
+			// // }
+			
+			delete content;
 		}
 
-		// * Operators ________________________________________________
+		// * Operators _________________________________________________________
 		
 		BST_Node &		operator= (const BST_Node & rhs)
 		{
 			if (this != &rhs)
 			{
-				if (content)
-				{
-					_type_allocator.destroy(this->content);
-					_type_allocator.construct(this->content, rhs.content);
-				}
+				if (!content)
+					content = new Node_content<value_type>(rhs->content->val);
+				else
+					this->content = rhs->content;
 				left = rhs.left;
 				right = rhs.right;
 				parent = rhs.parent;
+				depth = rhs.depth;
+				bf = rhs.bf;
 			}
 			return (*this);
 		}
 
-		// * non member functions
-
+		// ? makes the creation of nodes easier
 		BST_Node*		insert(const value_type &val)
 		{
-			content = _type_allocator.allocate(1);
-			_type_allocator.construct(content, val);
+			// content = _content_allocator.allocate(1);
+			// content->v = val;
+			content = new Node_content<value_type>(val);
 			left = NULL;
 			right = NULL;
 			parent = NULL;
+			depth = 0;
+			bf = 0;
 			return (this);
 		}
 
-		// * Variables ________________________________________________
-		pointer			content;
-		BST_Node*		left;		// left node
-		BST_Node*		right;		// right node
-		BST_Node*		parent;		// parent node
-		Type_Allocator	_type_allocator;
+		// * Variables _________________________________________________________
+		// pointer			content;
+		Node_content<value_type>*	content;			// pointer on Node_content
+		BST_Node*					left;				// left node
+		BST_Node*					right;				// right node
+		BST_Node*					parent;				// parent node
+		
+		size_t						depth;
+		size_t						bf;
+		// Type_Allocator				_type_allocator;	// allocator for value_type
+		// Content_Allocator	_content_allocator;	// allocator for content
+		// std::allocator<Node_content<ft::pair<Key, T> > >	_content_allocator;
 
 	};  // * BST_Node _________________________________________________  
 
@@ -149,8 +213,3 @@ namespace ft
 }
 
 #endif
-
-
-
-//  (aka 'ft::pair<int, std::__cxx11::basic_string<char> > *')
-//  (aka 'ft::pair<int, std::__cxx11::basic_string<char> > **')

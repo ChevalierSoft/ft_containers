@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/08 18:24:09 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/12 17:02:49 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -662,7 +662,7 @@ void	test_utility()
 // ? __________________________________________________________________________ ft::map
 
 
-
+/*
 // ____________________________________________________________________________
 void	test_bst()
 {
@@ -677,7 +677,6 @@ void	test_bst()
 	ft::BinarySearchTree<int, std::string> bst(dp);
 
 	// bst.display();
-
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "search()" <<RST<< std::endl;
 	{
@@ -714,9 +713,8 @@ void	test_bst()
 		// std::cout << (int *)nd->left <<"|"<< nd->parent->content->first <<"|"<< (int *)nd->right << std::endl;
 	}
 
-
 }
-
+*/
 
 // ____________________________________________________________________________
 void	test_map()
@@ -739,41 +737,44 @@ void	test_map()
 		// m.display();
 	}
 
-	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
-	{
-		m.clear();
-		m.display();
-	}
+	// //__________________________________________________________________________
+	// std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
+	// {
+	// 	m.clear();
+	// 	// m.display();
+	// }
 
-	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "bidirictional_iterator" <<RST<< std::endl;
-	{
-		ft::map<int, std::string>::iterator it;
+	// //__________________________________________________________________________
+	// std::cout <<std::endl<<CYN<< "bidirictional_iterator" <<RST<< std::endl;
+	// {
+	// 	ft::map<int, std::string>::iterator it;
 
-		// if (m.begin() == m.end())
-		// 	std::cout << "(m.begin() == m.end())" << std::endl;
+	// 	// if (m.begin() == m.end())
+	// 	// 	std::cout << "(m.begin() == m.end())" << std::endl;
 
-		m.insert(ft::make_pair<int, std::string>(7, "😇"));
-		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
-		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
-		m.insert(ft::make_pair<int, std::string>(3, "🧛"));
-		m.insert(ft::make_pair<int, std::string>(5, "👽"));
-		m.insert(ft::make_pair<int, std::string>(11, "👽"));
-		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
-		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+	// 	m.insert(ft::make_pair<int, std::string>(7, "😇"));
+	// 	m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
+	// 	m.insert(ft::make_pair<int, std::string>(20, "🧙"));
+	// 	m.insert(ft::make_pair<int, std::string>(3, "🧛"));
+	// 	m.insert(ft::make_pair<int, std::string>(5, "👽"));
+	// 	m.insert(ft::make_pair<int, std::string>(11, "👽"));
+	// 	m.insert(ft::make_pair<int, std::string>(11, "🧚"));
+	// 	m.insert(ft::make_pair<int, std::string>(30, "🥷"));
+	// 	m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 
-		m.display();
+	// 	// m.display();
 
+	// 	std::cout<< "begin->second : " << m.begin()->second <<std::endl;
 
-		it = m.begin();
-		// std::cout<< "begin : " << m.begin()->second <<std::endl;
-		// std::cout<< "end : "   << m.end()->second   <<std::endl;
+	// 	it = m.begin();
+	// 	ft::pair<int, std::string> pr = *it;
+	// 	std::cout << "pr = *it; pr.second : " << pr.second << std::endl;
 
-		// ft::pair<int, std::string> l = *m.begin();
-		// std::cout << *it << std::endl;
-	}
+	// 	auto et = m.end();
+
+	// 	// ft::pair<int, std::string> l = *m.begin();
+	// 	// std::cout << *it << std::endl;
+	// }
 
 	// std::map<int, std::string>				mup;
 	// std::map<int, std::string>::iterator	uwu;
@@ -795,6 +796,16 @@ void	test_map()
 
 }
 
+void	speed_map()
+{
+	srand(time(NULL));
+	ft::map<int, std::string> m;
+	for (size_t i = 0; i < 1000000; ++i)
+	{
+		m.insert(ft::make_pair<int, std::string>(rand(), "🥷"));
+	}
+}
+
 // ____________________________________________________________________________
 int	main(void)
 {
@@ -804,7 +815,9 @@ int	main(void)
 
 	// test_bst();
 
-	test_map();
+	// test_map();
+
+	speed_map();
 
 	return (0);
 }
