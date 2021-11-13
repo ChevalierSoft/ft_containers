@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/12 17:02:49 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/13 12:32:55 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 #include "./utils/color.h"
 #include "./utils/ft_print_memory.h"
+#include <time.h> // rand()
 
 #define ENDL	std::cout<<std::endl;
 #define __GRN	std::cout<<GRN;
@@ -737,62 +738,62 @@ void	test_map()
 		// m.display();
 	}
 
-	// //__________________________________________________________________________
-	// std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
-	// {
-	// 	m.clear();
-	// 	// m.display();
-	// }
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
+	{
+		m.clear();
+		// m.display();
+	}
 
-	// //__________________________________________________________________________
-	// std::cout <<std::endl<<CYN<< "bidirictional_iterator" <<RST<< std::endl;
-	// {
-	// 	ft::map<int, std::string>::iterator it;
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "bidirictional_iterator" <<RST<< std::endl;
+	{
+		ft::map<int, std::string>::iterator it;
 
-	// 	// if (m.begin() == m.end())
-	// 	// 	std::cout << "(m.begin() == m.end())" << std::endl;
+		// if (m.begin() == m.end())
+		// 	std::cout << "(m.begin() == m.end())" << std::endl;
 
-	// 	m.insert(ft::make_pair<int, std::string>(7, "😇"));
-	// 	m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
-	// 	m.insert(ft::make_pair<int, std::string>(20, "🧙"));
-	// 	m.insert(ft::make_pair<int, std::string>(3, "🧛"));
-	// 	m.insert(ft::make_pair<int, std::string>(5, "👽"));
-	// 	m.insert(ft::make_pair<int, std::string>(11, "👽"));
-	// 	m.insert(ft::make_pair<int, std::string>(11, "🧚"));
-	// 	m.insert(ft::make_pair<int, std::string>(30, "🥷"));
-	// 	m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+		m.insert(ft::make_pair<int, std::string>(7, "😇"));
+		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
+		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
+		m.insert(ft::make_pair<int, std::string>(3, "🧛"));
+		m.insert(ft::make_pair<int, std::string>(5, "👽"));
+		m.insert(ft::make_pair<int, std::string>(11, "👽"));
+		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
+		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
+		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 
-	// 	// m.display();
+		// m.display();
 
-	// 	std::cout<< "begin->second : " << m.begin()->second <<std::endl;
+		std::cout<< "begin->second : " << m.begin()->second <<std::endl;
 
-	// 	it = m.begin();
-	// 	ft::pair<int, std::string> pr = *it;
-	// 	std::cout << "pr = *it; pr.second : " << pr.second << std::endl;
+		it = m.begin();
+		ft::pair<int, std::string> pr = *it;
+		std::cout << "pr = *it; pr.second : " << pr.second << std::endl;
 
-	// 	auto et = m.end();
+		auto et = m.end();
 
-	// 	// ft::pair<int, std::string> l = *m.begin();
-	// 	// std::cout << *it << std::endl;
-	// }
+		// ft::pair<int, std::string> l = *m.begin();
+		// std::cout << *it << std::endl;
+	}
 
-	// std::map<int, std::string>				mup;
-	// std::map<int, std::string>::iterator	uwu;
+	std::map<int, std::string>				mup;
+	std::map<int, std::string>::iterator	uwu;
 
-	// mup.insert(std::make_pair<int, std::string>(7, "😇"));
-	// mup.insert(std::make_pair<int, std::string>(4, "🧜‍"));
-	// mup.insert(std::make_pair<int, std::string>(20, "🧙"));
-	// mup.insert(std::make_pair<int, std::string>(3, "🧛"));
-	// mup.insert(std::make_pair<int, std::string>(5, "🧛"));
-	// mup.insert(std::make_pair<int, std::string>(11, "🧚"));
-	// mup.insert(std::make_pair<int, std::string>(30, "🕵️"));
-	// mup.insert(std::make_pair<int, std::string>(14, "🕵️"));
+	mup.insert(std::make_pair<int, std::string>(7, "😇"));
+	mup.insert(std::make_pair<int, std::string>(4, "🧜‍"));
+	mup.insert(std::make_pair<int, std::string>(20, "🧙"));
+	mup.insert(std::make_pair<int, std::string>(3, "🧛"));
+	mup.insert(std::make_pair<int, std::string>(5, "🧛"));
+	mup.insert(std::make_pair<int, std::string>(11, "🧚"));
+	mup.insert(std::make_pair<int, std::string>(30, "🕵️"));
+	mup.insert(std::make_pair<int, std::string>(14, "🕵️"));
 
-	// uwu = mup.end();
-	// --uwu;
-	// std::cout << uwu->first << std::endl;
+	uwu = mup.end();
+	--uwu;
+	std::cout << uwu->first << std::endl;
 
-	// m.print_bst();
+	m.print_bst();
 
 }
 
@@ -815,9 +816,9 @@ int	main(void)
 
 	// test_bst();
 
-	// test_map();
+	test_map();
 
-	speed_map();
+	// speed_map();
 
 	return (0);
 }

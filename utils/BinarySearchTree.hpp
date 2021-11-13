@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/12 17:01:23 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/13 12:31:35 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,8 @@ namespace ft
 		{
 			_root = _node_allocator.allocate(1);
 			_node_allocator.construct(_root, val);
-			// _root = new Node();
 			_root->content->v = val;
 			_cardinal = _node_allocator.allocate(1);
-			// _cardinal = new Node();
 			_cardinal->content = NULL;
 			_cardinal->parent = _root;
 			_cardinal->left = _root;
@@ -102,7 +100,6 @@ namespace ft
 		long			get_balance (Node_pointer node)
 		{
 			if (node)
-				// return(get_last_floor(node->right) - get_last_floor(node->left));
 				return (node->bf);
 			return (0);
 		}
@@ -125,8 +122,7 @@ namespace ft
 			node->parent = tmp;
 
 			update(node);
-			// if (node->parent)
-			// 	update(node->parent);
+
 			return (tmp);
 		}
 
@@ -146,8 +142,7 @@ namespace ft
 			node->parent = tmp;
 			
 			update(node);
-			// if (node->parent)
-			// 	update(node->parent);
+
 			return (tmp);
 		}
 
@@ -215,7 +210,7 @@ namespace ft
 			return (node);
 		}
 
-		 // Update a node's height and balance factor.
+		 // Update a node's depth and balance factor.
 		void			update (Node_pointer node)
 		{
 			if (!node || node == _cardinal)
@@ -261,11 +256,9 @@ namespace ft
 		{
 			bool	found = false;
 
-			// if (_cardinal->left && key == _cardinal->left->content->first)
 			if (_cardinal->left &&
 				(!_comp(key, _cardinal->left->content->v.first) && !_comp(_cardinal->left->content->v.first, key)) )	// ! using _comp
 				_cardinal->left = _cardinal->left->parent;
-			// if (_cardinal->right && key == _cardinal->right->content->v.first)
 			if (_cardinal->right &&
 				(!_comp(key, _cardinal->right->content->v.first) && !_comp(_cardinal->right->content->v.first, key)) )	// ! using _comp
 				_cardinal->right = _cardinal->right->parent;
@@ -303,7 +296,6 @@ namespace ft
 				*found = true;
 				if (!node->left && !node->right)
 				{
-					// __DEB("no child")
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
 					return (NULL);
@@ -311,7 +303,6 @@ namespace ft
 				// the node have no right branch
 				if (!node->right)
 				{
-					// __DEB("(!node->right)")
 					ret = node->left;
 					// update parent
 					if (ret)
@@ -319,14 +310,12 @@ namespace ft
 					// delete the node
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
-
 					// return the left branch (can be NULL)
 					return (ret);
 				}
 				// the node have no left branch
 				else if (!node->left)
 				{
-					// __DEB("(!node->left)")
 					ret = node->right;
 					// update parent
 					if (ret)
@@ -339,7 +328,6 @@ namespace ft
 				}
 
 				// replace node with the biggest sub tree
-				// if (get_last_floor(node->left) > get_last_floor(node->right))
 				if (node->left.depth > node->right.depth)
 				{
 					// __DEB("(balance left)")
@@ -437,12 +425,12 @@ namespace ft
 			else if (node == _cardinal)
 				return (_cardinal);
 			else if (!_comp(val.first, node->content->v.first) && 
-						!_comp(node->content->v.first, val.first))					// ! comparisons using map's Comp
+						!_comp(node->content->v.first, val.first))
 			{
 				node->content->v.second = val.second;
 				*created_node = node;
 			}
-			else if (_comp(val.first, node->content->v.first))						// ! comparisons using map's Comp
+			else if (_comp(val.first, node->content->v.first))
 			{
 				node->left = insert(node->left, val, created_node);
 				if (node->left == _cardinal)
@@ -490,7 +478,6 @@ namespace ft
 
 			if (node == NULL || node == _cardinal)
 				return (NULL);
-			// else if (node->content->first == key)
 			else if (!_comp(node->content->v.first, key) && !_comp(key, node->content->v.first))	// ! using _comp
 				return (node);
 
