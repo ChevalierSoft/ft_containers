@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/10 14:26:52 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/13 14:51:36 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,30 +91,15 @@ namespace ft
 
 		iterator	begin() const
 		{
-			// if (_bst._cardinal->left)
-			// 	return (iterator(_bst._cardinal->left));
-			// return (iterator(_bst._cardinal));
-
 			if (_bst._cardinal->left)
 			{
-				// iterator i(_bst._cardinal->left, _bst._cardinal);
-				// std::cout << "begin() -> " << i->second << std::endl;
-				// std::cout << "begin() *  " << (*i) << std::endl;
 				return (iterator(_bst._cardinal->left, _bst._cardinal));
 			}
-			// else
-			// 	std::cout << "! (_bst._cardinal->left)" << std::endl;
-
 			return (iterator());
 		}
 
 		iterator	end()		// ? could use a sentinel here and in begin
 		{
-			// if (!_size)
-			// 	return (iterator(NULL));
-			// // std::cout << sizeof(std::string) << std::endl;
-			// return ( iterator(_bst.find_max()->content) );	// + sizeof(value_type)
-			// // return (iterator(NULL));
 			return (iterator(_bst._cardinal, _bst._cardinal));
 		};
 

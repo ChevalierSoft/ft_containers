@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/13 12:31:35 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/15 15:30:27 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,16 +210,16 @@ namespace ft
 			return (node);
 		}
 
-		 // Update a node's depth and balance factor.
+		 // Update a node's height and balance factor.
 		void			update (Node_pointer node)
 		{
 			if (!node || node == _cardinal)
 				return ;
 			
-			int left_depth = (node->left == NULL || node->left == _cardinal) ? -1 : node->left->depth;
-			int right_depth = (node->right == NULL || node->right == _cardinal) ? -1 : node->right->depth;
+			int left_depth = (node->left == NULL || node->left == _cardinal) ? -1 : node->left->height;
+			int right_depth = (node->right == NULL || node->right == _cardinal) ? -1 : node->right->height;
 
-			node->depth = 1 + ((left_depth > right_depth) ? left_depth : right_depth);
+			node->height = 1 + ((left_depth > right_depth) ? left_depth : right_depth);
 
 			// Update balance factor.
 			node->bf = right_depth - left_depth;
@@ -328,7 +328,7 @@ namespace ft
 				}
 
 				// replace node with the biggest sub tree
-				if (node->left.depth > node->right.depth)
+				if (node->left.height > node->right.height)
 				{
 					// __DEB("(balance left)")
 					successor = find_max(node->left);
