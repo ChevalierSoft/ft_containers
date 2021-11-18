@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/15 15:32:20 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/18 10:21:17 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ namespace ft
 		// * Constructors & Destructors ________________________________________
 
 		// * (1) default
-		BST_Node()
+		BST_Node ()
 		{
 			content = NULL;
 			left = NULL;
@@ -70,7 +70,7 @@ namespace ft
 		}
 
 		// * (2) default with initialisation
-		BST_Node(const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL)
+		BST_Node (const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL)
 		{
 			content = new Node_content<value_type>();
 			content->v = val;
@@ -82,7 +82,7 @@ namespace ft
 		}
 
 		// * (3) copy by duplicating data
-		BST_Node(const BST_Node & copy)
+		BST_Node (const BST_Node & copy)
 		{
 			content = new Node_content<value_type>();
 			content = copy.content;
@@ -93,7 +93,7 @@ namespace ft
 			bf = copy.bf;
 		}
 
-		~BST_Node()
+		~BST_Node ()
 		{
 			delete content;
 		}
@@ -118,7 +118,7 @@ namespace ft
 		}
 
 		// ? makes the creation of nodes easier
-		BST_Node*		insert(const value_type &val)
+		BST_Node*		insert (const value_type &val)
 		{
 			content = new Node_content<value_type>(val);
 			left = NULL;
@@ -131,14 +131,18 @@ namespace ft
 
 		// * Variables _________________________________________________________
 
-		Node_content<value_type>*	content;			// pointer on Node_content
-		BST_Node*					left;				// left node
-		BST_Node*					right;				// right node
-		BST_Node*					parent;				// parent node
-		size_t						height;				// height from leaf to root
-		size_t						bf;					// balance factor
+		Node_content<value_type>*	content;		// pointer on Node_content
+		BST_Node*					left;			// left node
+		BST_Node*					right;			// right node
+		BST_Node*					parent;			// parent node
+		size_t						height;			// height from leaf to root
+		size_t						bf;				// balance factor
 
-	};  // * BST_Node _________________________________________________  
+	};  // * BST_Node __________________________________________________________
+
+	// ? comparing content of the nodes to make code writing easier ?
+	// template <class value_type>
+	// bool	operator==(Node_content n1, Node_content n2) {}
 
 }
 

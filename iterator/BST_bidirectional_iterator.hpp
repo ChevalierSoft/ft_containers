@@ -64,22 +64,74 @@ namespace ft
 		bool						operator==(const BST_bidirectional_iterator &rhs) const	{ return (_ptr->content == rhs._ptr->content); }
 		bool						operator!=(const BST_bidirectional_iterator &rhs) const	{ return (_ptr->content != rhs._ptr->content); }
 
-		// ? vvv needs to be redone vvv
-		// /// *    Pre
-		// BST_bidirectional_iterator	&operator++()	{ ++(this->_ptr); return (*this);	}
-		// BST_bidirectional_iterator	&operator--()	{ --(this->_ptr); return (*this);	}
-		// /// *    Post
-		// BST_bidirectional_iterator	operator++(int)	{ BST_bidirectional_iterator tmp = *this; ++(this->_ptr); return (tmp);	}
-		// BST_bidirectional_iterator	operator--(int) { BST_bidirectional_iterator tmp = *this; --(this->_ptr); return (tmp);	}
+		/// *    Pre
 
-		// typename Tn::reference		operator* () const	{ return (_ptr->content);	}
-		reference					operator* () const
+		iterator					&operator++()
 		{
-			return (_ptr->content->v);
-		}
-		pointer						operator->() const	{ return (&_ptr->content->v);		}
+			// iterator	tmp(_ptr, _cardinal, _comp);
 
-		Node_pointer				base() const		{ return (_ptr); 	}
+			// if (tmp->parent && tmp->)
+
+			if (!_ptr)
+				;
+			else if (_ptr == _cardinal)
+				;
+			else if (_ptr->right && _ptr->right != _cardinal)
+			{
+				_ptr = _ptr->right;
+				while (_ptr->left)
+					_ptr = _ptr->left;
+			}
+			else if (_ptr->right && _ptr->right == _cardinal)
+				_ptr = _cardinal;
+			else if (!_ptr->right)
+			{
+				// std::cout << "(!_ptr->right)" << std::endl;
+				// if (_ptr->parent)	// no need
+				// {
+				// 	if (_ptr->parent->left = _ptr)
+				// 	{
+				// 		_ptr = _ptr->parent;
+				// 	}
+				// 	else
+				// 	{
+						while (_ptr->parent && _ptr->parent->right == _ptr)
+						{
+							_ptr = _ptr->parent;
+						}
+						_ptr = _ptr->parent;
+					// }
+
+				}
+				return (*this);
+			}
+
+		// iterator					&operator--()
+		// {
+		// 	--(this->_ptr);
+		// 	return (*this);
+		// }
+
+		// /// *    Post
+
+		// iterator					operator++(int)
+		// {
+		// 	iterator tmp = *this;
+		// 	++(this->_ptr);
+		// 	return (tmp);
+		// }
+
+		// iterator					operator--(int)
+		// {
+		// 	iterator tmp = *this;
+		// 	--(this->_ptr);
+		// 	return (tmp);
+		// }
+
+		reference					operator* () const	{ return (_ptr->content->v);	}
+		pointer						operator->() const	{ return (&_ptr->content->v);	}
+
+		Node_pointer				base() const		{ return (_ptr); 				}
 
 	// protected:
 		Node_pointer 				_ptr;		// actual node
