@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/18 10:21:17 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/18 12:08:29 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 namespace ft
 {
 	// ? Node_content will allow the use of references on v
+	// ! need to add Compare for operator== of bst's iterator
 	template<class value_type>
 	struct Node_content // * ___________________________________________________ Node_content
 	{

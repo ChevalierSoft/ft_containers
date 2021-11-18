@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/13 14:51:36 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/18 22:41:05 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ namespace ft
 
 		iterator	end()		// ? could use a sentinel here and in begin
 		{
-			return (iterator(_bst._cardinal, _bst._cardinal));
+			return (iterator(_bst._cardinal, _bst._cardinal, 1));
 		};
 
 // ft::BST_Node<int, std::__cxx11::basic_string<char>, std::less<int>, std::allocator<ft::pair<int, std::__cxx11::basic_string<char> > > > *

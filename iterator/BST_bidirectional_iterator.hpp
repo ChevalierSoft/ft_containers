@@ -4,6 +4,9 @@
 #include "iterator.h"
 #include "../utils/enable_if.hpp"
 
+#define END_POSITION 1
+#define	OTHER_POSITION 0
+
 namespace ft
 {
 	/// * BST_bidirectional_iterator ____________________________________________________________
@@ -34,9 +37,9 @@ namespace ft
 
 		/// * Constructors / Destructor _____________________________________________________
 
-		BST_bidirectional_iterator (const Compare & comp = Compare()) : _ptr(NULL), _cardinal(NULL), _comp(comp) {}
+		BST_bidirectional_iterator (const Compare & comp = Compare()) : _ptr(NULL), _cardinal(NULL), _side(0) {}
 
-		BST_bidirectional_iterator (Node_pointer node_ptr, Node_pointer card_ptr, const Compare & comp = Compare()) : _ptr(node_ptr), _cardinal(card_ptr), _comp(comp) {}
+		BST_bidirectional_iterator (Node_pointer node_ptr, Node_pointer card_ptr, bool side = 0) : _ptr(node_ptr), _cardinal(card_ptr), _side(side) {}
 
 		BST_bidirectional_iterator (const_iterator &rhs) { *this = rhs; }
 
@@ -51,7 +54,8 @@ namespace ft
 			{
 				_ptr = rhs._ptr;
 				_cardinal = rhs._cardinal;
-				_comp = rhs._comp;
+				// _comp = rhs._comp;
+				_side = rhs._side;
 			}
 			return (*this);
 		}
@@ -71,7 +75,10 @@ namespace ft
 			if (!_ptr)
 				;
 			else if (_ptr == _cardinal)
-				;
+			{
+				if (_side != END_POSITION)
+					_ptr = _cardinal->left;
+			}
 			else if (_ptr->right && _ptr->right != _cardinal)
 			{
 				_ptr = _ptr->right;
@@ -79,7 +86,10 @@ namespace ft
 					_ptr = _ptr->left;
 			}
 			else if (_ptr->right && _ptr->right == _cardinal)
+			{
 				_ptr = _cardinal;
+				_side = 1;
+			}
 			else if (!_ptr->right)
 			{
 				while (_ptr->parent && _ptr->parent->right == _ptr)
@@ -89,17 +99,43 @@ namespace ft
 			return (*this);
 		}
 
-		// iterator					&operator--()
-		// {
-		// 	--(this->_ptr);
-		// 	return (*this);
-		// }
+		iterator					&operator--()
+		{
+			if (!_ptr)
+				;
+			else if (_ptr == _cardinal)
+			{
+				if (_side == END_POSITION)
+				{
+					_ptr = _cardinal->right;
+					_side = OTHER_POSITION;
+				}
+			}
+			else if (_ptr->left && _ptr->left != _cardinal)
+			{
+				_ptr = _ptr->left;
+				while (_ptr->right)
+					_ptr = _ptr->right;
+			}
+			else if (_ptr->left && _ptr->left == _cardinal)
+			{
+				_ptr = _cardinal;
+			}
+			else if (!_ptr->left)
+			{
+				while (_ptr->parent && _ptr->parent->left == _ptr)
+					_ptr = _ptr->parent;
+				_ptr = _ptr->parent;
+			}
+			return (*this);
 
-		// /// *    Post
+		}
+
+		/// *    Post
 
 		iterator					operator++(int)
 		{
-			iterator tmp(*this);
+			iterator	tmp(*this);
 			this->operator++();
 			return (tmp);
 		}
@@ -119,7 +155,8 @@ namespace ft
 	// protected:
 		Node_pointer 				_ptr;		// actual node
 		Node_pointer				_cardinal;	// cardinal of the BST checking the boundaries
-		Compare						_comp;		// will be faster than using the one of the nodes
+		// Compare						_comp;		// not using it for now
+		int							_side;		// will give the side on which _ptr went to _cardinal. -1 (0 tree) +1
 
 	};	/// * BST_bidirectional_iterator ____________________________________________________
 

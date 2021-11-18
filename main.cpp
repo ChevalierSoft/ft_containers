@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/18 11:39:39 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/18 22:54:21 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -763,7 +763,7 @@ void	test_map()
 		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
 		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 
-		m.display();
+		// m.display();
 
 		std::cout<< "begin->second : " << m.begin()->second <<std::endl;
 
@@ -776,10 +776,25 @@ void	test_map()
 
 		for (it = m.begin(); it != m.end(); ++it)
 		{
-			std::cout << "++it : " << it->first << " " << it->second << std::endl;			
+			std::cout << "for ++it : " << it->first << " " << it->second << std::endl;		
 		}
 
-		
+		++it;
+		++it;
+		++it;
+		++it;
+		++it;
+		++it;
+		++it;
+		++it;
+		--it;
+		// --it;
+		std::cout << "++it : " << it->first << " " << it->second << std::endl;
+
+		// for (it = m.end(); it != m.end(); ++it)
+		// {
+		// 	std::cout << "for --it : " << it->first << " " << it->second << std::endl;			
+		// }
 	}
 
 	// std::map<int, std::string>				mup;
