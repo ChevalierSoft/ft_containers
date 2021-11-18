@@ -6,7 +6,7 @@
 #    By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 22:01:56 by dait-atm          #+#    #+#              #
-#    Updated: 2021/10/19 22:22:09 by dait-atm         ###   ########.fr        #
+#    Updated: 2021/11/18 23:14:14 by dait-atm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,3 +16,7 @@ mkdir -p logs
 ./ft.out > logs/ft.log
 ./std.out > logs/std.log
 diff --color -c logs/ft.log logs/std.log
+if [ $? -eq 0 ]
+then
+	echo "It Works Well 😇";
+fi

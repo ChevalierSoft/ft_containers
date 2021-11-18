@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/15 15:30:27 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/18 23:09:52 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,8 +427,8 @@ namespace ft
 			else if (!_comp(val.first, node->content->v.first) && 
 						!_comp(node->content->v.first, val.first))
 			{
-				node->content->v.second = val.second;
-				*created_node = node;
+				// node->content->v.second = val.second;
+				// *created_node = node;
 			}
 			else if (_comp(val.first, node->content->v.first))
 			{
