@@ -68,10 +68,6 @@ namespace ft
 
 		iterator					&operator++()
 		{
-			// iterator	tmp(_ptr, _cardinal, _comp);
-
-			// if (tmp->parent && tmp->)
-
 			if (!_ptr)
 				;
 			else if (_ptr == _cardinal)
@@ -86,25 +82,12 @@ namespace ft
 				_ptr = _cardinal;
 			else if (!_ptr->right)
 			{
-				// std::cout << "(!_ptr->right)" << std::endl;
-				// if (_ptr->parent)	// no need
-				// {
-				// 	if (_ptr->parent->left = _ptr)
-				// 	{
-				// 		_ptr = _ptr->parent;
-				// 	}
-				// 	else
-				// 	{
-						while (_ptr->parent && _ptr->parent->right == _ptr)
-						{
-							_ptr = _ptr->parent;
-						}
-						_ptr = _ptr->parent;
-					// }
-
-				}
-				return (*this);
+				while (_ptr->parent && _ptr->parent->right == _ptr)
+					_ptr = _ptr->parent;
+				_ptr = _ptr->parent;
 			}
+			return (*this);
+		}
 
 		// iterator					&operator--()
 		// {
@@ -114,12 +97,12 @@ namespace ft
 
 		// /// *    Post
 
-		// iterator					operator++(int)
-		// {
-		// 	iterator tmp = *this;
-		// 	++(this->_ptr);
-		// 	return (tmp);
-		// }
+		iterator					operator++(int)
+		{
+			iterator tmp(*this);
+			this->operator++();
+			return (tmp);
+		}
 
 		// iterator					operator--(int)
 		// {
