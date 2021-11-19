@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/19 01:41:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/19 02:30:37 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,7 +326,7 @@ namespace ft
 					// return the left branch (can be NULL)
 					return (ret);
 				}
-				// the node have no left branch
+				// the node have no left branch either
 				else if (!node->left)
 				{
 					ret = node->right;
@@ -341,7 +341,7 @@ namespace ft
 				}
 
 				// replace node with the biggest sub tree
-				if (node->left.height > node->right.height)
+				if (node->left->height > node->right->height)
 				{
 					// __DEB("(balance left)")
 					successor = find_max(node->left);

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/19 01:47:18 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/19 02:37:22 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@
 #include "./utils/ft_print_memory.h"
 #include <time.h> // rand()
 
-#define __DEB(s) std::cerr<<s<<std::endl;
-#define ENDL	std::cout<<std::endl;
-#define __GRN	std::cout<<GRN;
-#define __RST	std::cout<<RST;
+#define __DEB(s)	std::cerr<<s<<std::endl;
+#define ENDL		std::cout<<std::endl;
+#define __GRN		std::cout<<GRN;
+#define __RST		std::cout<<RST;
 
 // _____________________________________________________________________________
 class	menfou
@@ -745,9 +745,25 @@ void	test_map()
 	}
 
 	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "erase()" <<RST<< std::endl;
+	{
+		while (!m.empty())
+		{
+			__DEB("oui")
+			m.erase(m.begin());
+		}
+		m.display();
+	}
+
+	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
 	{
+		m.insert(ft::make_pair<int, std::string>(7, "😇"));
+		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
+		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
 		m.clear();
+		if (!m.empty())
+			std::cout << "!m.empty()" <<std::endl;
 		// m.display();
 	}
 
@@ -802,16 +818,6 @@ void	test_map()
 
 }
 
-void	speed_map()
-{
-	srand(time(NULL));
-	ft::map<int, std::string> m;
-	for (size_t i = 0; i < 1000000; ++i)
-	{
-		m.insert(ft::make_pair<int, std::string>(rand(), "🥷"));
-	}
-}
-
 // ____________________________________________________________________________
 int	main(void)
 {
@@ -822,41 +828,6 @@ int	main(void)
 	// test_bst();
 
 	test_map();
-
-	ft::map<char, int> m;
-
-	if (m.begin() == m.end())
-		std::cout << "(m.begin() == m.end())" << std::endl;
-
-	m.insert(ft::make_pair<char, int>('z', 99));
-	m.insert(ft::make_pair<char, int>('a', 0));
-	m.display();
-	std::cout << m.insert(ft::make_pair<char, int>('a', 1)).second << std::endl;
-
-	for (auto im = m.begin(); im != m.end(); ++im)
-		std::cout << im->first << " " << im->second << std::endl;
-	
-	auto im = m.begin();
-
-	__DEB("bases :")
-	__DEB((void *)im.base())	// begin
-	++im;
-	__DEB((void *)im.base())	// begin + 1
-	++im;
-	__DEB((void *)im.base())	// begin + 2 ?= end()
-	im = m.end();
-	__DEB((void *)im.base())	// end()
-	--im;
-	__DEB((void *)im.base())	// end() - 1
-	--im;
-	__DEB((void *)im.base())	// end() - 2 == begin()
-	--im;
-	__DEB((void *)im.base())	// card
-
-	if (m.begin() != m.end())
-		std::cout << "(m.begin() != m.end())" << std::endl;
-
-	// speed_map();
 
 	return (0);
 }

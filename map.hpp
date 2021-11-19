@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/19 00:41:44 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/19 02:41:48 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ namespace ft
 
 		/// * Capacity _________________________________________________________
 
-		bool						empty () const		{ return (_size > 0);	}
+		bool						empty () const		{ return (_size == 0);	}
 
 		size_type					size () const		{ return (_size);		}
 
@@ -120,12 +120,18 @@ namespace ft
 
 		ft::pair<iterator, bool>	insert (const value_type& val)
 		{
-			return (_bst.insert(val));
+			// can be optimised
+			ft::pair<iterator, bool> p(_bst.insert(val));
+			_size += p.second;
+			return (p);
 		}
 
-		// void					erase (iterator position);
+		void						erase (iterator position)
+		{
+			_size -= _bst.remove(position->first);
+		}
 
-		void 					clear ()
+		void 						clear ()
 		{
 			_bst.clear();
 			_size = 0;
