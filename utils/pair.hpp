@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 05:50:36 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/21 04:00:20 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/19 00:40:22 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ namespace ft // * ______________________________________________________________
 		typedef	T1		first_type;
 		typedef	T2		second_type;
 
-		// * Constructor / Destrtuctor ___________________________________________
+		// * Constructor / Destrtuctor _________________________________________
 
 		// ? (1) default constructor
 		pair ()	: first(T1()), second(T2()) {}

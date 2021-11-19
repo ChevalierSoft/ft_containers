@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/18 22:41:05 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/19 00:41:44 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ namespace ft
 				class Compare = std::less<Key>,
 				class Allocator = std::allocator< ft::pair<Key, T> >
 			>
-	class map /// * ___________________________________________________________  map
+	class map /// * ____________________________________________________________ ft::map
 	{
 
 	protected:
@@ -63,7 +63,7 @@ namespace ft
 		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 	
 	
-		/// * Constructors & Destructors ______________________________________
+		/// * Constructors & Destructors _______________________________________
 
 	public:
 		// ? (1) default empty map
@@ -85,11 +85,11 @@ namespace ft
 
 		map &		operator=(const map &	copy);
 
-		/// * Element access __________________________________________________
+		/// * Element access ___________________________________________________
 
-		/// * Iterators _______________________________________________________
+		/// * Iterators ________________________________________________________
 
-		iterator	begin() const
+		iterator	begin () const
 		{
 			if (_bst._cardinal->left)
 			{
@@ -98,7 +98,7 @@ namespace ft
 			return (iterator());
 		}
 
-		iterator	end()		// ? could use a sentinel here and in begin
+		iterator	end ()		// ? could use a sentinel here and in begin
 		{
 			return (iterator(_bst._cardinal, _bst._cardinal, 1));
 		};
@@ -107,62 +107,62 @@ namespace ft
 // BST_bidirectional_iterator<int, std::__cxx11::basic_string<char> >
 
 
-		/// * Capacity ________________________________________________________
+		/// * Capacity _________________________________________________________
 
-		bool		empty() const		{ return (_size > 0);	}
+		bool						empty () const		{ return (_size > 0);	}
 
-		size_type	size() const		{ return (_size);		}
+		size_type					size () const		{ return (_size);		}
 
-		size_type	max_size() const	{ return (_allocator.max_size());	}
+		size_type					max_size () const	{ return (_allocator.max_size());	}
 
-		/// * Modifiers _______________________________________________________
+		/// * Modifiers ________________________________________________________
 		// ? (1) default
-		// pair<iterator, bool> 
-		void		insert (const value_type& val)
+
+		ft::pair<iterator, bool>	insert (const value_type& val)
 		{
-			_bst.insert(val);
-			++_size;
+			return (_bst.insert(val));
 		}
 
-		// void		erase (iterator position);
+		// void					erase (iterator position);
 
-		void clear()
+		void 					clear ()
 		{
 			_bst.clear();
 			_size = 0;
 		}
 
-		/// * Lookup  _________________________________________________________
+		/// * Lookup  __________________________________________________________
 
-		size_type	count(const Key & key) const	{ return (_bst.search(key) ? true : false);	}
+		size_type					count (const Key & key) const	{ return (_bst.search(key) ? true : false);	}
 
-		// DEBUG
+		// ! DEBUG
 	public:
-		void	print_bst()
+		void						print_bst ()
 		{
 			_bst.print_bst();
 		}
 
-		void		display()	// ? debug
+		void						display ()	// ? debug
 		{
 			_bst.display();
 			// _bst.print_bst();
 		}
 		
-		/// * Observers  ______________________________________________________
+		/// * Observers  _______________________________________________________
 
-		/// * Variables _______________________________________________________
+		/// * Variables ________________________________________________________
+		
 	 	// ? Maps are typically implemented as balanced binary trees.
 	// protected:
-		Tree_Type													_bst;
-		size_type													_size;
-		allocator_type												_allocator;
-		key_compare													_comp;
+		Tree_Type					_bst;
+		size_type					_size;
+		allocator_type				_allocator;
+		key_compare					_comp;
 
-	}; /// * map ______________________________________________________________
+	}; /// * map _______________________________________________________________
 
-	/// * Non-member functions ________________________________________________
+	/// * Non-member functions _________________________________________________
 	
-} /// * namespace ft __________________________________________________________
+} /// * namespace ft ___________________________________________________________
 
 #endif

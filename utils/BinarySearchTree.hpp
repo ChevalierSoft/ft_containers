@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/18 23:09:52 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/19 01:41:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ namespace ft
 				class N = ft::BST_Node<Key, T, Compare, Type_Allocator>,
 				class Node_Allocator = std::allocator< N >
 			>
-	class BinarySearchTree // * _______________________________________________  BinarySearchTree
+	class BinarySearchTree // * ________________________________________________ BinarySearchTree
 	{
 	public:
 		typedef ft::pair<Key, T>						value_type;
@@ -46,23 +46,34 @@ namespace ft
 		typedef const T*								const_pointer;
 		typedef typename Node_Allocator::pointer		Node_pointer;
 		typedef typename Node_Allocator::const_pointer	Node_const_pointer;
-		// typedef ft::BST_bidirectional_iterator<Node>	iterator;
-		// typedef ft::BST_bidirectional_iterator<const Node>	const_iterator;
-		// typedef ft::reverse_iterator<iterator>			reverse_iterator;
-		// typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+	
+		typedef ft::BST_bidirectional_iterator<Node, Compare>	iterator;
 
-		// * Constructors & Destructors _______________________________________
+		// * Constructors & Destructors ________________________________________
 	public:
-		BinarySearchTree () : _root(NULL), _comp(Compare()), _type_allocator(Type_Allocator()), _node_allocator(Node_Allocator()) 
+		BinarySearchTree ()
+			:	_root(NULL),
+				_comp(Compare()),
+				_type_allocator(Type_Allocator()),
+				_node_allocator(Node_Allocator())
 		{
 			_cardinal = _node_allocator.allocate(1);
 			_cardinal->content = NULL;
+			// _cardinal->content = new ft::Node_content<value_type>;
+			// _cardinal->content->v = value_type();
 			_cardinal->parent = _cardinal;
 			_cardinal->left = _cardinal;
 			_cardinal->right = _cardinal;
 		}
 
-		BinarySearchTree (const_reference val, Compare cmp = Compare(), Type_Allocator ta = Type_Allocator(), Node_Allocator na = Node_Allocator()) : _comp(cmp), _type_allocator(ta), _node_allocator(na)
+		BinarySearchTree (
+							const_reference val,
+							Compare cmp = Compare(),
+							Type_Allocator ta = Type_Allocator(),
+							Node_Allocator na = Node_Allocator()
+						) :		_comp(cmp),
+								_type_allocator(ta),
+								_node_allocator(na)
 		{
 			_root = _node_allocator.allocate(1);
 			_node_allocator.construct(_root, val);
@@ -73,6 +84,8 @@ namespace ft
 			_cardinal->left = _root;
 			_cardinal->right = _root;
 		}
+
+		// ! Need to add copy and =
 		
 		~BinarySearchTree (void)
 		{
@@ -80,7 +93,7 @@ namespace ft
 			clear(_root);
 		}
 
-		// * Modifiers ________________________________________________________
+		// * Modifiers _________________________________________________________
 
 	protected:
 		size_type		get_last_floor (Node_pointer node) const
@@ -104,7 +117,7 @@ namespace ft
 			return (0);
 		}
 
-		// * Rotations ________________________________________________________
+		// * Rotations _________________________________________________________
 
 		Node_pointer	right_rotation(Node_pointer node)
 		{
@@ -385,36 +398,50 @@ namespace ft
 		}
 
 		// ? (1) default: insert from _root
-		Node_pointer	insert (const_reference val)
+		ft::pair<iterator, bool>	insert (const_reference val)
 		{
-			// std::cout << "insert()" << std::endl;
 			Node_pointer	created_node = NULL;
+			bool			already_exists = false;
 
-			_root = insert(_root, val, &created_node);	// _root is not useful anymore, it will be deleted in a future version
+			_root = insert(_root, val, &created_node, &already_exists);
 			_cardinal->parent = _root;
 
+			if (already_exists == true)
+				return ( ft::make_pair<iterator, bool>( iterator(created_node, _cardinal), false ) );
+
 			if (_cardinal->left == _cardinal)
+			{
 				_cardinal->left = find_min(_cardinal->parent);
+				_cardinal->left->left = _cardinal;
+			}
 			else if (_comp(val.first, _cardinal->left->content->v.first))
 			{
 				_cardinal->left = created_node;
 				created_node->left = _cardinal;
 			}
 
-			if (_cardinal->right == _cardinal)													
+			if (_cardinal->right == _cardinal)
+			{
 				_cardinal->right = find_max(_cardinal->parent);
+				_cardinal->right->right = _cardinal;
+			}											
 			else if (_comp(_cardinal->right->content->v.first, val.first))
 			{
 				_cardinal->right = created_node;
 				created_node->right = _cardinal;
 			}
 
-			return (_root);
+			return (ft::make_pair<iterator, bool>(iterator(created_node, _cardinal), true));
 		}
 
 	protected:
 		// ? (2) using a specific node
-		Node_pointer	insert (Node_pointer node, const_reference val, Node_pointer *created_node)
+		Node_pointer	insert (
+									Node_pointer node,
+									const_reference val,
+									Node_pointer *created_node,
+									bool *already_exists
+								)
 		{
 			if (node == NULL)
 			{
@@ -424,15 +451,16 @@ namespace ft
 			}
 			else if (node == _cardinal)
 				return (_cardinal);
-			else if (!_comp(val.first, node->content->v.first) && 
+			else if (!_comp(val.first, node->content->v.first) && 	// ? Key already exists
 						!_comp(node->content->v.first, val.first))
 			{
 				// node->content->v.second = val.second;
-				// *created_node = node;
+				*created_node = node;
+				*already_exists = true;
 			}
 			else if (_comp(val.first, node->content->v.first))
 			{
-				node->left = insert(node->left, val, created_node);
+				node->left = insert(node->left, val, created_node, already_exists);
 				if (node->left == _cardinal)
 				{
 					node->left = create_node(val);
@@ -442,7 +470,7 @@ namespace ft
 			}
 			else
 			{
-				node->right = insert(node->right, val, created_node);
+				node->right = insert(node->right, val, created_node, already_exists);
 				if (node->right == _cardinal)
 				{
 					node->right = create_node(val);
@@ -562,7 +590,7 @@ namespace ft
 				std::cout << std::string( len * 6 + 6, ' ' );
 		}
 
-		// * Variables ________________________________________________________
+		// * Variables _________________________________________________________
 
 	public:
 		Node_pointer	_cardinal;
@@ -572,7 +600,7 @@ namespace ft
 		Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
 		
-	}; // * BinarySearchTree __________________________________________________
+	}; // * BinarySearchTree ___________________________________________________
 
 	// ? DEBUG
 

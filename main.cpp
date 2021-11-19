@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/18 23:08:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/19 01:47:18 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 #include "./utils/ft_print_memory.h"
 #include <time.h> // rand()
 
+#define __DEB(s) std::cerr<<s<<std::endl;
 #define ENDL	std::cout<<std::endl;
 #define __GRN	std::cout<<GRN;
 #define __RST	std::cout<<RST;
@@ -722,7 +723,8 @@ void	test_map()
 {
 	std::cout <<std::endl<<CYN<< "___________________ 🧛 ft::map 🧙 ___________________" <<RST<< std::endl;
 
-	ft::map<int, std::string> m;
+	ft::map<int, std::string>	m;
+	ft::map<char, int>			m2;
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
@@ -736,6 +738,10 @@ void	test_map()
 		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
 		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 		// m.display();
+
+		m2.insert(ft::make_pair<char, int>('z', 99));
+		m2.insert(ft::make_pair<char, int>('a', 0));
+		std::cout << m2.insert(ft::make_pair<char, int>('a', 1)).second << std::endl;
 	}
 
 	//__________________________________________________________________________
@@ -750,8 +756,8 @@ void	test_map()
 	{
 		ft::map<int, std::string>::iterator it;
 
-		// if (m.begin() == m.end())
-		// 	std::cout << "(m.begin() == m.end())" << std::endl;
+		if (m.begin() == m.end())
+			std::cout << "(m.begin() == m.end())" << std::endl;
 
 		m.insert(ft::make_pair<int, std::string>(7, "😇"));
 		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
@@ -786,30 +792,13 @@ void	test_map()
 
 		for (it = --m.end(); it != m.begin(); --it)
 			std::cout << "for --it : " << it->first << " " << it->second << std::endl;
-		// --it;
-		// ++it;
 		std::cout << "--it : " << it->first << " " << it->second << std::endl;
+	
+		// displaying m2
+		for (auto im = m2.begin(); im != m2.end(); ++im)
+			std::cout << im->first << " " << im->second << std::endl;
+	
 	}
-
-	// std::map<int, std::string>				mup;
-	// std::map<int, std::string>::iterator	uwu;
-
-	// mup.insert(std::make_pair<int, std::string>(7, "😇"));
-	// mup.insert(std::make_pair<int, std::string>(4, "🧜‍"));
-	// mup.insert(std::make_pair<int, std::string>(20, "🧙"));
-	// mup.insert(std::make_pair<int, std::string>(3, "🧛"));
-	// mup.insert(std::make_pair<int, std::string>(5, "🧛"));
-	// mup.insert(std::make_pair<int, std::string>(11, "🧚"));
-	// mup.insert(std::make_pair<int, std::string>(30, "🕵️"));
-	// mup.insert(std::make_pair<int, std::string>(14, "🕵️"));
-
-	// uwu = mup.end();
-	// --uwu;
-	// std::cout << uwu->first << std::endl;
-
-
-
-	// m.print_bst();
 
 }
 
@@ -833,6 +822,39 @@ int	main(void)
 	// test_bst();
 
 	test_map();
+
+	ft::map<char, int> m;
+
+	if (m.begin() == m.end())
+		std::cout << "(m.begin() == m.end())" << std::endl;
+
+	m.insert(ft::make_pair<char, int>('z', 99));
+	m.insert(ft::make_pair<char, int>('a', 0));
+	m.display();
+	std::cout << m.insert(ft::make_pair<char, int>('a', 1)).second << std::endl;
+
+	for (auto im = m.begin(); im != m.end(); ++im)
+		std::cout << im->first << " " << im->second << std::endl;
+	
+	auto im = m.begin();
+
+	__DEB("bases :")
+	__DEB((void *)im.base())	// begin
+	++im;
+	__DEB((void *)im.base())	// begin + 1
+	++im;
+	__DEB((void *)im.base())	// begin + 2 ?= end()
+	im = m.end();
+	__DEB((void *)im.base())	// end()
+	--im;
+	__DEB((void *)im.base())	// end() - 1
+	--im;
+	__DEB((void *)im.base())	// end() - 2 == begin()
+	--im;
+	__DEB((void *)im.base())	// card
+
+	if (m.begin() != m.end())
+		std::cout << "(m.begin() != m.end())" << std::endl;
 
 	// speed_map();
 

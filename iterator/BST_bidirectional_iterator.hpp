@@ -9,13 +9,13 @@
 
 namespace ft
 {
-	/// * BST_bidirectional_iterator ____________________________________________________________
+	/// * BST_bidirectional_iterator ___________________________________________ ft::BST_bidirectional_iterator
 	//  ? http://www.cplusplus.com/reference/iterator/
 	// Tn is a Node
 	template <class Tn, class Compare>
 	class BST_bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, Tn>
 	{
-		/// * Type definition _______________________________________________________________
+		/// * Type definition __________________________________________________
 
 	protected:
 		typedef	Tn						Node;
@@ -35,7 +35,7 @@ namespace ft
 		typedef iterator																		iterator_type;
 		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::iterator_category	iterator_category;
 
-		/// * Constructors / Destructor _____________________________________________________
+		/// * Constructors / Destructor _______________________________________
 
 		BST_bidirectional_iterator (const Compare & comp = Compare()) : _ptr(NULL), _cardinal(NULL), _side(0) {}
 
@@ -45,7 +45,7 @@ namespace ft
 
 		~BST_bidirectional_iterator () {}
 
-		/// * Member Operators _______________________________________________________________
+		/// * Member Operators _________________________________________________
 
 		// template <typename M>
 		BST_bidirectional_iterator&	operator= (const_reference &rhs)
@@ -60,13 +60,13 @@ namespace ft
 			return (*this);
 		}
 
-		/// * Equality Operators _____________________________________________________________
+		/// * Equality Operators _______________________________________________
 
 		// ? allows conversion between iterator of T to const T
 		operator BST_bidirectional_iterator<Tn, Compare>() const	{ return BST_bidirectional_iterator<Tn, Compare>(_ptr); }
 
-		bool						operator==(const BST_bidirectional_iterator &rhs) const	{ return (_ptr->content == rhs._ptr->content); }
-		bool						operator!=(const BST_bidirectional_iterator &rhs) const	{ return (_ptr->content != rhs._ptr->content); }
+		bool						operator==(const BST_bidirectional_iterator &rhs) const	{ return (_ptr == rhs._ptr); }
+		bool						operator!=(const BST_bidirectional_iterator &rhs) const	{ return (_ptr != rhs._ptr); }
 
 		/// *    Pre
 
@@ -140,16 +140,17 @@ namespace ft
 			return (tmp);
 		}
 
-		// iterator					operator--(int)
-		// {
-		// 	iterator tmp = *this;
-		// 	--(this->_ptr);
-		// 	return (tmp);
-		// }
+		iterator					operator--(int)
+		{
+			iterator tmp(*this);
+			this->operator--();
+			return (tmp);
+		}
 
 		reference					operator* () const	{ return (_ptr->content->v);	}
 		pointer						operator->() const	{ return (&_ptr->content->v);	}
 
+		// ! DEBUG
 		Node_pointer				base() const		{ return (_ptr); 				}
 
 	// protected:
@@ -158,7 +159,7 @@ namespace ft
 		// Compare						_comp;		// not using it for now
 		int							_side;		// will give the side on which _ptr went to _cardinal. -1 (0 tree) +1
 
-	};	/// * BST_bidirectional_iterator ____________________________________________________
+	};	/// * BST_bidirectional_iterator _______________________________________
 
 }
 
