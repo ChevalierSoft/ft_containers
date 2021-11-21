@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/19 02:30:37 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/21 04:20:18 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,12 +269,30 @@ namespace ft
 		{
 			bool	found = false;
 
-			if (_cardinal->left &&
+			if (!_cardinal->left || !_cardinal->right)
+				std::cout << "ALERT" << std::endl;
+
+			if (_cardinal->left != _cardinal &&
 				(!_comp(key, _cardinal->left->content->v.first) && !_comp(_cardinal->left->content->v.first, key)) )	// ! using _comp
-				_cardinal->left = _cardinal->left->parent;
-			if (_cardinal->right &&
+			{
+				if (_cardinal->left->right != NULL && _cardinal->left->right != _cardinal)
+					_cardinal->left = _cardinal->left->right;
+				else if (_cardinal->left->parent)
+					_cardinal->left = _cardinal->left->parent;
+				else
+					_cardinal->left = _cardinal;
+			}
+
+			else if (_cardinal->right != _cardinal &&
 				(!_comp(key, _cardinal->right->content->v.first) && !_comp(_cardinal->right->content->v.first, key)) )	// ! using _comp
-				_cardinal->right = _cardinal->right->parent;
+			{
+				if (_cardinal->right->left != NULL && _cardinal->right->left != _cardinal)
+					_cardinal->right = _cardinal->right->left;
+				else if (_cardinal->right->parent)
+					_cardinal->right = _cardinal->right->parent;
+				else
+					_cardinal->right = _cardinal;
+			}
 
 			_root = remove(_root, key, &found);
 			_cardinal->parent = _root;

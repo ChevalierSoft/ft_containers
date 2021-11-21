@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/19 02:37:22 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/21 04:35:55 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -725,23 +725,40 @@ void	test_map()
 
 	ft::map<int, std::string>	m;
 	ft::map<char, int>			m2;
+	ft::map<menfou, menfou>		mf;
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
 	{
-		m.insert(ft::make_pair<int, std::string>(7, "😇"));
-		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
+		// m.insert(ft::make_pair<int, std::string>(7, "😇"));
+		// m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
 		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
-		m.insert(ft::make_pair<int, std::string>(3, "🧛"));
-		m.insert(ft::make_pair<int, std::string>(5, "👽"));
-		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
+		// m.insert(ft::make_pair<int, std::string>(3, "🧛"));
+		// m.insert(ft::make_pair<int, std::string>(5, "👽"));
+		// m.insert(ft::make_pair<int, std::string>(11, "🧚"));
 		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
 		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
-		// m.display();
+		m.display();
 
 		m2.insert(ft::make_pair<char, int>('z', 99));
 		m2.insert(ft::make_pair<char, int>('a', 0));
 		std::cout << m2.insert(ft::make_pair<char, int>('a', 1)).second << std::endl;
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "size()" <<RST<< std::endl;
+	{
+		std::cout << mf.size() << std::endl;
+		std::cout << m.size() << std::endl;
+		std::cout << m2.size() << std::endl;
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "empty()" <<RST<< std::endl;
+	{
+		std::cout << mf.empty() << std::endl;
+		std::cout << m.empty() << std::endl;
+		std::cout << m2.empty() << std::endl;
 	}
 
 	//__________________________________________________________________________
@@ -751,6 +768,7 @@ void	test_map()
 		{
 			__DEB("oui")
 			m.erase(m.begin());
+			m.display();
 		}
 		m.display();
 	}
