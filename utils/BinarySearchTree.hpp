@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/24 03:33:20 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/24 03:45:14 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,13 +320,13 @@ namespace ft
 			std::cout << "key : " << key << std::endl;
 				
 			// search for the key in the tree
-			// if (key < node->content->first)									// ! using _comp
-			if (_comp(key, node->content->v.first))
+			 if (key < node->content->v.first)									// ! using _comp
+			//if (_comp(key, node->content->v.first))
 			{
 				node->left = this->remove(node->left, key, found);
 			}
-			// else if (key > node->content->first)
-			else if (_comp(node->content->v.first, key))							// ! using _comp
+			 else if (key > node->content->v.first)
+			//else if (_comp(node->content->v.first, key))							// ! using _comp
 			{
 				node->right = this->remove(node->right, key, found);
 			}
@@ -355,7 +355,7 @@ namespace ft
 					return (ret);
 				}
 				// the node have no left branch either
-				else if (!node->left || node->left != _cardinal)
+				else if (!node->left || node->left == _cardinal)
 				{
 					ret = node->right;
 					// update parent
@@ -367,6 +367,8 @@ namespace ft
 					// return the right branch (can be NULL)
 					return (ret);
 				}
+
+				std::cout << "apparently this node has 2 branches" << std::endl;
 
 				// replace node with the biggest sub tree
 				if (node->left->height > node->right->height)

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/24 03:22:17 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/24 03:46:09 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -736,8 +736,8 @@ void	test_map()
 		//m.insert(ft::make_pair<int, std::string>(3, "🧛"));
 		// m.insert(ft::make_pair<int, std::string>(5, "👽"));
 		// m.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
-		//m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+		//m.insert(ft::make_pair<int, std::string>(30, "🥷"));
+		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 		m.display();
 
 		m2.insert(ft::make_pair<char, int>('z', 99));
@@ -764,7 +764,7 @@ void	test_map()
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "erase()" <<RST<< std::endl;
 	{
-		//while (!m.empty())
+		while (!m.empty())
 		{
 			__DEB("oui")
 			std::cout << "m.size : " << m.size() << std::endl;
@@ -774,7 +774,7 @@ void	test_map()
 			//m._bst.remove(20);
 			m.display();
 		}
-		//m.display();
+		m.display();
 	}
 	
 	return ; ///////////////////////////////////////////////////////////////////////////////////////
