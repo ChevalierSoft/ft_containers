@@ -63,7 +63,7 @@ namespace ft
 		/// * Equality Operators _______________________________________________
 
 		// ? allows conversion between iterator of T to const T
-		operator BST_bidirectional_iterator<Tn, Compare>() const	{ return BST_bidirectional_iterator<Tn, Compare>(_ptr); }
+		operator BST_bidirectional_iterator<Tn, Compare>() const	{ return BST_bidirectional_iterator<const Tn, Compare>(_ptr); }
 
 		bool						operator==(const BST_bidirectional_iterator &rhs) const	{ return (_ptr == rhs._ptr); }
 		bool						operator!=(const BST_bidirectional_iterator &rhs) const	{ return (_ptr != rhs._ptr); }

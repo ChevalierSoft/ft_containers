@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/21 04:20:18 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/24 03:33:20 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,16 +269,23 @@ namespace ft
 		{
 			bool	found = false;
 
+			// this should never happen
 			if (!_cardinal->left || !_cardinal->right)
 				std::cout << "ALERT" << std::endl;
 
+			// if key is from the lowest node
 			if (_cardinal->left != _cardinal &&
 				(!_comp(key, _cardinal->left->content->v.first) && !_comp(_cardinal->left->content->v.first, key)) )	// ! using _comp
+				//key == _cardinal->left->content->v.first)
 			{
+				std::cout << "key is from the lowest node : " << key << " " << _cardinal->left->content->v.first << std::endl;
+				// if the lowest node has a right leaf
 				if (_cardinal->left->right != NULL && _cardinal->left->right != _cardinal)
 					_cardinal->left = _cardinal->left->right;
+				// if the lowest node has a parent _cardinal->left will point on it
 				else if (_cardinal->left->parent)
 					_cardinal->left = _cardinal->left->parent;
+				// default
 				else
 					_cardinal->left = _cardinal;
 			}
@@ -309,6 +316,8 @@ namespace ft
 
 			if (!node || node == _cardinal)
 				return (NULL);
+
+			std::cout << "key : " << key << std::endl;
 				
 			// search for the key in the tree
 			// if (key < node->content->first)									// ! using _comp
@@ -324,15 +333,16 @@ namespace ft
 			// got the key
 			else
 			{
+				__DEB("found");
 				*found = true;
-				if (!node->left && !node->right)
+				if ((!node->left || node->left == _cardinal) && (!node->right || node->right == _cardinal))
 				{
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
 					return (NULL);
 				}
 				// the node have no right branch
-				if (!node->right)
+				else if (!node->right || node->right == _cardinal)
 				{
 					ret = node->left;
 					// update parent
@@ -345,7 +355,7 @@ namespace ft
 					return (ret);
 				}
 				// the node have no left branch either
-				else if (!node->left)
+				else if (!node->left || node->left != _cardinal)
 				{
 					ret = node->right;
 					// update parent
@@ -370,7 +380,8 @@ namespace ft
 				{
 					// __DEB("(other balances)")
 					successor = find_min(node->right);
-					*node->content = *successor->content;
+					//*node->content = *successor->content;
+					node->content->v = successor->content->v;
 					node->right = remove(node->right, successor->content->v.first, found);
 				}
 
@@ -423,6 +434,7 @@ namespace ft
 
 			_root = insert(_root, val, &created_node, &already_exists);
 			_cardinal->parent = _root;
+			_root->parent = _cardinal;
 
 			if (already_exists == true)
 				return ( ft::make_pair<iterator, bool>( iterator(created_node, _cardinal), false ) );
@@ -540,19 +552,21 @@ namespace ft
 
 		void			print_bst() const
 		{
+			if (!_root || _root == _cardinal)
+				return ;
 			print_bst(_root, 0);
 			std::cout << "_cardinal [" ;
-			if (_cardinal->left)
+			if (_cardinal->left && _cardinal->left != _cardinal)
 				std::cout << _cardinal->left->content->v.second ;
 			else
 				std::cout << " ";
 
-			if (_cardinal->parent)
+			if (_cardinal->parent && _cardinal->parent != _cardinal)
 				std::cout << _cardinal->parent->content->v.second ;
 			else
 				std::cout << " ";
 			
-			if (_cardinal->right)
+			if (_cardinal->right && _cardinal->right != _cardinal)
 				std::cout << _cardinal->right->content->v.second ;
 			else
 				std::cout << " ";
