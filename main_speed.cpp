@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 01:54:58 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/19 02:18:15 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/28 02:11:36 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,28 @@
 	#include "vector.hpp"
 #endif
 
+#define __DEB(s) std::cerr<<s<<std::endl;
+
 void	speed_map()
 {
 	srand(time(NULL));
 	ft::map<int, std::string> m;
-	for (size_t i = 0; i < 1000000; ++i)
+
+	__DEB("insert ()");
+	for (size_t i = 0; i < 10000; ++i)
 	{
 		m.insert(ft::make_pair<int, std::string>(rand(), "🥷"));
 	}
+	__DEB("erase ()");
 	for (auto im = m.begin(); im != m.end(); im = m.begin())
 	{
 		m.erase(im);
 	}
-	std::cout << "oui" << std::endl;
 }
 
 int	main(void)
 {
 	speed_map();
+	__DEB("done");
 	return (0);
 }
