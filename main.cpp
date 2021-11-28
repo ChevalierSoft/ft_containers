@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/24 03:46:09 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/28 02:04:14 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -726,19 +726,27 @@ void	test_map()
 	ft::map<int, std::string>	m;
 	ft::map<char, int>			m2;
 	ft::map<menfou, menfou>		mf;
+	ft::map<int, int>			m4;
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
 	{
 		// m.insert(ft::make_pair<int, std::string>(7, "😇"));
 		// m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
-		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
-		//m.insert(ft::make_pair<int, std::string>(3, "🧛"));
+		// m.insert(ft::make_pair<int, std::string>(20, "🧙"));
+		// m.insert(ft::make_pair<int, std::string>(3, "🧛"));
 		// m.insert(ft::make_pair<int, std::string>(5, "👽"));
 		// m.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		//m.insert(ft::make_pair<int, std::string>(30, "🥷"));
-		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
-		m.display();
+		// m.insert(ft::make_pair<int, std::string>(30, "🥷"));
+		// m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+
+		for (size_t i = 0; i < 10; ++i)
+			m.insert(ft::make_pair<int, std::string>(rand(), "🥷"));
+		
+		for (int i = 0; i < 100; ++i)
+			m4.insert(ft::make_pair<int, int>(rand(), i));
+
+		m4.display();
 
 		m2.insert(ft::make_pair<char, int>('z', 99));
 		m2.insert(ft::make_pair<char, int>('a', 0));
@@ -764,17 +772,23 @@ void	test_map()
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "erase()" <<RST<< std::endl;
 	{
-		while (!m.empty())
+		// while (!m.empty())
+		// {
+		// 	__DEB("oui")
+		// 	std::cout << "m.size : " << m.size() << std::endl;
+		// 	m.erase(m.begin());
+		// 	//m.erase(--m.end());
+		// 	//m._bst.remove(30);
+		// 	//m._bst.remove(20);
+		// 	m.display();
+		// }
+		// m.display();
+
+		while (!m4.empty())
 		{
-			__DEB("oui")
-			std::cout << "m.size : " << m.size() << std::endl;
-			m.erase(m.begin());
-			//m.erase(--m.end());
-			//m._bst.remove(30);
-			//m._bst.remove(20);
-			m.display();
+			m4.erase(m4.begin());
+			m4.display();
 		}
-		m.display();
 	}
 	
 	return ; ///////////////////////////////////////////////////////////////////////////////////////

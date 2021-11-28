@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/19 02:41:48 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/21 06:36:06 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ namespace ft
 
 		void						erase (iterator position)
 		{
-			_size -= _bst.remove(position->first);
+			if (_size)
+				_size -= _bst.remove(position->first);
 		}
 
 		void 						clear ()

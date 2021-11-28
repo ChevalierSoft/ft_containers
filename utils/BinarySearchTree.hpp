@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/24 03:45:14 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/28 02:03:54 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,10 +281,11 @@ namespace ft
 				std::cout << "key is from the lowest node : " << key << " " << _cardinal->left->content->v.first << std::endl;
 				// if the lowest node has a right leaf
 				if (_cardinal->left->right != NULL && _cardinal->left->right != _cardinal)
-					_cardinal->left = _cardinal->left->right;
+					// _cardinal->left = _cardinal->left->right;
+					_cardinal->left = find_min(_cardinal->left->right);
 				// if the lowest node has a parent _cardinal->left will point on it
 				else if (_cardinal->left->parent)
-					_cardinal->left = _cardinal->left->parent;
+					_cardinal->left = _cardinal->left->parent;	// can use find_min here too
 				// default
 				else
 					_cardinal->left = _cardinal;
@@ -294,7 +295,7 @@ namespace ft
 				(!_comp(key, _cardinal->right->content->v.first) && !_comp(_cardinal->right->content->v.first, key)) )	// ! using _comp
 			{
 				if (_cardinal->right->left != NULL && _cardinal->right->left != _cardinal)
-					_cardinal->right = _cardinal->right->left;
+					_cardinal->right = find_max(_cardinal->right->left);
 				else if (_cardinal->right->parent)
 					_cardinal->right = _cardinal->right->parent;
 				else
