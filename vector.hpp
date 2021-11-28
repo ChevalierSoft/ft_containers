@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/20 01:03:57 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/29 00:39:22 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ namespace ft
 		// ? range (3)
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
-			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc)
+			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc)
 		{
 			assign(first, last);
 		}
@@ -151,7 +151,7 @@ namespace ft
 
 		template<class InputIterator>
 		void					assign (InputIterator first, InputIterator last,
-									typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
+									typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
 		{
 			size_type	i;
 			pointer		tmp;

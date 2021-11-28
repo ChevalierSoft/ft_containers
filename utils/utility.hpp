@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 13:21:14 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/19 00:16:06 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/29 00:39:28 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ namespace ft
 			InputIterator1 last1,
 			InputIterator2 first2,
 			InputIterator2 last2,
-			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = nullptr,
-			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = nullptr
+			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = NULL,
+			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = NULL
 		)
 	{
 		while (first1!=last1)
@@ -62,8 +62,8 @@ namespace ft
 			InputIterator2 first2,
 			InputIterator2 last2,
 			Compare comp,
-			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = nullptr,
-			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = nullptr
+			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = NULL,
+			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = NULL
 		)
 	{
 		while (first1!=last1)
@@ -83,8 +83,8 @@ namespace ft
 			InputIterator1 first1,
 			InputIterator1 last1,
 			InputIterator2 first2,
-			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = nullptr,
-			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = nullptr
+			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = NULL,
+			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = NULL
 		)
 	{
 		while (first1 != last1)
@@ -103,8 +103,8 @@ namespace ft
 			InputIterator1 last1,
 			InputIterator2 first2,
 			BinaryPredicate pred,
-			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = nullptr,
-			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = nullptr
+			typename ft::enable_if< ! ft::is_integral<InputIterator1>::value, InputIterator1>::type* = NULL,
+			typename ft::enable_if< ! ft::is_integral<InputIterator2>::value, InputIterator2>::type* = NULL
 		)
 	{
 		while (first1 != last1)
@@ -121,7 +121,7 @@ namespace ft
 	typename iterator_traits<InputIterator>::difference_type	distance (
 			InputIterator first,
 			InputIterator last,
-			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr
+			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL
 		)
 	{
 		typename iterator_traits<InputIterator>::difference_type	d;
