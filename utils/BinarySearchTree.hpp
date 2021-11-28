@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/28 02:03:54 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/28 02:33:29 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,22 +270,22 @@ namespace ft
 			bool	found = false;
 
 			// this should never happen
-			if (!_cardinal->left || !_cardinal->right)
-				std::cout << "ALERT" << std::endl;
+			// if (!_cardinal->left || !_cardinal->right)
+			// 	std::cout << "ALERT" << std::endl;
 
 			// if key is from the lowest node
 			if (_cardinal->left != _cardinal &&
 				(!_comp(key, _cardinal->left->content->v.first) && !_comp(_cardinal->left->content->v.first, key)) )	// ! using _comp
 				//key == _cardinal->left->content->v.first)
 			{
-				std::cout << "key is from the lowest node : " << key << " " << _cardinal->left->content->v.first << std::endl;
+				// std::cout << "key is from the lowest node : " << key << " " << _cardinal->left->content->v.first << std::endl;
 				// if the lowest node has a right leaf
 				if (_cardinal->left->right != NULL && _cardinal->left->right != _cardinal)
 					// _cardinal->left = _cardinal->left->right;
 					_cardinal->left = find_min(_cardinal->left->right);
 				// if the lowest node has a parent _cardinal->left will point on it
 				else if (_cardinal->left->parent)
-					_cardinal->left = _cardinal->left->parent;	// can use find_min here too
+					_cardinal->left = _cardinal->left->parent;
 				// default
 				else
 					_cardinal->left = _cardinal;
@@ -318,23 +318,23 @@ namespace ft
 			if (!node || node == _cardinal)
 				return (NULL);
 
-			std::cout << "key : " << key << std::endl;
+			// std::cout << "key : " << key << std::endl;
 				
 			// search for the key in the tree
-			 if (key < node->content->v.first)									// ! using _comp
-			//if (_comp(key, node->content->v.first))
+			// if (key < node->content->v.first)
+			if (_comp(key, node->content->v.first))
 			{
 				node->left = this->remove(node->left, key, found);
 			}
-			 else if (key > node->content->v.first)
-			//else if (_comp(node->content->v.first, key))							// ! using _comp
+			// else if (key > node->content->v.first)
+			else if (_comp(node->content->v.first, key))
 			{
 				node->right = this->remove(node->right, key, found);
 			}
 			// got the key
 			else
 			{
-				__DEB("found");
+				// __DEB("found");
 				*found = true;
 				if ((!node->left || node->left == _cardinal) && (!node->right || node->right == _cardinal))
 				{
@@ -369,7 +369,7 @@ namespace ft
 					return (ret);
 				}
 
-				std::cout << "apparently this node has 2 branches" << std::endl;
+				// std::cout << "apparently this node has 2 branches" << std::endl;
 
 				// replace node with the biggest sub tree
 				if (node->left->height > node->right->height)

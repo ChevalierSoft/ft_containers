@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/28 02:04:14 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/28 02:28:50 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -740,34 +740,34 @@ void	test_map()
 		// m.insert(ft::make_pair<int, std::string>(30, "🥷"));
 		// m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 
-		for (size_t i = 0; i < 10; ++i)
-			m.insert(ft::make_pair<int, std::string>(rand(), "🥷"));
+		// for (size_t i = 0; i < 10; ++i)
+		// 	m.insert(ft::make_pair<int, std::string>(rand(), "🥷"));
 		
 		for (int i = 0; i < 100; ++i)
 			m4.insert(ft::make_pair<int, int>(rand(), i));
 
-		m4.display();
+		// m4.display();
 
-		m2.insert(ft::make_pair<char, int>('z', 99));
-		m2.insert(ft::make_pair<char, int>('a', 0));
-		std::cout << m2.insert(ft::make_pair<char, int>('a', 1)).second << std::endl;
+		// m2.insert(ft::make_pair<char, int>('z', 99));
+		// m2.insert(ft::make_pair<char, int>('a', 0));
+		// std::cout << m2.insert(ft::make_pair<char, int>('a', 1)).second << std::endl;
 	}
 
 	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "size()" <<RST<< std::endl;
-	{
-		std::cout << mf.size() << std::endl;
-		std::cout << m.size() << std::endl;
-		std::cout << m2.size() << std::endl;
-	}
+	// std::cout <<std::endl<<CYN<< "size()" <<RST<< std::endl;
+	// {
+	// 	std::cout << mf.size() << std::endl;
+	// 	std::cout << m.size() << std::endl;
+	// 	std::cout << m2.size() << std::endl;
+	// }
 
 	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "empty()" <<RST<< std::endl;
-	{
-		std::cout << mf.empty() << std::endl;
-		std::cout << m.empty() << std::endl;
-		std::cout << m2.empty() << std::endl;
-	}
+	// std::cout <<std::endl<<CYN<< "empty()" <<RST<< std::endl;
+	// {
+	// 	std::cout << mf.empty() << std::endl;
+	// 	std::cout << m.empty() << std::endl;
+	// 	std::cout << m2.empty() << std::endl;
+	// }
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "erase()" <<RST<< std::endl;
@@ -791,7 +791,7 @@ void	test_map()
 		}
 	}
 	
-	return ; ///////////////////////////////////////////////////////////////////////////////////////
+	return ; // ! /////////////////////////////////////////////////////////////////////////////////////
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
