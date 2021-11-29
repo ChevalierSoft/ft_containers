@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/29 02:59:24 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/29 03:19:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -419,7 +419,7 @@ namespace ft
 
 			pointer n = _allocator.allocate(_value_count - 1);
 
-			size_t i = 0;
+			size_type i = 0;
 			while (i < pos)
 			{
 				n[i] = _value_data[i];
@@ -444,13 +444,8 @@ namespace ft
 			size_type	pos = first - begin();
 			size_type	end_pos = end() - last;
 
-			// __DEB("erase (2)")
 			if (dist == 0)
 				return (last);
-
-			// __DEB("delete from first to last")
-			for (size_type i = pos; i < pos + dist; ++i)
-				_allocator.destroy(_value_data + i);
 
 			// __DEB("move last element at first position recurcively")
 			if (last != end())
@@ -458,9 +453,9 @@ namespace ft
 					*start = *(last);
 			
 			// __DEB("destroy last part of the vector")
-			for (size_type j = end_pos; j < _value_count; ++j)
-				_allocator.destroy(_value_data + j);
-			
+			while (last != end())
+				_allocator.destroy(&(*last));
+
 			_value_count -= dist;
 			return (first);
 		}
