@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/29 03:19:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/29 03:27:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,7 +427,7 @@ namespace ft
 			}
 			++i;
 			--_value_count;
-			while (i < _value_count)
+			while (i < _value_count + 1)
 			{
 				n[i - 1] = _value_data[i];
 				++i;
