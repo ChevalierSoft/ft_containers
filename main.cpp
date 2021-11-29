@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/28 02:28:50 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/29 02:41:04 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -743,8 +743,8 @@ void	test_map()
 		// for (size_t i = 0; i < 10; ++i)
 		// 	m.insert(ft::make_pair<int, std::string>(rand(), "🥷"));
 		
-		for (int i = 0; i < 100; ++i)
-			m4.insert(ft::make_pair<int, int>(rand(), i));
+		// for (int i = 0; i < 1000; ++i)
+		// 	m4.insert(ft::make_pair<int, int>(rand(), i));
 
 		// m4.display();
 
@@ -774,7 +774,6 @@ void	test_map()
 	{
 		// while (!m.empty())
 		// {
-		// 	__DEB("oui")
 		// 	std::cout << "m.size : " << m.size() << std::endl;
 		// 	m.erase(m.begin());
 		// 	//m.erase(--m.end());
@@ -787,7 +786,7 @@ void	test_map()
 		while (!m4.empty())
 		{
 			m4.erase(m4.begin());
-			m4.display();
+			// m4.display();
 		}
 	}
 	
@@ -856,16 +855,62 @@ void	test_map()
 
 }
 
-// ____________________________________________________________________________
+void	printSize(ft::vector<std::string> vct)
+{
+	std::cout << "size: " << vct.size() << std::endl;
+	std::cout << "capacity: " << vct.capacity() << std::endl;
+	std::cout << "max_size: " << vct.max_size() << std::endl;
+}
+
+void	checkErase(ft::vector<std::string> vct,
+					ft::vector<std::string>::iterator it)
+{
+	static int i = 0;
+	std::cout << "[" << i++ << "] " << "erase: " << it - vct.begin() << std::endl;
+	printSize(vct);
+}
+
+int		test_erase(void)
+{
+	ft::vector<std::string> vct(10);
+
+	for (unsigned long int i = 0; i < vct.size(); ++i)
+		vct[i] = std::string((vct.size() - i), i + 'A');
+	printSize(vct);
+
+	checkErase(vct, vct.erase(vct.begin() + 2));
+
+	checkErase(vct, vct.erase(vct.begin()));
+	// checkErase(vct, vct.erase(vct.end() - 1));
+
+	// checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
+	// checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));
+
+	// vct.push_back("Hello");
+	// vct.push_back("Hi there");
+	// printSize(vct);
+	// checkErase(vct, vct.erase(vct.end() - 3, vct.end()));
+
+	// vct.push_back("ONE");
+	// vct.push_back("TWO");
+	// vct.push_back("THREE");
+	// vct.push_back("FOUR");
+	// printSize(vct);
+	// checkErase(vct, vct.erase(vct.begin(), vct.end()));
+
+	return (0);
+}
+
+// * ___________________________________________________________________________
 int	main(void)
 {
 	// test_utility();
 	// test_iterator();
-	// test_vector();
+	test_vector();
 
 	// test_bst();
 
-	test_map();
+	// test_map(/);
 
 	return (0);
 }

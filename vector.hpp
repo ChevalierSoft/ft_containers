@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/29 00:39:22 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/29 02:59:24 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,14 +408,34 @@ namespace ft
 		{
 			size_type	pos = position - begin();
 
-			for (size_type i = pos; i < _value_count - 1; ++i)
+			// * seems smarter but is 3 time slower
+			// for (size_type i = pos; i < _value_count - 1; ++i)
+			// {
+			// 	_allocator.construct(_value_data + i, _value_data[i + 1]);
+			// }
+			// _allocator.destroy(_value_data + _value_count - 1);
+			// --_value_count;
+			// return (iterator(position));
+
+			pointer n = _allocator.allocate(_value_count - 1);
+
+			size_t i = 0;
+			while (i < pos)
 			{
-				_allocator.destroy(_value_data + i);
-				_allocator.construct(_value_data + i, _value_data[i + 1]);
+				n[i] = _value_data[i];
+				++i;
 			}
-			_allocator.destroy(_value_data + _value_count - 1);
+			++i;
 			--_value_count;
-			return (position);
+			while (i < _value_count)
+			{
+				n[i - 1] = _value_data[i];
+				++i;
+			}
+			_allocator.deallocate(_value_data, _value_chunk_size);
+			_value_data = n;
+			_value_chunk_size = _value_count;
+			return (iterator(position));
 		}
 
 		iterator				erase (iterator first, iterator last)
