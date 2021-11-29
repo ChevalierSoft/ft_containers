@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/29 05:56:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/29 07:21:38 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -422,8 +422,8 @@ namespace ft
 		iterator				erase (iterator first, iterator last)
 		{
 			size_type	dist = ft::distance(first, last);
-			size_type	pos = first - begin();
-			size_type	end_pos = end() - last;
+			// size_type	pos = first - begin();
+			// size_type	end_pos = end() - last;
 
 			if (dist == 0)
 				return (last);

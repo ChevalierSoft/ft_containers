@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 01:54:58 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/29 02:33:46 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/29 07:06:42 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,23 @@
 #define VECTOR_CELLS	100000
 
 #define __DEB(s) std::cerr<<s<<std::endl;
+
+class	menfou
+{
+private:
+	static int	_nb;
+public:
+	int 		a;
+	int			b;
+	char		c;
+	size_t		d;
+
+	explicit	menfou() : a(1), b(42), c('A' + _nb), d(-1) { ++_nb; }
+	explicit	menfou(char n_c) : a(1), b(42), c(n_c), d(-1) {}
+	~menfou(){}
+};
+int		menfou::_nb = 0;
+std::ostream &	operator<< (std::ostream & o, const menfou & m) { o << "obj : " << m.c << " " << m.b << std::endl;	return o; }
 
 void	speed_map()
 {
@@ -43,21 +60,15 @@ void	speed_map()
 
 void	speed_vector()
 {
-	ft::vector<int> v;
+	ft::vector<menfou> v;
 
 	__DEB("push_back()");
 	for (size_t i = 0; i < VECTOR_CELLS; ++i)
-		v.push_back(rand());
+		v.push_back(menfou());
+
 	__DEB("erase()");
 	for (auto im = v.begin(); im != v.end(); im = v.begin())
 		v.erase(im);
-	
-	// __DEB("push_back()");
-	// for (size_t i = 0; i < VECTOR_CELLS; ++i)
-	// 	v.push_back(rand());
-	// __DEB("pop_back())");
-	// for (size_t i = 0; i < VECTOR_CELLS; ++i)
-	// 	v.pop_back();
 }
 
 int	main(void)

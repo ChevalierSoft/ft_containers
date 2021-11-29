@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/29 02:41:04 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/29 08:30:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -438,8 +438,9 @@ void	test_vector()
 		vv.push_back('L');
 		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.erase(vv.begin());
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
 		vv.erase(vv.end() - 1);
 		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
@@ -855,11 +856,32 @@ void	test_map()
 
 }
 
-void	printSize(ft::vector<std::string> vct)
+#ifndef TESTED_NAMESPACE
+# define TESTED_NAMESPACE ft
+#endif
+
+#define T_SIZE_TYPE typename TESTED_NAMESPACE::vector<T>::size_type
+
+template <typename T>
+void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = true)
 {
-	std::cout << "size: " << vct.size() << std::endl;
-	std::cout << "capacity: " << vct.capacity() << std::endl;
+	const T_SIZE_TYPE size = vct.size();
+	const T_SIZE_TYPE capacity = vct.capacity();
+	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
+	// Cannot limit capacity's max value because it's implementation dependent
+
+	std::cout << "size: " << size << std::endl;
+	std::cout << "capacity: " << isCapacityOk << std::endl;
 	std::cout << "max_size: " << vct.max_size() << std::endl;
+	if (print_content)
+	{
+		typename TESTED_NAMESPACE::vector<T>::const_iterator it = vct.begin();
+		typename TESTED_NAMESPACE::vector<T>::const_iterator ite = vct.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << *it << std::endl;
+	}
+	std::cout << "###############################################" << std::endl;
 }
 
 void	checkErase(ft::vector<std::string> vct,
@@ -876,12 +898,12 @@ int		test_erase(void)
 
 	for (unsigned long int i = 0; i < vct.size(); ++i)
 		vct[i] = std::string((vct.size() - i), i + 'A');
-	printSize(vct);
+	// printSize(vct);
 
 	checkErase(vct, vct.erase(vct.begin() + 2));
 
 	checkErase(vct, vct.erase(vct.begin()));
-	// checkErase(vct, vct.erase(vct.end() - 1));
+	checkErase(vct, vct.erase(vct.end() - 1));
 
 	// checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
 	// checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));
@@ -906,11 +928,13 @@ int	main(void)
 {
 	// test_utility();
 	// test_iterator();
-	test_vector();
+	// test_vector();
 
 	// test_bst();
 
-	// test_map(/);
+	// test_map();
+
+	test_erase();
 
 	return (0);
 }
