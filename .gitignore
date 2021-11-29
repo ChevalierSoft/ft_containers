@@ -6,6 +6,7 @@
 *.elf
 a.out.dSYM
 vald/
+containers_test/
 *.*.log
 *.log
 *.txt
