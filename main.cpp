@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/29 08:30:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/30 00:43:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -905,20 +905,20 @@ int		test_erase(void)
 	checkErase(vct, vct.erase(vct.begin()));
 	checkErase(vct, vct.erase(vct.end() - 1));
 
-	// checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
-	// checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));
+	checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
+	checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));
 
-	// vct.push_back("Hello");
-	// vct.push_back("Hi there");
-	// printSize(vct);
-	// checkErase(vct, vct.erase(vct.end() - 3, vct.end()));
+	vct.push_back("Hello");
+	vct.push_back("Hi there");
+	printSize(vct);
+	checkErase(vct, vct.erase(vct.end() - 3, vct.end()));
 
-	// vct.push_back("ONE");
-	// vct.push_back("TWO");
-	// vct.push_back("THREE");
-	// vct.push_back("FOUR");
-	// printSize(vct);
-	// checkErase(vct, vct.erase(vct.begin(), vct.end()));
+	vct.push_back("ONE");
+	vct.push_back("TWO");
+	vct.push_back("THREE");
+	vct.push_back("FOUR");
+	printSize(vct);
+	checkErase(vct, vct.erase(vct.begin(), vct.end()));
 
 	return (0);
 }
