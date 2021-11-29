@@ -10,3 +10,4 @@ containers_test/
 *.*.log
 *.log
 *.txt
+*.gch
