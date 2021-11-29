@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 13:22:04 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/10/14 22:15:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/29 01:27:42 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ namespace ft
 	struct is_integral<bool> : public ft::true_type {};
 	template <>
 	struct is_integral<char> : public ft::true_type {};
-	template <>
-	struct is_integral<char16_t> : public ft::true_type {};
-	template <>
-	struct is_integral<char32_t> : public ft::true_type {};
+	// template <>
+	// struct is_integral<char16_t> : public ft::true_type {};
+	// template <>
+	// struct is_integral<char32_t> : public ft::true_type {};
 	template <>
 	struct is_integral<wchar_t> : public ft::true_type {};
 	template <>
