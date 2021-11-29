@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/21 06:36:06 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/28 03:34:36 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,7 @@ namespace ft
 
 		iterator	begin () const
 		{
-			if (_bst._cardinal->left)
-			{
-				return (iterator(_bst._cardinal->left, _bst._cardinal));
-			}
-			return (iterator());
+			return (iterator(_bst._cardinal->left, _bst._cardinal));
 		}
 
 		iterator	end ()		// ? could use a sentinel here and in begin

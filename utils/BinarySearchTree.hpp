@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/28 02:33:29 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/28 04:36:45 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ namespace ft
 		Node_pointer	left_right_rotation(Node_pointer node)
 		{
 			node->left = left_rotation(node->left);
+			// node->left->parent = node;
 			return (right_rotation(node));
 		}
 
@@ -190,6 +191,7 @@ namespace ft
 		Node_pointer	right_left_rotation(Node_pointer node)
 		{
 			node->right = right_rotation(node->right);
+			// node->right->parent = node;
 			return (left_rotation(node));
 		}
 
@@ -218,6 +220,11 @@ namespace ft
 				else
 					return (right_right_rotation(node));
 			}
+
+			if (node->right && node->right != _cardinal)
+				node->right->parent = node;
+			if (node->left && node->left != _cardinal)
+				node->left->parent = node;
 
 			// node is already balanced
 			return (node);
@@ -484,10 +491,10 @@ namespace ft
 			}
 			else if (node == _cardinal)
 				return (_cardinal);
-			else if (!_comp(val.first, node->content->v.first) && 	// ? Key already exists
+			// ? Key already exists
+			else if (!_comp(val.first, node->content->v.first) &&
 						!_comp(node->content->v.first, val.first))
 			{
-				// node->content->v.second = val.second;
 				*created_node = node;
 				*already_exists = true;
 			}
