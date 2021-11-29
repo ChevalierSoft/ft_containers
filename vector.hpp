@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/29 03:27:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/29 05:56:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ namespace ft
 		explicit vector (const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) {}
 
 		// ? fill (2)
-		explicit vector (size_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
+		explicit vector (size_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type())
+		: _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) // : vector() // c++11
 		{
 			this->resize(nb, elem);
 		}
@@ -73,7 +74,8 @@ namespace ft
 		// ? range (3)
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
-			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc)
+			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
+			: _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc)
 		{
 			assign(first, last);
 		}
@@ -408,33 +410,12 @@ namespace ft
 		{
 			size_type	pos = position - begin();
 
-			// * seems smarter but is 3 time slower
-			// for (size_type i = pos; i < _value_count - 1; ++i)
-			// {
-			// 	_allocator.construct(_value_data + i, _value_data[i + 1]);
-			// }
-			// _allocator.destroy(_value_data + _value_count - 1);
-			// --_value_count;
-			// return (iterator(position));
-
-			pointer n = _allocator.allocate(_value_count - 1);
-
-			size_type i = 0;
-			while (i < pos)
-			{
-				n[i] = _value_data[i];
-				++i;
-			}
-			++i;
+			// ? construct is very slow but needed for classes without operator=
+			for (size_type i = pos; i < _value_count - 1; ++i)
+				_allocator.construct(_value_data + i, _value_data[i + 1]);
+				// _value_data[i] = _value_data[i + 1];
+			_allocator.destroy(_value_data + _value_count - 1);
 			--_value_count;
-			while (i < _value_count + 1)
-			{
-				n[i - 1] = _value_data[i];
-				++i;
-			}
-			_allocator.deallocate(_value_data, _value_chunk_size);
-			_value_data = n;
-			_value_chunk_size = _value_count;
 			return (iterator(position));
 		}
 
@@ -448,9 +429,8 @@ namespace ft
 				return (last);
 
 			// __DEB("move last element at first position recurcively")
-			if (last != end())
-				for (iterator start = first; last != end(); ++start, ++last)
-					*start = *(last);
+			for (iterator start = first; last != end(); ++start, ++last)
+				*start = *(last);
 			
 			// __DEB("destroy last part of the vector")
 			while (last != end())
