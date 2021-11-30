@@ -108,7 +108,8 @@ namespace ft
 	template <typename Tl, typename Tr>
 	typename ft::reverse_iterator<Tl>::difference_type	operator- (const ft::reverse_iterator<Tl> &lhs, const ft::reverse_iterator<Tr> &rhs)
 	{
-		return (lhs.base() - rhs.base());
+		// need to double check
+		return (-(lhs.base().base() - rhs.base().base()));
 	}
 
 }
