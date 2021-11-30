@@ -54,9 +54,12 @@ namespace ft
 		const_reference			operator[](difference_type rhs) const	{ return (*(_ptr + rhs)); }
 
 		/// *   Random access vvv ____________________________________________________________
-		random_access_iterator	operator+ (difference_type rhs)			{ random_access_iterator	it(_ptr + rhs); return (it);		}
-		random_access_iterator	operator- (difference_type rhs)			{ random_access_iterator	it(_ptr - rhs); return (it);		}
-		difference_type			operator- (random_access_iterator rhs)	{ difference_type			df(_ptr - rhs._ptr); return (df);	}
+		random_access_iterator	operator+ (difference_type rhs)			{ random_access_iterator	it(_ptr + rhs); return (it);	}
+		random_access_iterator	operator- (difference_type rhs)			{ random_access_iterator	it(_ptr - rhs); return (it);	}
+
+		difference_type			operator- (const iterator &rhs)			{ difference_type	df(_ptr - rhs._ptr); return (df);		}
+		difference_type			operator- (const iterator &rhs) const	{ difference_type	df(_ptr - rhs._ptr); return (df);		}
+
 
 		random_access_iterator&	operator+=(const difference_type rhs)	{ _ptr += rhs; return ( *this );	}
 		random_access_iterator&	operator-=(const difference_type rhs)	{ _ptr -= rhs; return ( *this );	}
@@ -71,13 +74,36 @@ namespace ft
 		reference				operator* () const	{ return (*_ptr);	}
 		pointer					operator->() const	{ return (_ptr);	}
 
-		pointer					base() const	{ return _ptr; 	}
+		pointer					base() const	{ return (_ptr); 	}
 
 	// private:
 	protected:
 		pointer _ptr;
 
 	};	/// * random_access_iterator ____________________________________________________
+
+	/*
+	template <typename T>
+	typename random_access_iterator<T>::difference_type operator- (const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs)
+	{
+		return (lhs.base() - rhs.base());
+	}
+	*/
+
+	template <typename T>
+	ft::random_access_iterator<T>
+	operator+ (const int &lhs, const random_access_iterator<T> &rhs)
+	{
+		return (ft::random_access_iterator<T>((rhs.base() + lhs)));
+	}
+
+	template <typename T>
+	bool					operator!=(const random_access_iterator<const T> &lhs, const random_access_iterator<const T> &rhs)
+	{ return (lhs._ptr != rhs._ptr); }
+
+
+
+
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/30 00:42:29 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/30 01:38:54 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -416,7 +416,7 @@ namespace ft
 				// _value_data[i] = _value_data[i + 1];
 			_allocator.destroy(_value_data + _value_count - 1);
 			--_value_count;
-			if (pos == _value_count -1)
+			if (pos == _value_count - 1)
 				return (end());
 			return (iterator(_value_data + pos));
 		}

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/30 00:43:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/30 02:24:20 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -717,6 +717,7 @@ void	test_bst()
 	}
 
 }
+
 */
 
 // ____________________________________________________________________________
@@ -856,73 +857,6 @@ void	test_map()
 
 }
 
-#ifndef TESTED_NAMESPACE
-# define TESTED_NAMESPACE ft
-#endif
-
-#define T_SIZE_TYPE typename TESTED_NAMESPACE::vector<T>::size_type
-
-template <typename T>
-void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = true)
-{
-	const T_SIZE_TYPE size = vct.size();
-	const T_SIZE_TYPE capacity = vct.capacity();
-	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
-	// Cannot limit capacity's max value because it's implementation dependent
-
-	std::cout << "size: " << size << std::endl;
-	std::cout << "capacity: " << isCapacityOk << std::endl;
-	std::cout << "max_size: " << vct.max_size() << std::endl;
-	if (print_content)
-	{
-		typename TESTED_NAMESPACE::vector<T>::const_iterator it = vct.begin();
-		typename TESTED_NAMESPACE::vector<T>::const_iterator ite = vct.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << *it << std::endl;
-	}
-	std::cout << "###############################################" << std::endl;
-}
-
-void	checkErase(ft::vector<std::string> vct,
-					ft::vector<std::string>::iterator it)
-{
-	static int i = 0;
-	std::cout << "[" << i++ << "] " << "erase: " << it - vct.begin() << std::endl;
-	printSize(vct);
-}
-
-int		test_erase(void)
-{
-	ft::vector<std::string> vct(10);
-
-	for (unsigned long int i = 0; i < vct.size(); ++i)
-		vct[i] = std::string((vct.size() - i), i + 'A');
-	// printSize(vct);
-
-	checkErase(vct, vct.erase(vct.begin() + 2));
-
-	checkErase(vct, vct.erase(vct.begin()));
-	checkErase(vct, vct.erase(vct.end() - 1));
-
-	checkErase(vct, vct.erase(vct.begin(), vct.begin() + 3));
-	checkErase(vct, vct.erase(vct.end() - 3, vct.end() - 1));
-
-	vct.push_back("Hello");
-	vct.push_back("Hi there");
-	printSize(vct);
-	checkErase(vct, vct.erase(vct.end() - 3, vct.end()));
-
-	vct.push_back("ONE");
-	vct.push_back("TWO");
-	vct.push_back("THREE");
-	vct.push_back("FOUR");
-	printSize(vct);
-	checkErase(vct, vct.erase(vct.begin(), vct.end()));
-
-	return (0);
-}
-
 // * ___________________________________________________________________________
 int	main(void)
 {
@@ -934,7 +868,12 @@ int	main(void)
 
 	// test_map();
 
-	test_erase();
-
+	ft::vector<int>				v;
+	ft::vector<int>::iterator	iv;
+	v.push_back(42);
+	v.push_back(21);
+	
+	iv = v.begin();
+	iv = 1 + iv;
 	return (0);
 }
