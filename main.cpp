@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/30 02:24:20 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/11/30 05:36:38 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -869,11 +869,10 @@ int	main(void)
 	// test_map();
 
 	ft::vector<int>				v;
-	ft::vector<int>::iterator	iv;
+	ft::vector<int>::reverse_iterator	iv;
 	v.push_back(42);
 	v.push_back(21);
 	
-	iv = v.begin();
 	iv = 1 + iv;
 	return (0);
 }

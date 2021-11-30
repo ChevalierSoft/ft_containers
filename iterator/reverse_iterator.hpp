@@ -91,6 +91,14 @@ namespace ft
 	// bool operator== (const reverse_iterator<Iter_L>& lhs,
 	// 					const reverse_iterator<Iter_R>& rhs) { return (lhs.base() == rhs.base()); }
 
+	template <typename Ti>
+	ft::reverse_iterator<Ti>
+	operator+ (typename ft::reverse_iterator<Ti>::difference_type lhs, typename ft::reverse_iterator<Ti> &rhs)
+	{
+		return (ft::reverse_iterator<Ti>(rhs.base() + lhs));
+	}
+
+
 }
 
 #endif
