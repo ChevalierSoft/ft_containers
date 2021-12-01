@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/30 05:43:06 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/01 02:40:36 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	display(T v, char c)
 
 // * ___________________________________________________________________________ ft::vector
 
+/*
 // _____________________________________________________________________________
 void	test_vector()
 {
@@ -510,6 +511,9 @@ void	test_vector()
 
 }	//__________________________________________________________________________
 
+*/
+
+/*
 // _____________________________________________________________________________
 void	test_iterator_2(const ft::vector<char> &v)
 {
@@ -522,6 +526,10 @@ void	test_iterator_2(const ft::vector<char> &v)
 	}
 	std::cout << std::endl;
 }
+
+*/
+
+/*
 
 // _____________________________________________________________________________
 void	test_iterator()
@@ -612,6 +620,9 @@ void	test_iterator()
 
 }
 
+*/
+
+/*
 // ____________________________________________________________________________
 void	test_utility()
 {
@@ -661,6 +672,8 @@ void	test_utility()
 	}
 
 }
+
+*/
 
 // ? __________________________________________________________________________ ft::map
 
@@ -719,6 +732,8 @@ void	test_bst()
 }
 
 */
+
+/*
 
 // ____________________________________________________________________________
 void	test_map()
@@ -857,6 +872,163 @@ void	test_map()
 
 }
 
+*/
+
+template <typename T>
+void	printSize(ft::vector<T> const &vct, bool print_content = true)
+{
+	const size_t size = vct.size();
+	const size_t capacity = vct.capacity();
+	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
+	// Cannot limit capacity's max value because it's implementation dependent
+
+	std::cout << "size: " << size << std::endl;
+	std::cout << "capacity: " << isCapacityOk << std::endl;
+	std::cout << "max_size: " << vct.max_size() << std::endl;
+	if (print_content)
+	{
+		typename ft::vector<T>::const_iterator it = vct.begin();
+		typename ft::vector<T>::const_iterator ite = vct.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << *it << std::endl;
+	}
+	std::cout << "###############################################" << std::endl;
+}
+
+int		rite(void)
+{
+	const int size = 5;
+	ft::vector<int> vct(size);
+	ft::vector<int>::iterator it = vct.begin();
+	ft::vector<int>::reverse_iterator rev_it(it);
+
+	for (int i = 0; i < size; ++i)
+		vct[i] = i;
+	printSize(vct);
+
+	// std::cout << *it << std::endl;
+
+	std::cout << (it == rev_it.base()) << std::endl;
+	std::cout << (it == (rev_it + 3).base()) << std::endl;
+
+	std::cout << *(rev_it.base() + 1) << std::endl;
+	std::cout << *(rev_it - 3) << std::endl;
+	std::cout << *(rev_it - 3).base() << std::endl;
+	rev_it -= 3;
+	std::cout << *rev_it.base() << std::endl;
+
+	std::cout << "TEST OFFSET" << std::endl;
+	std::cout << *(rev_it) << std::endl;
+	std::cout << *(rev_it).base() << std::endl;
+	std::cout << *(rev_it - 0) << std::endl;
+	std::cout << *(rev_it - 0).base() << std::endl;
+	std::cout << *(rev_it - 1).base() << std::endl;
+
+	return (0);
+}
+
+int		rite2(void)
+{
+	const int size = 5;
+	ft::vector<int> vct(size);
+	ft::vector<int>::reverse_iterator rit = vct.rbegin();
+	ft::vector<int>::const_reverse_iterator crit = vct.rbegin();
+
+	for (int i = 0; i < size; ++i)
+		rit[i] = i;
+	printSize(vct);
+
+	if (rit.base().base() == vct.end().base())
+		__DEB("oui");
+	
+	// std::cout << *(rit) << std::endl;
+	// rit = rit + 2;
+	// std::cout << *(rit) << std::endl;
+
+	rit = rit + 5;
+	rit = 1 + rit;
+	rit = rit - 4;
+	std::cout << *(rit) << std::endl;
+	__DEB("alert");
+	
+	std::cout << *(rit += 2) << std::endl;
+	std::cout << *(rit -= 1) << std::endl;
+
+	*(rit -= 2) = 42;
+	*(rit += 2) = 21;
+
+	std::cout << "crit +=/-=: " << *(crit += 2) << " | " << *(crit -= 2) << std::endl;
+
+	std::cout << "(rit == crit): " << (crit == rit) << std::endl;
+	std::cout << "(crit - rit): " << (crit - rit) << std::endl;
+	std::cout << "(crit + 3 == rit): " << (crit + 3 == rit) << std::endl;
+
+	// printSize(vct, true);
+	return (0);
+}
+
+class foo {
+	public:
+		foo(void) { };
+		~foo(void) { };
+		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
+		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
+		foo &operator=(int src) { this->value = src; return *this; };
+		int getValue(void) const { return this->value; };
+	private:
+		int	value;
+};
+
+std::ostream	&operator<<(std::ostream &o, foo const &bar) {
+	o << bar.getValue();
+	return o;
+}
+
+
+int		rite_arrow(void)
+{
+	const int size = 5;
+	ft::vector<foo> vct(size);
+	ft::vector<foo>::reverse_iterator it(vct.rbegin());
+	ft::vector<foo>::const_reverse_iterator ite(vct.rend());
+
+	for (int i = 1; it != ite; ++i)
+		*it++ = (i * 7);
+	printSize(vct, 1);
+
+	it = vct.rbegin();
+	ite = vct.rbegin();
+
+	std::cout << *(++ite) << std::endl;
+	std::cout << *(ite++) << std::endl;
+	std::cout << *ite++ << std::endl;
+	std::cout << *++ite << std::endl;
+
+	it->m();
+	ite->m();
+
+	std::cout << *(++it) << std::endl;
+	std::cout << *(it++) << std::endl;
+	std::cout << *it++ << std::endl;
+	std::cout << *++it << std::endl;
+
+	std::cout << *(--ite) << std::endl;
+	std::cout << *(ite--) << std::endl;
+	std::cout << *--ite << std::endl;
+	std::cout << *ite-- << std::endl;
+
+	(*it).m();
+	(*ite).m();
+
+	std::cout << *(--it) << std::endl;
+	std::cout << *(it--) << std::endl;
+	std::cout << *it-- << std::endl;
+	std::cout << *--it << std::endl;
+
+	return (0);
+}
+
 // * ___________________________________________________________________________
 int	main(void)
 {
@@ -868,11 +1040,15 @@ int	main(void)
 
 	// test_map();
 
-	ft::vector<int>				v;
-	ft::vector<int>::reverse_iterator	iv;
-	v.push_back(42);
-	v.push_back(21);
+	rite2();
+	// rite_arrow();
+
+
+	// ft::vector<int>				v;
+	// ft::vector<int>::reverse_iterator	iv;
+	// v.push_back(42);
+	// v.push_back(21);
 	
-	iv = 1 - iv;
+	// iv = 1 - iv;
 	return (0);
 }

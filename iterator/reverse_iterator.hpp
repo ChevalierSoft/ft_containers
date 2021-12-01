@@ -18,27 +18,30 @@ namespace ft
 		typedef typename	ft::iterator_traits<Iter>::value_type			value_type;
 		typedef typename	ft::iterator_traits<Iter>::difference_type		difference_type;
 		typedef typename	ft::iterator_traits<Iter>::pointer				pointer;
+		typedef 	const pointer									const_pointer;
 		typedef typename	ft::iterator_traits<Iter>::reference			reference;
+		typedef 	const reference									const_reference;
 		typedef				ft::reverse_iterator<Iter>						iterator;
 		typedef				ft::reverse_iterator<Iter>						vector_iterator;
 
 		/// * Constructors / Destructor _______________________________________________________
 
-		reverse_iterator () {}
+		reverse_iterator () : _it(){}
 
-		reverse_iterator (typename Iter::value_type * x_t) : _it(x_t) {}
+		// reverse_iterator (typename Iter::value_type * x_t) : _it(x_t) {}
 
 		reverse_iterator (iterator_type rhs) : _it(rhs) {}
 
 		template <class I>
-		reverse_iterator (const reverse_iterator<I>& rhs) { *this = rhs; }
+		reverse_iterator (const reverse_iterator<I>& rhs) : _it(rhs.base()) {}
+		// reverse_iterator (const reverse_iterator<I>& rhs) { *this = rhs; }
 
 		~reverse_iterator () {}
 
 		/// * Member Operators ________________________________________________________________
 
-		template <class I>
-		reverse_iterator	&operator= (const reverse_iterator<I> &rhs)		{ _it = rhs.base(); return (*this);	}
+		// template <class I>
+		// reverse_iterator	&operator= (const reverse_iterator<I> &rhs)		{ _it = rhs.base(); return (*this);	}
 
 		/// * Equality Operators _____________________________________________________________
 
@@ -51,10 +54,15 @@ namespace ft
 
 		/// * Dereferense ____________________________________________________________________
 
-		reference			operator[](difference_type rhs)					{ return ( _it[- rhs] ); }
-		reference			operator* ()									{ return (*_it); }
-		reference			operator->()									{ return &(*_it.operator->()); }
-		iterator_type		base() const									{ return (_it); }
+		reference			operator[](difference_type rhs)					{ return ( _it[- rhs - 1] );					}
+		const_reference		operator[](difference_type rhs)	const			{ return ( _it[- rhs - 1] );					}
+		reference			operator*() const								{ iterator_type tmp(_it); return (*(--tmp));	}	// ? this will work on bidirectional_iterator too
+		
+		// reference			operator->()									{ iterator_type tmp = _it; return &(*(--tmp).operator->());		}
+		// pointer				operator->()									{ iterator_type tmp(_it); return &(*(--tmp).operator->());		}
+		pointer				operator->() const									{ return &(operator*());		}
+
+		iterator_type		base() const									{ return (_it);									}
 
 		/// *  Random access vvv _____________________________________________________________
 
@@ -93,24 +101,42 @@ namespace ft
 
 	template <typename Ti>
 	ft::reverse_iterator<Ti>
-	operator+ (typename ft::reverse_iterator<Ti>::difference_type lhs, typename ft::reverse_iterator<Ti> &rhs)
+	operator+ (typename ft::reverse_iterator<Ti>::difference_type lhs,
+				typename ft::reverse_iterator<Ti> &rhs)
 	{
-		return (ft::reverse_iterator<Ti>(rhs.base() - lhs));
+		return (ft::reverse_iterator<Ti>(rhs + lhs));
 	}
 
-	template <typename Ti>
-	ft::reverse_iterator<Ti>
-	operator- (typename ft::reverse_iterator<Ti>::difference_type lhs, typename ft::reverse_iterator<Ti> &rhs)
+	template <typename I>
+	ft::reverse_iterator<I>
+	operator- (typename ft::reverse_iterator<I>::difference_type lhs,
+				typename ft::reverse_iterator<I> &rhs)
 	{
-		return (ft::reverse_iterator<Ti>(rhs.base() + lhs));
+		return (ft::reverse_iterator<I>(rhs - lhs));
 	}
 
-	template <typename Tl, typename Tr>
-	typename ft::reverse_iterator<Tl>::difference_type	operator- (const ft::reverse_iterator<Tl> &lhs, const ft::reverse_iterator<Tr> &rhs)
+	template <typename Il, typename Ir>
+	typename ft::reverse_iterator<Il>::difference_type
+	operator- (const ft::reverse_iterator<Il> &lhs,
+				const ft::reverse_iterator<Ir> &rhs)
 	{
 		// need to double check
 		return (-(lhs.base().base() - rhs.base().base()));
 	}
+
+	template <typename I>
+	bool	operator!=(const reverse_iterator<I>& lhs, const reverse_iterator<I>& rhs)
+	{
+		return (lhs.base() != rhs.base());
+	}
+
+	// used when comparing const with non const
+	template <typename Il, typename Ir>
+	bool	operator!=(const reverse_iterator<Il>& lhs, const reverse_iterator<Ir>& rhs)
+	{
+		return (lhs.base() != rhs.base());
+	}
+
 
 }
 

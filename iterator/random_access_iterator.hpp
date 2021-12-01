@@ -38,8 +38,8 @@ namespace ft
 		~random_access_iterator() {}
 
 		/// * Member Operators _______________________________________________________________
-		template <typename U>
-		random_access_iterator&	operator= (const random_access_iterator<U> &rhs) { _ptr = rhs.base(); return (*this); }
+		// template <typename U>
+		// random_access_iterator&	operator= (const random_access_iterator<U> &rhs) { _ptr = rhs.base(); return (*this); }
 
 		/// * Equality Operators _____________________________________________________________
 	/*
@@ -63,11 +63,11 @@ namespace ft
 		const_reference			operator[](difference_type rhs) const	{ return (*(_ptr + rhs)); }
 
 		/// *   Random access vvv ____________________________________________________________
-		random_access_iterator	operator+ (difference_type rhs) const	{ random_access_iterator	it(_ptr + rhs); return (it);	}
-		random_access_iterator	operator- (difference_type rhs)			{ random_access_iterator	it(_ptr - rhs); return (it);	}
+		random_access_iterator	operator+ (difference_type rhs) const	{ return (random_access_iterator(_ptr + rhs));	}
+		random_access_iterator	operator- (difference_type rhs)			{ return (random_access_iterator(_ptr - rhs));	}
 
-		difference_type			operator- (const iterator &rhs)			{ difference_type	df(_ptr - rhs._ptr); return (df);		}
-		difference_type			operator- (const iterator &rhs) const	{ difference_type	df(_ptr - rhs._ptr); return (df);		}
+		difference_type			operator- (const iterator &rhs)			{ return (difference_type(_ptr - rhs._ptr));	}
+		difference_type			operator- (const iterator &rhs) const	{ return (difference_type(_ptr - rhs._ptr));	}
 
 
 		random_access_iterator&	operator+=(const difference_type rhs)	{ _ptr += rhs; return ( *this );	}
@@ -85,40 +85,20 @@ namespace ft
 
 		pointer					base() const	{ return (_ptr); 	}
 
-	// private:
 	protected:
 		pointer _ptr;
 
 	};	/// * random_access_iterator ____________________________________________________
 
-	/*
-	template <typename T>
-	typename random_access_iterator<T>::difference_type operator- (const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs)
-	{
-		return (lhs.base() - rhs.base());
-	}
-	*/
-
 	// ? this will be used when : it = 1 + it;
 	template <typename T>
 	ft::random_access_iterator<T>
-	operator+ (typename ft::random_access_iterator<T>::difference_type lhs, typename ft::random_access_iterator<T> &rhs)
+	operator+ (typename ft::random_access_iterator<T>::difference_type lhs,
+				typename ft::random_access_iterator<T> &rhs)
 	{
 		return (ft::random_access_iterator<T>((rhs + lhs)));
 	}
 	
-
-/*
-	template <typename T>
-	bool					operator!=(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs)
-	{
-		return (rhs.base() != lhs.base());
-	}
-*/
-
-
-
-
 }
 
 #endif

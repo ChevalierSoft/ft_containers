@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/30 01:38:54 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/01 02:14:15 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ namespace ft
 		// ? https://cplusplus.com/reference/vector/vector/vector/
 
 		// ? default (1)
-		explicit vector (const allocator_type& alloc = allocator_type()) : _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) {}
+		explicit vector (const allocator_type& alloc = allocator_type())
+		: _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) {}
 
 		// ? fill (2)
 		explicit vector (size_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type())
@@ -205,26 +206,26 @@ namespace ft
 		const_reference			back () const	{	return (_value_data[_value_count -1]);		}
 
 		pointer					data ()			{	return (_value_data);	}	// c++11
-		
+
 		const_pointer			data () const	{	return (_value_data);	}	// c++11
 
 		/// * Iterators __________________________________________________________
 
-		iterator				begin () 		{ return iterator( _value_data );					}
-
-		iterator				end () 			{ return iterator( _value_data + _value_count );	}
+		iterator				begin () 		{ return iterator( _value_data );						}
 
 		const_iterator			begin () const	{ return const_iterator( _value_data );					}
 
+		iterator				end () 			{ return iterator( _value_data + _value_count );		}
+
 		const_iterator			end () const	{ return const_iterator( _value_data + _value_count );	}
 
-		reverse_iterator		rbegin () 		{ return reverse_iterator( _value_data + _value_count - 1 );}
+		reverse_iterator		rbegin () 		{ return reverse_iterator( end() );						}
 
-		reverse_iterator		rend () 		{ return reverse_iterator( _value_data - 1 );				}
+		const_reverse_iterator	rbegin () const	{ return const_reverse_iterator( end() );				}
 
-		const_reverse_iterator	rbegin () const	{ return const_reverse_iterator( _value_data + _value_count - 1 );	}
+		reverse_iterator		rend () 		{ return reverse_iterator( begin() );					}
 
-		const_reverse_iterator	rend () const	{ return const_reverse_iterator( _value_data - 1 );			}
+		const_reverse_iterator	rend () const	{ return const_reverse_iterator( begin() );				}
 
 		/// * Capacity ___________________________________________________________
 
