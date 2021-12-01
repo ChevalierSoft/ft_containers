@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/24 03:28:16 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/01 06:20:21 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ namespace ft
 		BST_Node*					left;			// left node
 		BST_Node*					right;			// right node
 		BST_Node*					parent;			// parent node
-		size_t						height = 0;			// height from leaf to root
+		size_t						height;			// height from leaf to root
 		size_t						bf;				// balance factor
 
 	};  // * BST_Node __________________________________________________________
