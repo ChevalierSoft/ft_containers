@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 01:54:58 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/29 07:06:42 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/03 03:38:37 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 	#include "vector.hpp"
 #endif
 
-#define MAP_CELLS		10000
+#define MAP_CELLS		1000000
 #define VECTOR_CELLS	100000
 
 #define __DEB(s) std::cerr<<s<<std::endl;
@@ -74,8 +74,8 @@ void	speed_vector()
 int	main(void)
 {
 	srand(time(NULL));
-	// speed_map();
-	speed_vector();
+	// speed_vector();
+	speed_map();
 	__DEB("done");
 	return (0);
 }

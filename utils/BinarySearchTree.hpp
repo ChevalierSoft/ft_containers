@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/28 04:36:45 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/03 03:36:21 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,8 +236,25 @@ namespace ft
 			if (!node || node == _cardinal)
 				return ;
 			
-			int left_depth = (node->left == NULL || node->left == _cardinal) ? -1 : node->left->height;
-			int right_depth = (node->right == NULL || node->right == _cardinal) ? -1 : node->right->height;
+			// int left_depth = (node->left == NULL || node->left == _cardinal) ? -1 : node->left->height;
+			// int right_depth = (node->right == NULL || node->right == _cardinal) ? -1 : node->right->height;
+
+			int left_depth = -1;
+			int right_depth = -1;
+
+			if (node->left && node->left != _cardinal)
+			{
+				left_depth = node->left->height;
+				// avoid errors made in erease(2)
+				node->left->parent = node;
+			}
+
+			if (node->right && node->right != _cardinal)
+			{
+				right_depth = node->right->height;
+				// avoid errors made in erease(2)
+				node->right->parent = node;
+			}
 
 			node->height = 1 + ((left_depth > right_depth) ? left_depth : right_depth);
 
@@ -288,7 +305,6 @@ namespace ft
 				// std::cout << "key is from the lowest node : " << key << " " << _cardinal->left->content->v.first << std::endl;
 				// if the lowest node has a right leaf
 				if (_cardinal->left->right != NULL && _cardinal->left->right != _cardinal)
-					// _cardinal->left = _cardinal->left->right;
 					_cardinal->left = find_min(_cardinal->left->right);
 				// if the lowest node has a parent _cardinal->left will point on it
 				else if (_cardinal->left->parent)
@@ -332,11 +348,15 @@ namespace ft
 			if (_comp(key, node->content->v.first))
 			{
 				node->left = this->remove(node->left, key, found);
+				if (node->left && node->left != _cardinal)
+					node->left->parent = node;
 			}
 			// else if (key > node->content->v.first)
 			else if (_comp(node->content->v.first, key))
 			{
 				node->right = this->remove(node->right, key, found);
+				if (node->right && node->right != _cardinal)
+					node->right->parent = node;
 			}
 			// got the key
 			else
