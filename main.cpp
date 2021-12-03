@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/03 03:34:40 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/03 04:12:20 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -737,66 +737,58 @@ void	test_map()
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
 	{
-		// m.insert(ft::make_pair<int, std::string>(7, "😇"));
-		// m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
-		// m.insert(ft::make_pair<int, std::string>(20, "🧙"));
-		// m.insert(ft::make_pair<int, std::string>(3, "🧛"));
-		// m.insert(ft::make_pair<int, std::string>(5, "👽"));
-		// m.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		// m.insert(ft::make_pair<int, std::string>(30, "🥷"));
-		// m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+		m.insert(ft::make_pair<int, std::string>(7, "😇"));
+		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
+		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
+		m.insert(ft::make_pair<int, std::string>(3, "🧛"));
+		m.insert(ft::make_pair<int, std::string>(5, "👽"));
+		m.insert(ft::make_pair<int, std::string>(11, "🧚"));
+		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
+		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 
-		// for (size_t i = 0; i < 10; ++i)
-		// 	m.insert(ft::make_pair<int, std::string>(rand(), "🥷"));
-		
 		for (int i = 0; i < 1000; ++i)
-			m4.insert(ft::make_pair<int, int>(rand(), i));
+			m4.insert(ft::pair<int, int>(rand(), i));
 
 		// m4.display();
 
-		// m2.insert(ft::make_pair<char, int>('z', 99));
-		// m2.insert(ft::make_pair<char, int>('a', 0));
-		// std::cout << m2.insert(ft::make_pair<char, int>('a', 1)).second << std::endl;
+		m2.insert(ft::make_pair<char, int>('z', 99));
+		m2.insert(ft::make_pair<char, int>('a', 0));
+		std::cout << m2.insert(ft::make_pair<char, int>('a', 1)).second << std::endl;
 	}
 
-	//__________________________________________________________________________
-	// std::cout <<std::endl<<CYN<< "size()" <<RST<< std::endl;
-	// {
-	// 	std::cout << mf.size() << std::endl;
-	// 	std::cout << m.size() << std::endl;
-	// 	std::cout << m2.size() << std::endl;
-	// }
+	// __________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "size()" <<RST<< std::endl;
+	{
+		std::cout << mf.size() << std::endl;
+		std::cout << m.size() << std::endl;
+		std::cout << m2.size() << std::endl;
+	}
 
-	//__________________________________________________________________________
-	// std::cout <<std::endl<<CYN<< "empty()" <<RST<< std::endl;
-	// {
-	// 	std::cout << mf.empty() << std::endl;
-	// 	std::cout << m.empty() << std::endl;
-	// 	std::cout << m2.empty() << std::endl;
-	// }
+	// __________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "empty()" <<RST<< std::endl;
+	{
+		std::cout << mf.empty() << std::endl;
+		std::cout << m.empty() << std::endl;
+		std::cout << m2.empty() << std::endl;
+	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "erase()" <<RST<< std::endl;
 	{
-		// while (!m.empty())
-		// {
-		// 	std::cout << "m.size : " << m.size() << std::endl;
-		// 	m.erase(m.begin());
-		// 	//m.erase(--m.end());
-		// 	//m._bst.remove(30);
-		// 	//m._bst.remove(20);
-		// 	m.display();
-		// }
+		while (!m.empty())
+		{
+			std::cout << "m.size : " << m.size() << std::endl;
+			m.erase(m.begin());
+			// m.display();
+		}
 		// m.display();
 
 		while (!m4.empty())
 		{
 			m4.erase(m4.begin());
-			// m4.display();
 		}
+			// m4.display();
 	}
-	
-	return ; // ! /////////////////////////////////////////////////////////////////////////////////////
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
@@ -842,19 +834,18 @@ void	test_map()
 		for (it = m.begin(); it != m.end(); ++it)
 			std::cout << "for ++it : " << it->first << " " << it->second << std::endl;
 
-		++it;
-		++it;
-		++it;
-		++it;
-		--it;
-		std::cout << "++it : " << it->first << " " << it->second << std::endl;
+		// ? implementation specific
+		// ++it;
+		// ++it;
+		// --it;
+		// std::cout << "++it : " << it->first << " " << it->second << std::endl;
 
 		for (it = --m.end(); it != m.begin(); --it)
 			std::cout << "for --it : " << it->first << " " << it->second << std::endl;
 		std::cout << "--it : " << it->first << " " << it->second << std::endl;
 	
 		// displaying m2
-		for (auto im = m2.begin(); im != m2.end(); ++im)
+		for (ft::map<char, int>::iterator im = m2.begin(); im != m2.end(); ++im)
 			std::cout << im->first << " " << im->second << std::endl;
 	
 	}
@@ -864,8 +855,12 @@ void	test_map()
 // * ___________________________________________________________________________
 int	main(void)
 {
+	std::cout << std::boolalpha;
+
 	// test_utility();
+
 	// test_vector_iterator();
+	
 	// test_vector();
 
 	// test_bst();
