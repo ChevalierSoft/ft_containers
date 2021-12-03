@@ -37,9 +37,9 @@ namespace ft
 
 		/// * Constructors / Destructor _______________________________________
 
-		BST_bidirectional_iterator (const Compare & comp = Compare()) : _ptr(NULL), _cardinal(NULL), _side(0) {}
+		BST_bidirectional_iterator (const Compare & comp = Compare()) : _ptr(NULL), _cardinal(NULL), _side(OTHER_POSITION) {}
 
-		BST_bidirectional_iterator (Node_pointer node_ptr, Node_pointer card_ptr, bool side = 0) : _ptr(node_ptr), _cardinal(card_ptr), _side(side) {}
+		BST_bidirectional_iterator (Node_pointer node_ptr, Node_pointer card_ptr, bool side = OTHER_POSITION) : _ptr(node_ptr), _cardinal(card_ptr), _side(side) {}
 
 		BST_bidirectional_iterator (const_iterator &rhs) { *this = rhs; }
 
@@ -78,6 +78,8 @@ namespace ft
 			{
 				if (_side != END_POSITION)
 					_ptr = _cardinal->left;
+				// // * trying branchless programming
+				// _ptr = (_side != END_POSITION) * _cardinal->left + (_side == END_POSITION) * _ptr;
 			}
 			else if (_ptr->right && _ptr->right != _cardinal)
 			{
@@ -88,7 +90,7 @@ namespace ft
 			else if (_ptr->right && _ptr->right == _cardinal)
 			{
 				_ptr = _cardinal;
-				_side = 1;
+				_side = OTHER_POSITION;
 			}
 			else if (!_ptr->right)
 			{
@@ -157,7 +159,7 @@ namespace ft
 		Node_pointer 				_ptr;		// actual node
 		Node_pointer				_cardinal;	// cardinal of the BST checking the boundaries
 		// Compare						_comp;		// not using it for now
-		int							_side;		// will give the side on which _ptr went to _cardinal. -1 (0 tree) +1
+		bool						_side;		// will give the side on which _ptr went to _cardinal. (0 = tree) (+1 = at the end)
 
 	};	/// * BST_bidirectional_iterator _______________________________________
 
