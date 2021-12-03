@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 01:54:58 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/03 03:38:37 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/03 04:12:33 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #endif
 
 #define MAP_CELLS		1000000
-#define VECTOR_CELLS	100000
+#define VECTOR_CELLS	1000000
 
 #define __DEB(s) std::cerr<<s<<std::endl;
 
@@ -44,6 +44,9 @@ std::ostream &	operator<< (std::ostream & o, const menfou & m) { o << "obj : " <
 
 void	speed_map()
 {
+	//__________________________________________________________________________
+	std::cout <<std::endl<< "___ speed_map ___" << std::endl;
+
 	ft::map<int, std::string> m;
 
 	__DEB("insert ()");
@@ -60,6 +63,9 @@ void	speed_map()
 
 void	speed_vector()
 {
+	//__________________________________________________________________________
+	std::cout <<std::endl<< "___ speed_vector ___" << std::endl;
+
 	ft::vector<menfou> v;
 
 	__DEB("push_back()");
