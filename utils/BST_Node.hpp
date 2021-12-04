@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/03 05:44:31 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 04:49:33 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,14 @@ namespace ft
 
 		// * Variables _________________________________________________________
 
-		value_type					content;		// the pair
-		BST_Node*					left;			// left node
-		BST_Node*					right;			// right node
-		BST_Node*					parent;			// parent node
-		size_t						height;			// height from leaf to root
-		size_t						bf;				// balance factor
+		value_type		content;	// the pair
+		BST_Node*		left;		// left node
+		BST_Node*		right;		// right node
+		BST_Node*		parent;		// parent node
+		size_t			height;		// height from leaf to root
+		size_t			bf;			// balance = right length - left length
 
 	};  // * BST_Node __________________________________________________________
-
-	// ? comparing content of the nodes to make code writing easier ?
-	// template <class value_type>
-	// bool	operator==(Node_content n1, Node_content n2) {}
 
 }
 

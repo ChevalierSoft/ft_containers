@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 03:05:10 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 04:56:46 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -746,7 +746,7 @@ void	test_map()
 		m.insert(ft::make_pair<int, std::string>(30, "🥷"));
 		m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
 
-		m.display();
+		// m.display();
 
 		// for (int i = 0; i < 1000; ++i)
 		// 	m4.insert(ft::pair<int, int>(rand(), i));
@@ -797,12 +797,10 @@ void	test_map()
 	{
 		
 		m.insert(ft::make_pair<int, std::string>(7, "😇"));
-		std::cout <<MAG<< "1 done" <<RST<< std::endl;
-		return ;
 		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
 		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
 	
-		m.display();
+		// m.display();
 	
 		m.clear();
 		if (!m.empty())

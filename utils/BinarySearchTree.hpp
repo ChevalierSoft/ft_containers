@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 04:28:54 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 04:44:36 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,27 +232,21 @@ namespace ft
 		 // Update a node's height and balance factor.
 		void			update (Node_pointer node)
 		{
-			if (!node || node == _cardinal)
-				return ;
-			
-			// int left_depth = (node->left == NULL || node->left == _cardinal) ? -1 : node->left->height;
-			// int right_depth = (node->right == NULL || node->right == _cardinal) ? -1 : node->right->height;
-
 			int left_depth = -1;
 			int right_depth = -1;
+
+			if (!node || node == _cardinal)
+				return ;
 
 			if (node->left && node->left != _cardinal)
 			{
 				left_depth = node->left->height;
-				// avoid errors made in erease(2)
-				node->left->parent = node;
+				node->left->parent = node;				// updating parent link
 			}
-
 			if (node->right && node->right != _cardinal)
 			{
 				right_depth = node->right->height;
-				// avoid errors made in erease(2)
-				node->right->parent = node;
+				node->right->parent = node;				// updating parent link
 			}
 
 			node->height = 1 + ((left_depth > right_depth) ? left_depth : right_depth);
@@ -289,13 +283,7 @@ namespace ft
 		// ? (1) default: public
 		bool			remove (const Key key)
 		{
-			// __DEB("remove")
-
 			bool	found = false;
-
-			// this should never happen
-			// if (!_cardinal->left || !_cardinal->right)
-			// 	std::cout << "ALERT" << std::endl;
 
 			// if key is from the lowest node
 			if (_cardinal->left != _cardinal &&
@@ -372,7 +360,6 @@ namespace ft
 				*found = true;
 				if ((!node->left || node->left == _cardinal) && (!node->right || node->right == _cardinal))
 				{
-					// __DEB("NULL")
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
 					return (NULL);
@@ -404,19 +391,15 @@ namespace ft
 					return (ret);
 				}
 
-				// std::cout << "apparently this node has 2 branches" << std::endl;
-
 				// replace node with the biggest sub tree
 				if (node->left->height > node->right->height)
 				{
-					// __DEB("(balance left)")
 					successor = find_max(node->left);
 					node->content = successor->content;
 					node->left = remove(node->left, successor->content.first, found);
 				}
 				else
 				{
-					// __DEB("(other balances)")
 					successor = find_min(node->right);
 					//*node->content = *successor->content;
 					node->content = successor->content;
@@ -514,8 +497,6 @@ namespace ft
 			if (node == NULL)
 			{
 				node = create_node(val);
-				// node = _node_allocator.allocate(1);
-				// _node_allocator.construct(node, Node(val));
 				*created_node = node;
 			}
 			else if (node == _cardinal)
@@ -557,8 +538,6 @@ namespace ft
 		Node_pointer	create_node(const value_type & val)
 		{
 			Node_pointer node = _node_allocator.allocate(1);
-			// node->insert(val);
-			// *node = Node(val);
 			_node_allocator.construct(node, Node(val));
 			return (node);
 		}
@@ -636,11 +615,7 @@ namespace ft
 		void			display () const
 		{
 			if (_root)
-			{
-				// this->display(_root);
-				// std::cout << std::endl;
 				this->print_bst();
-			}
 		}
 		
 		// ? (2) protected
@@ -670,7 +645,6 @@ namespace ft
 	protected:
 		Node_pointer	_root;
 		Compare			_comp;
-		// Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
 		
 	}; // * BinarySearchTree ___________________________________________________

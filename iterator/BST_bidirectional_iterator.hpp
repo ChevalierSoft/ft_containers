@@ -82,8 +82,6 @@ namespace ft
 			{
 				if (_side != END_POSITION)
 					_ptr = _cardinal->left;
-				// // * trying branchless programming
-				// _ptr = (_side != END_POSITION) * _cardinal->left + (_side == END_POSITION) * _ptr;
 			}
 			else if (_ptr->right && _ptr->right != _cardinal)
 			{
@@ -162,15 +160,10 @@ namespace ft
 	// protected:
 		Node_pointer 				_ptr;		// actual node
 		Node_pointer				_cardinal;	// cardinal of the BST checking the boundaries
-		bool						_side;		// will give the side on which _ptr went to _cardinal. (0 = tree) (+1 = at the end)
+		bool						_side;		// will give from which side _ptr went to _cardinal. (1 = at end(), 0 the rest)
 
 	};	/// * BST_bidirectional_iterator _______________________________________
 
 }
 
 #endif
-
-
-
-// 'ft::BST_Node<int, std::__cxx11::basic_string<char>, std::less<int>, std::allocator<ft::pair<int, std::__cxx11::basic_string<char> > > >'
-// 'ft::pair<int, std::__cxx11::basic_string<char> > *'
