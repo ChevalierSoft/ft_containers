@@ -12,7 +12,7 @@ namespace ft
 	/// * BST_bidirectional_iterator ___________________________________________ ft::BST_bidirectional_iterator
 	//  ? http://www.cplusplus.com/reference/iterator/
 	// Tn is a Node
-	template <class Tn, class Compare>
+	template <class Tn>
 	class BST_bidirectional_iterator : ft::iterator<ft::bidirectional_iterator_tag, Tn>
 	{
 		/// * Type definition __________________________________________________
@@ -30,16 +30,20 @@ namespace ft
 		typedef value_type &																	reference;
 		typedef const value_type &																const_reference;
 		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::difference_type		difference_type;
-		typedef ft::BST_bidirectional_iterator<Tn, Compare>										iterator;
+		typedef ft::BST_bidirectional_iterator<Tn>										iterator;
 		typedef const iterator																	const_iterator;
 		typedef iterator																		iterator_type;
 		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::iterator_category	iterator_category;
 
 		/// * Constructors / Destructor _______________________________________
 
-		BST_bidirectional_iterator (const Compare & comp = Compare()) : _ptr(NULL), _cardinal(NULL), _side(OTHER_POSITION) {}
+		BST_bidirectional_iterator ()
+		: _ptr(NULL), _cardinal(NULL), _side(OTHER_POSITION)
+		{}
 
-		BST_bidirectional_iterator (Node_pointer node_ptr, Node_pointer card_ptr, bool side = OTHER_POSITION) : _ptr(node_ptr), _cardinal(card_ptr), _side(side) {}
+		BST_bidirectional_iterator (Node_pointer node_ptr, Node_pointer card_ptr, bool side = OTHER_POSITION)
+		: _ptr(node_ptr), _cardinal(card_ptr), _side(side)
+		{}
 
 		BST_bidirectional_iterator (const_iterator &rhs) { *this = rhs; }
 
@@ -63,7 +67,7 @@ namespace ft
 		/// * Equality Operators _______________________________________________
 
 		// ? allows conversion between iterator of T to const T
-		operator BST_bidirectional_iterator<Tn, Compare>() const	{ return BST_bidirectional_iterator<const Tn, Compare>(_ptr); }
+		operator BST_bidirectional_iterator<Tn>() const	{ return BST_bidirectional_iterator<const Tn>(_ptr); }
 
 		bool						operator==(const BST_bidirectional_iterator &rhs) const	{ return (_ptr == rhs._ptr); }
 		bool						operator!=(const BST_bidirectional_iterator &rhs) const	{ return (_ptr != rhs._ptr); }
@@ -149,8 +153,8 @@ namespace ft
 			return (tmp);
 		}
 
-		reference					operator* () const	{ return (_ptr->content->v);	}
-		pointer						operator->() const	{ return (&_ptr->content->v);	}
+		reference					operator* () const	{ return (_ptr->content);	}
+		pointer						operator->() const	{ return (&_ptr->content);	}
 
 		// ! DEBUG
 		Node_pointer				base() const		{ return (_ptr); 				}
@@ -158,7 +162,6 @@ namespace ft
 	// protected:
 		Node_pointer 				_ptr;		// actual node
 		Node_pointer				_cardinal;	// cardinal of the BST checking the boundaries
-		// Compare						_comp;		// not using it for now
 		bool						_side;		// will give the side on which _ptr went to _cardinal. (0 = tree) (+1 = at the end)
 
 	};	/// * BST_bidirectional_iterator _______________________________________

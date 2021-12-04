@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/03 04:44:29 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/03 05:44:31 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ namespace ft
 {
 	// ? BST_Node is a node used in BinarySearchTree
 	template<	class Key,
-				class T,
-				class Compare = std::less<Key>
+				class T
 			>
 	struct BST_Node // * _______________________________________________________ BST_Node
 	{

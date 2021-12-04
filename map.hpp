@@ -6,19 +6,18 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/11/28 03:34:36 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 02:09:53 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 # define MAP_HPP
 
-#include <iostream>		// std::cout
-#include <stdexcept>	// std::exception
-#include <functional>	// std::less
-#include <memory>		// std::allocator
+#include <iostream>									// std::cout
+#include <stdexcept>								// std::exception
+#include <functional>								// std::less
+#include <memory>									// std::allocator
 #include "iterator/iterator.h"
-// #include "iterator/random_access_iterator.hpp"
 #include "iterator/BST_bidirectional_iterator.hpp"
 #include "iterator/reverse_iterator.hpp"
 #include "utils/color.h"
@@ -28,7 +27,7 @@
 
 #include "utils/BinarySearchTree.hpp"
 
-#define __DEB(s) std::cerr<<s<<std::endl;
+#define __DEB(s)	std::cerr<<s<<std::endl;
 
 namespace ft
 {
@@ -39,9 +38,17 @@ namespace ft
 			>
 	class map /// * ____________________________________________________________ ft::map
 	{
+	private:
+		// typedef typename
+		// 	std::allocator_traits<Allocator>::template rebind<BST_Node<Key, T>>
+		// 	Node_Allocator;
+
+		typedef typename
+		std::allocator_traits<Allocator>::
+        template rebind_alloc<BST_Node<Key, T>>					Node_Allocator;
 
 	protected:
-		typedef	BinarySearchTree<Key, T, Compare, Allocator>	Tree_Type;
+		typedef	BinarySearchTree<Key, T, Compare, Node_Allocator>	Tree_Type;
 		typedef	typename Tree_Type::Node						Node_Type;
 		typedef	typename Tree_Type::Node*						Node_pointer;
 
@@ -57,7 +64,7 @@ namespace ft
 		typedef	const value_type&								const_reference;
 		typedef typename Allocator::pointer						pointer;
 		typedef typename Allocator::const_pointer				const_pointer;
-		typedef ft::BST_bidirectional_iterator<Node_Type, Compare> iterator;
+		typedef ft::BST_bidirectional_iterator<Node_Type>		iterator;
 		typedef const iterator									const_iterator;
 		typedef ft::reverse_iterator<iterator>					reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
@@ -67,7 +74,9 @@ namespace ft
 
 	public:
 		// ? (1) default empty map
-		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _comp(comp), _allocator(alloc), _size(0) {}
+		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+		: _comp(comp), _allocator(alloc), _size(0)
+		{}
 
 		// ? (2) range
 		// template <class InputIterator>
@@ -98,10 +107,6 @@ namespace ft
 		{
 			return (iterator(_bst._cardinal, _bst._cardinal, 1));
 		};
-
-// ft::BST_Node<int, std::__cxx11::basic_string<char>, std::less<int>, std::allocator<ft::pair<int, std::__cxx11::basic_string<char> > > > *
-// BST_bidirectional_iterator<int, std::__cxx11::basic_string<char> >
-
 
 		/// * Capacity _________________________________________________________
 
@@ -160,6 +165,7 @@ namespace ft
 		Tree_Type					_bst;
 		size_type					_size;
 		allocator_type				_allocator;
+		Node_Allocator				_node_allocator;
 		key_compare					_comp;
 
 	}; /// * map _______________________________________________________________

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/03 03:36:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 04:28:54 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,18 @@ namespace ft
 	template<	class Key,
 				class T,
 				class Compare = std::less<Key>,
-				class Type_Allocator = std::allocator< ft::pair<Key, T> >,
-				class N = ft::BST_Node<Key, T, Compare, Type_Allocator>,
-				class Node_Allocator = std::allocator< N >
+				class Node_Allocator = std::allocator< ft::pair<Key, T> >
+				// ,
+				// class Type_Allocator = std::allocator< ft::pair<Key, T> >,
+				// class N = ft::BST_Node<Key, T, Compare, Type_Allocator>,
+				// class Node_Allocator = std::allocator< N >
 			>
 	class BinarySearchTree // * ________________________________________________ BinarySearchTree
 	{
 	public:
 		typedef ft::pair<Key, T>						value_type;
 		typedef	T										data_type;
-		typedef N										Node;
+		typedef  ft::BST_Node<Key, T>					Node;
 		typedef Compare									type_compare;
 		typedef typename std::ptrdiff_t					difference_type;
 		typedef size_t									size_type;
@@ -44,21 +46,20 @@ namespace ft
 		typedef	const value_type&						const_reference;
 		typedef T*										pointer;
 		typedef const T*								const_pointer;
-		typedef typename Node_Allocator::pointer		Node_pointer;
-		typedef typename Node_Allocator::const_pointer	Node_const_pointer;
+		typedef Node*									Node_pointer;
+		typedef Node_pointer&							Node_const_pointer;
 	
-		typedef ft::BST_bidirectional_iterator<Node, Compare>	iterator;
+		typedef ft::BST_bidirectional_iterator<Node>	iterator;
 
 		// * Constructors & Destructors ________________________________________
 	public:
 		BinarySearchTree ()
 			:	_root(NULL),
 				_comp(Compare()),
-				_type_allocator(Type_Allocator()),
 				_node_allocator(Node_Allocator())
 		{
 			_cardinal = _node_allocator.allocate(1);
-			_cardinal->content = NULL;
+			// _cardinal->content = NULL;
 			// _cardinal->content = new ft::Node_content<value_type>;
 			// _cardinal->content->v = value_type();
 			_cardinal->parent = _cardinal;
@@ -69,17 +70,15 @@ namespace ft
 		BinarySearchTree (
 							const_reference val,
 							Compare cmp = Compare(),
-							Type_Allocator ta = Type_Allocator(),
 							Node_Allocator na = Node_Allocator()
 						) :		_comp(cmp),
-								_type_allocator(ta),
 								_node_allocator(na)
 		{
 			_root = _node_allocator.allocate(1);
-			_node_allocator.construct(_root, val);
+			_node_allocator.construct(_root, Node(val));
 			_root->content->v = val;
 			_cardinal = _node_allocator.allocate(1);
-			_cardinal->content = NULL;
+			// _cardinal->content = NULL;
 			_cardinal->parent = _root;
 			_cardinal->left = _root;
 			_cardinal->right = _root;
@@ -89,8 +88,8 @@ namespace ft
 		
 		~BinarySearchTree (void)
 		{
-			_node_allocator.deallocate(_cardinal, 1);
 			clear(_root);
+			_node_allocator.deallocate(_cardinal, 1);
 		}
 
 		// * Modifiers _________________________________________________________
@@ -282,15 +281,16 @@ namespace ft
 			{
 				clear(node->left);
 				clear(node->right);
-				_node_allocator.destroy(node);						// need to test first
+				_node_allocator.destroy(node);
 				_node_allocator.deallocate(node, 1);
-				// node = NULL;	// * it may be faster without
 			}
 		}
 	public:
 		// ? (1) default: public
 		bool			remove (const Key key)
 		{
+			// __DEB("remove")
+
 			bool	found = false;
 
 			// this should never happen
@@ -299,10 +299,10 @@ namespace ft
 
 			// if key is from the lowest node
 			if (_cardinal->left != _cardinal &&
-				(!_comp(key, _cardinal->left->content->v.first) && !_comp(_cardinal->left->content->v.first, key)) )	// ! using _comp
-				//key == _cardinal->left->content->v.first)
+				(!_comp(key, _cardinal->left->content.first) && !_comp(_cardinal->left->content.first, key)) )	// ! using _comp
+				//key == _cardinal->left->content.first)
 			{
-				// std::cout << "key is from the lowest node : " << key << " " << _cardinal->left->content->v.first << std::endl;
+				// std::cout << "key is from the lowest node : " << key << " " << _cardinal->left->content.first << std::endl;
 				// if the lowest node has a right leaf
 				if (_cardinal->left->right != NULL && _cardinal->left->right != _cardinal)
 					_cardinal->left = find_min(_cardinal->left->right);
@@ -315,7 +315,7 @@ namespace ft
 			}
 
 			else if (_cardinal->right != _cardinal &&
-				(!_comp(key, _cardinal->right->content->v.first) && !_comp(_cardinal->right->content->v.first, key)) )	// ! using _comp
+				(!_comp(key, _cardinal->right->content.first) && !_comp(_cardinal->right->content.first, key)) )	// ! using _comp
 			{
 				if (_cardinal->right->left != NULL && _cardinal->right->left != _cardinal)
 					_cardinal->right = find_max(_cardinal->right->left);
@@ -327,6 +327,13 @@ namespace ft
 
 			_root = remove(_root, key, &found);
 			_cardinal->parent = _root;
+
+			if (_root == NULL)
+			{
+				// __DEB("(root == NULL)")
+				_cardinal->left = _cardinal;
+				_cardinal->right = _cardinal;
+			}
 
 			return (found);
 		}
@@ -344,15 +351,15 @@ namespace ft
 			// std::cout << "key : " << key << std::endl;
 				
 			// search for the key in the tree
-			// if (key < node->content->v.first)
-			if (_comp(key, node->content->v.first))
+			// if (key < node->content.first)
+			if (_comp(key, node->content.first))
 			{
 				node->left = this->remove(node->left, key, found);
 				if (node->left && node->left != _cardinal)
 					node->left->parent = node;
 			}
-			// else if (key > node->content->v.first)
-			else if (_comp(node->content->v.first, key))
+			// else if (key > node->content.first)
+			else if (_comp(node->content.first, key))
 			{
 				node->right = this->remove(node->right, key, found);
 				if (node->right && node->right != _cardinal)
@@ -365,6 +372,7 @@ namespace ft
 				*found = true;
 				if ((!node->left || node->left == _cardinal) && (!node->right || node->right == _cardinal))
 				{
+					// __DEB("NULL")
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
 					return (NULL);
@@ -403,16 +411,16 @@ namespace ft
 				{
 					// __DEB("(balance left)")
 					successor = find_max(node->left);
-					node->content->v = successor->content->v;
-					node->left = remove(node->left, successor->content->v.first, found);
+					node->content = successor->content;
+					node->left = remove(node->left, successor->content.first, found);
 				}
 				else
 				{
 					// __DEB("(other balances)")
 					successor = find_min(node->right);
 					//*node->content = *successor->content;
-					node->content->v = successor->content->v;
-					node->right = remove(node->right, successor->content->v.first, found);
+					node->content = successor->content;
+					node->right = remove(node->right, successor->content.first, found);
 				}
 
 			}
@@ -474,7 +482,7 @@ namespace ft
 				_cardinal->left = find_min(_cardinal->parent);
 				_cardinal->left->left = _cardinal;
 			}
-			else if (_comp(val.first, _cardinal->left->content->v.first))
+			else if (_comp(val.first, _cardinal->left->content.first))
 			{
 				_cardinal->left = created_node;
 				created_node->left = _cardinal;
@@ -485,7 +493,7 @@ namespace ft
 				_cardinal->right = find_max(_cardinal->parent);
 				_cardinal->right->right = _cardinal;
 			}											
-			else if (_comp(_cardinal->right->content->v.first, val.first))
+			else if (_comp(_cardinal->right->content.first, val.first))
 			{
 				_cardinal->right = created_node;
 				created_node->right = _cardinal;
@@ -505,20 +513,21 @@ namespace ft
 		{
 			if (node == NULL)
 			{
-				node = _node_allocator.allocate(1);
-				node->insert(val);
+				node = create_node(val);
+				// node = _node_allocator.allocate(1);
+				// _node_allocator.construct(node, Node(val));
 				*created_node = node;
 			}
 			else if (node == _cardinal)
 				return (_cardinal);
 			// ? Key already exists
-			else if (!_comp(val.first, node->content->v.first) &&
-						!_comp(node->content->v.first, val.first))
+			else if (!_comp(val.first, node->content.first) &&
+						!_comp(node->content.first, val.first))
 			{
 				*created_node = node;
 				*already_exists = true;
 			}
-			else if (_comp(val.first, node->content->v.first))
+			else if (_comp(val.first, node->content.first))
 			{
 				node->left = insert(node->left, val, created_node, already_exists);
 				if (node->left == _cardinal)
@@ -548,7 +557,9 @@ namespace ft
 		Node_pointer	create_node(const value_type & val)
 		{
 			Node_pointer node = _node_allocator.allocate(1);
-			node->insert(val);
+			// node->insert(val);
+			// *node = Node(val);
+			_node_allocator.construct(node, Node(val));
 			return (node);
 		}
 
@@ -566,12 +577,12 @@ namespace ft
 
 			if (node == NULL || node == _cardinal)
 				return (NULL);
-			else if (!_comp(node->content->v.first, key) && !_comp(key, node->content->v.first))	// ! using _comp
+			else if (!_comp(node->content.first, key) && !_comp(key, node->content.first))	// ! using _comp
 				return (node);
 
-			if (_comp(key, node->content->v.first))								// ! using _comp
+			if (_comp(key, node->content.first))								// ! using _comp
 				res = search(node->left, key);
-			else if (_comp(node->content->v.first, key))							// ! using _comp
+			else if (_comp(node->content.first, key))							// ! using _comp
 				res = search(node->right, key);
 			return (res);
 		}
@@ -587,17 +598,17 @@ namespace ft
 			print_bst(_root, 0);
 			std::cout << "_cardinal [" ;
 			if (_cardinal->left && _cardinal->left != _cardinal)
-				std::cout << _cardinal->left->content->v.second ;
+				std::cout << _cardinal->left->content.second ;
 			else
 				std::cout << " ";
 
 			if (_cardinal->parent && _cardinal->parent != _cardinal)
-				std::cout << _cardinal->parent->content->v.second ;
+				std::cout << _cardinal->parent->content.second ;
 			else
 				std::cout << " ";
 			
 			if (_cardinal->right && _cardinal->right != _cardinal)
-				std::cout << _cardinal->right->content->v.second ;
+				std::cout << _cardinal->right->content.second ;
 			else
 				std::cout << " ";
 
@@ -615,7 +626,7 @@ namespace ft
 				std::cout << std::endl;
 				std::cout << std::string(space, ' ');
 
-				std::cout << "( " << current->content->v.first << " : " << current->content->v.second  << " )" << std::endl;
+				std::cout << "( " << current->content.first << " : " << current->content.second  << " )" << std::endl;
 
 				print_bst(current->left, space);
 			}
@@ -643,7 +654,7 @@ namespace ft
 				if (node->left)
 					display(node->left);
 				std::cout << std::string( ((len * 6) / 2), ' ' );
-				std::cout << node->content->v.first << node->content->v.second;
+				std::cout << node->content.first << node->content.second;
 				std::cout << std::string( ((len * 6) / 2), ' ' );
 				if (node->right)
 					display(node->right);
@@ -659,7 +670,7 @@ namespace ft
 	protected:
 		Node_pointer	_root;
 		Compare			_comp;
-		Type_Allocator	_type_allocator;
+		// Type_Allocator	_type_allocator;
 		Node_Allocator	_node_allocator;
 		
 	}; // * BinarySearchTree ___________________________________________________
@@ -679,7 +690,7 @@ namespace ft
 			o << ", ";
 		else
 			o << "  ";
-		o << bn.content->v.first;
+		o << bn.content.first;
 		if (bn.right)
 			o << " .";
 		else
@@ -690,7 +701,7 @@ namespace ft
 	template<class Key, class T>
 	std::ostream&	operator<<(std::ostream & o, ft::BST_Node<Key, T> * bn)
 	{
-		o << ", " << bn->content->v.first << " .";
+		o << ", " << bn->content.first << " .";
 		return (o);
 	}
 
