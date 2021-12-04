@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 11:08:43 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 12:32:17 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -637,6 +637,21 @@ namespace ft
 			else
 				std::cout << std::string( len * 6 + 6, ' ' );
 		}
+
+		// * Getters ___________________________________________________________
+
+	public:
+		Node_pointer	get_cardinal() const	{ return (_cardinal);		}
+		Node_pointer	get_root() const		{ return (_root);			}
+		Compare			get_comp() const		{ return (_comp);			}
+		Node_Allocator	get_allocator() const	{ return (_node_allocator);	}
+
+		// * Setters ___________________________________________________________
+	public:
+		void			set_cardinal(const Node_pointer& rhs)		{ _cardinal = rhs;			}
+		void			set_root(const Node_pointer& rhs)			{ _root = rhs;				}
+		void			set_comp(const Compare& rhs)				{ _comp = rhs;				}
+		void			set_allocator(const Node_Allocator& rhs)	{ _node_allocator = rhs;	}
 
 		// * Variables _________________________________________________________
 
