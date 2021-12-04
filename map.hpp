@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 02:09:53 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 05:17:53 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,9 @@ namespace ft
 	class map /// * ____________________________________________________________ ft::map
 	{
 	private:
-		// typedef typename
-		// 	std::allocator_traits<Allocator>::template rebind<BST_Node<Key, T>>
-		// 	Node_Allocator;
-
-		typedef typename
-		std::allocator_traits<Allocator>::
-        template rebind_alloc<BST_Node<Key, T>>					Node_Allocator;
+		typedef
+			typename std::allocator_traits<Allocator>::template 
+			rebind_alloc<BST_Node<Key, T>>						Node_Allocator;
 
 	protected:
 		typedef	BinarySearchTree<Key, T, Compare, Node_Allocator>	Tree_Type;
@@ -103,7 +99,7 @@ namespace ft
 			return (iterator(_bst._cardinal->left, _bst._cardinal));
 		}
 
-		iterator	end ()		// ? could use a sentinel here and in begin
+		iterator	end () const
 		{
 			return (iterator(_bst._cardinal, _bst._cardinal, 1));
 		};
@@ -121,7 +117,6 @@ namespace ft
 
 		ft::pair<iterator, bool>	insert (const value_type& val)
 		{
-			// can be optimised
 			ft::pair<iterator, bool> p(_bst.insert(val));
 			_size += p.second;
 			return (p);
@@ -153,7 +148,6 @@ namespace ft
 		void						display ()	// ? debug
 		{
 			_bst.display();
-			// _bst.print_bst();
 		}
 		
 		/// * Observers  _______________________________________________________
@@ -162,11 +156,11 @@ namespace ft
 		
 	 	// ? Maps are typically implemented as balanced binary trees.
 	// protected:
-		Tree_Type					_bst;
-		size_type					_size;
-		allocator_type				_allocator;
-		Node_Allocator				_node_allocator;
-		key_compare					_comp;
+		Tree_Type					_bst;				// binary search tree where data is stored
+		size_type					_size;				// how many nodes there is in the tree
+		allocator_type				_allocator;			// not sure why this one is here
+		// Node_Allocator				_node_allocator;// no need to allocate nodes for now
+		key_compare					_comp;				// not used here but is used in _bst
 
 	}; /// * map _______________________________________________________________
 

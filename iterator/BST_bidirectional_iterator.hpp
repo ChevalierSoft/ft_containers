@@ -22,8 +22,6 @@ namespace ft
 		typedef	Node*					Node_pointer;
 
 	public:
-		// typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::value_type			value_type;
-		// typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::pointer				pointer;
 		typedef typename Tn::value_type															value_type;
 		typedef value_type*																		pointer;
 		typedef const pointer 																	const_pointer;
@@ -51,14 +49,12 @@ namespace ft
 
 		/// * Member Operators _________________________________________________
 
-		// template <typename M>
 		BST_bidirectional_iterator&	operator= (const_reference &rhs)
 		{
 			if (this != &rhs)
 			{
 				_ptr = rhs._ptr;
 				_cardinal = rhs._cardinal;
-				// _comp = rhs._comp;
 				_side = rhs._side;
 			}
 			return (*this);
@@ -157,7 +153,7 @@ namespace ft
 		// ! DEBUG
 		Node_pointer				base() const		{ return (_ptr); 				}
 
-	// protected:
+	protected:
 		Node_pointer 				_ptr;		// actual node
 		Node_pointer				_cardinal;	// cardinal of the BST checking the boundaries
 		bool						_side;		// will give from which side _ptr went to _cardinal. (1 = at end(), 0 the rest)
