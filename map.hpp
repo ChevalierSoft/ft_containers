@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 05:35:17 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 06:07:33 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ namespace ft
 		typedef ft::reverse_iterator<iterator>					reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 	
-	
 		/// * Constructors & Destructors _______________________________________
 
 	public:
@@ -94,29 +93,29 @@ namespace ft
 
 		/// * Iterators ________________________________________________________
 
-		iterator				begin () 			{ return ( iterator(_bst._cardinal->left, _bst._cardinal) );		}
+		iterator					begin () 			{ return ( iterator(_bst._cardinal->left, _bst._cardinal) );		}
 
-		const_iterator			begin () const		{ return ( const_iterator(_bst._cardinal->left, _bst._cardinal) );	}
+		const_iterator				begin () const		{ return ( const_iterator(_bst._cardinal->left, _bst._cardinal) );	}
 
-		iterator				end () 				{ return ( iterator(_bst._cardinal, _bst._cardinal, 1) );			}
+		iterator					end () 				{ return ( iterator(_bst._cardinal, _bst._cardinal, 1) );			}
  
-		const_iterator			end () const		{ return ( const_iterator(_bst._cardinal, _bst._cardinal, 1) );		}
+		const_iterator				end () const		{ return ( const_iterator(_bst._cardinal, _bst._cardinal, 1) );		}
  
-		reverse_iterator		rbegin()			{ return ( reverse_iterator(const_iterator(end())) );				}
+		reverse_iterator			rbegin()			{ return ( reverse_iterator(const_iterator(end())) );				}
  
-		const_reverse_iterator	rbegin() const		{ return ( const_reverse_iterator(const_iterator(end())) );			}
+		const_reverse_iterator		rbegin() const		{ return ( const_reverse_iterator(const_iterator(end())) );			}
  
-		reverse_iterator		rend()				{ return ( reverse_iterator(begin()) );								}
+		reverse_iterator			rend()				{ return ( reverse_iterator(begin()) );								}
  
-		const_reverse_iterator	rend() const		{ return ( const_reverse_iterator(begin()) );						}
+		const_reverse_iterator		rend() const		{ return ( const_reverse_iterator(begin()) );						}
 
 		/// * Capacity _________________________________________________________
 
-		bool						empty () const		{ return (_size == 0);	}
+		bool						empty () const		{ return (_size == 0);					}
 
-		size_type					size () const		{ return (_size);		}
+		size_type					size () const		{ return (_size);						}
 
-		size_type					max_size () const	{ return (_allocator.max_size());	}
+		size_type					max_size () const	{ return (_node_allocator.max_size());	}
 
 		/// * Modifiers ________________________________________________________
 		// ? (1) default
@@ -165,7 +164,7 @@ namespace ft
 		Tree_Type					_bst;				// binary search tree where data is stored
 		size_type					_size;				// how many nodes there is in the tree
 		allocator_type				_allocator;			// not sure why this one is here
-		// Node_Allocator				_node_allocator;// no need to allocate nodes for now
+		Node_Allocator				_node_allocator;	// used in max_size
 		key_compare					_comp;				// not used here but is used in _bst
 
 	}; /// * map _______________________________________________________________
