@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 11:01:45 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 12:48:02 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -804,6 +804,54 @@ void	test_map()
 		// 	m4.erase(m4.begin());
 		// }
 			// m4.display();
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "swap()" <<RST<< std::endl;
+	{
+		ft::map<std::string, std::string>	sw1;
+		ft::map<std::string, std::string>	sw2;
+
+		sw1.insert(ft::pair<std::string, std::string>("1", "un"));
+		sw1.insert(ft::pair<std::string, std::string>("2", "deux"));
+		sw1.insert(ft::pair<std::string, std::string>("3", "trois"));
+
+		// sw2.insert(ft::pair<std::string, std::string>("v", "i"));
+
+		for (ft::map<std::string, std::string>::iterator isw = sw1.begin();
+			isw != sw1.end(); ++isw)
+			std::cout << isw->first << " " << isw->second << " | ";
+		std::cout << std::endl;
+		for (ft::map<std::string, std::string>::iterator isw = sw2.begin();
+			isw != sw2.end(); ++isw)
+			std::cout << isw->first << " " << isw->second << " | ";
+		std::cout << std::endl;
+
+		sw1.swap(sw2);
+		for (ft::map<std::string, std::string>::iterator isw = sw1.begin();
+			isw != sw1.end(); ++isw)
+			std::cout << isw->first << " " << isw->second << " | ";
+		std::cout << std::endl;
+		for (ft::map<std::string, std::string>::iterator isw = sw2.begin();
+			isw != sw2.end(); ++isw)
+			std::cout << isw->first << " " << isw->second << " | ";
+		std::cout << std::endl;
+
+		sw2.swap(sw1);
+		for (ft::map<std::string, std::string>::iterator isw = sw1.begin();
+			isw != sw1.end(); ++isw)
+			std::cout << isw->first << " " << isw->second << " | ";
+		std::cout << std::endl;
+		for (ft::map<std::string, std::string>::iterator isw = sw2.begin();
+			isw != sw2.end(); ++isw)
+			std::cout << isw->first << " " << isw->second << " | ";
+		std::cout << std::endl;
+
+		sw2.swap(sw2);
+		for (ft::map<std::string, std::string>::iterator isw = sw2.begin();
+			isw != sw2.end(); ++isw)
+			std::cout << isw->first << " " << isw->second << " | ";
+		std::cout << std::endl;
 	}
 
 	//__________________________________________________________________________

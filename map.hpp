@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 11:12:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 12:46:05 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,42 @@ namespace ft
 				_size -= _bst.remove(position->first);
 		}
 
+		void						swap (map & x)
+		{
+			Node_pointer	ptr;
+			Compare			cmp;
+			Node_Allocator	na;
+			size_type		num;
+
+			if (this == &x)
+				return;
+
+			// _cardinal
+			ptr = x._bst.get_cardinal();
+			x._bst.set_cardinal(this->_bst.get_cardinal());
+			this->_bst.set_cardinal(ptr);
+
+			// _root
+			ptr = x._bst.get_root();
+			x._bst.set_root(this->_bst.get_root());
+			this->_bst.set_root(ptr);
+
+			// _comp
+			cmp = x._bst.get_comp();
+			x._bst.set_comp(this->_bst.get_comp());
+			this->_bst.set_comp(cmp);
+
+			// _node_allocator
+			na = x._bst.get_allocator();
+			x._bst.set_allocator(this->_bst.get_allocator());
+			this->_bst.set_allocator(na);
+
+			// size
+			num = x._size;
+			x._size = this->_size;
+			this->_size = num;
+		}
+
 		void 						clear ()
 		{
 			_bst.clear();
@@ -174,7 +210,7 @@ namespace ft
 	// protected:
 		Tree_Type					_bst;				// binary search tree where data is stored
 		size_type					_size;				// how many nodes there is in the tree
-		allocator_type				_allocator;			// not sure why this one is here
+		allocator_type				_allocator;			// not used here but in _bst
 		Node_Allocator				_node_allocator;	// used in max_size
 		key_compare					_comp;				// not used here but is used in _bst
 
@@ -182,6 +218,13 @@ namespace ft
 
 	/// * Non-member functions _________________________________________________
 	
+	// template<	class Key,
+	// 			class T,
+	// 			class Compare = std::less<Key>,
+	// 			class Allocator = std::allocator< ft::pair<Key, T> >
+	// 		>
+	// bool	operator==(ft::map<Key, T, Compare, Allocator)
+
 } /// * namespace ft ___________________________________________________________
 
 #endif
