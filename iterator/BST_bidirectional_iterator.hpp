@@ -151,7 +151,7 @@ namespace ft
 		pointer						operator->() const	{ return (&_ptr->content);	}
 
 		// ! DEBUG
-		Node_pointer				base() const		{ return (_ptr); 				}
+		Node_pointer				base() const		{ return (_ptr); 			}
 
 	protected:
 		Node_pointer 				_ptr;		// actual node

@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 06:07:33 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 11:12:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,17 @@ namespace ft
 
 		/// * Element access ___________________________________________________
 
+		mapped_type&				operator[](const key_type& k)
+		{
+			Node_pointer	node;
+			
+			node = _bst.search(k);
+			// if the key doesn't exist, create a new node with it
+			if (!node)
+				return ((insert(ft::make_pair<Key, mapped_type>(k, mapped_type())).first)->second);
+			return (node->content.second);
+		}
+
 		/// * Iterators ________________________________________________________
 
 		iterator					begin () 			{ return ( iterator(_bst._cardinal->left, _bst._cardinal) );		}
@@ -98,15 +109,15 @@ namespace ft
 		const_iterator				begin () const		{ return ( const_iterator(_bst._cardinal->left, _bst._cardinal) );	}
 
 		iterator					end () 				{ return ( iterator(_bst._cardinal, _bst._cardinal, 1) );			}
- 
+
 		const_iterator				end () const		{ return ( const_iterator(_bst._cardinal, _bst._cardinal, 1) );		}
- 
+
 		reverse_iterator			rbegin()			{ return ( reverse_iterator(const_iterator(end())) );				}
- 
+
 		const_reverse_iterator		rbegin() const		{ return ( const_reverse_iterator(const_iterator(end())) );			}
- 
+
 		reverse_iterator			rend()				{ return ( reverse_iterator(begin()) );								}
- 
+
 		const_reverse_iterator		rend() const		{ return ( const_reverse_iterator(begin()) );						}
 
 		/// * Capacity _________________________________________________________

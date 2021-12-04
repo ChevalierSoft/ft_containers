@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 04:56:46 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/04 11:01:45 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -748,17 +748,31 @@ void	test_map()
 
 		// m.display();
 
-		// for (int i = 0; i < 1000; ++i)
-		// 	m4.insert(ft::pair<int, int>(rand(), i));
+		for (int i = 0; i < 1000; ++i)
+			m4.insert(ft::pair<int, int>(rand(), i));
 
 		// // m4.display();
 
-		// m2.insert(ft::make_pair<char, int>('z', 99));
-		// m2.insert(ft::make_pair<char, int>('a', 0));
-		// std::cout << m2.insert(ft::make_pair<char, int>('a', 1)).second << std::endl;
+		m2.insert(ft::make_pair<char, int>('z', 99));
+		m2.insert(ft::make_pair<char, int>('a', 0));
+		std::cout << m2.insert(ft::make_pair<char, int>('a', 1)).second << std::endl;
 	}
 
-	// __________________________________________________________________________
+	// _________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "operator[]" <<RST<< std::endl;
+	{
+		std::cout << m[7] << std::endl;
+		m[7] = "🧙";
+		std::cout << m[7] << std::endl;
+		m[7] = "😇";
+		std::cout << m[0] << std::endl;
+		m.insert(ft::make_pair<int, std::string>(0,"👽"));
+		std::cout << m[0] << std::endl;
+		m[0] = "🧟‍♂️";
+		std::cout << m[0] << std::endl;
+	}
+
+	// _________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "size()" <<RST<< std::endl;
 	{
 		std::cout << mf.size() << std::endl;
@@ -766,7 +780,7 @@ void	test_map()
 		std::cout << m2.size() << std::endl;
 	}
 
-	// __________________________________________________________________________
+	// _________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "empty()" <<RST<< std::endl;
 	{
 		std::cout << mf.empty() << std::endl;
