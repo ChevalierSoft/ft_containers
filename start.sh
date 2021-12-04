@@ -6,7 +6,7 @@
 #    By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 22:01:56 by dait-atm          #+#    #+#              #
-#    Updated: 2021/11/18 23:14:14 by dait-atm         ###   ########.fr        #
+#    Updated: 2021/12/04 04:57:44 by dait-atm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,3 +20,4 @@ if [ $? -eq 0 ]
 then
 	echo "It Works Well 😇";
 fi
+rm -f logs/ft.log logs/std.log
