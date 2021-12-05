@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/05 04:08:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/05 07:47:07 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,10 @@ namespace ft
 				_size -= _bst.remove(position->first);
 		}
 
+		// size_type				erase (const key_type& k);
+
+		// void						erase (iterator first, iterator last);
+
 		void						swap (map& x)
 		{
 			Node_pointer	ptr;
@@ -206,6 +210,54 @@ namespace ft
 			if (!node)
 				return (end());
 			return (const_iterator(node, _bst._cardinal));
+		}
+
+		ft::pair<iterator, iterator>	equal_range(const Key& key)
+		{
+			return (ft::make_pair<iterator, iterator>(lower_bound(key), upper_bound(key)));
+		}
+
+		ft::pair<const_iterator, const_iterator>	equal_range(const Key& key) const
+		{
+			return (ft::make_pair(lower_bound(key), upper_bound(key)));
+		}
+
+		iterator					lower_bound(const Key& key)
+		{
+			iterator	it;
+
+			it = begin();
+			while (it != end())
+			{
+				if (!_comp(it->first, key))
+					break ;
+				++it;
+			}
+			return (it);
+		}
+
+		const_iterator				lower_bound(const Key& key) const
+		{
+			return (const_iterator(lower_bound(key)));
+		}
+
+		iterator					upper_bound (const key_type& key)
+		{
+			iterator	it;
+
+			it = begin();
+			while (it != end())
+			{
+				if (_comp(key, it->first))
+					break ;
+				++it;
+			}
+			return (it);
+		}
+
+		const_iterator				upper_bound(const Key& key) const
+		{
+			return (const_iterator(upper_bound(key)));
 		}
 
 		// ! DEBUG

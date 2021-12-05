@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/05 04:10:34 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/05 07:53:52 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -971,30 +971,68 @@ void	test_map()
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "find" <<RST<< std::endl;
 	{
-		// m.insert(ft::make_pair<int, std::string>(7, "😇"));
-		// m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
-		// m.insert(ft::make_pair<int, std::string>(20, "🧙"));
-		// m.insert(ft::make_pair<int, std::string>(3, "🧛"));
-		// m.insert(ft::make_pair<int, std::string>(5, "👽"));
-		// m.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		// m.insert(ft::make_pair<int, std::string>(30, "🥷"));
-		// m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
-
 		ft::map<int, std::string>::iterator			it;
-
 		it = m.find(5);
 		std::cout << it->first << " " << it->second << std::endl;
 		it = m.find(12345);
 		if (it == m.end())
 			std::cout << "true" << std::endl;
-
 		ft::map<int, std::string>::const_iterator	cit1(m.find(30));
 		std::cout << cit1->first << " " << cit1->second << std::endl;
-		
 		ft::map<int, std::string>::const_iterator	cit2(m.find(666));
 		if (cit2 == m.end())
 			std::cout << "true" << std::endl;
 	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "upper_range" <<RST<< std::endl;
+	{
+		ft::map<char,int>				mymap;
+		ft::map<char,int>::iterator		itlow,itup;
+		mymap['a'] = 20;
+		mymap['b'] = 40;
+		mymap['c'] = 60;
+		mymap['d'] = 80;
+		mymap['e'] = 100;
+		itlow = mymap.lower_bound('b');  // itlow points to b
+		itup = mymap.upper_bound('d');   // itup points to e (not d!)
+		// mymap.erase(itlow,itup);        // erases [itlow,itup)
+		for (ft::map<char,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+			std::cout << it->first << " => " << it->second << std::endl;
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "lower_range" <<RST<< std::endl;
+	{
+		std::map<char,int>				mymap;
+		std::map<char,int>::iterator	itlow,itup;
+		mymap['a'] = 20;
+		mymap['b'] = 40;
+		mymap['c'] = 60;
+		mymap['d'] = 80;
+		mymap['e'] = 100;
+		itlow = mymap.lower_bound('b');  // itlow points to b
+		itup = mymap.upper_bound('d');   // itup points to e (not d!)
+		// mymap.erase(itlow,itup);        // erases [itlow,itup)
+		for (std::map<char,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+			std::cout << it->first << " => " << it->second << std::endl;
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "equal_range" <<RST<< std::endl;
+	{
+		ft::map<char,int>	mymap;
+		ft::pair<ft::map<char,int>::iterator,ft::map<char,int>::iterator>	ret;
+		mymap['a'] = 10;
+		mymap['b'] = 20;
+		mymap['c'] = 30;
+		ret = mymap.equal_range('b');
+		std::cout << "lower bound points to: ";
+		std::cout << ret.first->first << " => " << ret.first->second << '\n';
+		std::cout << "upper bound points to: ";
+		std::cout << ret.second->first << " => " << ret.second->second << '\n';
+	}
+
 }
 
 // * ___________________________________________________________________________
