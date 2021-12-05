@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/05 07:47:07 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/05 08:03:51 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,8 +131,8 @@ namespace ft
 		size_type					max_size () const	{ return (_node_allocator.max_size());	}
 
 		/// * Modifiers ________________________________________________________
+		
 		// ? (1) default
-
 		ft::pair<iterator, bool>	insert (const value_type& val)
 		{
 			ft::pair<iterator, bool> p(_bst.insert(val));
@@ -140,15 +140,32 @@ namespace ft
 			return (p);
 		}
 
+		// ? (1) default
 		void						erase (iterator position)
 		{
 			if (_size)
 				_size -= _bst.remove(position->first);
 		}
 
-		// size_type				erase (const key_type& k);
+		// ? (2) erase by key
+		size_type					erase (const key_type& k)
+		{
+			size_type	ret = _bst.remove(k);
+			_size -= ret;
+			return (ret);
+		}
 
-		// void						erase (iterator first, iterator last);
+		// ? (3) erase by range
+		void						erase (iterator first, iterator last)
+		{
+			iterator it = first++;
+
+			while (it != last)
+			{
+				_bst.remove(it);
+				it = first++;
+			}
+		}
 
 		void						swap (map& x)
 		{

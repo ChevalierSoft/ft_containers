@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 12:32:17 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/05 08:01:51 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,7 +414,6 @@ namespace ft
 		}
 
 	public:
-
 		// ? (1) default
 		Node_pointer	find_max (void) const
 		{
