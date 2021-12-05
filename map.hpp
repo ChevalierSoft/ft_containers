@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/05 02:55:25 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/05 03:54:11 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ namespace ft
 		typedef const iterator									const_iterator;
 		typedef ft::reverse_iterator<iterator>					reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
-	
 
 		class value_compare;
-
 
 		/// * Constructors & Destructors _______________________________________
 
@@ -237,19 +235,39 @@ namespace ft
 
 	template <class Key, class T, class Compare, class Alloc>
 	class ft::map<Key,T,Compare,Alloc>::value_compare
-	{   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+	: ft::binary_function<value_type, value_type, bool>
+	{
 		friend class map;
+
+		// * Constructor / Destructor __________________________________________
+
+	private:
+		value_compare () : comp(Compare()) {}
 	protected:
-		Compare comp;
-		value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+		value_compare (Compare c) : comp(c) {}
 	public:
-		typedef bool result_type;
-		typedef value_type first_argument_type;
-		typedef value_type second_argument_type;
+		~value_compare () {}
+
+		value_compare (const value_compare& copy)	{ *this = copy;	}
+
+		value_compare&	operator= (const value_compare& copy)
+		{
+			if (this != &copy)
+				comp = copy.comp;
+			return (*this);
+		}
+
+		// * Member functions __________________________________________________
+		
 		bool operator() (const value_type& x, const value_type& y) const
 		{
 			return comp(x.first, y.first);
 		}
+		
+		// * Variables _________________________________________________________
+
+	protected:
+		Compare comp;
 	};
 
 } /// * namespace ft ___________________________________________________________
