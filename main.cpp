@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 12:48:02 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/05 03:35:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -724,6 +724,22 @@ void	test_bst()
 
 */
 
+template <typename T>
+class myless
+{
+public:
+	typedef bool		result_type;
+	typedef T			first_argument_type;
+	typedef T			second_argument_type;
+	myless() {}
+	~myless() {}
+	bool	operator()( const T& lhs, const T& rhs ) const
+	{
+		return (lhs > rhs);
+	}
+};
+
+
 // ____________________________________________________________________________
 void	test_map()
 {
@@ -916,6 +932,40 @@ void	test_map()
 		for (ft::map<char, int>::iterator im = m2.begin(); im != m2.end(); ++im)
 			std::cout << im->first << " " << im->second << std::endl;
 	
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "key_comp" <<RST<< std::endl;
+	{
+		ft::map<int, char>				mya;
+		ft::map<int, char>::key_compare	a = mya.key_comp();
+		std::cout << a(-1, 2) << std::endl;
+		std::cout << a(2, -1) << std::endl;
+		std::cout << a(0, 0) << std::endl;
+	}
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "value_comp and custom comp" <<RST<< std::endl;
+	{
+		ft::map<int, char, myless<int>>						mya;
+		ft::map<int, char, myless<int>>::value_compare		a = mya.value_comp();
+		ft::map<int, char, std::less<int>>					myb;
+		ft::map<int, char, std::less<int>>::value_compare	b = myb.value_comp();
+
+		mya.insert(ft::pair<int, char>(1, 'a'));
+		mya.insert(ft::pair<int, char>(2, 'b'));
+		myb.insert(ft::pair<int, char>(1, 'a'));
+		myb.insert(ft::pair<int, char>(2, 'b'));
+		std::cout << a(*mya.begin(), *(++mya.begin())) << std::endl;
+		std::cout << a(*(++mya.begin()), *(mya.begin())) << std::endl;
+		std::cout << a(*(mya.begin()), *(mya.begin())) << std::endl;
+
+		for (auto it = mya.begin(); it != mya.end(); ++it)
+			std::cout << it->first << std::endl;
+
+		std::cout << b(*mya.begin(), *(++mya.begin())) << std::endl;
+		std::cout << b(*(++mya.begin()), *(mya.begin())) << std::endl;
+		std::cout << b(*(mya.begin()), *(mya.begin())) << std::endl;
 	}
 
 }

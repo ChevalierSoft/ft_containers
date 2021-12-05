@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 12:46:05 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/05 02:55:25 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ namespace ft
 		typedef ft::reverse_iterator<iterator>					reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 	
+
+		class value_compare;
+
+
 		/// * Constructors & Destructors _______________________________________
 
 	public:
@@ -204,6 +208,11 @@ namespace ft
 		
 		/// * Observers  _______________________________________________________
 
+		key_compare					key_comp () const	{ return (key_compare(_comp));				}
+
+		value_compare				value_comp() const	{ return (value_compare(key_compare()));	}
+
+
 		/// * Variables ________________________________________________________
 		
 	 	// ? Maps are typically implemented as balanced binary trees.
@@ -224,6 +233,24 @@ namespace ft
 	// 			class Allocator = std::allocator< ft::pair<Key, T> >
 	// 		>
 	// bool	operator==(ft::map<Key, T, Compare, Allocator)
+
+
+	template <class Key, class T, class Compare, class Alloc>
+	class ft::map<Key,T,Compare,Alloc>::value_compare
+	{   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+		friend class map;
+	protected:
+		Compare comp;
+		value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+	public:
+		typedef bool result_type;
+		typedef value_type first_argument_type;
+		typedef value_type second_argument_type;
+		bool operator() (const value_type& x, const value_type& y) const
+		{
+			return comp(x.first, y.first);
+		}
+	};
 
 } /// * namespace ft ___________________________________________________________
 
