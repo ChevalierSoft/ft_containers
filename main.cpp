@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/05 03:35:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/05 04:10:34 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -968,6 +968,33 @@ void	test_map()
 		std::cout << b(*(mya.begin()), *(mya.begin())) << std::endl;
 	}
 
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "find" <<RST<< std::endl;
+	{
+		// m.insert(ft::make_pair<int, std::string>(7, "😇"));
+		// m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
+		// m.insert(ft::make_pair<int, std::string>(20, "🧙"));
+		// m.insert(ft::make_pair<int, std::string>(3, "🧛"));
+		// m.insert(ft::make_pair<int, std::string>(5, "👽"));
+		// m.insert(ft::make_pair<int, std::string>(11, "🧚"));
+		// m.insert(ft::make_pair<int, std::string>(30, "🥷"));
+		// m.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+
+		ft::map<int, std::string>::iterator			it;
+
+		it = m.find(5);
+		std::cout << it->first << " " << it->second << std::endl;
+		it = m.find(12345);
+		if (it == m.end())
+			std::cout << "true" << std::endl;
+
+		ft::map<int, std::string>::const_iterator	cit1(m.find(30));
+		std::cout << cit1->first << " " << cit1->second << std::endl;
+		
+		ft::map<int, std::string>::const_iterator	cit2(m.find(666));
+		if (cit2 == m.end())
+			std::cout << "true" << std::endl;
+	}
 }
 
 // * ___________________________________________________________________________

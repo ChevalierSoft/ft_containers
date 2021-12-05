@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/05 03:54:11 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/05 04:08:21 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ namespace ft
 			clear();
 		}
 
-		map &		operator=(const map &	copy);
+		map &		operator=(const map&	copy);
 
 		/// * Element access ___________________________________________________
 
@@ -146,7 +146,7 @@ namespace ft
 				_size -= _bst.remove(position->first);
 		}
 
-		void						swap (map & x)
+		void						swap (map& x)
 		{
 			Node_pointer	ptr;
 			Compare			cmp;
@@ -190,7 +190,23 @@ namespace ft
 
 		/// * Lookup  __________________________________________________________
 
-		size_type					count (const Key & key) const	{ return (_bst.search(key) ? true : false);	}
+		size_type					count (const Key& key) const	{ return (_bst.search(key) ? true : false);	}
+
+		iterator					find (const Key& key)
+		{
+			Node_pointer node = _bst.search(key);
+			if (!node)
+				return (end());
+			return (iterator(node, _bst._cardinal));
+		}
+
+		const_iterator				find (const Key& key) const
+		{
+			Node_pointer node = _bst.search(key);
+			if (!node)
+				return (end());
+			return (const_iterator(node, _bst._cardinal));
+		}
 
 		// ! DEBUG
 	public:
@@ -198,7 +214,6 @@ namespace ft
 		{
 			_bst.print_bst();
 		}
-
 		void						display ()	// ? debug
 		{
 			_bst.display();
@@ -230,8 +245,9 @@ namespace ft
 	// 			class Compare = std::less<Key>,
 	// 			class Allocator = std::allocator< ft::pair<Key, T> >
 	// 		>
-	// bool	operator==(ft::map<Key, T, Compare, Allocator)
+	// bool	operator==(ft::map<Key, T, Compare, Allocator)	// can call equal
 
+	/// * Friend classes _______________________________________________________
 
 	template <class Key, class T, class Compare, class Alloc>
 	class ft::map<Key,T,Compare,Alloc>::value_compare
