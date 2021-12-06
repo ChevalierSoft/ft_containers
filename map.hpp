@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/05 08:03:51 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/06 05:34:43 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,13 @@ namespace ft
 
 		map &		operator=(const map&	copy);
 
+		// assign()
+
+		allocator_type				get_allocator() const
+		{
+			return (allocator_type());
+		}
+
 		/// * Element access ___________________________________________________
 
 		mapped_type&				operator[](const key_type& k)
@@ -132,13 +139,23 @@ namespace ft
 
 		/// * Modifiers ________________________________________________________
 		
-		// ? (1) default
+		// ? (1) inserting a single element
 		ft::pair<iterator, bool>	insert (const value_type& val)
 		{
 			ft::pair<iterator, bool> p(_bst.insert(val));
 			_size += p.second;
 			return (p);
 		}
+
+		// ? (2) inserting with hint
+		iterator insert (iterator position, const value_type& val)
+		{
+			// ft::pair<iterator, bool>	ret = insert();
+		}
+
+		// ? (3) inserting by range
+		template <class InputIterator>
+		void insert (InputIterator first, InputIterator last);
 
 		// ? (1) default
 		void						erase (iterator position)
@@ -293,7 +310,6 @@ namespace ft
 		key_compare					key_comp () const	{ return (key_compare(_comp));				}
 
 		value_compare				value_comp() const	{ return (value_compare(key_compare()));	}
-
 
 		/// * Variables ________________________________________________________
 		
