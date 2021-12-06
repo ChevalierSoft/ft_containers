@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/06 05:34:43 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/06 06:40:28 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ namespace ft
 	class map /// * ____________________________________________________________ ft::map
 	{
 	private:
+		// typedef
+		// 	typename std::allocator_traits<Allocator>::template 
+		// 	rebind_alloc<BST_Node<Key, T>>						Node_Allocator;
 		typedef
-			typename std::allocator_traits<Allocator>::template 
-			rebind_alloc<BST_Node<Key, T>>						Node_Allocator;
+			typename Allocator::template
+			rebind<BST_Node<Key, T> >::other					Node_Allocator;
 
 	protected:
 		typedef	BinarySearchTree<Key, T, Compare, Node_Allocator>	Tree_Type;
@@ -90,8 +93,6 @@ namespace ft
 		}
 
 		map &		operator=(const map&	copy);
-
-		// assign()
 
 		allocator_type				get_allocator() const
 		{
@@ -148,10 +149,10 @@ namespace ft
 		}
 
 		// ? (2) inserting with hint
-		iterator insert (iterator position, const value_type& val)
-		{
-			// ft::pair<iterator, bool>	ret = insert();
-		}
+		// iterator insert (iterator position, const value_type& val)
+		// {
+		// 	// ft::pair<iterator, bool>	ret = insert();
+		// }
 
 		// ? (3) inserting by range
 		template <class InputIterator>
