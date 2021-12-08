@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/08 09:48:19 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/08 09:58:04 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,7 @@ namespace ft
 			return (const_iterator(node, _bst._cardinal));
 		}
 
-		ft::pair<iterator, iterator>	equal_range(const Key& key)
+		ft::pair<iterator, iterator>				equal_range(const Key& key)
 		{
 			return (ft::make_pair<iterator, iterator>(lower_bound(key), upper_bound(key)));
 		}
@@ -308,7 +308,16 @@ namespace ft
 
 		const_iterator				lower_bound(const Key& key) const
 		{
-			return (const_iterator(lower_bound(key)));
+			const_iterator	it;
+
+			it = begin();
+			while (it != end())
+			{
+				if (!_comp(it->first, key))
+					break ;
+				++it;
+			}
+			return (it);
 		}
 
 		iterator					upper_bound (const key_type& key)
@@ -327,7 +336,16 @@ namespace ft
 
 		const_iterator				upper_bound(const Key& key) const
 		{
-			return (const_iterator(upper_bound(key)));
+			const_iterator	it;
+
+			it = begin();
+			while (it != end())
+			{
+				if (_comp(key, it->first))
+					break ;
+				++it;
+			}
+			return (it);
 		}
 
 		// ! DEBUG

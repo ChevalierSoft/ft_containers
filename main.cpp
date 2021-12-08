@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/08 09:48:59 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/08 10:00:07 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1075,34 +1075,34 @@ void	test_map()
 }
 
 // * ___________________________________________________________________________
-int	main(void)
-{
-	std::cout << std::boolalpha;
+// int	main(void)
+// {
+// 	std::cout << std::boolalpha;
 
-	// test_utility();
+// 	// test_utility();
 
-	// test_vector_iterator();
+// 	// test_vector_iterator();
 	
-	// test_vector();
+// 	// test_vector();
 
-	// test_bst();
+// 	// test_bst();
 
-	test_map();
+// 	test_map();
 
-	// ft::map<int, char> m;
+// 	// ft::map<int, char> m;
 
-	// m.insert(ft::make_pair(0, '0'));
-	// m.insert(ft::make_pair(1, '1'));
-	// m.insert(ft::make_pair(2, '2'));
+// 	// m.insert(ft::make_pair(0, '0'));
+// 	// m.insert(ft::make_pair(1, '1'));
+// 	// m.insert(ft::make_pair(2, '2'));
 	
-	// ft::map<int, char>::const_iterator cim(m.begin());
-	// cim = m.begin();
-	// ++cim;
-	// // cim->second = 12;
-	// std::cout << cim->second << std::endl;
+// 	// ft::map<int, char>::const_iterator cim(m.begin());
+// 	// cim = m.begin();
+// 	// ++cim;
+// 	// // cim->second = 12;
+// 	// std::cout << cim->second << std::endl;
 
-	return (0);
-}
+// 	return (0);
+// }
 
 
 
@@ -1194,38 +1194,41 @@ void	ft_const_bound(const MAP &mp, const int &param)
 
 	std::cout << "\t-- [" << iter++ << "] (const) --" << std::endl;
 	std::cout << "with key [" << param << "]:" << std::endl;
-	it[0] = mp.lower_bound(param); it[1] = mp.upper_bound(param);
+	__DEB("help")
+	it[0] = mp.lower_bound(param);
+	__DEB("alert")
+	it[1] = mp.upper_bound(param);
 	ft_range = mp.equal_range(param);
 	std::cout << "lower_bound: " << (it[0] == ite ? "end()" : printPair(it[0], false)) << std::endl;
 	std::cout << "upper_bound: " << (it[1] == ite ? "end()" : printPair(it[1], false)) << std::endl;
 	std::cout << "equal_range: " << (ft_range.first == it[0] && ft_range.second == it[1]) << std::endl;
 }
 
-// int		main(void)
-// {
-// 	std::list<ft::map<int, foo<int>>::value_type>	lst;
-// 	unsigned int									lst_size = 10;
-// 	for (unsigned int i = 0; i < lst_size; ++i)
-// 		lst.push_back(ft::map<int, foo<int>>::value_type(i + 1, (i + 1) * 3));
-// 	// ft::map<int, foo<int>>							mp(lst.begin(), lst.end());
-// 	ft::map<int, foo<int>>							mp;	
-// 	for (auto asdf = lst.begin(); asdf != lst.end(); ++asdf)
-// 		mp.insert(*asdf);
+int		main(void)
+{
+	std::list<ft::map<int, foo<int>>::value_type>	lst;
+	unsigned int									lst_size = 10;
+	for (unsigned int i = 0; i < lst_size; ++i)
+		lst.push_back(ft::map<int, foo<int>>::value_type(i + 1, (i + 1) * 3));
+	ft::map<int, foo<int>>							mp(lst.begin(), lst.end());
+	// ft::map<int, foo<int>>							mp;	
+	// for (auto asdf = lst.begin(); asdf != lst.end(); ++asdf)
+	// 	mp.insert(*asdf);
 
-// 	printSize(mp);
+	printSize(mp);
 
-// 	ft_const_bound(mp, -10);
-// 	ft_const_bound(mp, 1);
-// 	ft_const_bound(mp, 5);
-// 	ft_const_bound(mp, 10);
-// 	ft_const_bound(mp, 50);
+	ft_const_bound(mp, -10);
+	ft_const_bound(mp, 1);
+	ft_const_bound(mp, 5);
+	ft_const_bound(mp, 10);
+	ft_const_bound(mp, 50);
 
-// 	printSize(mp);
+	printSize(mp);
 
-// 	mp.lower_bound(3)->second = 404;
-// 	mp.upper_bound(7)->second = 842;
-// 	ft_bound(mp, 5);
-// 	ft_bound(mp, 7);
+	mp.lower_bound(3)->second = 404;
+	mp.upper_bound(7)->second = 842;
+	ft_bound(mp, 5);
+	ft_bound(mp, 7);
 
-// 	printSize(mp);
-// }
+	printSize(mp);
+}
