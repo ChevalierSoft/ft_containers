@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/08 08:22:27 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/08 09:23:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ namespace ft
 				class T,
 				class Compare = std::less<Key>,
 				class Node_Allocator = std::allocator< ft::pair<Key, T> >
-				// ,
-				// class Type_Allocator = std::allocator< ft::pair<Key, T> >,
-				// class N = ft::BST_Node<Key, T, Compare, Type_Allocator>,
-				// class Node_Allocator = std::allocator< N >
 			>
 	class BinarySearchTree // * ________________________________________________ BinarySearchTree
 	{
@@ -60,9 +56,6 @@ namespace ft
 				_node_allocator(Node_Allocator())
 		{
 			_cardinal = _node_allocator.allocate(1);
-			// _cardinal->content = NULL;
-			// _cardinal->content = new ft::Node_content<value_type>;
-			// _cardinal->content->v = value_type();
 			_cardinal->parent = _cardinal;
 			_cardinal->left = _cardinal;
 			_cardinal->right = _cardinal;
@@ -79,18 +72,36 @@ namespace ft
 			_node_allocator.construct(_root, Node(val));
 			_root->content->v = val;
 			_cardinal = _node_allocator.allocate(1);
-			// _cardinal->content = NULL;
 			_cardinal->parent = _root;
 			_cardinal->left = _root;
 			_cardinal->right = _root;
 		}
 
-		// ! Need to add copy and =
-		
+		BinarySearchTree (const BinarySearchTree &copy)
+		: _root(NULL), _comp(copy._comp), _node_allocator(copy._node_allocator)
+		{
+			*this = copy;
+		}
+
 		~BinarySearchTree (void)
 		{
 			clear(_root);
 			_node_allocator.deallocate(_cardinal, 1);
+		}
+
+		BinarySearchTree&	operator= (const BinarySearchTree &rhs)
+		{
+			if (this != &rhs)
+			{
+				this->clear();
+				_comp = rhs._comp;
+				_node_allocator = rhs._node_allocator;
+				BinarySearchTree::iterator it = iterator(rhs._cardinal->left, rhs._cardinal);
+				BinarySearchTree::iterator et = iterator(rhs._cardinal, rhs._cardinal, 1);
+				for (; it != et; ++it)
+					this->insert(*et);
+			}
+			return (*this);
 		}
 
 		// * Modifiers _________________________________________________________

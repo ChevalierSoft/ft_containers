@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/08 08:49:17 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/08 09:48:59 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 #include <map>
 #include <stack>
 #include <string>
-
-// #include "./utils/BST_Node.hpp"
+#include <assert.h>
 
 #ifdef ORIGINAL
 	namespace ft = std;
@@ -774,6 +773,46 @@ void	test_map()
 		std::cout << m2.insert(ft::make_pair<char, int>('a', 1)).second << std::endl;
 	}
 
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "operator= and copy" <<RST<< std::endl;
+	{
+		ft::map<int, int>	mc1, mc2, mc3, mc4;
+
+		mc1.insert(ft::make_pair(1, 1));
+
+		mc2.insert(ft::make_pair(1, 1));
+		mc2.insert(ft::make_pair(2, 2));
+		mc2.insert(ft::make_pair(3, 3));
+
+		if (mc3.size() != 0)
+			std::cout << "wrong size" << std::endl;
+
+		mc3 = mc2;
+		mc3[3] = 9;
+		for (ft::map<int, int>::iterator it = mc3.begin(); it != mc3.end(); ++it)
+			std::cout << it->second << std::endl;
+		if (mc3.size() != 3)
+			std::cout << "wrong size" << std::endl;
+
+		mc3 = mc1;
+		for (ft::map<int, int>::iterator it = mc3.begin(); it != mc3.end(); ++it)
+			std::cout << it->second << std::endl;
+		if (mc3.size() != 1)
+			std::cout << "wrong size" << std::endl;
+
+		mc3 = mc4;
+		for (ft::map<int, int>::iterator it = mc3.begin(); it != mc3.end(); ++it)
+			std::cout << it->second << std::endl;
+		if (mc3.size() != 0)
+			std::cout << "wrong size" << std::endl;
+
+		ft::map<int, int>	mc5(mc2);
+		for (ft::map<int, int>::iterator it = mc5.begin(); it != mc5.end(); ++it)
+			std::cout << it->second << std::endl;
+		if (mc5.size() != 3)
+			std::cout << "wrong size" << std::endl;
+	}
+
 	// _________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "operator[]" <<RST<< std::endl;
 	{
@@ -1069,9 +1108,6 @@ int	main(void)
 
 
 
-/*
-
-
 
 #include <list>
 
@@ -1165,37 +1201,31 @@ void	ft_const_bound(const MAP &mp, const int &param)
 	std::cout << "equal_range: " << (ft_range.first == it[0] && ft_range.second == it[1]) << std::endl;
 }
 
-int		main(void)
-{
-	std::list<ft::map<int, foo<int>>::value_type>	lst;
-	unsigned int									lst_size = 10;
-	for (unsigned int i = 0; i < lst_size; ++i)
-		lst.push_back(ft::map<int, foo<int>>::value_type(i + 1, (i + 1) * 3));
-	// ft::map<int, foo<int>>							mp(lst.begin(), lst.end());
-	ft::map<int, foo<int>>							mp;
-	
-	for (auto asdf = lst.begin(); asdf != lst.end(); ++asdf)
-	{
-		mp.insert(*asdf);
-	}
+// int		main(void)
+// {
+// 	std::list<ft::map<int, foo<int>>::value_type>	lst;
+// 	unsigned int									lst_size = 10;
+// 	for (unsigned int i = 0; i < lst_size; ++i)
+// 		lst.push_back(ft::map<int, foo<int>>::value_type(i + 1, (i + 1) * 3));
+// 	// ft::map<int, foo<int>>							mp(lst.begin(), lst.end());
+// 	ft::map<int, foo<int>>							mp;	
+// 	for (auto asdf = lst.begin(); asdf != lst.end(); ++asdf)
+// 		mp.insert(*asdf);
 
-	printSize(mp);
+// 	printSize(mp);
 
-	ft_const_bound(mp, -10);
-	ft_const_bound(mp, 1);
-	ft_const_bound(mp, 5);
-	ft_const_bound(mp, 10);
-	ft_const_bound(mp, 50);
+// 	ft_const_bound(mp, -10);
+// 	ft_const_bound(mp, 1);
+// 	ft_const_bound(mp, 5);
+// 	ft_const_bound(mp, 10);
+// 	ft_const_bound(mp, 50);
 
-	printSize(mp);
+// 	printSize(mp);
 
-	mp.lower_bound(3)->second = 404;
-	mp.upper_bound(7)->second = 842;
-	ft_bound(mp, 5);
-	ft_bound(mp, 7);
+// 	mp.lower_bound(3)->second = 404;
+// 	mp.upper_bound(7)->second = 842;
+// 	ft_bound(mp, 5);
+// 	ft_bound(mp, 7);
 
-	printSize(mp);
-	return (0);
-}
-
-*/
+// 	printSize(mp);
+// }

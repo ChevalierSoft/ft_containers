@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/08 08:27:11 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/08 09:48:19 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,45 @@ namespace ft
 		{}
 
 		// ? (2) range
-		// template <class InputIterator>
-		// explicit map (InputIterator first, InputIterator last,
-		// 	const key_compare& comp = key_compare(),
-		// 	const allocator_type& alloc = allocator_type());
+		template <class InputIterator>
+		explicit map (	InputIterator first,
+						InputIterator last,
+						const key_compare& comp = key_compare(),
+						const allocator_type& alloc = allocator_type())
+		: _bst(), _size(0), _comp(comp), _allocator(alloc)
+		{
+			this->insert(first, last);
+		}
 
 		// ? (3) copy
-		// map (const map& x);
+		map (const map & copy)
+		: _bst(), _allocator(copy._allocator),
+			_node_allocator(copy._node_allocator), _comp(copy._comp)
+		{
+			for (const_iterator it = copy.begin(); it != copy.end(); ++it)
+				this->insert(*it);
+			_size = copy._size;
+		}
 
 		~map(void)
 		{
 			clear();
 		}
 
-		map &						operator=(const map&	copy);
+		map &						operator=(const map& rhs)
+		{
+			if (this != &rhs)
+			{
+				this->clear();
+				for (const_iterator it = rhs.begin(); it != rhs.end(); ++it)
+					this->insert(*it);
+				_size = rhs._size;
+				_allocator = rhs._allocator;
+				_node_allocator = rhs._node_allocator;
+				_comp = rhs._comp;
+			}
+			return (*this);
+		}
 
 		allocator_type				get_allocator() const
 		{
@@ -161,7 +186,6 @@ namespace ft
 		template <class InputIterator>
 		void insert (InputIterator first, InputIterator last)
 		{
-			
 			while (first != last)
 			{
 				insert(*first);
