@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/05 07:53:52 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/08 08:49:17 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,7 +318,7 @@ void	test_vector()
 	// 	ft::vector<menfou> rev;
 	// 	try
 	// 	{
-	// 		rev.reserve(UINT32_MAX);
+	// 		rev.reserve(UINft::map<int, foo<int>>::value_type2_MAX);
 	// 	}
 	// 	catch(const std::exception& e)
 	// 	{
@@ -1050,5 +1050,152 @@ int	main(void)
 
 	test_map();
 
+	// ft::map<int, char> m;
+
+	// m.insert(ft::make_pair(0, '0'));
+	// m.insert(ft::make_pair(1, '1'));
+	// m.insert(ft::make_pair(2, '2'));
+	
+	// ft::map<int, char>::const_iterator cim(m.begin());
+	// cim = m.begin();
+	// ++cim;
+	// // cim->second = 12;
+	// std::cout << cim->second << std::endl;
+
 	return (0);
 }
+
+
+
+
+
+/*
+
+
+
+#include <list>
+
+template <typename T>
+std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
+{
+	o << "key: " << iterator->first << " | value: " << iterator->second;
+	if (nl)
+		o << std::endl;
+	return ("");
+}
+
+template <typename T>
+class foo {
+	public:
+		typedef T	value_type;
+
+		foo(void) : value(), _verbose(false) { };
+		foo(value_type src, const bool verbose = false) : value(src), _verbose(verbose) { };
+		foo(foo const &src, const bool verbose = false) : value(src.value), _verbose(verbose) { };
+		~foo(void) { if (this->_verbose) std::cout << "~foo::foo()" << std::endl; };
+		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
+		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
+		foo &operator=(value_type src) { this->value = src; return *this; };
+		foo &operator=(foo const &src) {
+			if (this->_verbose || src._verbose)
+				std::cout << "foo::operator=(foo) CALLED" << std::endl;
+			this->value = src.value;
+			return *this;
+		};
+		value_type	getValue(void) const { return this->value; };
+		void		switchVerbose(void) { this->_verbose = !(this->_verbose); };
+
+		operator value_type(void) const {
+			return value_type(this->value);
+		}
+	private:
+		value_type	value;
+		bool		_verbose;
+};
+
+
+
+
+
+template <typename T_MAP>
+void	printSize(T_MAP const &mp, bool print_content = 1)
+{
+	std::cout << "size: " << mp.size() << std::endl;
+	std::cout << "max_size: " << mp.max_size() << std::endl;
+	if (print_content)
+	{
+		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << printPair(it, false) << std::endl;
+	}
+	std::cout << "###############################################" << std::endl;
+}
+
+
+static int iter = 0;
+
+template <typename MAP>
+void	ft_bound(MAP &mp, const int &param)
+{
+	ft::map<int, foo<int>>::iterator ite = mp.end(), it[2];
+	ft::pair<ft::map<int, foo<int>>::iterator, ft::map<int, foo<int>>::iterator> ft_range;
+
+	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+	std::cout << "with key [" << param << "]:" << std::endl;
+	it[0] = mp.lower_bound(param); it[1] = mp.upper_bound(param);
+	ft_range = mp.equal_range(param);
+	std::cout << "lower_bound: " << (it[0] == ite ? "end()" : printPair(it[0], false)) << std::endl;
+	std::cout << "upper_bound: " << (it[1] == ite ? "end()" : printPair(it[1], false)) << std::endl;
+	std::cout << "equal_range: " << (ft_range.first == it[0] && ft_range.second == it[1]) << std::endl;
+}
+
+template <typename MAP>
+void	ft_const_bound(const MAP &mp, const int &param)
+{
+	ft::map<int, foo<int>>::const_iterator ite = mp.end(), it[2];
+	ft::pair<ft::map<int, foo<int>>::const_iterator, ft::map<int, foo<int>>::const_iterator> ft_range;
+
+	std::cout << "\t-- [" << iter++ << "] (const) --" << std::endl;
+	std::cout << "with key [" << param << "]:" << std::endl;
+	it[0] = mp.lower_bound(param); it[1] = mp.upper_bound(param);
+	ft_range = mp.equal_range(param);
+	std::cout << "lower_bound: " << (it[0] == ite ? "end()" : printPair(it[0], false)) << std::endl;
+	std::cout << "upper_bound: " << (it[1] == ite ? "end()" : printPair(it[1], false)) << std::endl;
+	std::cout << "equal_range: " << (ft_range.first == it[0] && ft_range.second == it[1]) << std::endl;
+}
+
+int		main(void)
+{
+	std::list<ft::map<int, foo<int>>::value_type>	lst;
+	unsigned int									lst_size = 10;
+	for (unsigned int i = 0; i < lst_size; ++i)
+		lst.push_back(ft::map<int, foo<int>>::value_type(i + 1, (i + 1) * 3));
+	// ft::map<int, foo<int>>							mp(lst.begin(), lst.end());
+	ft::map<int, foo<int>>							mp;
+	
+	for (auto asdf = lst.begin(); asdf != lst.end(); ++asdf)
+	{
+		mp.insert(*asdf);
+	}
+
+	printSize(mp);
+
+	ft_const_bound(mp, -10);
+	ft_const_bound(mp, 1);
+	ft_const_bound(mp, 5);
+	ft_const_bound(mp, 10);
+	ft_const_bound(mp, 50);
+
+	printSize(mp);
+
+	mp.lower_bound(3)->second = 404;
+	mp.upper_bound(7)->second = 842;
+	ft_bound(mp, 5);
+	ft_bound(mp, 7);
+
+	printSize(mp);
+	return (0);
+}
+
+*/

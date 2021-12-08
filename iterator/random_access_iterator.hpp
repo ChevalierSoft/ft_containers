@@ -40,16 +40,9 @@ namespace ft
 		/// * Member Operators _______________________________________________________________
 		// template <typename U>
 		// random_access_iterator&	operator= (const random_access_iterator<U> &rhs) { _ptr = rhs.base(); return (*this); }
+		random_access_iterator&	operator= (const random_access_iterator<T> &rhs) { _ptr = rhs.base(); return (*this); }
 
 		/// * Equality Operators _____________________________________________________________
-	/*
-		bool					operator==(const random_access_iterator<T> &rhs)	{ return (_ptr == rhs.base()); }
-		bool					operator!=(const random_access_iterator<T> &rhs)	{ return (_ptr != rhs.base()); }
-		bool					operator<=(const random_access_iterator<T> &rhs)	{ return (_ptr <= rhs.base()); }
-		bool					operator>=(const random_access_iterator<T> &rhs)	{ return (_ptr >= rhs.base()); }
-		bool					operator< (const random_access_iterator<T> &rhs)	{ return (_ptr < rhs.base());  }
-		bool					operator> (const random_access_iterator<T> &rhs)	{ return (_ptr > rhs.base());  }
-	*/
 
 		bool					operator==(const random_access_iterator<const T> &rhs) const	{ return (_ptr == rhs.base()); }
 		bool					operator!=(const random_access_iterator<const T> &rhs) const	{ return (_ptr != rhs.base()); }

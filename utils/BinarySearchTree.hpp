@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/05 08:01:51 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/08 08:22:27 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ namespace ft
 		typedef Node*									Node_pointer;
 		typedef Node_pointer&							Node_const_pointer;
 	
-		typedef ft::BST_bidirectional_iterator<Node>	iterator;
+		typedef ft::BST_bidirectional_iterator<Node>		iterator;
+		typedef ft::BST_const_bidirectional_iterator<Node>	const_iterator;
 
 		// * Constructors & Destructors ________________________________________
 	public:

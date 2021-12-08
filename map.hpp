@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/06 06:40:28 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/08 08:27:11 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ namespace ft
 		// 	rebind_alloc<BST_Node<Key, T>>						Node_Allocator;
 		typedef
 			typename Allocator::template
-			rebind<BST_Node<Key, T> >::other					Node_Allocator;
+			rebind<ft::BST_Node<Key, T> >::other					Node_Allocator;
 
 	protected:
 		typedef	BinarySearchTree<Key, T, Compare, Node_Allocator>	Tree_Type;
@@ -63,10 +63,11 @@ namespace ft
 		typedef	const value_type&								const_reference;
 		typedef typename Allocator::pointer						pointer;
 		typedef typename Allocator::const_pointer				const_pointer;
-		typedef ft::BST_bidirectional_iterator<Node_Type>		iterator;
-		typedef const iterator									const_iterator;
-		typedef ft::reverse_iterator<iterator>					reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
+
+		typedef ft::BST_bidirectional_iterator<BST_Node<Key, T> >					iterator;
+		typedef ft::BST_const_bidirectional_iterator<BST_Node<Key, T> >				const_iterator;
+		typedef ft::reverse_iterator<iterator>										reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>								const_reverse_iterator;
 
 		class value_compare;
 
@@ -92,7 +93,7 @@ namespace ft
 			clear();
 		}
 
-		map &		operator=(const map&	copy);
+		map &						operator=(const map&	copy);
 
 		allocator_type				get_allocator() const
 		{
@@ -122,7 +123,7 @@ namespace ft
 
 		const_iterator				end () const		{ return ( const_iterator(_bst._cardinal, _bst._cardinal, 1) );		}
 
-		reverse_iterator			rbegin()			{ return ( reverse_iterator(const_iterator(end())) );				}
+		reverse_iterator			rbegin()			{ return ( reverse_iterator(iterator(end())) );				}
 
 		const_reverse_iterator		rbegin() const		{ return ( const_reverse_iterator(const_iterator(end())) );			}
 
@@ -149,14 +150,24 @@ namespace ft
 		}
 
 		// ? (2) inserting with hint
-		// iterator insert (iterator position, const value_type& val)
-		// {
-		// 	// ft::pair<iterator, bool>	ret = insert();
-		// }
+		iterator insert (iterator position, const value_type& val)
+		{
+			// ft::pair<iterator, bool>	ret = insert();
+			(void)position;
+			return (_bst.insert(val).first);
+		}
 
 		// ? (3) inserting by range
 		template <class InputIterator>
-		void insert (InputIterator first, InputIterator last);
+		void insert (InputIterator first, InputIterator last)
+		{
+			
+			while (first != last)
+			{
+				insert(*first);
+				++first;
+			}
+		}
 
 		// ? (1) default
 		void						erase (iterator position)
