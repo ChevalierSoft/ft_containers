@@ -616,7 +616,22 @@ namespace ft
 				std::cout << std::endl;
 				std::cout << std::string(space, ' ');
 
-				std::cout << "( " << current->content.first << " : " << current->content.second  << " )" << std::endl;
+				std::cout << "( " << current->content.first << " : " << current->content.second  << " )";
+				if (!current->right)
+					std::cout <<RED<< "." <<RST;
+				else if (current->right == _cardinal)
+					std::cout <<CYN<< "." <<RST;
+				else
+					std::cout << " " <<RST;
+
+				if (!current->left)
+					std::cout <<RED<< "." <<RST;
+				else if (current->left == _cardinal)
+					std::cout <<CYN<< "." <<RST;
+				else
+					std::cout << " " <<RST;
+
+				std::cout << std::endl;
 
 				print_bst(current->left, space);
 			}
@@ -642,6 +657,7 @@ namespace ft
 				std::cout << std::string( ((len * 6) / 2), ' ' );
 				std::cout << node->content.first << node->content.second;
 				std::cout << std::string( ((len * 6) / 2), ' ' );
+
 				if (node->right)
 					display(node->right);
 			}
