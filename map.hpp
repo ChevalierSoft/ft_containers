@@ -215,7 +215,7 @@ namespace ft
 
 			while (it != last)
 			{
-				_bst.remove(it);
+				_bst.remove(it->first);
 				it = first++;
 			}
 		}
