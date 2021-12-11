@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/11 21:13:10 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/11 21:34:41 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,33 +297,33 @@ namespace ft
 		{
 			bool	found = false;
 
-			// // if key is from the lowest node
-			// if (_cardinal->left != _cardinal &&
-			// 	(!_comp(key, _cardinal->left->content.first) && !_comp(_cardinal->left->content.first, key)) )	// ! using _comp
-			// 	//key == _cardinal->left->content.first)
-			// {
-			// 	// std::cout << "key is from the lowest node : " << key << " " << _cardinal->left->content.first << std::endl;
-			// 	// if the lowest node has a right leaf
-			// 	if (_cardinal->left->right != NULL && _cardinal->left->right != _cardinal)
-			// 		_cardinal->left = find_min(_cardinal->left->right);
-			// 	// if the lowest node has a parent _cardinal->left will point on it
-			// 	else if (_cardinal->left->parent)
-			// 		_cardinal->left = _cardinal->left->parent;
-			// 	// default
-			// 	else
-			// 		_cardinal->left = _cardinal;
-			// }
+			// if key is from the lowest node
+			if (_cardinal->left != _cardinal &&
+				(!_comp(key, _cardinal->left->content.first) && !_comp(_cardinal->left->content.first, key)) )	// ! using _comp
+				//key == _cardinal->left->content.first)
+			{
+				// std::cout << "key is from the lowest node : " << key << " " << _cardinal->left->content.first << std::endl;
+				// if the lowest node has a right leaf
+				if (_cardinal->left->right != NULL && _cardinal->left->right != _cardinal)
+					_cardinal->left = find_min(_cardinal->left->right);
+				// if the lowest node has a parent _cardinal->left will point on it
+				else if (_cardinal->left->parent)
+					_cardinal->left = _cardinal->left->parent;
+				// default
+				else
+					_cardinal->left = _cardinal;
+			}
 
-			// else if (_cardinal->right != _cardinal &&
-			// 	(!_comp(key, _cardinal->right->content.first) && !_comp(_cardinal->right->content.first, key)) )	// ! using _comp
-			// {
-			// 	if (_cardinal->right->left != NULL && _cardinal->right->left != _cardinal)
-			// 		_cardinal->right = find_max(_cardinal->right->left);
-			// 	else if (_cardinal->right->parent)
-			// 		_cardinal->right = _cardinal->right->parent;
-			// 	else
-			// 		_cardinal->right = _cardinal;
-			// }
+			else if (_cardinal->right != _cardinal &&
+				(!_comp(key, _cardinal->right->content.first) && !_comp(_cardinal->right->content.first, key)) )	// ! using _comp
+			{
+				if (_cardinal->right->left != NULL && _cardinal->right->left != _cardinal)
+					_cardinal->right = find_max(_cardinal->right->left);
+				else if (_cardinal->right->parent)
+					_cardinal->right = _cardinal->right->parent;
+				else
+					_cardinal->right = _cardinal;
+			}
 
 			_root = remove(_root, key, &found);
 			_cardinal->parent = _root;
@@ -357,8 +357,8 @@ namespace ft
 				node->left = this->remove(node->left, key, found);
 				if (node->left && node->left != _cardinal)
 					node->left->parent = node;
-				else if (node->left == _cardinal)
-					_cardinal->left = node;
+				// else if (node->left == _cardinal)
+				// 	_cardinal->left = node;
 			}
 			// else if (key > node->content.first)
 			else if (_comp(node->content.first, key))
@@ -366,8 +366,8 @@ namespace ft
 				node->right = this->remove(node->right, key, found);
 				if (node->right && node->right != _cardinal)
 					node->right->parent = node;
-				else if (node->right == _cardinal)
-					_cardinal->right = node;
+				// else if (node->right == _cardinal)
+				// 	_cardinal->right = node;
 			}
 			// got the key
 			else
