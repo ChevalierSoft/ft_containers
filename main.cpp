@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/11 22:28:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/11 22:38:40 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -621,7 +621,7 @@ void	test_utility()
 	std::cout <<std::endl<<CYN<< "pair" <<RST<< std::endl;
 	{
 		ft::pair<float, int>		prfi(1.5, 12);
-		ft::pair<menfou, menfou>	prmm = ft::make_pair(menfou('A'), menfou('B'));
+		ft::pair<menfou, menfou>	prmm = ft::makeft::(menfou('A'), menfou('B'));
 		std::cout << prfi.first << std::endl << prfi.second << std::endl;
 		std::cout << prmm.first << prmm.second << std::endl;
 	}
@@ -1175,54 +1175,53 @@ void	printSize(T_MAP const &mp, bool print_content = 1)
 
 #define T1 int
 #define T2 std::string
-typedef ft::pair<const T1, T2> T3;
+typedef ft::map<T1, T2>::value_type T3;
+typedef ft::map<T1, T2>::iterator iterator;
 
 static int iter = 0;
 
 template <typename MAP, typename U>
-void	ft_erase(MAP &mp, U param)
+void	ft_insert(MAP &mp, U param)
 {
+	ft::pair<iterator, bool> tmp;
+
 	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
-	mp.erase(param);
+	tmp = mp.insert(param);
+	std::cout << "insert return: " << printPair(tmp.first);
+	std::cout << "Created new node: " << tmp.second << std::endl;
 	printSize(mp);
 }
 
 template <typename MAP, typename U, typename V>
-void	ft_erase(MAP &mp, U param, V param2)
+void	ft_insert(MAP &mp, U param, V param2)
 {
+	iterator tmp;
+
 	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
-	mp.erase(param, param2);
+	tmp = mp.insert(param, param2);
+	std::cout << "insert return: " << printPair(tmp);
 	printSize(mp);
 }
 
 int		main(void)
 {
-	std::list<T3> lst;
-	unsigned int lst_size = 10;
-	for (unsigned int i = 0; i < lst_size; ++i)
-		lst.push_back(T3(i, std::string((lst_size - i), i + 65)));
-	ft::map<T1, T2> mp(lst.begin(), lst.end());
-	printSize(mp);
+	ft::map<T1, T2> mp, mp2;
 
-	ft_erase(mp, ++mp.begin());
+	ft_insert(mp, T3(42, "lol"));
+	ft_insert(mp, T3(42, "mdr"));
 
-	ft_erase(mp, mp.begin());
-	ft_erase(mp, --mp.end());
+	ft_insert(mp, T3(50, "mdr"));
+	ft_insert(mp, T3(35, "funny"));
 
-	ft_erase(mp, mp.begin(), ++(++(++mp.begin())));
-	ft_erase(mp, --(--(--mp.end())), --mp.end());
+	ft_insert(mp, T3(45, "bunny"));
+	ft_insert(mp, T3(21, "fizz"));
+	ft_insert(mp, T3(38, "buzz"));
 
-	mp[10] = "Hello";
-	mp[11] = "Hi there";
-	printSize(mp);
-	ft_erase(mp, --(--(--mp.end())), mp.end());
+	ft_insert(mp, mp.begin(), T3(55, "fuzzy"));
 
-	mp[12] = "ONE";
-	mp[13] = "TWO";
-	mp[14] = "THREE";
-	mp[15] = "FOUR";
-	printSize(mp);
-	ft_erase(mp, mp.begin(), mp.end());
+	// ft_insert(mp2, mp2.begin(), T3(1337, "beauty"));
+	// ft_insert(mp2, mp2.end(), T3(1000, "Hello"));
+	// ft_insert(mp2, mp2.end(), T3(1500, "World"));
 
 	return (0);
 }
