@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/08 09:58:04 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/11 21:47:12 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ namespace ft
 
 			while (it != last)
 			{
-				_bst.remove(it->first);
+				_size -= _bst.remove(it->first);
 				it = first++;
 			}
 		}
