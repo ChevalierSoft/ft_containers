@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/08 09:23:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/11 21:07:03 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,13 +368,18 @@ namespace ft
 			// got the key
 			else
 			{
-				// __DEB("found");
 				*found = true;
+				// no branch at all
 				if ((!node->left || node->left == _cardinal) && (!node->right || node->right == _cardinal))
 				{
+					ret = NULL;
+					if (node->left == _cardinal)
+						ret = _cardinal;
+					if (node->right == _cardinal)
+						ret = _cardinal;
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
-					return (NULL);
+					return (ret);
 				}
 				// the node have no right branch
 				else if (!node->right || node->right == _cardinal)
