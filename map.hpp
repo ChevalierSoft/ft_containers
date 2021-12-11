@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/11 21:47:12 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/11 22:25:30 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,13 +211,23 @@ namespace ft
 		// ? (3) erase by range
 		void						erase (iterator first, iterator last)
 		{
-			iterator it = first++;
+			// iterator it = first;
+			key_type	key = first->first;
+			key_type	next_key; // = (++first)->first;
 
-			while (it != last)
+			// std::cout << "first : " << first->first << std::endl;
+			// std::cout << "last : " << last->first << std::endl;
+
+			while (first != end() && key != last->first)
 			{
-				_size -= _bst.remove(it->first);
-				it = first++;
+				// std::cout << "key : " << key << std::endl;
+
+				next_key = (++first)->first;
+				_size -= _bst.remove(key);
+				key = next_key;
+				first = iterator(_bst.search(next_key), _bst.get_cardinal());
 			}
+			// std::cout << "first->key : " << first->first << " last->key : " << last->first << std::endl;
 		}
 
 		void						swap (map& x)

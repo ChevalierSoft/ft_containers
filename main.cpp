@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/11 21:07:57 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/11 22:28:21 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1157,7 +1157,7 @@ template <typename T_MAP>
 void	printSize(T_MAP const &mp, bool print_content = 1)
 {
 	std::cout << "size: " << mp.size() << std::endl;
-	std::cout << "max_size: " << mp.max_size() << std::endl;
+	// std::cout << "max_size: " << mp.max_size() << std::endl;
 	if (print_content)
 	{
 		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
@@ -1182,37 +1182,47 @@ static int iter = 0;
 template <typename MAP, typename U>
 void	ft_erase(MAP &mp, U param)
 {
-	// std::cout << "\t-- [" << iter++ << "] --" << std::endl;
-	std::cout << "ret: " << mp.erase(param) << std::endl;
-	// printSize(mp);
+	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+	mp.erase(param);
+	printSize(mp);
+}
+
+template <typename MAP, typename U, typename V>
+void	ft_erase(MAP &mp, U param, V param2)
+{
+	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+	mp.erase(param, param2);
+	printSize(mp);
 }
 
 int		main(void)
 {
-	std::list<T3>	lst;
-	unsigned int	lst_size = 6;
+	std::list<T3> lst;
+	unsigned int lst_size = 10;
 	for (unsigned int i = 0; i < lst_size; ++i)
 		lst.push_back(T3(i, std::string((lst_size - i), i + 65)));
-	ft::map<T1, T2>	mp(lst.begin(), lst.end());
+	ft::map<T1, T2> mp(lst.begin(), lst.end());
 	printSize(mp);
 
-	for (int i = 2; i < 4; ++i)
-	{
-		// mp.display();
-		ft_erase(mp, i);
-	}
-	// mp.display();
-	ft_erase(mp, mp.begin()->first);
-	// mp.display();
-	ft_erase(mp, (--mp.end())->first);
+	ft_erase(mp, ++mp.begin());
 
-	mp[-1] = "Hello";
-	mp[10] = "Hi there";
-	mp[10] = "Hi there";
+	ft_erase(mp, mp.begin());
+	ft_erase(mp, --mp.end());
+
+	ft_erase(mp, mp.begin(), ++(++(++mp.begin())));
+	ft_erase(mp, --(--(--mp.end())), --mp.end());
+
+	mp[10] = "Hello";
+	mp[11] = "Hi there";
 	printSize(mp);
+	ft_erase(mp, --(--(--mp.end())), mp.end());
 
-	ft_erase(mp, 0);
-	ft_erase(mp, 1);
+	mp[12] = "ONE";
+	mp[13] = "TWO";
+	mp[14] = "THREE";
+	mp[15] = "FOUR";
+	printSize(mp);
+	ft_erase(mp, mp.begin(), mp.end());
 
 	return (0);
 }
