@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/12 09:50:10 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/12 11:01:13 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,38 +38,37 @@ namespace ft
 			>
 	class map /// * ____________________________________________________________ ft::map
 	{
+		/// * Friend class _____________________________________________________
+	public:
+		class value_compare;
+
 	private:
-		// typedef
-		// 	typename std::allocator_traits<Allocator>::template 
-		// 	rebind_alloc<BST_Node<Key, T>>						Node_Allocator;
 		typedef
 			typename Allocator::template
-			rebind<ft::BST_Node<Key, T> >::other					Node_Allocator;
+			rebind<ft::BST_Node<Key, T> >::other						Node_Allocator;
 
 	protected:
-		typedef	BinarySearchTree<Key, T, Compare, Node_Allocator>	Tree_Type;
-		typedef	typename Tree_Type::Node						Node_Type;
-		typedef	typename Tree_Type::Node*						Node_pointer;
+		typedef	BinarySearchTree<Key, T, Compare, Node_Allocator>		Tree_Type;
+		typedef	typename Tree_Type::Node								Node_Type;
+		typedef	typename Tree_Type::Node*								Node_pointer;
 
 	public:
-		typedef Key												key_type;
-		typedef T												mapped_type;
-		typedef ft::pair<Key, T>								value_type;
-		typedef Compare											key_compare;
-		typedef Allocator										allocator_type;
-		typedef typename std::ptrdiff_t							difference_type;
-		typedef size_t											size_type;
-		typedef	value_type&										reference;
-		typedef	const value_type&								const_reference;
-		typedef typename Allocator::pointer						pointer;
-		typedef typename Allocator::const_pointer				const_pointer;
+		typedef Key														key_type;
+		typedef T														mapped_type;
+		typedef ft::pair<Key, T>										value_type;
+		typedef Compare													key_compare;
+		typedef Allocator												allocator_type;
+		typedef typename std::ptrdiff_t									difference_type;
+		typedef size_t													size_type;
+		typedef	value_type&												reference;
+		typedef	const value_type&										const_reference;
+		typedef typename Allocator::pointer								pointer;
+		typedef typename Allocator::const_pointer						const_pointer;
 
-		typedef ft::BST_bidirectional_iterator<BST_Node<Key, T> >					iterator;
-		typedef ft::BST_const_bidirectional_iterator<BST_Node<Key, T> >				const_iterator;
-		typedef ft::reverse_iterator<iterator>										reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator>								const_reverse_iterator;
-
-		class value_compare;
+		typedef ft::BST_bidirectional_iterator<BST_Node<Key, T> >		iterator;
+		typedef ft::BST_const_bidirectional_iterator<BST_Node<Key, T> >	const_iterator;
+		typedef ft::reverse_iterator<iterator>							reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
 
 		/// * Constructors & Destructors _______________________________________
 
@@ -362,7 +361,7 @@ namespace ft
 		}
 		
 		/// * Observers  _______________________________________________________
-
+	public:
 		key_compare					key_comp () const	{ return (key_compare(_comp));				}
 
 		value_compare				value_comp() const	{ return (value_compare(key_compare()));	}
@@ -381,12 +380,36 @@ namespace ft
 
 	/// * Non-member functions _________________________________________________
 	
-	// template<	class Key,
-	// 			class T,
-	// 			class Compare = std::less<Key>,
-	// 			class Allocator = std::allocator< ft::pair<Key, T> >
-	// 		>
-	// bool	operator==(ft::map<Key, T, Compare, Allocator)	// can call equal
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator==(	const ft::map<Key, T, Compare, Alloc>& lhs,
+						const ft::map<Key, T, Compare, Alloc>& rhs )
+	{
+		if (lhs.size() != rhs.size())
+			return (false);
+		
+		typename ft::map<Key, T, Compare, Alloc>::value_compare	mycompare = lhs.value_comp();
+
+		typename ft::map<Key, T, Compare, Alloc>::const_iterator lit(lhs.begin());
+		typename ft::map<Key, T, Compare, Alloc>::const_iterator rit(rhs.begin());
+
+		while (lit != lhs.end())
+		{
+			if (rit == rhs.end())
+				return (false);
+			if (mycompare(*lit, *rit) || mycompare(*rit, *lit))
+				return (false);
+			++lit;
+			++rit;
+		}
+		return (true);
+	}
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator!=(	const ft::map<Key, T, Compare, Alloc>& lhs,
+						const ft::map<Key, T, Compare, Alloc>& rhs )
+	{
+		return !(lhs == rhs);
+	}
 
 	/// * Friend classes _______________________________________________________
 
