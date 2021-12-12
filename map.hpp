@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/12 09:43:08 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/12 09:50:10 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,9 +177,8 @@ namespace ft
 		// ? (2) inserting with hint
 		iterator insert (iterator position, const value_type& val)
 		{
-			// ft::pair<iterator, bool>	ret = insert();
 			(void)position;
-			return (_bst.insert(val).first);
+			return (insert(val).first);
 		}
 
 		// ? (3) inserting by range
