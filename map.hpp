@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/11 22:39:17 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/12 09:43:08 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ namespace ft
 			key_type	key = first->first;
 			key_type	next_key;
 
-			while (first != end() && key != last->first)
+			while (first != end() && (_comp(key, last->first) || _comp(last->first, key)))
 			{
 				next_key = (++first)->first;
 				_size -= _bst.remove(key);
