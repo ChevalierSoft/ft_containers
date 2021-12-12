@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/11 21:34:41 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/12 10:15:27 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -446,8 +446,8 @@ namespace ft
 		{
 			if (!node)
 				return (NULL);
-			while (node->left != NULL && node->left != _cardinal)
-				node = node->left;
+			while (node->right != NULL && node->right != _cardinal)
+				node = node->right;
 			return (node);
 		}
 
