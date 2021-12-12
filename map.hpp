@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/12 11:01:13 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/12 11:08:29 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ namespace ft
 		}
 
 		// ? (2) inserting with hint
-		iterator insert (iterator position, const value_type& val)
+		iterator					insert (iterator position, const value_type& val)
 		{
 			(void)position;
 			return (insert(val).first);
@@ -182,7 +182,7 @@ namespace ft
 
 		// ? (3) inserting by range
 		template <class InputIterator>
-		void insert (InputIterator first, InputIterator last)
+		void						insert (InputIterator first, InputIterator last)
 		{
 			while (first != last)
 			{
@@ -410,6 +410,35 @@ namespace ft
 	{
 		return !(lhs == rhs);
 	}
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator< (	const ft::map<Key, T, Compare, Alloc>& lhs,
+						const ft::map<Key, T, Compare, Alloc>& rhs )
+	{
+		return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator> (	const ft::map<Key, T, Compare, Alloc>& lhs,
+						const ft::map<Key, T, Compare, Alloc>& rhs )
+	{
+		return (lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
+	}
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator<=(	const ft::map<Key, T, Compare, Alloc>& lhs,
+						const ft::map<Key, T, Compare, Alloc>& rhs )
+	{
+		return !(lhs > rhs);
+	}
+
+	template< class Key, class T, class Compare, class Alloc >
+	bool operator>=(	const ft::map<Key, T, Compare, Alloc>& lhs,
+						const ft::map<Key, T, Compare, Alloc>& rhs )
+	{
+		return !(lhs < rhs);
+	}
+
 
 	/// * Friend classes _______________________________________________________
 
