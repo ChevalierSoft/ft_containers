@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/12 11:08:29 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/13 12:46:45 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ namespace ft
 
 		const_iterator				end () const		{ return ( const_iterator(_bst._cardinal, _bst._cardinal, 1) );		}
 
-		reverse_iterator			rbegin()			{ return ( reverse_iterator(iterator(end())) );				}
+		reverse_iterator			rbegin()			{ return ( reverse_iterator(iterator(end())) );						}
 
 		const_reverse_iterator		rbegin() const		{ return ( const_reverse_iterator(const_iterator(end())) );			}
 
@@ -161,6 +161,7 @@ namespace ft
 
 		size_type					size () const		{ return (_size);						}
 
+		// ? https://www.cplusplus.com/reference/map/map/max_size/
 		size_type					max_size () const	{ return (_node_allocator.max_size());	}
 
 		/// * Modifiers ________________________________________________________
@@ -384,13 +385,12 @@ namespace ft
 	bool operator==(	const ft::map<Key, T, Compare, Alloc>& lhs,
 						const ft::map<Key, T, Compare, Alloc>& rhs )
 	{
+		typename ft::map<Key, T, Compare, Alloc>::value_compare		mycompare = lhs.value_comp();
+		typename ft::map<Key, T, Compare, Alloc>::const_iterator	lit(lhs.begin());
+		typename ft::map<Key, T, Compare, Alloc>::const_iterator	rit(rhs.begin());
+
 		if (lhs.size() != rhs.size())
 			return (false);
-		
-		typename ft::map<Key, T, Compare, Alloc>::value_compare	mycompare = lhs.value_comp();
-
-		typename ft::map<Key, T, Compare, Alloc>::const_iterator lit(lhs.begin());
-		typename ft::map<Key, T, Compare, Alloc>::const_iterator rit(rhs.begin());
 
 		while (lit != lhs.end())
 		{

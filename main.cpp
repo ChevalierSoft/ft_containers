@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/13 10:52:49 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/13 12:44:56 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1193,32 +1193,28 @@ void	cmp(const MAP &lhs, const MAP &rhs)
 int		main(void)
 {
 	ft::map<T1, T2> mp1;
-	// ft::map<T1, T2> mp2;
+	ft::map<T1, T2> mp2;
 
-	// mp1['a'] = 2; mp1['b'] = 3; mp1['c'] = 4; mp1['d'] = 5;
-	// mp2['a'] = 2; mp2['b'] = 3; mp2['c'] = 4; mp2['d'] = 5;
+	mp1['a'] = 2; mp1['b'] = 3; mp1['c'] = 4; mp1['d'] = 5;
+	mp2['a'] = 2; mp2['b'] = 3; mp2['c'] = 4; mp2['d'] = 5;
 
-	// cmp(mp1, mp1); // 0
-	// cmp(mp1, mp2); // 1
+	cmp(mp1, mp1); // 0
+	cmp(mp1, mp2); // 1
 
-	// mp2['e'] = 6; mp2['f'] = 7; mp2['h'] = 8; mp2['h'] = 9;
+	mp2['e'] = 6; mp2['f'] = 7; mp2['h'] = 8; mp2['h'] = 9;
 
-	// cmp(mp1, mp2); // 2
-	// cmp(mp2, mp1); // 3
+	cmp(mp1, mp2); // 2
+	cmp(mp2, mp1); // 3
 
-	// (++(++mp1.begin()))->second = 42;
+	(++(++mp1.begin()))->second = 42;
 
-	// cmp(mp1, mp2); // 4
-	// cmp(mp2, mp1); // 5
+	cmp(mp1, mp2); // 4
+	cmp(mp2, mp1); // 5
 
-	// swap(mp1, mp2);
+	swap(mp1, mp2);
 
-	// cmp(mp1, mp2); // 6
-	// cmp(mp2, mp1); // 7
-
-	std::cout << mp1.max_size() << std::endl;
-	// Osx11 329406144173384850
-
+	cmp(mp1, mp2); // 6
+	cmp(mp2, mp1); // 7
 
 	return (0);
 }
