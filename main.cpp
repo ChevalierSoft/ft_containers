@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/12 11:08:12 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/13 10:52:49 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,15 @@ std::ostream &	operator<< (std::ostream & o, const menfou & m) { o << "obj : " <
 template <typename T>
 void	display(T v)
 {
-	for (auto & iv : v)
-		std::cout << iv;
+	for (typename T::iterator iv = v.begin(); iv != v.end(); ++iv)
+		std::cout << *iv;
 	std::cout << std::endl;
 }
 template <typename T>
 void	display(T v, char c)
 {
-	for (auto & iv : v)
-		std::cout << iv << c;
+	for (typename T::iterator iv = v.begin(); iv != v.end(); ++iv)
+		std::cout << *iv << c;
 	std::cout << std::endl;
 }
 
@@ -986,10 +986,10 @@ void	test_map()
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "value_comp and custom comp" <<RST<< std::endl;
 	{
-		ft::map<int, char, myless<int>>						mya;
-		ft::map<int, char, myless<int>>::value_compare		a = mya.value_comp();
-		ft::map<int, char, std::less<int>>					myb;
-		ft::map<int, char, std::less<int>>::value_compare	b = myb.value_comp();
+		ft::map<int, char, myless<int> >					mya;
+		ft::map<int, char, myless<int> >::value_compare		a = mya.value_comp();
+		ft::map<int, char, std::less<int> >					myb;
+		ft::map<int, char, std::less<int> >::value_compare	b = myb.value_comp();
 
 		mya.insert(ft::pair<int, char>(1, 'a'));
 		mya.insert(ft::pair<int, char>(2, 'b'));
@@ -999,7 +999,8 @@ void	test_map()
 		std::cout << a(*(++mya.begin()), *(mya.begin())) << std::endl;
 		std::cout << a(*(mya.begin()), *(mya.begin())) << std::endl;
 
-		for (auto it = mya.begin(); it != mya.end(); ++it)
+		for (ft::map<int, char, myless<int> >::iterator it = mya.begin();
+				it != mya.end(); ++it)
 			std::cout << it->first << std::endl;
 
 		std::cout << b(*mya.begin(), *(++mya.begin())) << std::endl;
@@ -1192,28 +1193,32 @@ void	cmp(const MAP &lhs, const MAP &rhs)
 int		main(void)
 {
 	ft::map<T1, T2> mp1;
-	ft::map<T1, T2> mp2;
+	// ft::map<T1, T2> mp2;
 
-	mp1['a'] = 2; mp1['b'] = 3; mp1['c'] = 4; mp1['d'] = 5;
-	mp2['a'] = 2; mp2['b'] = 3; mp2['c'] = 4; mp2['d'] = 5;
+	// mp1['a'] = 2; mp1['b'] = 3; mp1['c'] = 4; mp1['d'] = 5;
+	// mp2['a'] = 2; mp2['b'] = 3; mp2['c'] = 4; mp2['d'] = 5;
 
-	cmp(mp1, mp1); // 0
-	cmp(mp1, mp2); // 1
+	// cmp(mp1, mp1); // 0
+	// cmp(mp1, mp2); // 1
 
-	mp2['e'] = 6; mp2['f'] = 7; mp2['h'] = 8; mp2['h'] = 9;
+	// mp2['e'] = 6; mp2['f'] = 7; mp2['h'] = 8; mp2['h'] = 9;
 
-	cmp(mp1, mp2); // 2
-	cmp(mp2, mp1); // 3
+	// cmp(mp1, mp2); // 2
+	// cmp(mp2, mp1); // 3
 
-	(++(++mp1.begin()))->second = 42;
+	// (++(++mp1.begin()))->second = 42;
 
-	cmp(mp1, mp2); // 4
-	cmp(mp2, mp1); // 5
+	// cmp(mp1, mp2); // 4
+	// cmp(mp2, mp1); // 5
 
-	swap(mp1, mp2);
+	// swap(mp1, mp2);
 
-	cmp(mp1, mp2); // 6
-	cmp(mp2, mp1); // 7
+	// cmp(mp1, mp2); // 6
+	// cmp(mp2, mp1); // 7
+
+	std::cout << mp1.max_size() << std::endl;
+	// Osx11 329406144173384850
+
 
 	return (0);
 }
