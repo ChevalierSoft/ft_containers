@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/15 18:33:53 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/15 18:45:28 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ namespace ft
 
 		typedef ft::BST_bidirectional_iterator<BST_Node<Key, T> >		iterator;
 		typedef ft::BST_const_bidirectional_iterator<BST_Node<Key, T> >	const_iterator;
-		typedef ft::reverse_iterator<ft::BST_bidirectional_iterator<BST_Node<Key, T> >>							reverse_iterator;
-		typedef ft::reverse_iterator<ft::BST_const_bidirectional_iterator<BST_Node<Key, T> >>					const_reverse_iterator;
+		typedef ft::reverse_iterator<ft::BST_bidirectional_iterator<BST_Node<Key, T> > >							reverse_iterator;
+		typedef ft::reverse_iterator<ft::BST_const_bidirectional_iterator<BST_Node<Key, T> > >					const_reverse_iterator;
 
 		/// * Constructors & Destructors _______________________________________
 
