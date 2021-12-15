@@ -50,12 +50,12 @@ namespace ft
 
 		value_type& 		top ()
 		{
-			return (_c[_c.size()]);
+			return (_c[_c.size() - 1]);
 		}
 
 		const value_type&	top () const
 		{
-			return (_c[_c.size()]);
+			return (_c[_c.size() - 1]);
 		}
 
 		void				push (const value_type& val)

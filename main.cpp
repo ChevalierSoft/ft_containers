@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/15 22:47:13 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 00:31:51 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1163,9 +1163,9 @@ std::ostream	&operator<<(std::ostream &o, foo<T> const &bar) {
 }
 
 
-#define TESTED_TYPE foo<int>
-#define t_stack_ ft::stack<TESTED_TYPE>
-typedef t_stack_::container_type container_type;
+#define TESTED_TYPE					foo<int>
+#define t_stack_					ft::stack<TESTED_TYPE>
+typedef t_stack_::container_type	container_type;
 
 
 
@@ -1186,12 +1186,12 @@ int		main(void)
 	std::cout << "empty: " << stck.empty() << std::endl;
 	std::cout << "size: " << stck.size() << std::endl;
 
-	// stck.push(1);
-	// stck.push(2);
-	// stck.push(3);
-	// stck.push(4);
-	// stck.push(5);
-	// stck.push(6);
+	stck.push(1);
+	stck.push(2);
+	stck.push(3);
+	stck.push(4);
+	stck.push(5);
+	stck.push(6);
 
 	std::cout << "Added some elements" << std::endl;
 
