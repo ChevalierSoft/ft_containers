@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/13 12:46:45 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/15 16:33:03 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 #include "utils/enable_if.hpp"
 
 #include "utils/BinarySearchTree.hpp"
-
-#define __DEB(s)	std::cerr<<s<<std::endl;
 
 namespace ft
 {
@@ -67,8 +65,8 @@ namespace ft
 
 		typedef ft::BST_bidirectional_iterator<BST_Node<Key, T> >		iterator;
 		typedef ft::BST_const_bidirectional_iterator<BST_Node<Key, T> >	const_iterator;
-		typedef ft::reverse_iterator<iterator>							reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
+		typedef ft::reverse_iterator<ft::BST_bidirectional_iterator<BST_Node<Key, T> >>							reverse_iterator;
+		typedef ft::reverse_iterator<ft::BST_const_bidirectional_iterator<BST_Node<Key, T> >>					const_reverse_iterator;
 
 		/// * Constructors & Destructors _______________________________________
 
@@ -143,9 +141,9 @@ namespace ft
 
 		const_iterator				begin () const		{ return ( const_iterator(_bst._cardinal->left, _bst._cardinal) );	}
 
-		iterator					end () 				{ return ( iterator(_bst._cardinal, _bst._cardinal, 1) );			}
+		iterator					end () 				{ return ( iterator(_bst._cardinal, _bst._cardinal) );			}
 
-		const_iterator				end () const		{ return ( const_iterator(_bst._cardinal, _bst._cardinal, 1) );		}
+		const_iterator				end () const		{ return ( const_iterator(_bst._cardinal, _bst._cardinal) );		}
 
 		reverse_iterator			rbegin()			{ return ( reverse_iterator(iterator(end())) );						}
 

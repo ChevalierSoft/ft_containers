@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/12 10:15:27 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/15 16:15:43 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 #include "../iterator/iterator.h"
 #include "../iterator/BST_bidirectional_iterator.hpp"
 #include "BST_Node.hpp"
-
-#define __DEB(s) std::cerr<<s<<std::endl;
 
 namespace ft
 {

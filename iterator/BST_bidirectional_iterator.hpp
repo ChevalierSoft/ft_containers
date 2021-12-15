@@ -4,8 +4,9 @@
 #include "iterator.h"
 #include "../utils/enable_if.hpp"
 
-#define END_POSITION 1
-#define	OTHER_POSITION 0
+#define	MIDDLE_POSITION	0
+#define RIGHT_POSITION	1
+#define	LEFT_POSITION	2
 
 namespace ft
 {
@@ -37,15 +38,15 @@ namespace ft
 		/// * Constructors / Destructor _______________________________________
 
 		BST_bidirectional_iterator ()
-		: _ptr(NULL), _cardinal(NULL), _side(OTHER_POSITION)
+		: _ptr(NULL), _cardinal(NULL)
 		{}
 
-		BST_bidirectional_iterator (const Node_pointer node_ptr, const Node_pointer card_ptr, bool side = OTHER_POSITION)
-		: _ptr(node_ptr), _cardinal(card_ptr), _side(side)
+		BST_bidirectional_iterator (const Node_pointer node_ptr, const Node_pointer card_ptr)
+		: _ptr(node_ptr), _cardinal(card_ptr)
 		{}
 
 		BST_bidirectional_iterator (const iterator &rhs)
-		: _ptr(rhs._ptr), _cardinal(rhs._cardinal), _side(rhs._side)
+		: _ptr(rhs._ptr), _cardinal(rhs._cardinal)
 		{}
 
 		~BST_bidirectional_iterator () {}
@@ -58,7 +59,6 @@ namespace ft
 			{
 				_ptr = rhs._ptr;
 				_cardinal = rhs._cardinal;
-				_side = rhs._side;
 			}
 			return (*this);
 		}
@@ -78,20 +78,16 @@ namespace ft
 			if (!_ptr)
 				;
 			else if (_ptr == _cardinal)
-			{
-				if (_side != END_POSITION)
-					_ptr = _cardinal->left;
-			}
+				_ptr = _cardinal->left;
 			else if (_ptr->right && _ptr->right != _cardinal)
 			{
 				_ptr = _ptr->right;
-				while (_ptr->left)
+				while (_ptr->left && _ptr->left != _cardinal)
 					_ptr = _ptr->left;
 			}
 			else if (_ptr->right && _ptr->right == _cardinal)
 			{
 				_ptr = _cardinal;
-				_side = OTHER_POSITION;
 			}
 			else if (!_ptr->right)
 			{
@@ -108,11 +104,7 @@ namespace ft
 				;
 			else if (_ptr == _cardinal)
 			{
-				if (_side == END_POSITION)
-				{
-					_ptr = _cardinal->right;
-					_side = OTHER_POSITION;
-				}
+				_ptr = _cardinal->right;
 			}
 			else if (_ptr->left && _ptr->left != _cardinal)
 			{
@@ -131,7 +123,6 @@ namespace ft
 				_ptr = _ptr->parent;
 			}
 			return (*this);
-
 		}
 
 		/// *    Post
@@ -150,20 +141,17 @@ namespace ft
 			return (tmp);
 		}
 
-		reference					operator* () const	{ return (_ptr->content);	}
-		pointer						operator->() const	{ return (&_ptr->content);	}
+		reference					operator* () const		{ return (_ptr->content);	}
+		pointer						operator->() const		{ return (&_ptr->content);	}
 
 		// ! DEBUG ?
 		Node_pointer				base() const			{ return (_ptr); 			}
 		Node_pointer				get_base() const		{ return (base()); 			}
 		Node_pointer				get_cardinal() const	{ return (_cardinal); 		}
-		bool						get_side() const		{ return (_side);			}
 
 	protected:
 		Node_pointer 				_ptr;		// actual node
 		Node_pointer				_cardinal;	// cardinal of the BST checking the boundaries
-		bool						_side;		// will give from which side _ptr went to _cardinal. (1 = at end(), 0 the rest)
-
 	};
 	
 
@@ -187,28 +175,28 @@ namespace ft
 		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::difference_type		difference_type;
 
 		typedef ft::BST_bidirectional_iterator<Tn>												iterator;
-		typedef ft::BST_const_bidirectional_iterator<Tn>										const_iterator;
+		typedef ft::BST_const_bidirectional_iterator<Tn>				const_iterator;
 		typedef const_iterator																	iterator_type;
 		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::iterator_category	iterator_category;
 
 		/// * Constructors / Destructor _______________________________________
 
 		BST_const_bidirectional_iterator ()
-		: _ptr(NULL), _cardinal(NULL), _side(OTHER_POSITION)
+		: _ptr(NULL), _cardinal(NULL)
 		{}
 
-		BST_const_bidirectional_iterator (const Node_pointer node_ptr, const Node_pointer card_ptr, bool side = OTHER_POSITION)
-		: _ptr(node_ptr), _cardinal(card_ptr), _side(side)
+		BST_const_bidirectional_iterator (const Node_pointer node_ptr, const Node_pointer card_ptr)
+		: _ptr(node_ptr), _cardinal(card_ptr)
 		{}
 
 		BST_const_bidirectional_iterator (const const_iterator &rhs) { *this = rhs; }
 
 		BST_const_bidirectional_iterator (const iterator &it)
-		: _ptr(it.get_base()), _cardinal(it.get_cardinal()), _side(it.get_side())
+		: _ptr(it.get_base()), _cardinal(it.get_cardinal())
 		{}
 
 		BST_const_bidirectional_iterator (const_iterator &rhs)
-		: _ptr(rhs._ptr), _cardinal(rhs._cardinal), _side(rhs._side)
+		: _ptr(rhs._ptr), _cardinal(rhs._cardinal)
 		{}
 
 		~BST_const_bidirectional_iterator () {}
@@ -221,7 +209,6 @@ namespace ft
 			{
 				_ptr = rhs._ptr;
 				_cardinal = rhs._cardinal;
-				_side = rhs._side;
 			}
 			return (*this);
 		}
@@ -242,8 +229,7 @@ namespace ft
 				;
 			else if (_ptr == _cardinal)
 			{
-				if (_side != END_POSITION)
-					_ptr = _cardinal->left;
+				_ptr = _cardinal->left;
 			}
 			else if (_ptr->right && _ptr->right != _cardinal)
 			{
@@ -254,7 +240,6 @@ namespace ft
 			else if (_ptr->right && _ptr->right == _cardinal)
 			{
 				_ptr = _cardinal;
-				_side = OTHER_POSITION;
 			}
 			else if (!_ptr->right)
 			{
@@ -271,11 +256,7 @@ namespace ft
 				;
 			else if (_ptr == _cardinal)
 			{
-				if (_side == END_POSITION)
-				{
-					_ptr = _cardinal->right;
-					_side = OTHER_POSITION;
-				}
+				_ptr = _cardinal->right;
 			}
 			else if (_ptr->left && _ptr->left != _cardinal)
 			{
@@ -320,12 +301,10 @@ namespace ft
 		Node_pointer				base() const			{ return (_ptr); 			}
 		Node_pointer				get_base() const		{ return (base()); 			}
 		Node_pointer				get_cardinal() const	{ return (_cardinal); 		}
-		bool						get_side() const		{ return (_side);			}
 
 	protected:
 		Node_pointer 				_ptr;		// actual node
 		Node_pointer				_cardinal;	// cardinal of the BST checking the boundaries
-		bool						_side;		// will give from which side _ptr went to _cardinal. (1 = at end(), 0 the rest)
 
 	};	/// * BST_const_bidirectional_iterator _________________________________
 
