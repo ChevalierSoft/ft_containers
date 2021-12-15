@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/15 17:58:43 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/15 18:23:03 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@
 
 #include "./utils/color.h"
 #include "./utils/ft_print_memory.h"
-#include <time.h> // rand()
+#include <time.h>	// rand()
 
-#define __DEB(s)	std::cerr<<RED<<s<<RST<<std::endl;
 #define ENDL		std::cout<<std::endl;
 #define __GRN		std::cout<<GRN;
 #define __RST		std::cout<<RST;

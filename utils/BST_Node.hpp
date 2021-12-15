@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:43:00 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/04 04:49:33 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/15 18:36:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ namespace ft
 
 		// * (1) default
 		BST_Node ()
-		: content(), parent(NULL), left(NULL), right(NULL), height(0), bf(0)
+		: content(), left(NULL), right(NULL), parent(NULL), height(0), bf(0)
 		{}
 
 		// * (2) default with initialisation
 		BST_Node (const_reference val, BST_Node* p = NULL, BST_Node* l = NULL, BST_Node* r = NULL)
-		: content(val), parent(p), left(l), right(r), height(0), bf(0)
+		: content(val), left(l), right(r), parent(p), height(0), bf(0)
 		{}
 
 		// * (3) copy by duplicating data

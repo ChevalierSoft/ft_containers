@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/15 16:33:03 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/15 18:33:53 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ namespace ft
 	public:
 		// ? (1) default empty map
 		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-		: _comp(comp), _allocator(alloc), _size(0)
+		: _size(0), _allocator(alloc), _comp(comp)
 		{}
 
 		// ? (2) range
@@ -82,7 +82,7 @@ namespace ft
 						InputIterator last,
 						const key_compare& comp = key_compare(),
 						const allocator_type& alloc = allocator_type())
-		: _bst(), _size(0), _comp(comp), _allocator(alloc)
+		: _bst(), _size(0), _allocator(alloc), _comp(comp)
 		{
 			this->insert(first, last);
 		}
