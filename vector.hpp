@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/01 02:14:15 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/15 22:34:16 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ namespace ft
 
 		// ? default (1)
 		explicit vector (const allocator_type& alloc = allocator_type())
-		: _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc) {}
+		: _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc)
+		{}
 
 		// ? fill (2)
 		explicit vector (size_type nb, const T & elem = value_type(), const allocator_type& alloc = allocator_type())
@@ -76,7 +77,7 @@ namespace ft
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
 			typename ft::enable_if< ! ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
-			: _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc)
+		: _value_data(NULL), _value_count(0), _value_chunk_size(0), _allocator(alloc)
 		{
 			assign(first, last);
 		}
@@ -121,7 +122,7 @@ namespace ft
 			return (*this);
 		}
 
-		/// * assign() & get_allocator() _________________________________________
+		/// * assign() & get_allocator() _______________________________________
 		
 		void					assign (size_type n, const T& value)
 		{
@@ -177,7 +178,7 @@ namespace ft
 		
 		allocator_type			get_allocator () const { return this->_allocator; }
 
-		/// * Element access _____________________________________________________
+		/// * Element access ___________________________________________________
 
 		reference				at ( size_type pos )
 		{
@@ -209,7 +210,7 @@ namespace ft
 
 		const_pointer			data () const	{	return (_value_data);	}	// c++11
 
-		/// * Iterators __________________________________________________________
+		/// * Iterators ________________________________________________________
 
 		iterator				begin () 		{ return iterator( _value_data );						}
 
@@ -227,7 +228,7 @@ namespace ft
 
 		const_reverse_iterator	rend () const	{ return const_reverse_iterator( begin() );				}
 
-		/// * Capacity ___________________________________________________________
+		/// * Capacity _________________________________________________________
 
 		bool					empty () const		{ return ( _value_count == 0 );			}
 
@@ -255,7 +256,7 @@ namespace ft
 
 		size_type				capacity () const	{ return ( _value_chunk_size );}
 
-		/// * Modifiers __________________________________________________________
+		/// * Modifiers ________________________________________________________
 
 		void					clear ()
 		{
@@ -501,16 +502,16 @@ namespace ft
 			_value_chunk_size = tmp_chunk_size;
 		}
 
-		/// * Variables __________________________________________________________
+		/// * Variables ________________________________________________________
 	private:
 		pointer			_value_data;
 		size_type		_value_count;
 		size_type		_value_chunk_size;
 		Allocator		_allocator;
 
-	}; /// * vector ______________________________________________________________
+	}; /// * vector ____________________________________________________________
 
-	/// * Non-member functions ___________________________________________________
+	/// * Non-member functions _________________________________________________
 	//  ? https://en.cppreference.com/w/cpp/container/vector/operator_cmp
 
 	template< class T, class Alloc >
@@ -575,6 +576,6 @@ namespace ft
 		lhs.swap(rhs);
 	}
 
-} /// * namespace ft _____________________________________________________________
+} /// * namespace ft ___________________________________________________________
 
 #endif

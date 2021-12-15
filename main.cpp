@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/15 18:23:03 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/15 22:47:13 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1108,32 +1108,128 @@ void	test_map()
 
 }
 
-// * ___________________________________________________________________________
-int	main(void)
+
+
+
+
+template <typename T_STACK>
+void	printSize(T_STACK &stck, bool print_content = 1)
 {
-	std::cout << std::boolalpha;
+	std::cout << "size: " << stck.size() << std::endl;
+	if (print_content)
+	{
+		std::cout << std::endl << "Content was:" << std::endl;
+		while (stck.size() != 0) {
+			std::cout << "- " << stck.top() << std::endl;
+			stck.pop();
+		}
+	}
+	std::cout << "###############################################" << std::endl;
+}
 
-	// test_utility();
+template <typename T>
+class foo {
+	public:
+		typedef T	value_type;
 
-	// test_vector_iterator();
-	
-	// test_vector();
+		foo(void) : value(), _verbose(false) { };
+		foo(value_type src, const bool verbose = false) : value(src), _verbose(verbose) { };
+		foo(foo const &src, const bool verbose = false) : value(src.value), _verbose(verbose) { };
+		~foo(void) { if (this->_verbose) std::cout << "~foo::foo()" << std::endl; };
+		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
+		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
+		foo &operator=(value_type src) { this->value = src; return *this; };
+		foo &operator=(foo const &src) {
+			if (this->_verbose || src._verbose)
+				std::cout << "foo::operator=(foo) CALLED" << std::endl;
+			this->value = src.value;
+			return *this;
+		};
+		value_type	getValue(void) const { return this->value; };
+		void		switchVerbose(void) { this->_verbose = !(this->_verbose); };
 
-	// test_bst();
+		operator value_type(void) const {
+			return value_type(this->value);
+		}
+	private:
+		value_type	value;
+		bool		_verbose;
+};
 
-	test_map();
+template <typename T>
+std::ostream	&operator<<(std::ostream &o, foo<T> const &bar) {
+	o << bar.getValue();
+	return o;
+}
 
-	// ft::map<int, char> m;
 
-	// m.insert(ft::make_pair(0, '0'));
-	// m.insert(ft::make_pair(1, '1'));
-	// m.insert(ft::make_pair(2, '2'));
-	
-	// ft::map<int, char>::const_iterator cim(m.begin());
-	// cim = m.begin();
-	// ++cim;
-	// // cim->second = 12;
-	// std::cout << cim->second << std::endl;
+#define TESTED_TYPE foo<int>
+#define t_stack_ ft::stack<TESTED_TYPE>
+typedef t_stack_::container_type container_type;
+
+
+
+
+int		main(void)
+{
+	container_type	ctnr;
+
+	ctnr.push_back(21);
+	ctnr.push_back(42);
+	ctnr.push_back(1337);
+	ctnr.push_back(19);
+	ctnr.push_back(0);
+	ctnr.push_back(183792);
+
+	t_stack_		stck(ctnr);
+
+	std::cout << "empty: " << stck.empty() << std::endl;
+	std::cout << "size: " << stck.size() << std::endl;
+
+	// stck.push(1);
+	// stck.push(2);
+	// stck.push(3);
+	// stck.push(4);
+	// stck.push(5);
+	// stck.push(6);
+
+	std::cout << "Added some elements" << std::endl;
+
+	std::cout << "empty: " << stck.empty() << std::endl;
+	printSize(stck);
 
 	return (0);
 }
+
+
+
+// * ___________________________________________________________________________
+
+// int	main(void)
+// {
+// 	std::cout << std::boolalpha;
+
+// 	// test_utility();
+
+// 	// test_vector_iterator();
+	
+// 	// test_vector();
+
+// 	// test_bst();
+
+// 	test_map();
+
+// 	// ft::map<int, char> m;
+
+// 	// m.insert(ft::make_pair(0, '0'));
+// 	// m.insert(ft::make_pair(1, '1'));
+// 	// m.insert(ft::make_pair(2, '2'));
+	
+// 	// ft::map<int, char>::const_iterator cim(m.begin());
+// 	// cim = m.begin();
+// 	// ++cim;
+// 	// // cim->second = 12;
+// 	// std::cout << cim->second << std::endl;
+
+// 	return (0);
+// }
