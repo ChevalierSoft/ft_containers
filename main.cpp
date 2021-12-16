@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 13:32:38 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 14:40:32 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	display(T v, char c)
 
 // * ___________________________________________________________________________ ft::vector
 
-/*
 // _____________________________________________________________________________
 void	test_vector()
 {
@@ -405,6 +404,12 @@ void	test_vector()
 		display(v3);
 	}
 
+	{
+		ft::vector<int>  vec;
+		vec.insert(vec.begin(), 5, 42);
+		display(vec);
+	}
+
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "assign()" <<RST<< std::endl;
@@ -437,9 +442,9 @@ void	test_vector()
 		vv.push_back('L');
 		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.erase(vv.begin());
-		ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
+		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
 		vv.erase(vv.end() - 1);
 		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
@@ -509,9 +514,6 @@ void	test_vector()
 
 }	//__________________________________________________________________________
 
-*/
-
-/*
 // _____________________________________________________________________________
 void	test_vector_iterator()
 {
@@ -610,9 +612,7 @@ void	test_vector_iterator()
 	}
 
 }
-*/
 
-/*
 // ____________________________________________________________________________
 void	test_utility()
 {
@@ -620,7 +620,7 @@ void	test_utility()
 	std::cout <<std::endl<<CYN<< "pair" <<RST<< std::endl;
 	{
 		ft::pair<float, int>		prfi(1.5, 12);
-		ft::pair<menfou, menfou>	prmm = ft::makeft::(menfou('A'), menfou('B'));
+		ft::pair<menfou, menfou>	prmm = ft::make_pair(menfou('A'), menfou('B'));
 		std::cout << prfi.first << std::endl << prfi.second << std::endl;
 		std::cout << prmm.first << prmm.second << std::endl;
 	}
@@ -628,21 +628,21 @@ void	test_utility()
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "iterator_traits" <<RST<< std::endl;
 	{
-		typedef ft::iterator_traits<int*> ft_tt;
-		typedef std::iterator_traits<int*> std_tt;
+		// typedef ft::iterator_traits<int*> ft_tt;
+		// typedef std::iterator_traits<int*> std_tt;
 
-		if ((typeid(ft_tt::iterator_category) == typeid(std::random_access_iterator_tag))
-			== (typeid(std_tt::iterator_category) == typeid(std::random_access_iterator_tag)))
-			std::cout << "ok" << std::endl;
-		else
-			std::cout << "Error : if ((typeid(ft_tt::iterator_category) == typeid(std::random_access_iterator_tag)) \
-			== (typeid(std_tt::iterator_category) == typeid(std::random_access_iterator_tag)))" << std::endl;
+		// ? we have to make our own so this tests have no sens
+		// if ((typeid(ft_tt::iterator_category) == typeid(std::random_access_iterator_tag))
+		// 	== (typeid(std_tt::iterator_category) == typeid(std::random_access_iterator_tag)))
+		// 	std::cout << "ok" << std::endl;
+		// else
+		// 	std::cout << "Error : if ((typeid(ft_tt::iterator_category) == typeid(std::random_access_iterator_tag)) \
+		// 	== (typeid(std_tt::iterator_category) == typeid(std::random_access_iterator_tag)))" << std::endl;
+	
+		// std::cout <<typeid(ft_tt::iterator_category).name() << std::endl;
+		// std::cout <<typeid(std::random_access_iterator_tag).name() << std::endl;
 
-		std::cout <<typeid(ft_tt::iterator_category).name() << std::endl;
-		std::cout <<typeid(std::random_access_iterator_tag).name() << std::endl;
-
-		// std::ptrdiff_t d = ft::distance(0x0, 0xA); // should not compile
-		
+		// std::ptrdiff_t d = ft::distance(0x0, 0xA); // ? should not compile
 	}
 
 	//__________________________________________________________________________
@@ -663,11 +663,9 @@ void	test_utility()
 
 }
 
-*/
-
 // ? ___________________________________________________________________________ ft::map
 
-/*
+/* specific to my implementation
 // ____________________________________________________________________________
 void	test_bst()
 {
@@ -736,7 +734,6 @@ public:
 		return (lhs > rhs);
 	}
 };
-
 
 // _____________________________________________________________________________
 void	test_map()
@@ -1227,34 +1224,48 @@ void	test_stack(void)
 		stk.push(2);
 		stk.push(3);
 		ft::stack<int, ft::vector<int> >	stk2(stk);
-		if (stk == stk2)
-			std::cout << "(stk == stk)" << std::endl;
-		if (stk != stk2)
-			std::cout << "(stk != stk)" << std::endl;
-		if (stk < stk2)
-			std::cout << "(stk < stk2)" << std::endl;
-		if (stk > stk2)
-			std::cout << "(stk > stk2)" << std::endl;
-		if (stk <= stk2)
-			std::cout << "(stk <= stk2)" << std::endl;
-		if (stk >= stk2)
-			std::cout << "(stk >= stk2)" << std::endl;
+		std::cout << "(stk == stk2) : " << (stk == stk2) << std::endl;
+		std::cout << "(stk != stk2) : " << (stk != stk2) << std::endl;
+		std::cout << "(stk < stk2) : " << (stk < stk2) << std::endl;
+		std::cout << "(stk > stk2) : " << (stk > stk2) << std::endl;
+		std::cout << "(stk <= stk2) : " << (stk <= stk2) << std::endl;
+		std::cout << "(stk >= stk2) : " << (stk >= stk2) << std::endl;
+
+		std::cout << "(stk2 == stk) : " << (stk2 == stk) << std::endl;
+		std::cout << "(stk2 != stk) : " << (stk2 != stk) << std::endl;
+		std::cout << "(stk2 < stk) : " << (stk2 < stk) << std::endl;
+		std::cout << "(stk2 > stk) : " << (stk2 > stk) << std::endl;
+		std::cout << "(stk2 <= stk) : " << (stk2 <= stk) << std::endl;
+		std::cout << "(stk2 >= stk) : " << (stk2 >= stk) << std::endl;
 		stk2.pop();
 		stk2.push(4);
-		if (stk == stk2)
-			std::cout << "(stk == stk)" << std::endl;
-		if (stk != stk2)
-			std::cout << "(stk != stk)" << std::endl;
-		if (stk < stk2)
-			std::cout << "(stk < stk2)" << std::endl;
-		if (stk > stk2)
-			std::cout << "(stk > stk2)" << std::endl;
-		if (stk <= stk2)
-			std::cout << "(stk <= stk2)" << std::endl;
-		if (stk >= stk2)
-			std::cout << "(stk >= stk2)" << std::endl;
+		std::cout << "(stk == stk2) : " << (stk == stk2) << std::endl;
+		std::cout << "(stk != stk2) : " << (stk != stk2) << std::endl;
+		std::cout << "(stk < stk2) : " << (stk < stk2) << std::endl;
+		std::cout << "(stk > stk2) : " << (stk > stk2) << std::endl;
+		std::cout << "(stk <= stk2) : " << (stk <= stk2) << std::endl;
+		std::cout << "(stk >= stk2) : " << (stk >= stk2) << std::endl;
+
+		std::cout << "(stk2 == stk) : " << (stk2 == stk) << std::endl;
+		std::cout << "(stk2 != stk) : " << (stk2 != stk) << std::endl;
+		std::cout << "(stk2 < stk) : " << (stk2 < stk) << std::endl;
+		std::cout << "(stk2 > stk) : " << (stk2 > stk) << std::endl;
+		std::cout << "(stk2 <= stk) : " << (stk2 <= stk) << std::endl;
+		std::cout << "(stk2 >= stk) : " << (stk2 >= stk) << std::endl;
 	}
 
+	{
+		// ? un comment to test -> on a const
+		// ft::map<int, char> m;
+		// m.insert(ft::make_pair(0, '0'));
+		// m.insert(ft::make_pair(1, '1'));
+		// ft::map<int, char>::const_iterator cim(m.begin());
+		// cim = m.begin();
+		// ++cim;
+		// // cim->second = 12;	// ? should not compile
+		// std::cout << cim->second << std::endl;
+	}
+	
 	return ;
 }
 
@@ -1266,29 +1277,17 @@ int	main(void)
 {
 	std::cout << std::boolalpha;
 
-	// test_utility();
+	test_utility();
 
-	// test_vector_iterator();
+	test_vector_iterator();
 	
-	// test_vector();
+	test_vector();
 
-	// test_bst();
+	// // test_bst();
 
-	// test_map();
+	test_map();
 
 	test_stack();
-
-	// ft::map<int, char> m;
-
-	// m.insert(ft::make_pair(0, '0'));
-	// m.insert(ft::make_pair(1, '1'));
-	// m.insert(ft::make_pair(2, '2'));
-	
-	// ft::map<int, char>::const_iterator cim(m.begin());
-	// cim = m.begin();
-	// ++cim;
-	// // cim->second = 12;
-	// std::cout << cim->second << std::endl;
 
 	return (0);
 }
