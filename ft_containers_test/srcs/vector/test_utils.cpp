@@ -132,7 +132,7 @@ int main(void)
 	std::ofstream monFlux1("logs/vector/ft_vector.utils.log");
 	std::ofstream monFlux2("logs/vector/std_vector.utils.log");
 
-	err += iterator_traits(monFlux1, monFlux2);
+	// err += iterator_traits(monFlux1, monFlux2);
 	err += equal(monFlux1, monFlux2);
 	err += is_integral(monFlux1, monFlux2);
 	err += lexicographical_compare(monFlux1, monFlux2);
