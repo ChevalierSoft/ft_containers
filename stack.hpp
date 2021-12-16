@@ -28,7 +28,7 @@ namespace ft
 		// * Constructors & Destructors ________________________________________
 	public:
 		explicit stack (const container_type& ctnr = container_type())
-		: _c(ctnr)
+		: c(ctnr)
 		{}
 
 		~stack ()
@@ -43,7 +43,7 @@ namespace ft
 		// Operation overload =
 		stack&				operator= (const stack &	copy)
 		{
-			_c = copy._c;
+			c = copy.c;
 			return (*this);
 		}
 
@@ -51,70 +51,70 @@ namespace ft
 
 		bool				empty () const
 		{
-			return (_c.empty());
+			return (c.empty());
 		}
 
 		size_type			size () const
 		{
-			return (_c.size());
+			return (c.size());
 		}
 
 		value_type& 		top ()
 		{
-			return (_c[_c.size() - 1]);
+			return (c[c.size() - 1]);
 		}
 
 		const value_type&	top () const
 		{
-			return (_c[_c.size() - 1]);
+			return (c[c.size() - 1]);
 		}
 
 		void				push (const value_type& val)
 		{
-			_c.push_back(val);
+			c.push_back(val);
 		}
 
 		void				pop ()
 		{
-			_c.pop_back();
+			c.pop_back();
 		}
 
 		// * Comparisons _______________________________________________________
 
 		bool	operator==(const stack<T,Container>& rhs)
 		{
-			return (_c == rhs._c);
+			return (c == rhs.c);
 		}
 
 		bool	operator!=(const stack<T,Container>& rhs)
 		{
-			return (_c != rhs._c);
+			return (c != rhs.c);
 		}
 
 		bool	operator< (const stack<T,Container>& rhs)
 		{
-			return (_c < rhs._c);
+			return (c < rhs.c);
 		}
 
 		bool	operator<= (const stack<T,Container>& rhs)
 		{
-			return (_c <= rhs._c);
+			return (c <= rhs.c);
 		}
 
 		bool	operator> (const stack<T,Container>& rhs)
 		{
-			return (_c > rhs._c);
+			return (c > rhs.c);
 		}
 
 		bool	operator>= (const stack<T,Container>& rhs)
 		{
-			return (_c >= rhs._c);
+			return (c >= rhs.c);
 		}
 
 
 		/// * Variables ________________________________________________________
 	protected:
-		container_type		_c;
+		container_type		c;
 	};
 
 	/// * Non-member functions _________________________________________________
