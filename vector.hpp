@@ -6,38 +6,24 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 02:23:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/15 22:34:16 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:25:57 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include <iostream>		// std::cout
-#include <stdexcept>	// std::exception
-#include <memory>		// std::allocator
-// #include <cmath>
+#include <iostream>								// std::cout
+#include <stdexcept>							// std::exception
+#include <memory>								// std::allocator
 #include "iterator/iterator.h"
 #include "iterator/random_access_iterator.hpp"
 #include "iterator/reverse_iterator.hpp"
 #include "utils/color.h"
-#include "utils/ft_print_memory.h"
 #include "utils/utility.hpp"
 #include "utils/enable_if.hpp"
 
-#define __DEB(s) std::cerr<<s<<std::endl;
-
-/*
-must be reimplemented :
-	iterator_traits,					// ok
-	reverse_iterator,					// ok
-	enable_if,							// ok
-	is_integral,						// ok
-	lexicographical_compare, 			// ok
-	equal								// ok
-	std::pair,							// ok
-	std::make_pair						// ok
-*/
+// #define __DEB(s) std::cerr<<s<<std::endl;	// used to debbug
 
 namespace ft
 {
@@ -126,16 +112,14 @@ namespace ft
 		
 		void					assign (size_type n, const T& value)
 		{
-			// __DEB("assign()")
-
 			if (n > this->max_size())
 				throw std::length_error("cannot create ft::vector larger than max_size()");
 			
-			// __DEB("destroying every elements in the vector")
+			// destroying every elements in the vector
 			for (size_type i = 0; i < this->size(); ++i)
 				_allocator.destroy(_value_data + i);
 			
-			// __DEB("calling reserve() if needed")
+			// calling reserve() if needed
 			if (_value_chunk_size < n)
 			{
 				const size_type	len = _value_chunk_size;
@@ -145,7 +129,7 @@ namespace ft
 				_value_data = _allocator.allocate(_value_chunk_size);
 			}
 
-			// __DEB("construct n elements")
+			// construct n elements
 			for (size_type i = 0; i < n; ++i)
 				_allocator.construct(_value_data + i, value);
 
@@ -415,7 +399,6 @@ namespace ft
 			// ? construct is very slow but needed for classes without operator=
 			for (size_type i = pos; i < _value_count - 1; ++i)
 				_allocator.construct(_value_data + i, _value_data[i + 1]);
-				// _value_data[i] = _value_data[i + 1];
 			_allocator.destroy(_value_data + _value_count - 1);
 			--_value_count;
 			if (pos == _value_count - 1)
@@ -426,17 +409,15 @@ namespace ft
 		iterator				erase (iterator first, iterator last)
 		{
 			size_type	dist = ft::distance(first, last);
-			// size_type	pos = first - begin();
-			// size_type	end_pos = end() - last;
 
 			if (dist == 0)
 				return (last);
 
-			// __DEB("move last element at first position recurcively")
+			// move last element at first position recurcively
 			for (iterator start = first; last != end(); ++start, ++last)
 				*start = *(last);
 			
-			// __DEB("destroy last part of the vector")
+			// destroy last part of the vector
 			while (last != end())
 				_allocator.destroy(&(*last));
 
@@ -463,12 +444,11 @@ namespace ft
 
 		void					resize (size_type n, value_type val = value_type())
 		{
-			// __DEB("resize()")
 			if (n == _value_count)
 				return ;
 			else if (n < _value_count)
 			{
-				// __DEB("destroying elements from n to end() position")
+				// destroying elements from n to end() position
 				for (size_type i = n; i != _value_count; ++i)
 					_allocator.destroy(_value_data + i);
 			}

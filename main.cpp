@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 15:59:51 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:29:11 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stack>
 #include <string>
 #include <assert.h>
+#include <time.h>		// rand()
 
 #ifdef ORIGINAL
 	namespace ft = std;
@@ -29,8 +30,7 @@
 #endif
 
 #include "./utils/color.h"
-#include "./utils/ft_print_memory.h"
-#include <time.h>	// rand()
+// #include "./utils/ft_print_memory.h"
 
 #define ENDL		std::cout<<std::endl;
 #define __GRN		std::cout<<GRN;
@@ -440,45 +440,32 @@ void	test_vector()
 		vv.push_back('L');
 		vv.push_back('U');
 		vv.push_back('L');
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		vv.erase(vv.begin());
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
 		vv.erase(vv.end() - 1);
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
 		vv.push_back('V');
 		vv.push_back('U');
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
 		vv.erase(vv.begin() + 2);
 		vv.erase(vv.begin());
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
 		vv.insert(vv.begin() + 1, 'W');
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
 		vv.insert(vv.end(), vv.begin(), vv.end());
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
-
 		rera = vv.erase(vv.begin() + 1, vv.end() - 1) - vv.begin();
 		std::cout << "rera : " << rera << std::endl;
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
 		rera = vv.erase(vv.end(), vv.end()) - vv.begin();
 		std::cout << "rera : " << rera << std::endl;
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
 		rera = vv.erase(vv.begin(), vv.begin()) - vv.begin();
 		std::cout << "rera : " << rera << std::endl;
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
 		rera = vv.erase(vv.begin(), vv.end()) - vv.begin();
 		std::cout << "rera : " << rera << std::endl;
-		// ft_print_memory((void *)vv.data(), vv.size() * sizeof(int)); ENDL
 		display(vv);
 		ENDL
 	}
