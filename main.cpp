@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 16:29:11 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 17:36:11 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,8 @@ void	test_vector()
 	std::cout <<std::endl<<CYN<< "contructor by copy" <<RST<< std::endl;
 	{
 		ft::vector<int>				ww(v);
-		// v[0] = '0';
 		v.push_back(48);
-		for (auto & iv : ww)
-			std::cout << iv << " ";
+		display(v, ' ');
 		std::cout << std::endl;
 		ft::vector<int>				c(ww);
 		std::cout << "copied : " << c.size() << std::endl;
@@ -126,8 +124,7 @@ void	test_vector()
 		ft::vector<int>	ww(v);
 		w.pop_back();
 		ww = v;
-		for (auto & iv : ww)
-			std::cout << iv << " ";
+		display(v, ' ');
 		std::cout << std::endl;
 	}
 
@@ -138,8 +135,7 @@ void	test_vector()
 		v.pop_back();
 		v.pop_back();
 		v.pop_back();
-		for (auto & iv : v)
-			std::cout << iv << " ";
+		display(v, ' ');
 		std::cout << "(nothing should be printed)" << std::endl;
 		v.push_back(0x4C);
 		v.push_back(0x55);
@@ -155,8 +151,7 @@ void	test_vector()
 		w.push_back('D');
 		w.push_back('R');
 		std::cout << std::endl << "mine             ";
-		for (auto & iw : w)
-			std::cout << iw << " ";
+		display(v, ' ');
 		std::cout << std::endl <<GRN<< "should be        76 85 76 90 77 68 82"<<RST<< std::endl;
 	}
 
@@ -346,11 +341,11 @@ void	test_vector()
 		// std::cout << ovh[334] <<std::endl;	// should be a heap-buffer-overflow
 	}
 
-	std::cout <<std::endl<<CYN<< "is_integral" <<RST<< std::endl;
+	std::cout <<std::endl<<CYN<< "is_integral : need to uncomment (not in c++98)" <<RST<< std::endl;
 	{
-		std::cout << "char: \t"		<< ft::is_integral<char>::value		<< std::endl;
-		std::cout << "int: \t"		<< ft::is_integral<int>::value		<< std::endl;
-		std::cout << "float: \t"	<< ft::is_integral<float>::value	<< std::endl;
+		// std::cout << "char: \t"		<< ft::is_integral<char>::value		<< std::endl;
+		// std::cout << "int: \t"		<< ft::is_integral<int>::value		<< std::endl;
+		// std::cout << "float: \t"	<< ft::is_integral<float>::value	<< std::endl;
 	}
 
 	//__________________________________________________________________________
@@ -379,8 +374,9 @@ void	test_vector()
 		asd.insert(asd.begin() + 6, asd.rbegin(), asd.rend());
 
 		strft = "";
-		for (auto & iasd : asd)
-			strft += iasd.c;
+		for (ft::vector<menfou>::const_iterator iasd = asd.begin();
+				iasd != asd.end(); ++iasd)
+			strft += iasd->c;
 
 		std::cout << "size : " << asd.size() << std::endl;
 
@@ -592,7 +588,7 @@ void	test_vector_iterator()
 		ft::vector<int>						v(2, 42);
 		ft::vector<int>::reverse_iterator	iv;
 		
-		ptrdiff_t d = v.rend() - v.rbegin();
+		std::ptrdiff_t d = v.rend() - v.rbegin();
 		std::cout << d << std::endl;
 		d = v.rbegin() - v.rend();
 		std::cout << d << std::endl;
