@@ -7,8 +7,8 @@
 	#include <vector>
 	namespace ft = std;
 #else
-	// #include <map.hpp>
-	// #include <stack.hpp>
+	#include "map.hpp"
+	#include "stack.hpp"
 	#include "vector.hpp"
 #endif
 
@@ -25,7 +25,7 @@ struct Buffer
 
 #define COUNT (MAX_RAM / (int)sizeof(Buffer))
 
-/*
+
 template<typename T>
 class MutantStack : public ft::stack<T>
 {
@@ -45,7 +45,6 @@ public:
 	iterator end() { return this->c.end(); }
 };
 
-*/
 
 int main(int argc, char** argv) {
 	if (argc != 2)
@@ -60,10 +59,10 @@ int main(int argc, char** argv) {
 
 	ft::vector<std::string> vector_str;
 	ft::vector<int> vector_int;
-	// ft::stack<int> stack_int;
+	ft::stack<int> stack_int;
 	ft::vector<Buffer> vector_buffer;
-	// // ft::stack<Buffer, std::deque<int> > stack_deq_buffer;
-	// ft::map<int, int> map_int;
+	ft::stack<Buffer, std::deque<int> > stack_deq_buffer;
+	ft::map<int, int> map_int;
 
 	for (int i = 0; i < COUNT; i++)
 	{
@@ -91,7 +90,7 @@ int main(int argc, char** argv) {
 		//NORMAL ! :P
 	}
 	
-	/*
+
 	for (int i = 0; i < COUNT; ++i)
 	{
 		map_int.insert(ft::make_pair(rand(), rand()));
@@ -116,8 +115,6 @@ int main(int argc, char** argv) {
 		std::cout << *it;
 	}
 	std::cout << std::endl;
-
-	*/
 
 	return (0);
 }
