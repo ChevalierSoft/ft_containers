@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 00:31:51 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 01:03:15 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1109,127 +1109,93 @@ void	test_map()
 }
 
 
-
-
-
-template <typename T_STACK>
-void	printSize(T_STACK &stck, bool print_content = 1)
+void	test_stack(void)
 {
-	std::cout << "size: " << stck.size() << std::endl;
-	if (print_content)
+	std::cout <<std::endl<<CYN<< "__________________ft::stack__________________" <<RST<< std::endl;
+
+	// ____________________________________________________________________________
+	std::cout <<CYN<< "test with ft::vector as container" <<RST<< std::endl;
+	// ____________________________________________________________________________
+	std::cout <<CYN<< "test with ft::vector as container" <<RST<< std::endl;
 	{
-		std::cout << std::endl << "Content was:" << std::endl;
-		while (stck.size() != 0) {
-			std::cout << "- " << stck.top() << std::endl;
-			stck.pop();
+		std::vector<int>					vec;
+		vec.push_back(21);
+		vec.push_back(42);
+		ft::stack<int, std::vector<int> >	stk(vec);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		stk.push(1);
+		stk.push(2);
+		stk.push(3);
+		stk.push(4);
+		stk.push(5);
+		stk.push(6);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		while (stk.size())
+		{
+			std::cout << stk.top() << std::endl;
+			stk.pop();
 		}
 	}
-	std::cout << "###############################################" << std::endl;
-}
 
-template <typename T>
-class foo {
-	public:
-		typedef T	value_type;
-
-		foo(void) : value(), _verbose(false) { };
-		foo(value_type src, const bool verbose = false) : value(src), _verbose(verbose) { };
-		foo(foo const &src, const bool verbose = false) : value(src.value), _verbose(verbose) { };
-		~foo(void) { if (this->_verbose) std::cout << "~foo::foo()" << std::endl; };
-		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
-		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
-		foo &operator=(value_type src) { this->value = src; return *this; };
-		foo &operator=(foo const &src) {
-			if (this->_verbose || src._verbose)
-				std::cout << "foo::operator=(foo) CALLED" << std::endl;
-			this->value = src.value;
-			return *this;
-		};
-		value_type	getValue(void) const { return this->value; };
-		void		switchVerbose(void) { this->_verbose = !(this->_verbose); };
-
-		operator value_type(void) const {
-			return value_type(this->value);
+	// ____________________________________________________________________________
+	std::cout <<CYN<< "test with std::vector as container" <<RST<< std::endl;
+	{
+		std::vector<int>					vec;
+		vec.push_back(21);
+		vec.push_back(42);
+		ft::stack<int, std::vector<int> >	stk(vec);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		stk.push(1);
+		stk.push(2);
+		stk.push(3);
+		stk.push(4);
+		stk.push(5);
+		stk.push(6);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		while (stk.size())
+		{
+			std::cout << stk.top() << std::endl;
+			stk.pop();
 		}
-	private:
-		value_type	value;
-		bool		_verbose;
-};
-
-template <typename T>
-std::ostream	&operator<<(std::ostream &o, foo<T> const &bar) {
-	o << bar.getValue();
-	return o;
-}
-
-
-#define TESTED_TYPE					foo<int>
-#define t_stack_					ft::stack<TESTED_TYPE>
-typedef t_stack_::container_type	container_type;
-
-
-
-
-int		main(void)
-{
-	container_type	ctnr;
-
-	ctnr.push_back(21);
-	ctnr.push_back(42);
-	ctnr.push_back(1337);
-	ctnr.push_back(19);
-	ctnr.push_back(0);
-	ctnr.push_back(183792);
-
-	t_stack_		stck(ctnr);
-
-	std::cout << "empty: " << stck.empty() << std::endl;
-	std::cout << "size: " << stck.size() << std::endl;
-
-	stck.push(1);
-	stck.push(2);
-	stck.push(3);
-	stck.push(4);
-	stck.push(5);
-	stck.push(6);
-
-	std::cout << "Added some elements" << std::endl;
-
-	std::cout << "empty: " << stck.empty() << std::endl;
-	printSize(stck);
-
-	return (0);
+	}
+	return ;
 }
 
 
 
 // * ___________________________________________________________________________
 
-// int	main(void)
-// {
-// 	std::cout << std::boolalpha;
+int	main(void)
+{
+	std::cout << std::boolalpha;
 
-// 	// test_utility();
+	// test_utility();
 
-// 	// test_vector_iterator();
+	// test_vector_iterator();
 	
-// 	// test_vector();
+	// test_vector();
 
-// 	// test_bst();
+	// test_bst();
 
-// 	test_map();
+	// test_map();
 
-// 	// ft::map<int, char> m;
+	test_stack();
 
-// 	// m.insert(ft::make_pair(0, '0'));
-// 	// m.insert(ft::make_pair(1, '1'));
-// 	// m.insert(ft::make_pair(2, '2'));
+	// ft::map<int, char> m;
+
+	// m.insert(ft::make_pair(0, '0'));
+	// m.insert(ft::make_pair(1, '1'));
+	// m.insert(ft::make_pair(2, '2'));
 	
-// 	// ft::map<int, char>::const_iterator cim(m.begin());
-// 	// cim = m.begin();
-// 	// ++cim;
-// 	// // cim->second = 12;
-// 	// std::cout << cim->second << std::endl;
+	// ft::map<int, char>::const_iterator cim(m.begin());
+	// cim = m.begin();
+	// ++cim;
+	// // cim->second = 12;
+	// std::cout << cim->second << std::endl;
 
-// 	return (0);
-// }
+	return (0);
+}
