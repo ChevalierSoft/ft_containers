@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 16:12:03 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:19:09 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,17 +348,6 @@ namespace ft
 			return (it);
 		}
 
-	// 	// ! DEBUG
-	// public:
-	// 	void						print_bst ()
-	// 	{
-	// 		_bst.print_bst();
-	// 	}
-	// 	void						display ()	// ? debug
-	// 	{
-	// 		_bst.display();
-	// 	}
-		
 		/// * Observers  _______________________________________________________
 	public:
 		key_compare					key_comp () const	{ return (key_compare(_comp));				}

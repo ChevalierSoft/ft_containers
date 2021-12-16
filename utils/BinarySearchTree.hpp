@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 16:08:44 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:18:46 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ namespace ft
 	class BinarySearchTree // * ________________________________________________ BinarySearchTree
 	{
 	public:
-		typedef ft::pair<Key, T>						value_type;
-		typedef	T										data_type;
-		typedef  ft::BST_Node<Key, T>					Node;
-		typedef Compare									type_compare;
-		typedef typename std::ptrdiff_t					difference_type;
-		typedef size_t									size_type;
-		typedef	value_type&								reference;
-		typedef	const value_type&						const_reference;
-		typedef T*										pointer;
-		typedef const T*								const_pointer;
-		typedef Node*									Node_pointer;
-		typedef Node_pointer&							Node_const_pointer;
+		typedef ft::pair<Key, T>							value_type;
+		typedef	T											data_type;
+		typedef  ft::BST_Node<Key, T>						Node;
+		typedef Compare										type_compare;
+		typedef typename std::ptrdiff_t						difference_type;
+		typedef size_t										size_type;
+		typedef	value_type&									reference;
+		typedef	const value_type&							const_reference;
+		typedef T*											pointer;
+		typedef const T*									const_pointer;
+		typedef Node*										Node_pointer;
+		typedef Node_pointer&								Node_const_pointer;
 	
 		typedef ft::BST_bidirectional_iterator<Node>		iterator;
 		typedef ft::BST_const_bidirectional_iterator<Node>	const_iterator;
@@ -296,11 +296,10 @@ namespace ft
 			bool	found = false;
 
 			// if key is from the lowest node
-			if (_cardinal->left != _cardinal &&
-				(!_comp(key, _cardinal->left->content.first) && !_comp(_cardinal->left->content.first, key)) )	// ! using _comp
-				//key == _cardinal->left->content.first)
+			if ( _cardinal->left != _cardinal &&
+				(!_comp(key, _cardinal->left->content.first) &&
+				!_comp(_cardinal->left->content.first, key)) )
 			{
-				// std::cout << "key is from the lowest node : " << key << " " << _cardinal->left->content.first << std::endl;
 				// if the lowest node has a right leaf
 				if (_cardinal->left->right != NULL && _cardinal->left->right != _cardinal)
 					_cardinal->left = find_min(_cardinal->left->right);
@@ -313,7 +312,8 @@ namespace ft
 			}
 
 			else if (_cardinal->right != _cardinal &&
-				(!_comp(key, _cardinal->right->content.first) && !_comp(_cardinal->right->content.first, key)) )	// ! using _comp
+				(!_comp(key, _cardinal->right->content.first) &&
+				!_comp(_cardinal->right->content.first, key)) )
 			{
 				if (_cardinal->right->left != NULL && _cardinal->right->left != _cardinal)
 					_cardinal->right = find_max(_cardinal->right->left);
@@ -577,80 +577,6 @@ namespace ft
 		}
 
 		Node_pointer	base ()	const 			{ return (_root);			}
-
-		// // !  DEBUG
-		// void			print_bst() const
-		// {
-		// 	if (!_root || _root == _cardinal)
-		// 		return ;
-		// 	print_bst(_root, 0);
-		// 	std::cout << "_cardinal [" ;
-		// 	if (_cardinal->left && _cardinal->left != _cardinal)
-		// 		std::cout << _cardinal->left->content.second ;
-		// 	else
-		// 		std::cout << " ";
-		// 	if (_cardinal->parent && _cardinal->parent != _cardinal)
-		// 		std::cout << _cardinal->parent->content.second ;
-		// 	else
-		// 		std::cout << " ";
-		// 	if (_cardinal->right && _cardinal->right != _cardinal)
-		// 		std::cout << _cardinal->right->content.second ;
-		// 	else
-		// 		std::cout << " ";
-		// 	std::cout << "]" << std::endl<< std::endl;
-		// }
-
-		// void			print_bst(Node_pointer current, int space = 0) const
-		// {
-		// 	if (current && current != _cardinal)
-		// 	{
-		// 		space += 11;
-		// 		print_bst(current->right, space);
-		// 		std::cout << std::endl;
-		// 		std::cout << std::string(space, ' ');
-		// 		std::cout << "( " << current->content.first << " : " << current->content.second  << " )";
-		// 		if (!current->right)
-		// 			std::cout <<RED<< "." <<RST;
-		// 		else if (current->right == _cardinal)
-		// 			std::cout <<CYN<< "." <<RST;
-		// 		else
-		// 			std::cout << " " <<RST;
-		// 		if (!current->left)
-		// 			std::cout <<RED<< "." <<RST;
-		// 		else if (current->left == _cardinal)
-		// 			std::cout <<CYN<< "." <<RST;
-		// 		else
-		// 			std::cout << " " <<RST;
-		// 		std::cout << std::endl;
-		// 		print_bst(current->left, space);
-		// 	}
-		// }
-
-		// // ? (1) default: public
-		// void			display () const
-		// {
-		// 	if (_root)
-		// 		this->print_bst();
-		// }
-
-	// 	// ? (2) protected
-	// protected:
-	// 	void			display (Node_pointer node) const
-	// 	{
-	// 		size_type	len = get_last_floor(node);
-	// 		if (node && node != _cardinal)
-	// 		{
-	// 			if (node->left)
-	// 				display(node->left);
-	// 			std::cout << std::string( ((len * 6) / 2), ' ' );
-	// 			std::cout << node->content.first << node->content.second;
-	// 			std::cout << std::string( ((len * 6) / 2), ' ' );
-	// 			if (node->right)
-	// 				display(node->right);
-	// 		}
-	// 		else
-	// 			std::cout << std::string( len * 6 + 6, ' ' );
-	// 	}
 
 		// * Getters ___________________________________________________________
 
