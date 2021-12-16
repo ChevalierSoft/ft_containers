@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 15:29:20 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:12:03 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,16 +348,16 @@ namespace ft
 			return (it);
 		}
 
-		// ! DEBUG
-	public:
-		void						print_bst ()
-		{
-			_bst.print_bst();
-		}
-		void						display ()	// ? debug
-		{
-			_bst.display();
-		}
+	// 	// ! DEBUG
+	// public:
+	// 	void						print_bst ()
+	// 	{
+	// 		_bst.print_bst();
+	// 	}
+	// 	void						display ()	// ? debug
+	// 	{
+	// 		_bst.display();
+	// 	}
 		
 		/// * Observers  _______________________________________________________
 	public:
@@ -366,7 +366,7 @@ namespace ft
 		value_compare				value_comp() const	{ return (value_compare(key_compare()));	}
 
 		/// * Variables ________________________________________________________
-		
+	public:
 	 	// ? Maps are typically implemented as balanced binary trees.
 	// protected:
 		Tree_Type					_bst;				// binary search tree where data is stored
