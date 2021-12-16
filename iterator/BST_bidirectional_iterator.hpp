@@ -294,8 +294,8 @@ namespace ft
 			return (tmp);
 		}
 
-		const typename Tn::value_type &	operator* () const	{ return (_ptr->content);	}
-		const pointer					operator->() const	{ return (&_ptr->content);	}
+		const_reference				operator* () const	{ return (_ptr->content);	}
+		pointer						operator->() const	{ return (const_pointer(&_ptr->content));	}
 
 		// ! DEBUG
 		Node_pointer				base() const			{ return (_ptr); 			}

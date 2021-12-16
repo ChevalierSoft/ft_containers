@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 14:40:32 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:15:54 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	display(T v, char c)
 	std::cout << std::endl;
 }
 
-// * ___________________________________________________________________________ ft::vector
+// ? ___________________________________________________________________________ ft::vector
 
 // _____________________________________________________________________________
 void	test_vector()
@@ -613,7 +613,7 @@ void	test_vector_iterator()
 
 }
 
-// ____________________________________________________________________________
+// _____________________________________________________________________________
 void	test_utility()
 {
 	//__________________________________________________________________________
@@ -636,8 +636,10 @@ void	test_utility()
 		// 	== (typeid(std_tt::iterator_category) == typeid(std::random_access_iterator_tag)))
 		// 	std::cout << "ok" << std::endl;
 		// else
-		// 	std::cout << "Error : if ((typeid(ft_tt::iterator_category) == typeid(std::random_access_iterator_tag)) \
-		// 	== (typeid(std_tt::iterator_category) == typeid(std::random_access_iterator_tag)))" << std::endl;
+		// 	std::cout << "Error : if ((typeid(ft_tt::iterator_category) " <<
+		//		"== typeid(std::random_access_iterator_tag))" <<
+		//		"== (typeid(std_tt::iterator_category) " <<
+		//		"== typeid(std::random_access_iterator_tag)))" << std::endl;
 	
 		// std::cout <<typeid(ft_tt::iterator_category).name() << std::endl;
 		// std::cout <<typeid(std::random_access_iterator_tag).name() << std::endl;
@@ -1103,7 +1105,22 @@ void	test_map()
 		std::cout << ret.second->first << " => " << ret.second->second << '\n';
 	}
 
+	// ? Uncomment this to test -> on a const
+	{
+		// ft::map<int, char> m;
+		// m.insert(ft::make_pair(0, '0'));
+		// m.insert(ft::make_pair(1, '1'));
+		// ft::map<int, char>::const_iterator cim(m.begin());
+		// cim = m.begin();
+		// ++cim;
+		// cim->second = 12;	// ? should not compile
+		// std::cout << cim->second << std::endl;
+	}
+
+	return ;
 }
+
+// ? ___________________________________________________________________________ ft::stack
 
 // _____________________________________________________________________________
 void	test_stack(void)
@@ -1253,25 +1270,11 @@ void	test_stack(void)
 		std::cout << "(stk2 <= stk) : " << (stk2 <= stk) << std::endl;
 		std::cout << "(stk2 >= stk) : " << (stk2 >= stk) << std::endl;
 	}
-
-	{
-		// ? un comment to test -> on a const
-		// ft::map<int, char> m;
-		// m.insert(ft::make_pair(0, '0'));
-		// m.insert(ft::make_pair(1, '1'));
-		// ft::map<int, char>::const_iterator cim(m.begin());
-		// cim = m.begin();
-		// ++cim;
-		// // cim->second = 12;	// ? should not compile
-		// std::cout << cim->second << std::endl;
-	}
 	
 	return ;
 }
 
-
-
-// * ___________________________________________________________________________
+// ? ___________________________________________________________________________ main
 
 int	main(void)
 {
