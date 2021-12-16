@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 01:03:15 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 01:06:21 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -738,7 +738,7 @@ public:
 };
 
 
-// ____________________________________________________________________________
+// _____________________________________________________________________________
 void	test_map()
 {
 	std::cout <<std::endl<<CYN<< "___________________ 🧛 ft::map 🧙 ___________________" <<RST<< std::endl;
@@ -1108,14 +1108,12 @@ void	test_map()
 
 }
 
-
+// _____________________________________________________________________________
 void	test_stack(void)
 {
 	std::cout <<std::endl<<CYN<< "__________________ft::stack__________________" <<RST<< std::endl;
 
-	// ____________________________________________________________________________
-	std::cout <<CYN<< "test with ft::vector as container" <<RST<< std::endl;
-	// ____________________________________________________________________________
+	// _________________________________________________________________________
 	std::cout <<CYN<< "test with ft::vector as container" <<RST<< std::endl;
 	{
 		std::vector<int>					vec;
@@ -1130,6 +1128,17 @@ void	test_stack(void)
 		stk.push(4);
 		stk.push(5);
 		stk.push(6);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		while (stk.size())
+		{
+			std::cout << stk.top() << std::endl;
+			stk.pop();
+		}
+		stk.push(7);
+		stk.push(8);
+		stk.push(9);
+		stk.push(0);
 		std::cout << "empty\t: " << stk.empty() << std::endl;
 		std::cout << "size\t: " << stk.size() << std::endl;
 		while (stk.size())
@@ -1154,6 +1163,17 @@ void	test_stack(void)
 		stk.push(4);
 		stk.push(5);
 		stk.push(6);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		while (stk.size())
+		{
+			std::cout << stk.top() << std::endl;
+			stk.pop();
+		}
+		stk.push(7);
+		stk.push(8);
+		stk.push(9);
+		stk.push(0);
 		std::cout << "empty\t: " << stk.empty() << std::endl;
 		std::cout << "size\t: " << stk.size() << std::endl;
 		while (stk.size())
