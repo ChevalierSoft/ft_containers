@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 13:06:12 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 13:32:38 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1135,6 +1135,7 @@ void	test_stack(void)
 			std::cout << stk.top() << std::endl;
 			stk.pop();
 		}
+		ft::stack<int, ft::vector<int> >	stk2(stk);
 		stk.push(7);
 		stk.push(8);
 		stk.push(9);
@@ -1208,7 +1209,7 @@ void	test_stack(void)
 		stk.push(menfou('a' + 7));
 		stk.push(menfou('a' + 8));
 		stk.push(menfou('a' + 9));
-		stk.push(menfou('a' + 0));
+		stk.push(menfou('a' + 10));
 		std::cout << "empty\t: " << stk.empty() << std::endl;
 		std::cout << "size\t: " << stk.size() << std::endl;
 		while (stk.size())
@@ -1216,6 +1217,42 @@ void	test_stack(void)
 			std::cout << stk.top() << std::endl;
 			stk.pop();
 		}
+	}
+
+	// ____________________________________________________________________________
+	std::cout <<CYN<< "==, !=, <, >, <=, >=" <<RST<< std::endl;
+	{
+		ft::stack<int, ft::vector<int> >	stk;
+		stk.push(1);
+		stk.push(2);
+		stk.push(3);
+		ft::stack<int, ft::vector<int> >	stk2(stk);
+		if (stk == stk2)
+			std::cout << "(stk == stk)" << std::endl;
+		if (stk != stk2)
+			std::cout << "(stk != stk)" << std::endl;
+		if (stk < stk2)
+			std::cout << "(stk < stk2)" << std::endl;
+		if (stk > stk2)
+			std::cout << "(stk > stk2)" << std::endl;
+		if (stk <= stk2)
+			std::cout << "(stk <= stk2)" << std::endl;
+		if (stk >= stk2)
+			std::cout << "(stk >= stk2)" << std::endl;
+		stk2.pop();
+		stk2.push(4);
+		if (stk == stk2)
+			std::cout << "(stk == stk)" << std::endl;
+		if (stk != stk2)
+			std::cout << "(stk != stk)" << std::endl;
+		if (stk < stk2)
+			std::cout << "(stk < stk2)" << std::endl;
+		if (stk > stk2)
+			std::cout << "(stk > stk2)" << std::endl;
+		if (stk <= stk2)
+			std::cout << "(stk <= stk2)" << std::endl;
+		if (stk >= stk2)
+			std::cout << "(stk >= stk2)" << std::endl;
 	}
 
 	return ;
