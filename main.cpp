@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 01:06:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 13:06:12 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1116,10 +1116,10 @@ void	test_stack(void)
 	// _________________________________________________________________________
 	std::cout <<CYN<< "test with ft::vector as container" <<RST<< std::endl;
 	{
-		std::vector<int>					vec;
+		ft::vector<int>						vec;
 		vec.push_back(21);
 		vec.push_back(42);
-		ft::stack<int, std::vector<int> >	stk(vec);
+		ft::stack<int, ft::vector<int> >	stk(vec);
 		std::cout << "empty\t: " << stk.empty() << std::endl;
 		std::cout << "size\t: " << stk.size() << std::endl;
 		stk.push(1);
@@ -1182,6 +1182,42 @@ void	test_stack(void)
 			stk.pop();
 		}
 	}
+
+	// ____________________________________________________________________________
+	std::cout <<CYN<< "using custom class" <<RST<< std::endl;
+	{
+		std::vector<menfou>					vec;
+		vec.push_back(menfou(21));
+		vec.push_back(menfou(42));
+		ft::stack<menfou, std::vector<menfou> >	stk(vec);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		stk.push(menfou('a' + 1));
+		stk.push(menfou('a' + 2));
+		stk.push(menfou('a' + 3));
+		stk.push(menfou('a' + 4));
+		stk.push(menfou('a' + 5));
+		stk.push(menfou('a' + 6));
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		while (stk.size())
+		{
+			std::cout << stk.top() << std::endl;
+			stk.pop();
+		}
+		stk.push(menfou('a' + 7));
+		stk.push(menfou('a' + 8));
+		stk.push(menfou('a' + 9));
+		stk.push(menfou('a' + 0));
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		while (stk.size())
+		{
+			std::cout << stk.top() << std::endl;
+			stk.pop();
+		}
+	}
+
 	return ;
 }
 
