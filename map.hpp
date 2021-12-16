@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/15 20:33:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:29:20 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ namespace ft
 		// ? (1) inserting a single element
 		ft::pair<iterator, bool>	insert (const value_type& val)
 		{
-			ft::pair<iterator, bool> p(_bst.insert(val));
+			ft::pair<iterator, bool>	p(_bst.insert(val));
 			_size += p.second;
 			return (p);
 		}

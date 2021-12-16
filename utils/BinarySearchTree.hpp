@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/15 16:15:43 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:54:18 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,11 +326,15 @@ namespace ft
 			_root = remove(_root, key, &found);
 			_cardinal->parent = _root;
 
-			if (_root == NULL)
+			if (_root == NULL || _root == _cardinal)
 			{
-				// __DEB("(root == NULL)")
 				_cardinal->left = _cardinal;
 				_cardinal->right = _cardinal;
+			}
+			else
+			{
+				_cardinal->left->left = _cardinal;
+				_cardinal->right->right = _cardinal;
 			}
 
 			return (found);
@@ -499,6 +503,9 @@ namespace ft
 				_cardinal->right = created_node;
 				created_node->right = _cardinal;
 			}
+
+			// _cardinal->left->left = _cardinal;
+			// _cardinal->right->right = _cardinal;
 
 			return (ft::make_pair<iterator, bool>(iterator(created_node, _cardinal), true));
 		}
