@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 15:43:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:59:51 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -847,32 +847,25 @@ void	test_map()
 		while (!m.empty())
 		{
 			std::cout << "m.size : " << m.size() << std::endl;
-			m.display();
 			m.erase(m.begin());
+			// m.display();
 		}
-		__DEB("NRV")
-		// m.display();
 
-		// while (!m4.empty())
-		// {
-		// 	m4.erase(m4.begin());
-		// }
+		while (!m4.empty())
+		{
+			m4.erase(m4.begin());
+		}
 		// m4.display();
 	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
 	{
-		// m.display();
-		__DEB("1")
 		m.insert(ft::make_pair<int, std::string>(7, "😇"));
-		__DEB("2")
 		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
 		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
-	
 		// m.display();
 		m.clear();
-
 		if (!m.empty())
 			std::cout << "!m.empty()" <<std::endl;
 		// m.display();
