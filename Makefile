@@ -6,7 +6,7 @@
 #    By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/12 12:55:09 by dait-atm          #+#    #+#              #
-#    Updated: 2021/12/16 15:58:34 by dait-atm         ###   ########.fr        #
+#    Updated: 2021/12/16 17:21:10 by dait-atm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ std:
 
 clean :
 	$(RM) *.o
+	$(RM) *.hpp.gch
 
 fclean : clean
 	$(RM) $(FTNAME) $(STDNAME)
