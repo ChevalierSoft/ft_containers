@@ -1,4 +1,6 @@
-#include "../../../srcs/Stack/Stack_functions.hpp"
+// #include "../../../srcs/Stack/Stack_functions.hpp"
+
+# include "../../../stack.hpp"
 #include <stack>
 #include <iostream>
 #include <string>
