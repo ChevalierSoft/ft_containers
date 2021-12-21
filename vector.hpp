@@ -16,12 +16,9 @@
 #include <iostream>								// std::cout
 #include <stdexcept>							// std::exception
 #include <memory>								// std::allocator
-#include "iterator/iterator.h"
 #include "iterator/random_access_iterator.hpp"
 #include "iterator/reverse_iterator.hpp"
-#include "utils/color.h"
 #include "utils/utility.hpp"
-#include "utils/enable_if.hpp"
 
 // #define __DEB(s) std::cerr<<s<<std::endl;	// used to debbug
 

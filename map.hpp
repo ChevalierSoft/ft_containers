@@ -17,14 +17,9 @@
 #include <stdexcept>								// std::exception
 #include <functional>								// std::less
 #include <memory>									// std::allocator
-#include "iterator/iterator.h"
 #include "iterator/BST_bidirectional_iterator.hpp"
 #include "iterator/reverse_iterator.hpp"
-#include "utils/color.h"
-#include "utils/ft_print_memory.h"
 #include "utils/utility.hpp"
-#include "utils/enable_if.hpp"
-
 #include "utils/BinarySearchTree.hpp"
 
 namespace ft

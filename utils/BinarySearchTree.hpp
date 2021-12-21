@@ -16,9 +16,7 @@
 #include <functional>										// std::less
 #include <memory>											// std::allocator
 #include "BST_Node.hpp"
-#include "../iterator/iterator.h"
 #include "../iterator/BST_bidirectional_iterator.hpp"
-#include "BST_Node.hpp"
 
 namespace ft
 {
