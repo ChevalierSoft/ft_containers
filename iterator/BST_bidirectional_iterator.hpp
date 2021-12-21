@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 17:09:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/21 17:13:53 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/21 17:14:35 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 #include "iterator.h"
 #include "../utils/enable_if.hpp"
-
-#define	MIDDLE_POSITION	0
-#define RIGHT_POSITION	1
-#define	LEFT_POSITION	2
 
 namespace ft
 {
