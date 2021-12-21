@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 17:09:18 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/21 17:09:21 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/21 17:13:53 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ namespace ft
 		typedef const value_type &																const_reference;
 		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::difference_type		difference_type;
 		typedef ft::BST_bidirectional_iterator<Tn>												iterator;
-		// typedef const iterator																	const_iterator;
-		// typedef	ft::BST_bidirectional_iterator<const Tn>										const_iterator;
+
 		typedef iterator																		iterator_type;
 		typedef typename ft::iterator<ft::bidirectional_iterator_tag, Tn>::iterator_category	iterator_category;
 
@@ -76,9 +75,6 @@ namespace ft
 		}
 
 		/// * Equality Operators _______________________________________________
-
-		// ? allows conversion between iterator of T to const T
-		// operator BST_bidirectional_iterator<Tn>() const	{ return BST_bidirectional_iterator<const Tn>(_ptr); }
 
 		bool						operator==(const BST_bidirectional_iterator &rhs) const	{ return (_ptr == rhs._ptr); }
 		bool						operator!=(const BST_bidirectional_iterator &rhs) const	{ return (_ptr != rhs._ptr); }
@@ -226,9 +222,6 @@ namespace ft
 		}
 
 		/// * Equality Operators _______________________________________________
-
-		// ? allows conversion between iterator of T to const T
-		// operator BST_const_bidirectional_iterator<Tn>() const	{ return BST_const_bidirectional_iterator<const Tn>(_ptr); }
 
 		bool						operator==(const BST_const_bidirectional_iterator &rhs) const	{ return (_ptr == rhs._ptr); }
 		bool						operator!=(const BST_const_bidirectional_iterator &rhs) const	{ return (_ptr != rhs._ptr); }
