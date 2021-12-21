@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   BST_bidirectional_iterator.hpp                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/21 17:09:18 by dait-atm          #+#    #+#             */
+/*   Updated: 2021/12/21 17:09:21 by dait-atm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BST_BST_BIDIRECTIONAL_ITERATOR
 # define BST_BST_BIDIRECTIONAL_ITERATOR
 
