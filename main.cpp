@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 17:36:11 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/21 18:01:23 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1096,6 +1096,35 @@ void	test_map()
 		// std::cout << cim->second << std::endl;
 	}
 
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "testing iterators validity" <<RST<< std::endl;
+	{
+		ft::map<int, std::string> mi6;
+
+		mi6.insert(ft::make_pair<int, std::string>(3, "🧛"));
+		mi6.insert(ft::make_pair<int, std::string>(4, "🧜"));
+		mi6.insert(ft::make_pair<int, std::string>(5, "👽"));
+		mi6.insert(ft::make_pair<int, std::string>(7, "😇"));
+		mi6.insert(ft::make_pair<int, std::string>(11, "🧚"));
+		mi6.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+		mi6.insert(ft::make_pair<int, std::string>(20, "🧙"));
+		mi6.insert(ft::make_pair<int, std::string>(30, "🥷"));
+
+		ft::map<int, std::string>::iterator it = ++mi6.begin();
+		ft::map<int, std::string>::iterator it2 = --mi6.end();
+		mi6.erase(3);
+		mi6.erase(7);
+		mi6.erase(20);
+		mi6.erase(11);
+		mi6.erase(14);
+		std::cout << it->first << std::endl;
+		std::cout << it2->first << std::endl;
+		mi6.insert(ft::make_pair<int, std::string>(1, "🧛"));
+		mi6.insert(ft::make_pair<int, std::string>(5, "🕵️"));
+		std::cout << it->first << std::endl;
+		std::cout << it2->first << std::endl;
+	}
+
 	return ;
 }
 
@@ -1257,19 +1286,48 @@ void	test_stack(void)
 
 int	main(void)
 {
-	std::cout << std::boolalpha;
+	// std::cout << std::boolalpha;
 
-	test_utility();
+	// test_utility();
 
-	test_vector_iterator();
+	// test_vector_iterator();
 	
-	test_vector();
+	// test_vector();
 
-	// // test_bst();
+	// // // test_bst();
 
-	test_map();
+	// test_map();
 
-	test_stack();
+	// test_stack();
+
+	//__________________________________________________________________________
+	std::cout <<std::endl<<CYN<< "testing iterators validity" <<RST<< std::endl;
+	{
+		ft::map<int, std::string> mi6;
+
+		mi6.insert(ft::make_pair<int, std::string>(3, "🧛"));
+		mi6.insert(ft::make_pair<int, std::string>(4, "🧜"));
+		mi6.insert(ft::make_pair<int, std::string>(5, "👽"));
+		mi6.insert(ft::make_pair<int, std::string>(7, "😇"));
+		mi6.insert(ft::make_pair<int, std::string>(11, "🧚"));
+		mi6.insert(ft::make_pair<int, std::string>(14, "🕵️"));
+		mi6.insert(ft::make_pair<int, std::string>(20, "🧙"));
+		mi6.insert(ft::make_pair<int, std::string>(30, "🥷"));
+
+		ft::map<int, std::string>::iterator it = ++mi6.begin();
+		ft::map<int, std::string>::iterator it2 = --mi6.end();
+		// mi6.erase(3);
+		mi6.erase(7);
+		mi6.erase(20);
+		// mi6.erase(11);
+		// mi6.erase(14);
+		std::cout << it->first << std::endl;
+		std::cout << it2->first << std::endl;
+		mi6.insert(ft::make_pair<int, std::string>(-1, "🧛"));
+		mi6.insert(ft::make_pair<int, std::string>(5, "🕵️"));
+		std::cout << it->first << std::endl;
+		std::cout << it2->first << std::endl;
+	}
 
 	return (0);
 }
