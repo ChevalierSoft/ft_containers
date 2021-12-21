@@ -590,15 +590,13 @@ namespace ft
 	public:
 		void			set_cardinal(const Node_pointer& rhs)		{ _cardinal = rhs;			}
 		void			set_root(const Node_pointer& rhs)			{ _root = rhs;				}
-		void			set_comp(const Compare& rhs)				{ _comp = rhs;				}
-		void			set_allocator(const Node_Allocator& rhs)	{ _node_allocator = rhs;	}
 
 		// * Variables _________________________________________________________
 
 	public:
+		Node_pointer	_root;
 		Node_pointer	_cardinal;
 	protected:
-		Node_pointer	_root;
 		Compare			_comp;
 		Node_Allocator	_node_allocator;
 		

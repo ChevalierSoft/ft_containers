@@ -68,6 +68,46 @@ namespace ft
 		typedef ft::reverse_iterator<ft::BST_bidirectional_iterator<BST_Node<Key, T> > >			reverse_iterator;
 		typedef ft::reverse_iterator<ft::BST_const_bidirectional_iterator<BST_Node<Key, T> > >		const_reverse_iterator;
 
+		// template <class Key, class T, class Compare, class Alloc>
+		class value_compare
+		: ft::binary_function<value_type, value_type, bool>
+		{
+			// friend should be used to make constructor private/protected
+			// friend class map;
+
+			// * Constructor / Destructor __________________________________________
+
+		// private:
+		public:
+			value_compare () : comp(Compare()) {}
+		// protected:
+			value_compare (Compare c) : comp(c) {}
+		public:
+			~value_compare () {}
+
+			value_compare (const value_compare& copy)	{ *this = copy;	}
+
+			value_compare&	operator= (const value_compare& copy)
+			{
+				if (this != &copy)
+					comp = copy.comp;
+				return (*this);
+			}
+
+			// * Member functions __________________________________________________
+			
+			bool operator() (const value_type& x, const value_type& y) const
+			{
+				return comp(x.first, y.first);
+			}
+			
+			// * Variables _________________________________________________________
+
+		protected:
+			Compare comp;
+		};
+
+
 		/// * Constructors & Destructors _______________________________________
 
 	public:
@@ -223,8 +263,6 @@ namespace ft
 		void						swap (map& x)
 		{
 			Node_pointer	ptr;
-			Compare			cmp;
-			Node_Allocator	na;
 			size_type		num;
 
 			if (this == &x)
@@ -239,16 +277,6 @@ namespace ft
 			ptr = x._bst.get_root();
 			x._bst.set_root(this->_bst.get_root());
 			this->_bst.set_root(ptr);
-
-			// _comp
-			cmp = x._bst.get_comp();
-			x._bst.set_comp(this->_bst.get_comp());
-			this->_bst.set_comp(cmp);
-
-			// _node_allocator
-			na = x._bst.get_allocator();
-			x._bst.set_allocator(this->_bst.get_allocator());
-			this->_bst.set_allocator(na);
 
 			// size
 			num = x._size;
@@ -425,46 +453,6 @@ namespace ft
 	{
 		return !(lhs < rhs);
 	}
-
-
-	/// * Friend classes _______________________________________________________
-
-	template <class Key, class T, class Compare, class Alloc>
-	class ft::map<Key,T,Compare,Alloc>::value_compare
-	: ft::binary_function<value_type, value_type, bool>
-	{
-		friend class map;
-
-		// * Constructor / Destructor __________________________________________
-
-	private:
-		value_compare () : comp(Compare()) {}
-	protected:
-		value_compare (Compare c) : comp(c) {}
-	public:
-		~value_compare () {}
-
-		value_compare (const value_compare& copy)	{ *this = copy;	}
-
-		value_compare&	operator= (const value_compare& copy)
-		{
-			if (this != &copy)
-				comp = copy.comp;
-			return (*this);
-		}
-
-		// * Member functions __________________________________________________
-		
-		bool operator() (const value_type& x, const value_type& y) const
-		{
-			return comp(x.first, y.first);
-		}
-		
-		// * Variables _________________________________________________________
-
-	protected:
-		Compare comp;
-	};
 
 } /// * namespace ft ___________________________________________________________
 
