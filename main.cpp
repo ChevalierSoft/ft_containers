@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/22 09:27:51 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/22 09:34:35 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -655,61 +655,6 @@ void	test_utility()
 
 // ? ___________________________________________________________________________ ft::map
 
-/* specific to my implementation
-// ____________________________________________________________________________
-void	test_bst()
-{
-	std::cout <<std::endl<<CYN<< "___________________ 🧚 ft::BinarySearchTree 👽 ___________________" <<RST<< std::endl;
-	// 🧙  🧚  🧛  👽 🥷 🕵️ 🧜
-
-	// creating a pair
-	ft::pair<int, std::string> dp(7, "😇");
-	// creating a node with the pair
-	ft::BST_Node<int, std::string>	nd(dp);
-	// creating a bst with the node
-	ft::BinarySearchTree<int, std::string> bst(dp);
-
-	// bst.display();
-	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "search()" <<RST<< std::endl;
-	{
-		std::cout << bst.search(7) << std::endl;
-		if (bst.search(404) == NULL)
-			std::cout << "404 not found" << std::endl;
-	}
-
-	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "insert()" <<RST<< std::endl;
-	{
-		bst.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
-		bst.insert(ft::make_pair<int, std::string>(20, "🧙"));
-		bst.insert(ft::make_pair<int, std::string>(3, "🧛"));
-		bst.insert(ft::make_pair<int, std::string>(5, "👽"));
-		bst.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		bst.insert(ft::make_pair<int, std::string>(30, "🥷"));
-		bst.insert(ft::make_pair<int, std::string>(14, "🕵️"));
-		// bst.insert(ft::make_pair<int, std::string>(1, "🥷"));
-		bst.display();
-	}
-	
-	//__________________________________________________________________________
-	std::cout <<std::endl<<CYN<< "remove()" <<RST<< std::endl;
-	{
-		bst.remove(30);
-		bst.remove(4);
-		bst.remove(7);
-		bst.display();
-
-		// ft::BST_Node<ft::pair<int, std::string> >	*nd;
-		// nd = bst.search(5);
-		// std::cout << nd << std::endl;
-		// std::cout << (int *)nd->left <<"|"<< nd->parent->content->first <<"|"<< (int *)nd->right << std::endl;
-	}
-
-}
-
-*/
-
 template <typename T>
 class myless
 {
@@ -1058,7 +1003,9 @@ void	test_map()
 		mymap['e'] = 100;
 		itlow = mymap.lower_bound('b');  // itlow points to b
 		itup = mymap.upper_bound('d');   // itup points to e (not d!)
-		// mymap.erase(itlow,itup);        // erases [itlow,itup)
+		for (ft::map<char,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+			std::cout << it->first << " => " << it->second << std::endl;
+		mymap.erase(itlow,itup);        // erases [itlow,itup)
 		for (ft::map<char,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
 			std::cout << it->first << " => " << it->second << std::endl;
 	}
@@ -1075,7 +1022,9 @@ void	test_map()
 		mymap['e'] = 100;
 		itlow = mymap.lower_bound('b');  // itlow points to b
 		itup = mymap.upper_bound('d');   // itup points to e (not d!)
-		// mymap.erase(itlow,itup);        // erases [itlow,itup)
+		for (std::map<char,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+			std::cout << it->first << " => " << it->second << std::endl;
+		mymap.erase(itlow,itup);        // erases [itlow,itup)
 		for (std::map<char,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
 			std::cout << it->first << " => " << it->second << std::endl;
 	}
@@ -1097,14 +1046,14 @@ void	test_map()
 
 	// ? Uncomment this to test -> on a const
 	{
-		// ft::map<int, char> m;
-		// m.insert(ft::make_pair(0, '0'));
-		// m.insert(ft::make_pair(1, '1'));
-		// ft::map<int, char>::const_iterator cim(m.begin());
-		// cim = m.begin();
-		// ++cim;
+		ft::map<int, char> m;
+		m.insert(ft::make_pair(0, '0'));
+		m.insert(ft::make_pair(1, '1'));
+		ft::map<int, char>::const_iterator cim(m.begin());
+		cim = m.begin();
+		++cim;
 		// cim->second = 12;	// ? should not compile
-		// std::cout << cim->second << std::endl;
+		std::cout << cim->second << std::endl;
 	}
 
 	//__________________________________________________________________________
@@ -1123,7 +1072,7 @@ void	test_map()
 
 		ft::map<int, std::string>::iterator it = ++mi6.begin();
 		ft::map<int, std::string>::iterator it2 = --mi6.end();
-		// mi6.erase(3);
+
 		for (ft::map<int, std::string>::const_iterator im = mi6.begin(); im != mi6.end(); ++im)
 			std::cout << im->first << im->second << " " << std::endl;
 		std::cout << std::endl;
