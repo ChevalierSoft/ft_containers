@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/22 07:27:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/22 08:00:11 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,6 +413,7 @@ namespace ft
 						successor = find_min(node->right);
 						if (remove_if_successor_is_close(node, successor))
 							return (successor);
+						// (1) relink everything successor's previous parent
 						successor_parent = successor->parent;
 						successor_parent->left = successor->right;
 						if (successor_parent->left && successor_parent->left != _cardinal)
@@ -449,9 +450,8 @@ namespace ft
 						this->balance(successor_parent);
 						successor_parent = successor_parent->parent;
 					}
-					node = successor;
 
-					return (node);
+					return (successor);
 				}
 			}
 
@@ -638,64 +638,6 @@ namespace ft
 		}
 
 		Node_pointer	base ()	const 			{ return (_root);			}
-
-		// !  DEBUG
-		#include "color.h"
-		void			print_bst() const
-		{
-			if (!_root || _root == _cardinal)
-				return ;
-			print_bst(_root, 0);
-			std::cout << "_cardinal [" ;
-			if (_cardinal->left && _cardinal->left != _cardinal)
-				std::cout << _cardinal->left->content.second ;
-			else
-				std::cout << " ";
-
-			if (_cardinal->parent && _cardinal->parent != _cardinal)
-				std::cout << _cardinal->parent->content.second ;
-			else
-				std::cout << " ";
-			
-			if (_cardinal->right && _cardinal->right != _cardinal)
-				std::cout << _cardinal->right->content.second ;
-			else
-				std::cout << " ";
-
-			std::cout << "]" << std::endl<< std::endl;
-
-		}
-
-		void			print_bst(Node_pointer current, int space = 0) const
-		{
-			if (current && current != _cardinal)
-			{
-				space += 11;
-				print_bst(current->right, space);
-
-				std::cout << std::endl;
-				std::cout << std::string(space, ' ');
-
-				std::cout << "( " << current->content.first << " : " << current->content.second  << " )";
-				if (!current->right)
-					std::cout <<RED<< "." <<RST;
-				else if (current->right == _cardinal)
-					std::cout <<CYN<< "." <<RST;
-				else
-					std::cout << " " <<RST;
-
-				if (!current->left)
-					std::cout <<RED<< "." <<RST;
-				else if (current->left == _cardinal)
-					std::cout <<CYN<< "." <<RST;
-				else
-					std::cout << " " <<RST;
-
-				std::cout << std::endl;
-
-				print_bst(current->left, space);
-			}
-		}
 
 		// * Getters ___________________________________________________________
 
