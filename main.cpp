@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/22 07:54:04 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/22 08:12:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,11 @@ public:
 	~menfou(){}
 };
 int		menfou::_nb = 0;
-std::ostream &	operator<< (std::ostream & o, const menfou & m) { o << "obj : " << m.c << std::endl;	return o; }
+std::ostream &	operator<< (std::ostream & o, const menfou & m)
+{
+	o << "obj : " << m.c << std::endl;
+	return o;
+}
 
 template <typename T>
 void	display(T v)
@@ -1192,7 +1196,7 @@ void	test_stack(void)
 		}
 	}
 
-	// ____________________________________________________________________________
+	// _________________________________________________________________________
 	std::cout <<CYN<< "test with std::vector as container" <<RST<< std::endl;
 	{
 		std::vector<int>					vec;
@@ -1227,7 +1231,74 @@ void	test_stack(void)
 		}
 	}
 
-	// ____________________________________________________________________________
+	// _________________________________________________________________________
+	std::cout <<CYN<< "test with std::list as container" <<RST<< std::endl;
+	{
+		std::list<int>					vec;
+		vec.push_back(21);
+		vec.push_back(42);
+		ft::stack<int, std::list<int> >	stk(vec);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		stk.push(1);
+		stk.push(2);
+		stk.push(3);
+		stk.push(4);
+		stk.push(5);
+		stk.push(6);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		while (stk.size())
+		{
+			std::cout << stk.top() << std::endl;
+			stk.pop();
+		}
+		stk.push(7);
+		stk.push(8);
+		stk.push(9);
+		stk.push(0);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		while (stk.size())
+		{
+			std::cout << stk.top() << std::endl;
+			stk.pop();
+		}
+	}
+
+		// _____________________________________________________________________
+	std::cout <<CYN<< "test with std::deque as container" <<RST<< std::endl;
+	{
+		std::deque<char>					vec;
+		vec.push_back(21);
+		vec.push_back(42);
+		ft::stack<char, std::deque<char> >	stk(vec);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		stk.push('a' + 1);
+		stk.push('a' + 2);
+		stk.push('a' + 3);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		while (stk.size())
+		{
+			std::cout << stk.top() << std::endl;
+			stk.pop();
+		}
+		stk.push('a' + 1);
+		stk.push('a' + 2);
+		stk.push('a' + 3);
+		stk.push(9);
+		std::cout << "empty\t: " << stk.empty() << std::endl;
+		std::cout << "size\t: " << stk.size() << std::endl;
+		while (stk.size())
+		{
+			std::cout << stk.top() << std::endl;
+			stk.pop();
+		}
+	}
+
+	// _________________________________________________________________________
 	std::cout <<CYN<< "using custom class" <<RST<< std::endl;
 	{
 		std::vector<menfou>					vec;
@@ -1262,7 +1333,7 @@ void	test_stack(void)
 		}
 	}
 
-	// ____________________________________________________________________________
+	// _________________________________________________________________________
 	std::cout <<CYN<< "==, !=, <, >, <=, >=" <<RST<< std::endl;
 	{
 		ft::stack<int, ft::vector<int> >	stk;
@@ -1323,4 +1394,3 @@ int	main(void)
 
 	return (0);
 }
-
