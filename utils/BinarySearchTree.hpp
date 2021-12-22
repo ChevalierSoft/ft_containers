@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/22 08:00:11 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/22 09:24:22 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -397,6 +397,7 @@ namespace ft
 					// and replace the actual node with it, then balance
 					if (node->left->height > node->right->height)
 					{
+						
 						successor = find_max(node->left);
 						// check if the successor is a leaf of node
 						if (remove_if_successor_is_close(node, successor))
@@ -420,31 +421,24 @@ namespace ft
 							successor_parent->left->parent = successor_parent;
 					}
 
-					// (2) relink sucessor at node position
+					// (2) relink successor at node position
 					successor->right = node->right;
 					if (successor->right && successor->right != _cardinal)
 					{
-						if (successor->right != successor)
-							successor->right->parent = successor;
-						else
-							successor->right = NULL;
+						successor->right->parent = successor;
 					}
 					successor->left = node->left;
 					if (successor->left != NULL && successor->left != _cardinal)
 					{
-						if (successor->left != successor)
-							successor->left->parent = successor;
-						else
-							successor->left = NULL;
+						successor->left->parent = successor;
 					}
-
 					// (3) delete node
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
 
 					// (4) recurcively update + balance from the old position of
 					// successor to it's new one
-					while (successor_parent != successor)
+					while (successor_parent->parent != successor)
 					{
 						update(successor_parent);
 						this->balance(successor_parent);
