@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/21 19:03:07 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/22 07:11:33 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <vector>
 #include <map>
 #include <stack>
+#include <list>
 #include <string>
 #include <assert.h>
 #include <time.h>		// rand()
@@ -1124,6 +1125,19 @@ void	test_map()
 		mi6.insert(ft::make_pair<int, std::string>(40, "🕵️"));
 		std::cout << it->first << std::endl;
 		std::cout << it2->first << std::endl;
+
+		std::list<ft::pair<const int, std::string> > lst;
+		unsigned int lst_size = 16;
+		for (unsigned int i = 1; i < lst_size; ++i)
+			lst.push_back(ft::pair<const int, std::string>(i, std::string((1), i + 64)));
+		ft::map<int, std::string> mp(lst.begin(), lst.end());
+		for (ft::map<int, std::string>::const_iterator im = mp.begin(); im != mp.end(); ++im)
+			std::cout << im->first << im->second << " " << std::endl;
+		mp.erase(4);
+		mp.erase(7);
+		mp.erase(6);
+		for (ft::map<int, std::string>::const_iterator im = mp.begin(); im != mp.end(); ++im)
+			std::cout << im->first << im->second << " " << std::endl;
 	}
 
 	return ;
@@ -1287,57 +1301,20 @@ void	test_stack(void)
 
 int	main(void)
 {
-	// std::cout << std::boolalpha;
+	std::cout << std::boolalpha;
 
-	// test_utility();
+	test_utility();
 
-	// test_vector_iterator();
+	test_vector_iterator();
 	
-	// test_vector();
+	test_vector();
 
 	// // // test_bst();
 
 	test_map();
 
-	// test_stack();
-
-	// //__________________________________________________________________________
-	// std::cout <<std::endl<<CYN<< "testing iterators validity" <<RST<< std::endl;
-	// {
-	// 	ft::map<int, std::string> mi6;
-
-	// 	mi6.insert(ft::make_pair<int, std::string>(3, "🧛"));
-	// 	mi6.insert(ft::make_pair<int, std::string>(4, "🧜"));
-	// 	mi6.insert(ft::make_pair<int, std::string>(5, "👽"));
-	// 	mi6.insert(ft::make_pair<int, std::string>(7, "😇"));
-	// 	mi6.insert(ft::make_pair<int, std::string>(11, "🧚"));
-	// 	mi6.insert(ft::make_pair<int, std::string>(14, "🕵️"));
-	// 	mi6.insert(ft::make_pair<int, std::string>(20, "🧙"));
-	// 	mi6.insert(ft::make_pair<int, std::string>(30, "🥷"));
-
-	// 	// mi6.display();
-	// 	ft::map<int, std::string>::iterator it = ++mi6.begin();
-	// 	ft::map<int, std::string>::iterator it2 = --mi6.end();
-	// 	// mi6.erase(3);
-	// 	mi6.erase(7);
-	// 	mi6.display();
-	// 	std::cout << it->first << std::endl;
-	// 	std::cout << it2->first << std::endl;
-	// 	mi6.erase(20);
-	// 	mi6.display();
-	// 	std::cout << it->first << std::endl;
-	// 	std::cout << it2->first << std::endl;
-	// 	// mi6.erase(11);
-	// 	// mi6.erase(14);
-	// 	std::cout << it->first << std::endl;
-	// 	std::cout << it2->first << std::endl;
-	// 	mi6.insert(ft::make_pair<int, std::string>(-1, "🧛"));
-	// 	std::cout << it->first << std::endl;
-	// 	std::cout << it2->first << std::endl;
-	// 	mi6.insert(ft::make_pair<int, std::string>(5, "🕵️"));
-	// 	std::cout << it->first << std::endl;
-	// 	std::cout << it2->first << std::endl;
-	// }
+	test_stack();
 
 	return (0);
 }
+
