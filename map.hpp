@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:38:23 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/16 16:19:09 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/22 07:51:28 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,11 @@ namespace ft
 		void						erase (iterator position)
 		{
 			if (_size)
+			{
 				_size -= _bst.remove(position->first);
+				if (!_size)
+					_bst.clear();
+			}
 		}
 
 		// ? (2) erase by key
@@ -237,6 +241,8 @@ namespace ft
 		{
 			size_type	ret = _bst.remove(k);
 			_size -= ret;
+			if (!_size)
+				_bst.clear();
 			return (ret);
 		}
 
@@ -253,6 +259,8 @@ namespace ft
 				key = next_key;
 				first = iterator(_bst.search(next_key), _bst.get_cardinal());
 			}
+			if (!_size)
+				_bst.clear();
 		}
 
 		void						swap (map& x)
@@ -377,10 +385,15 @@ namespace ft
 
 		value_compare				value_comp() const	{ return (value_compare(key_compare()));	}
 
+		void						display()
+		{
+			_bst.print_bst();
+		}
+
 		/// * Variables ________________________________________________________
 	public:
 	 	// ? Maps are typically implemented as balanced binary trees.
-	// protected:
+	// ! protected:
 		Tree_Type					_bst;				// binary search tree where data is stored
 		size_type					_size;				// how many nodes there is in the tree
 		allocator_type				_allocator;			// not used here but in _bst
