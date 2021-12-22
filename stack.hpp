@@ -61,12 +61,14 @@ namespace ft
 
 		value_type& 		top ()
 		{
-			return (c[c.size() - 1]);
+			typename container_type::iterator it = --c.end();
+			return (*it);
 		}
 
 		const value_type&	top () const
 		{
-			return (c[c.size() - 1]);
+			typename container_type::iterator it = --c.end();
+			return (*it);
 		}
 
 		void				push (const value_type& val)
