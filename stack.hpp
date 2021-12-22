@@ -61,13 +61,13 @@ namespace ft
 
 		value_type& 		top ()
 		{
-			typename container_type::iterator it = --c.end();
+			typename container_type::iterator	it = --c.end();
 			return (*it);
 		}
 
 		const value_type&	top () const
 		{
-			typename container_type::iterator it = --c.end();
+			typename container_type::iterator	it = --c.end();
 			return (*it);
 		}
 
@@ -83,36 +83,27 @@ namespace ft
 
 		// * Comparisons _______________________________________________________
 
-		bool	operator==(const stack<T,Container>& rhs)
-		{
-			return (c == rhs.c);
-		}
+		// ? friend allow us to compare the protected variable c
+		// ? and making comparisons non-member allow comparisons between
+		// ? const and non const
 
-		bool	operator!=(const stack<T,Container>& rhs)
-		{
-			return (c != rhs.c);
-		}
+		template <class _T, class  _Container>
+		friend bool			operator==(const stack<_T, _Container>& lhs, const stack<_T, _Container>& rhs);
+		
+		template <class _T, class  _Container>
+		friend bool			operator!=(const stack<_T, _Container>& lhs, const stack<_T, _Container>& rhs);
 
-		bool	operator< (const stack<T,Container>& rhs)
-		{
-			return (c < rhs.c);
-		}
+		template <class _T, class  _Container>
+		friend bool			operator< (const stack<_T, _Container>& lhs, const stack<_T, _Container>& rhs);
 
-		bool	operator<= (const stack<T,Container>& rhs)
-		{
-			return (c <= rhs.c);
-		}
+		template <class _T, class  _Container>
+		friend bool			operator<=(const stack<_T, _Container>& lhs, const stack<_T, _Container>& rhs);
 
-		bool	operator> (const stack<T,Container>& rhs)
-		{
-			return (c > rhs.c);
-		}
+		template <class _T, class  _Container>
+		friend bool			operator> (const stack<_T, _Container>& lhs, const stack<_T, _Container>& rhs);
 
-		bool	operator>= (const stack<T,Container>& rhs)
-		{
-			return (c >= rhs.c);
-		}
-
+		template <class _T, class  _Container>
+		friend bool			operator>=(const stack<_T, _Container>& lhs, const stack<_T, _Container>& rhs);
 
 		/// * Variables ________________________________________________________
 	protected:
@@ -121,11 +112,42 @@ namespace ft
 
 	/// * Non-member functions _________________________________________________
 
-	// ? non-memeber coparisons needs to be friend the the main class,
-	// ? but I can't find a c++98 version of stack to justify.
-	// ? It works well as memeber functions.
+	template <class T, class Container>
+	bool	operator==(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{
+		return (lhs.c == rhs.c);
+	}
+
+	template <class T, class Container>
+	bool	operator!=(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{
+		return (lhs.c != rhs.c);
+	}
+
+	template <class T, class Container>
+	bool	operator< (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{
+		return (lhs.c < rhs.c);
+	}
+
+	template <class T, class Container>
+	bool	operator<=(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{
+		return (lhs.c <= rhs.c);
+	}
+
+	template <class T, class Container>
+	bool	operator> (const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{
+		return (lhs.c > rhs.c);
+	}
+
+	template <class T, class Container>
+	bool	operator>=(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+	{
+		return (lhs.c >= rhs.c);
+	}
 
 }
-
 
 #endif
