@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/22 07:11:33 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/22 07:54:04 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -832,27 +832,33 @@ void	test_map()
 		{
 			std::cout << "m.size : " << m.size() << std::endl;
 			m.erase(m.begin());
-			// m.display();
+			for (ft::map<int, std::string>::const_iterator im = m.begin(); im != m.end(); ++im)
+				std::cout << im->first << im->second << "  ";
 		}
-
+		std::cout << std::endl;
 		while (!m4.empty())
 		{
 			m4.erase(m4.begin());
 		}
-		// m4.display();
+		for (ft::map<int, int>::const_iterator im = m4.begin(); im != m4.end(); ++im)
+			std::cout << im->first << im->second << " " << std::endl;
 	}
 
 	//__________________________________________________________________________
 	std::cout <<std::endl<<CYN<< "clear()" <<RST<< std::endl;
 	{
 		m.insert(ft::make_pair<int, std::string>(7, "😇"));
-		m.insert(ft::make_pair<int, std::string>(4, "🧜‍"));
+		m.insert(ft::make_pair<int, std::string>(4, "🧜"));
 		m.insert(ft::make_pair<int, std::string>(20, "🧙"));
-		// m.display();
+
+		for (ft::map<int, std::string>::iterator im = m.begin(); im != m.end(); ++im)
+				std::cout << im->first << im->second << " " << std::endl;
+
 		m.clear();
-		if (!m.empty())
-			std::cout << "!m.empty()" <<std::endl;
-		// m.display();
+		std::cout << "!m.empty() : " << (!m.empty()) <<std::endl;
+
+		for (ft::map<int, std::string>::iterator im = m.begin(); im != m.end(); ++im)
+				std::cout << im->first << im->second << " " << std::endl;
 	}
 
 	//__________________________________________________________________________
@@ -1309,7 +1315,7 @@ int	main(void)
 	
 	test_vector();
 
-	// // // test_bst();
+	//// test_bst();
 
 	test_map();
 
