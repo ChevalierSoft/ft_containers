@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/22 06:43:31 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/22 07:27:58 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -441,18 +441,23 @@ namespace ft
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
 
-					// (4) recurcively update + balance
-					// ...
+					// (4) recurcively update + balance from the old position of
+					// successor to it's new one
+					while (successor_parent != successor)
+					{
+						update(successor_parent);
+						this->balance(successor_parent);
+						successor_parent = successor_parent->parent;
+					}
 					node = successor;
 
 					return (node);
 				}
 			}
 
-			// update(node);
+			update(node);
 
-			// return (this->balance(node));
-			return (node);
+			return (this->balance(node));
 		}
 
 	// ? this is used to remove a node that is just before two leaves
