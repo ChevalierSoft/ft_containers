@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/22 08:12:58 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/22 08:42:22 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1161,14 +1161,9 @@ void	test_stack(void)
 	std::cout <<std::endl<<CYN<< "__________________ft::stack__________________" <<RST<< std::endl;
 
 	// _________________________________________________________________________
-	std::cout <<CYN<< "test with ft::vector as container" <<RST<< std::endl;
+	std::cout <<CYN<< "test with default container (ft::vector)" <<RST<< std::endl;
 	{
-		ft::vector<int>						vec;
-		vec.push_back(21);
-		vec.push_back(42);
-		ft::stack<int, ft::vector<int> >	stk(vec);
-		std::cout << "empty\t: " << stk.empty() << std::endl;
-		std::cout << "size\t: " << stk.size() << std::endl;
+		ft::stack<int>	stk;
 		stk.push(1);
 		stk.push(2);
 		stk.push(3);
@@ -1182,7 +1177,7 @@ void	test_stack(void)
 			std::cout << stk.top() << std::endl;
 			stk.pop();
 		}
-		ft::stack<int, ft::vector<int> >	stk2(stk);
+		ft::stack<int>	stk2(stk);
 		stk.push(7);
 		stk.push(8);
 		stk.push(9);
