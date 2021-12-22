@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 23:44:33 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/21 19:20:07 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/22 06:43:31 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,9 @@ namespace ft
 
 		// * Rotations _________________________________________________________
 
+		//     ,1.              ,2.
+		//   ,2.	becomes   ,1. ,3.
+		// ,3.
 		Node_pointer	right_rotation(Node_pointer node)
 		{
 			Node_pointer	tmp;
@@ -137,15 +140,15 @@ namespace ft
 				return (node);
 			node->left = tmp->right;
 			tmp->right = node;
-			// update parent
 			tmp->parent = node->parent;
 			node->parent = tmp;
-
 			update(node);
-
 			return (tmp);
 		}
 
+		// ,1.                  ,2.
+		//   ,2.	becomes   ,1. ,3.
+		//     ,3.
 		Node_pointer	left_rotation(Node_pointer node)
 		{
 			Node_pointer	tmp;
@@ -157,12 +160,9 @@ namespace ft
 				return (node);
 			node->right = tmp->left;
 			tmp->left = node;
-			// update parent
 			tmp->parent = node->parent;
 			node->parent = tmp;
-			
 			update(node);
-
 			return (tmp);
 		}
 
@@ -180,7 +180,6 @@ namespace ft
 		Node_pointer	left_right_rotation(Node_pointer node)
 		{
 			node->left = left_rotation(node->left);
-			// node->left->parent = node;
 			return (right_rotation(node));
 		}
 
@@ -198,7 +197,6 @@ namespace ft
 		Node_pointer	right_left_rotation(Node_pointer node)
 		{
 			node->right = right_rotation(node->right);
-			// node->right->parent = node;
 			return (left_rotation(node));
 		}
 
@@ -237,7 +235,7 @@ namespace ft
 			return (node);
 		}
 
-		 // Update a node's height and balance factor.
+		// Update a node's height and balance factor.
 		void			update (Node_pointer node)
 		{
 			int left_depth = -1;
@@ -342,8 +340,8 @@ namespace ft
 		// ? (2) remove a specific 'node' identified by key
 		Node_pointer	remove (Node_pointer node, const Key key, bool *found)
 		{
-			// Node_pointer	successor;
-			Node_pointer	ret;
+			Node_pointer	successor;
+			Node_pointer	successor_parent;
 
 			if (!node || node == _cardinal)
 				return (NULL);
@@ -360,93 +358,128 @@ namespace ft
 				if (node->right && node->right != _cardinal)
 					node->right->parent = node;
 			}
-			// got the key
+			// found the node with the same key
 			else
 			{
 				*found = true;
 				// the node have no branch at all
-				if ((!node->left || node->left == _cardinal) && (!node->right || node->right == _cardinal))
+				if ((!node->left || node->left == _cardinal)
+					&& (!node->right || node->right == _cardinal))
 				{
-					ret = NULL;
+					successor = NULL;
 					if (node->left == _cardinal)
-						ret = _cardinal;
-					if (node->right == _cardinal)
-						ret = _cardinal;
+						successor = _cardinal;
+					else if (node->right == _cardinal)
+						successor = _cardinal;
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
-					return (ret);
+					return (successor);
 				}
-				// the node have no right branch
-				else if (!node->right || node->right == _cardinal)
+				// the node have only one branch
+				else if ((!node->right || node->right == _cardinal)
+						^ (!node->left || node->left == _cardinal))
 				{
-					ret = node->left;
+					// successor points on the only branch
+					successor = (node->left && node->left != _cardinal) ? node->left : node->right;
 					// update parent
-					if (ret)
-						ret->parent = node->parent;
+					if (successor)
+						successor->parent = node->parent;
 					// delete the node
 					_node_allocator.destroy(node);
 					_node_allocator.deallocate(node, 1);
-					// return the left branch (can be NULL)
-					return (ret);
-				}
-				// the node have no left branch
-				else if (!node->left || node->left == _cardinal)
-				{
-					ret = node->right;
-					// update parent
-					if (ret)
-						ret->parent = node->parent;
-					// delete the node
-					_node_allocator.destroy(node);
-					_node_allocator.deallocate(node, 1);
-					// return the right branch (can be NULL)
-					return (ret);
+					return (successor);
 				}
 				// the node have both left and right branches
 				else
 				{
-					// std::cerr << "two branches" << std::endl;
-
-					// replace node with the biggest sub tree
+					// if the left branch is the biggest one: pick the node
+					// that is just before in term of content (not the position)
+					// and replace the actual node with it, then balance
 					if (node->left->height > node->right->height)
 					{
-						// successor = find_max(node->left);
-						// // node->content = successor->content;
-						// node = successor;
-						// // node->left = remove(node->left, successor->content.first, found);
-
-						ret = node->left;
-						// update parent
-						// if (ret)
-						// 	ret->parent = node->parent;
-						// delete the node
-						_node_allocator.destroy(node);
-						_node_allocator.deallocate(node, 1);
-						node = ret;
+						successor = find_max(node->left);
+						// check if the successor is a leaf of node
+						if (remove_if_successor_is_close(node, successor))
+							return (successor);
+						// (1) relink everything successor's previous parent
+						successor_parent = successor->parent;
+						successor_parent->right = successor->left;
+						if (successor_parent->right && successor_parent->right != _cardinal)
+							successor_parent->right->parent = successor_parent;
 					}
+					// the same that the previous but with the node just after
 					else
 					{
-						// successor = find_min(node->right);
-						// // node->content = successor->content;
-						// node = successor;
-						// // node->right = remove(node->right, successor->content.first, found);
-
-						ret = node->right;
-						// update parent
-						// if (ret)
-						// 	ret->parent = node->parent;
-						// delete the node
-						_node_allocator.destroy(node);
-						_node_allocator.deallocate(node, 1);
-						node = ret;
+						successor = find_min(node->right);
+						if (remove_if_successor_is_close(node, successor))
+							return (successor);
+						successor_parent = successor->parent;
+						successor_parent->left = successor->right;
+						if (successor_parent->left && successor_parent->left != _cardinal)
+							successor_parent->left->parent = successor_parent;
 					}
+
+					// (2) relink sucessor at node position
+					successor->right = node->right;
+					if (successor->right && successor->right != _cardinal)
+					{
+						if (successor->right != successor)
+							successor->right->parent = successor;
+						else
+							successor->right = NULL;
+					}
+					successor->left = node->left;
+					if (successor->left != NULL && successor->left != _cardinal)
+					{
+						if (successor->left != successor)
+							successor->left->parent = successor;
+						else
+							successor->left = NULL;
+					}
+
+					// (3) delete node
+					_node_allocator.destroy(node);
+					_node_allocator.deallocate(node, 1);
+
+					// (4) recurcively update + balance
+					// ...
+					node = successor;
+
+					return (node);
 				}
 			}
-			
-			update(node);
 
-			return (this->balance(node));
+			// update(node);
+
+			// return (this->balance(node));
+			return (node);
 		}
+
+	// ? this is used to remove a node that is just before two leaves
+	bool				remove_if_successor_is_close(Node_pointer &node, Node_pointer &successor)
+	{
+		if (successor == node->right)
+		{
+			successor->parent = node->parent;
+			successor->left = node->left;
+			if (node->left != NULL && node->left != _cardinal)
+				node->left->parent = successor;
+			_node_allocator.destroy(node);
+			_node_allocator.deallocate(node, 1);
+			return (true);
+		}
+		else if (successor == node->left)
+		{
+			successor->parent = node->parent;
+			successor->right = node->right;
+			if (node->right != NULL && node->right != _cardinal)
+				node->right->parent = successor;
+			_node_allocator.destroy(node);
+			_node_allocator.deallocate(node, 1);
+			return (true);
+		}
+		return (false);
+	}
 
 	public:
 		// ? (1) default
