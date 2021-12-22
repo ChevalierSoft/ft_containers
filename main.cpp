@@ -6,7 +6,7 @@
 /*   By: dait-atm <dait-atm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:19:28 by dait-atm          #+#    #+#             */
-/*   Updated: 2021/12/22 08:42:22 by dait-atm         ###   ########.fr       */
+/*   Updated: 2021/12/22 09:27:51 by dait-atm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1112,25 +1112,33 @@ void	test_map()
 	{
 		ft::map<int, std::string> mi6;
 
-		mi6.insert(ft::make_pair<int, std::string>(3, "🧛"));
-		mi6.insert(ft::make_pair<int, std::string>(4, "🧜"));
-		mi6.insert(ft::make_pair<int, std::string>(5, "👽"));
-		mi6.insert(ft::make_pair<int, std::string>(7, "😇"));
-		mi6.insert(ft::make_pair<int, std::string>(11, "🧚"));
-		mi6.insert(ft::make_pair<int, std::string>(14, "🕵️"));
-		mi6.insert(ft::make_pair<int, std::string>(20, "🧙"));
-		mi6.insert(ft::make_pair<int, std::string>(30, "🥷"));
+		mi6.insert(ft::make_pair<int, std::string>(1, "🧛"));
+		mi6.insert(ft::make_pair<int, std::string>(2, "🧜"));
+		mi6.insert(ft::make_pair<int, std::string>(3, "👽"));
+		mi6.insert(ft::make_pair<int, std::string>(4, "😇"));
+		mi6.insert(ft::make_pair<int, std::string>(5, "🧚"));
+		mi6.insert(ft::make_pair<int, std::string>(6, "🕵️"));
+		mi6.insert(ft::make_pair<int, std::string>(7, "🧙"));
+		mi6.insert(ft::make_pair<int, std::string>(8, "🥷"));
 
 		ft::map<int, std::string>::iterator it = ++mi6.begin();
 		ft::map<int, std::string>::iterator it2 = --mi6.end();
-		mi6.erase(3);
-		mi6.erase(7);
-		mi6.erase(20);
-		mi6.erase(11);
-		mi6.erase(14);
+		// mi6.erase(3);
+		for (ft::map<int, std::string>::const_iterator im = mi6.begin(); im != mi6.end(); ++im)
+			std::cout << im->first << im->second << " " << std::endl;
+		std::cout << std::endl;
+		mi6.erase(4);
+		for (ft::map<int, std::string>::const_iterator im = mi6.begin(); im != mi6.end(); ++im)
+			std::cout << im->first << im->second << " " << std::endl;
+		std::cout << std::endl;
+
+		mi6.erase(42);
+		mi6.erase(5);
+		mi6.erase(6);
+
 		std::cout << it->first << std::endl;
 		std::cout << it2->first << std::endl;
-		mi6.insert(ft::make_pair<int, std::string>(1, "🧛"));
+		mi6.insert(ft::make_pair<int, std::string>(-1, "🧛"));
 		mi6.insert(ft::make_pair<int, std::string>(5, "🕵️"));
 		mi6.insert(ft::make_pair<int, std::string>(40, "🕵️"));
 		std::cout << it->first << std::endl;
@@ -1148,6 +1156,7 @@ void	test_map()
 		mp.erase(6);
 		for (ft::map<int, std::string>::const_iterator im = mp.begin(); im != mp.end(); ++im)
 			std::cout << im->first << im->second << " " << std::endl;
+		std::cout << std::endl;
 	}
 
 	return ;
@@ -1376,15 +1385,9 @@ int	main(void)
 	std::cout << std::boolalpha;
 
 	test_utility();
-
 	test_vector_iterator();
-	
 	test_vector();
-
-	//// test_bst();
-
 	test_map();
-
 	test_stack();
 
 	return (0);
